@@ -8,16 +8,19 @@ If you want to help us with this or contribute to Tranquility Base in general pl
 
 ## Example Deployment instructions
 
-The following instructions assumes that:
-* a project exists to host a service account which is used to deploy Tranquility Base;
-* a billing account which is used on all projects that will be created;
+The following instructions assume the following requisites are met:
+* a project exists to host a service account and GCE images which will be used to deploy Tranquility Base;
+* an organization exists as well as a folder under it. Tranquility Base's folder structure and projects will be created under this organization or folder;
+* a billing account has been previously setup and can be used for all projects created by Tranquility Base;
+* `terraform` `~0.11` is installed;
+* `packer` `~1.4` is installed.
 
 
 ### Initial setup:
 
 * Clone the repository:
 
-```
+``` bash
 git clone git@github.com:tranquilitybase-io/tb-gcp.git
 cd tb-gcp
 ```
@@ -25,22 +28,25 @@ cd tb-gcp
 * Setup environment variables to help through the deployment process:
 
 ``` bash
-PROJECT_ID=<project_id>
 BILLING_ACCOUNT=<billing_account_id>
+FOLDER_ID=<folder_id>
+PROJECT_ID=<project_id>
 ```
 
 ### Service Account Creation
 
 * Create a service account which will be used during the initial deployment process:
 
-```
+``` bash
 gcloud --project ${PROJECT_ID} iam service-accounts create tb-executor-0000
 gcloud --project ${PROJECT_ID} iam service-accounts keys create tb-executor-000.json --iam-account tb-executor-0000@${PROJECT_ID}.iam.gserviceaccount.com
 ```
 
+### Grant permissions to manage billling
+
 * Give the new service account the ability to link projects to the billing account.
 
-```
+``` bash
 gcloud beta billing accounts get-iam-policy ${BILLING_ACCOUNT} > billing.yaml
 ```
 
@@ -54,61 +60,99 @@ role: role/billing.admin
 
 * Deploy the new IAM binding:
 
-```
+``` bash
 gcloud beta billing accounts set-iam-policy ${BILLING_ACCOUNT} billing.yaml
 ```
 
-### Compute Shared VPC Admin
+### Grant permissions to Share VPCs
 
-```
-gcloud resource-manager folders add-iam-policy-binding $MA_FOLDER_ID --member=serviceAccount:tb-executor-0000@${PROJECT_ID}.iam.gserviceaccount.com --role=roles/compute.xpnAdmin
-```
+* Give the service account the ability to share VPCs among projects:
 
-### Folder Admin
-
-```
-gcloud resource-manager folders add-iam-policy-binding $MA_FOLDER_ID --member=serviceAccount:tb-executor-0000@${PROJECT_ID}.iam.gserviceaccount.com --role=roles/resourcemanager.folderAdmin
+``` bash
+gcloud resource-manager folders add-iam-policy-binding $FOLDER_ID --member=serviceAccount:tb-executor-0000@${PROJECT_ID}.iam.gserviceaccount.com --role=roles/compute.xpnAdmin
 ```
 
-### Project Creator
+### Grant permissions to manage the folder
 
-```
-gcloud resource-manager folders add-iam-policy-binding $MA_FOLDER_ID --member=serviceAccount:tb-executor-0000@${PROJECT_ID}.iam.gserviceaccount.com --role=roles/resourcemanager.projectCreator
-```
+* Give the service account the ability to create new folders and manage their IAM policies:
 
-### Packer project image user
-
-```
-gcloud projects add-iam-policy-binding ${PROJECT_ID} --member=serviceAccount:tb-executor-0000@${PROJECT_ID}.iam.gserviceaccount.com --role=roles/compute.imageUser
+``` bash
+gcloud resource-manager folders add-iam-policy-binding $FOLDER_ID --member=serviceAccount:tb-executor-0000@${PROJECT_ID}.iam.gserviceaccount.com --role=roles/resourcemanager.folderAdmin
 ```
 
-## Deploy Tranquility Base's bootstrap project
+### Grant permissions to create new projects
 
-* Set credentials for terraform:
+* Give the service account the ability to create new project under the new folder structure:
+
+``` bash
+gcloud resource-manager folders add-iam-policy-binding $FOLDER_ID --member=serviceAccount:tb-executor-0000@${PROJECT_ID}.iam.gserviceaccount.com --role=roles/resourcemanager.projectCreator
+```
+
+### Grant permissions to create GCE images
+
+* Give the service account the ability to create and use GCE disk images:
+
+``` bash
+gcloud projects add-iam-policy-binding ${PROJECT_ID} --member=serviceAccount:tb-executor-0000@${PROJECT_ID}.iam.gserviceaccount.com --role=roles/compute.storageAdmin
+```
+
+### Start using the service account:
+
+* Authenticate `gcloud` with the new service account:
+
+``` bash
+gcloud auth activate-service-account tb-executor-0000@${PROJECT_ID}.iam.gserviceaccount.com --key-file=tb-executor-0000.json
+```
+
+* Setup the environment for Terraform:
  
-```
+``` bash
 export GOOGLE_CREDENTIALS="$(pwd)/tb-executor-0000.json"
 ```
+
+### Build Tranquility Base terraform-server GCE image
+
+* Use packer to create a GCE for the terraform-server:
+
+``` bash
+cd tb-gcp-deploy/pack/
+packer build -var "project_id=${PROJECT_ID}" packer.json
+cd ../../
+```
+
+
+### Deploy Tranquility Base's bootstrap project
+
+``` bash
 cd bootstrap/
 ```
 
 * Edit your setup's specific variables on `input.tfvars`
 
-```
+``` bash
 vim input.tfvars
 ```
 
 * Run terraform to deploy Tranquility Base's bootstrap.
 
-```
+``` bash
 terraform init
 terraform apply -var-file=input.tfvars
 ```
 
-**Note:** All resources are deployed under a GCP organisation folder and not under the organisation root node
+**Note:** Tranquility Base's bootstrap deployment (phase 1) is followed automatically by a landingZone deployment (phase 2) which is run from the `terraform-server` hosted under a `bootstrap-` project under the folder ID stated on the `input.tfvars`.
 
-**Note:** The default Tranquility Base deploys under a two tier folder hierarchy
+### Follow the landingZone deployment
 
-### Note: There are some default username and passwords set when deploying Tranquility Base, these should be changed immediately after deployment
-- itop: tb-gcp-tr
-- vault: root token should be surfaced from the vault terraform module to the root terraform module and changed as soon as possible.
+* The landingZone deployment's progress can be followed by inspecting the `terraform-server`'s Stackdriver logs.
+
+**Note:** All resources are deployed under the folder ID stated on the `input.tfvars` file.
+
+**Note:** Tranquility Base deploys under a two tier folder hierarchy under the folder ID stated stated on the `input.tfvars` file.
+
+
+### Wrap-up tasks
+
+1. After the bootstrap deployment, you may want to disable the `tb-executor-0000` service account;
+1. An initial password for the `itop` user used to access the Cloud SQL instance on the `shared-operations-` project, this password is displayed on the `terraform-server` logs and should be reset as soon as possible;
+1. vault: root token should be surfaced from the vault terraform module to the root terraform module and changed as soon as possible.
