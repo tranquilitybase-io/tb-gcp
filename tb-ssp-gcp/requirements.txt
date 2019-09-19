@@ -1,0 +1,10 @@
+Flask
+python-terraform
+requests
+google-cloud-datastore==1.7.1
+flask-cors
+pyyaml
+gitpython
+google-api-python-client
+oauth2client
+netaddr

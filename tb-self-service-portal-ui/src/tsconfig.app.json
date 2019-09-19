@@ -1,0 +1,18 @@
+{
+  "extends": "../tsconfig.json",
+  "baseUrl": "src",
+  "compilerOptions": {
+    "outDir": "../out-tsc/app",
+    "types": []
+  },
+  "paths": {
+    "@app/*": ["app/*"],
+    "@env/*": ["environments/*"],
+    "@assets/*": ["assets/*"],
+    "assets/images/*": ["images/*"]
+  },
+  "exclude": [
+    "test.ts",
+    "**/*.spec.ts"
+  ]
+}

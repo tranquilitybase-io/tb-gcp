@@ -1,0 +1,54 @@
+# Copyright 2019 The Tranquility Base Authors
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#     http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 8080
+  selector:
+    app: jenkins
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: jenkins
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: jenkins
+    spec:
+      containers:
+        - name: jenkins
+          image: jenkins/jenkins:2.176.1
+          env:
+            - name: JAVA_OPTS
+              value: -Djenkins.install.runSetupWizard=false
+          ports:
+            - name: http-port
+              containerPort: 8080
+            - name: jnlp-port
+              containerPort: 50000
+          volumeMounts:
+            - name: jenkins-home
+              mountPath: /var/jenkins_home
+      volumes:
+        - name: jenkins-home
+          emptyDir: {}
