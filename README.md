@@ -124,7 +124,7 @@ cd ../../
 ### Deploy Tranquility Base's bootstrap project
 
 ``` bash
-cd bootstrap/
+cd tb-gcp-tr/bootstrap/
 ```
 
 * Edit your setup's specific variables on `input.tfvars`
