@@ -55,7 +55,7 @@ gcloud beta billing accounts get-iam-policy ${BILLING_ACCOUNT} > billing.yaml
 ``` yaml
 members:
 - serviceAccount:tb-executor-0000@PROJECT_ID.iam.gserviceaccount.com
-role: role/billing.admin
+role: roles/billing.admin
 ```
 
 * Deploy the new IAM binding:
