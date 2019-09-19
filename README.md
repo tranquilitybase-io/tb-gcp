@@ -39,7 +39,7 @@ PROJECT_ID=<project_id>
 
 ``` bash
 gcloud --project ${PROJECT_ID} iam service-accounts create tb-executor-0000
-gcloud --project ${PROJECT_ID} iam service-accounts keys create tb-executor-000.json --iam-account tb-executor-0000@${PROJECT_ID}.iam.gserviceaccount.com
+gcloud --project ${PROJECT_ID} iam service-accounts keys create tb-executor-0000.json --iam-account tb-executor-0000@${PROJECT_ID}.iam.gserviceaccount.com
 ```
 
 ### Grant permissions to manage billling
