@@ -15,6 +15,9 @@
 
 exec >> /var/log/bootstrap.log 2>&1
 
+MAX_ATTEMPTS=10
+DELAY_BETWEEN_ATTEMPTS=60
+
 export HOME=/root
 apt-get -y install git
 apt-get -y install kubectl
@@ -31,7 +34,23 @@ tb_discriminator = "${tb_discriminator}"
 terraform_state_bucket_name = "${terraform_state_bucket_name}"
 EOF
 terraform init -backend-config="bucket=${terraform_state_bucket_name}" -backend-config="prefix=landingZone"
-terraform apply -var-file input.tfvars -auto-approve
+
+apply_failures=0
+while [ $apply_failures -lt $MAX_ATTEMPTS ]; do
+  terraform apply -var-file input.tfvars -auto-approve
+  if [ $? -eq 0 ]; then
+    echo "Landing Zone successfully deployed."
+    break
+  fi
+  if [ $((apply_failures +1)) -eq $MAX_ATTEMPTS ]; then
+    echo "Maximum of $MAX_ATTEMPTS reached. Moving on..."
+    break
+  fi
+  echo "Landing Zone deployment failed."
+  apply_failures=$(($apply_failures + 1))
+  echo "Retry #$apply_failures starting in $DELAY_BETWEEN_ATTEMPTS seconds."
+  sleep ${DELAY_BETWEEN_ATTEMPTS}s
+done
 
 # Commit current TB terraform code to GCR
 cd /tmp
