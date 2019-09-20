@@ -77,7 +77,7 @@ variable "terraform_server_name" {
 
 variable "terraform_server_machine_type" {
   type = "string"
-  default = "f1-micro"
+  default = "g1-small"
 }
 
 variable "bootstrap_host_disk_image" {
