@@ -69,7 +69,7 @@ gcloud beta billing accounts set-iam-policy ${BILLING_ACCOUNT} billing.yaml
 * Give the service account the ability to share VPCs among projects:
 
 ``` bash
-gcloud resource-manager folders add-iam-policy-binding $FOLDER_ID --member=serviceAccount:tb-executor-0000@${PROJECT_ID}.iam.gserviceaccount.com --role=roles/compute.xpnAdmin
+gcloud resource-manager folders add-iam-policy-binding ${FOLDER_ID} --member=serviceAccount:tb-executor-0000@${PROJECT_ID}.iam.gserviceaccount.com --role=roles/compute.xpnAdmin
 ```
 
 ### Grant permissions to manage the folder
@@ -77,7 +77,7 @@ gcloud resource-manager folders add-iam-policy-binding $FOLDER_ID --member=servi
 * Give the service account the ability to create new folders and manage their IAM policies:
 
 ``` bash
-gcloud resource-manager folders add-iam-policy-binding $FOLDER_ID --member=serviceAccount:tb-executor-0000@${PROJECT_ID}.iam.gserviceaccount.com --role=roles/resourcemanager.folderAdmin
+gcloud resource-manager folders add-iam-policy-binding ${FOLDER_ID} --member=serviceAccount:tb-executor-0000@${PROJECT_ID}.iam.gserviceaccount.com --role=roles/resourcemanager.folderAdmin
 ```
 
 ### Grant permissions to create new projects
@@ -85,15 +85,26 @@ gcloud resource-manager folders add-iam-policy-binding $FOLDER_ID --member=servi
 * Give the service account the ability to create new project under the new folder structure:
 
 ``` bash
-gcloud resource-manager folders add-iam-policy-binding $FOLDER_ID --member=serviceAccount:tb-executor-0000@${PROJECT_ID}.iam.gserviceaccount.com --role=roles/resourcemanager.projectCreator
+gcloud resource-manager folders add-iam-policy-binding ${FOLDER_ID} --member=serviceAccount:tb-executor-0000@${PROJECT_ID}.iam.gserviceaccount.com --role=roles/resourcemanager.projectCreator
 ```
 
-### Grant permissions to create GCE images
+### Grant permissions to create GCE instances and images
 
 * Give the service account the ability to create and use GCE disk images:
 
 ``` bash
-gcloud projects add-iam-policy-binding ${PROJECT_ID} --member=serviceAccount:tb-executor-0000@${PROJECT_ID}.iam.gserviceaccount.com --role=roles/compute.storageAdmin
+gcloud projects add-iam-policy-binding ${PROJECT_ID} --member=serviceAccount:tb-executor-0000@${PROJECT_ID}.iam.gserviceaccount.com --role=roles/compute.instanceAdmin.v1
+```
+
+### Activate essential APIs
+
+```
+gcloud --project ${PROJECT_ID} services enable compute.googleapis.com
+gcloud --project ${PROJECT_ID} services enable cloudresourcemanager.googleapis.com
+gcloud --project ${PROJECT_ID} services enable cloudbilling.googleapis.com
+gcloud --project ${PROJECT_ID} services enable iam.googleapis.com
+gcloud --project ${PROJECT_ID} services enable serviceusage.googleapis.com
+gcloud --project ${PROJECT_ID} services enable storage-api.googleapis.com
 ```
 
 ### Start using the service account:
