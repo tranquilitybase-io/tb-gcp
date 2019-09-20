@@ -82,4 +82,6 @@ mkdir -p /opt/tb
 mv repo /opt/tb/
 
 cd /opt/tb/repo/tb-gcp-tr/landingZone/
+# Download required terraform providers
+terraform init -backend=false
 pwd
