@@ -1,4 +1,4 @@
-# Tranquility Base
+# Tranquility Base 
 
 Hi, and welcome to Tranquility Base - the open source multi-cloud infrastructure-as-code Landing Zone together with a self-service portal for automating the provisioning of a set of DevOps-ready reference architectures. 
 
@@ -14,7 +14,6 @@ The following instructions assume the following requisites are met:
 * a billing account has been previously setup and can be used for all projects created by Tranquility Base;
 * `terraform` `~0.11` is installed;
 * `packer` `~1.4` is installed.
-
 
 ### Initial setup:
 
