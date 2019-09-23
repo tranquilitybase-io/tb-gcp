@@ -49,7 +49,7 @@ while [ $apply_failures -lt $MAX_ATTEMPTS ]; do
   echo "Landing Zone deployment failed."
   apply_failures=$(($apply_failures + 1))
   echo "Retry #$apply_failures starting in $DELAY_BETWEEN_ATTEMPTS seconds."
-  sleep ${DELAY_BETWEEN_ATTEMPTS}s
+  sleep $DELAY_BETWEEN_ATTEMPTS
 done
 
 # Commit current TB terraform code to GCR
