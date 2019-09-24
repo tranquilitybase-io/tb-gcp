@@ -348,6 +348,7 @@ resource "google_storage_bucket_object" "backend-endpoint" {
   name   = "assets/endpoint-meta.json"
   bucket = "${module.UI-static-host.bucket_name}"
   source = "${var.endpoint_file}"
+  cache_control = "no-cache, max-age=0"
 
   # Added depends_on to ensure that this resource isn't created until upload_to_static_host null_resource in module.UI-static-host is ready
   depends_on = ["module.UI-static-host", "null_resource.get_endpoint"]
