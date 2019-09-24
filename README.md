@@ -17,15 +17,6 @@ The following instructions assume the following requisites are met:
 
 ### Initial setup:
 
-* Clone the repository:
-
-``` bash
-git clone git@github.com:tranquilitybase-io/tb-gcp.git
-cd tb-gcp
-```
-
-**NOTE:** If the cloning operation fails, make sure you have an SSH key added to your GitHub profile or just use the `https` URL [https://github.com/tranquilitybase-io/tb-gcp.git] instead.
-
 * Setup environment variables to help through the deployment process:
 
 ``` bash
@@ -39,8 +30,8 @@ PROJECT_ID=<project_id>
 * Create a service account which will be used during the initial deployment process:
 
 ``` bash
-gcloud --project ${PROJECT_ID} iam service-accounts create tb-executor-0000
-gcloud --project ${PROJECT_ID} iam service-accounts keys create tb-executor-0000.json --iam-account tb-executor-0000@${PROJECT_ID}.iam.gserviceaccount.com
+gcloud --project ${PROJECT_ID} iam service-accounts create tb-bootstrap-builder
+gcloud --project ${PROJECT_ID} iam service-accounts keys create tb-bootstrap-builder.json --iam-account tb-bootstrap-builder@${PROJECT_ID}.iam.gserviceaccount.com
 ```
 
 ### Grant permissions to manage billling
@@ -55,7 +46,7 @@ gcloud beta billing accounts get-iam-policy ${BILLING_ACCOUNT} > billing.yaml
 
 ``` yaml
 members:
-- serviceAccount:tb-executor-0000@PROJECT_ID.iam.gserviceaccount.com
+- serviceAccount:tb-bootstrap-builder@PROJECT_ID.iam.gserviceaccount.com
 role: roles/billing.admin
 ```
 
@@ -70,7 +61,7 @@ gcloud beta billing accounts set-iam-policy ${BILLING_ACCOUNT} billing.yaml
 * Give the service account the ability to share VPCs among projects:
 
 ``` bash
-gcloud resource-manager folders add-iam-policy-binding ${FOLDER_ID} --member=serviceAccount:tb-executor-0000@${PROJECT_ID}.iam.gserviceaccount.com --role=roles/compute.xpnAdmin
+gcloud resource-manager folders add-iam-policy-binding ${FOLDER_ID} --member=serviceAccount:tb-bootstrap-builder@${PROJECT_ID}.iam.gserviceaccount.com --role=roles/compute.xpnAdmin
 ```
 
 ### Grant permissions to manage the folder
@@ -78,7 +69,7 @@ gcloud resource-manager folders add-iam-policy-binding ${FOLDER_ID} --member=ser
 * Give the service account the ability to create new folders and manage their IAM policies:
 
 ``` bash
-gcloud resource-manager folders add-iam-policy-binding ${FOLDER_ID} --member=serviceAccount:tb-executor-0000@${PROJECT_ID}.iam.gserviceaccount.com --role=roles/resourcemanager.folderAdmin
+gcloud resource-manager folders add-iam-policy-binding ${FOLDER_ID} --member=serviceAccount:tb-bootstrap-builder@${PROJECT_ID}.iam.gserviceaccount.com --role=roles/resourcemanager.folderAdmin
 ```
 
 ### Grant permissions to create new projects
@@ -86,7 +77,7 @@ gcloud resource-manager folders add-iam-policy-binding ${FOLDER_ID} --member=ser
 * Give the service account the ability to create new project under the new folder structure:
 
 ``` bash
-gcloud resource-manager folders add-iam-policy-binding ${FOLDER_ID} --member=serviceAccount:tb-executor-0000@${PROJECT_ID}.iam.gserviceaccount.com --role=roles/resourcemanager.projectCreator
+gcloud resource-manager folders add-iam-policy-binding ${FOLDER_ID} --member=serviceAccount:tb-bootstrap-builder@${PROJECT_ID}.iam.gserviceaccount.com --role=roles/resourcemanager.projectCreator
 ```
 
 ### Grant permissions to create GCE instances and images
@@ -94,7 +85,7 @@ gcloud resource-manager folders add-iam-policy-binding ${FOLDER_ID} --member=ser
 * Give the service account the ability to create and use GCE disk images:
 
 ``` bash
-gcloud projects add-iam-policy-binding ${PROJECT_ID} --member=serviceAccount:tb-executor-0000@${PROJECT_ID}.iam.gserviceaccount.com --role=roles/compute.instanceAdmin.v1
+gcloud projects add-iam-policy-binding ${PROJECT_ID} --member=serviceAccount:tb-bootstrap-builder@${PROJECT_ID}.iam.gserviceaccount.com --role=roles/compute.instanceAdmin.v1
 ```
 
 ### Activate essential APIs
@@ -113,16 +104,25 @@ gcloud --project ${PROJECT_ID} services enable storage-api.googleapis.com
 * Authenticate `gcloud` with the new service account:
 
 ``` bash
-gcloud auth activate-service-account tb-executor-0000@${PROJECT_ID}.iam.gserviceaccount.com --key-file=tb-executor-0000.json
+gcloud auth activate-service-account tb-bootstrap-builder@${PROJECT_ID}.iam.gserviceaccount.com --key-file=tb-bootstrap-builder.json
 ```
 
 * Setup the environment for Terraform:
  
 ``` bash
-export GOOGLE_CREDENTIALS="$(pwd)/tb-executor-0000.json"
+export GOOGLE_CREDENTIALS="$(pwd)/tb-bootstrap-builder.json"
 ```
 
 ### Build Tranquility Base terraform-server GCE image
+
+* Clone the repository:
+
+``` bash
+git clone git@github.com:tranquilitybase-io/tb-gcp.git
+cd tb-gcp
+```
+
+**NOTE:** If the cloning operation fails, make sure you have an SSH key added to your GitHub profile or just use the `https` URL [https://github.com/tranquilitybase-io/tb-gcp.git] instead.
 
 * Use packer to create a GCE for the terraform-server:
 
@@ -165,6 +165,6 @@ terraform apply -var-file=input.tfvars
 
 ### Wrap-up tasks
 
-1. After the bootstrap deployment, you may want to disable the `tb-executor-0000` service account;
+1. After the bootstrap deployment, you may want to disable the `tb-bootstrap-builder` service account;
 1. An initial password for the `itop` user used to access the Cloud SQL instance on the `shared-operations-` project, this password is displayed on the `terraform-server` logs and should be reset as soon as possible;
 1. vault: root token should be surfaced from the vault terraform module to the root terraform module and changed as soon as possible.
