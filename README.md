@@ -24,6 +24,8 @@ git clone git@github.com:tranquilitybase-io/tb-gcp.git
 cd tb-gcp
 ```
 
+**NOTE:** If the cloning operation fails, make sure you have an SSH key added to your GitHub profile or just use the `https` URL [https://github.com/tranquilitybase-io/tb-gcp.git] instead.
+
 * Setup environment variables to help through the deployment process:
 
 ``` bash
