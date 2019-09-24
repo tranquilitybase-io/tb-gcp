@@ -2,7 +2,7 @@
   "variables": {
     "region": "europe-west2",
     "zone": "europe-west2-a",
-    "project_id": "tranquility-base-images",
+    "project_id": "",
     "image_suffix": "",
     "image_name": "tb-tr-debian-9-{{user `image_suffix`}}-{{isotime}}",
     "image_family": "tb-tr-debian-9",

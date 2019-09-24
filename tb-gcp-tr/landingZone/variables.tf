@@ -280,7 +280,8 @@ variable "ssp_repository_name" {
 variable "endpoint_file" {
   type        = "string"
   description = "Path to local file that will be created to store istio endpoint. The file will be created in the terraform run or overwritten (if exists). You need to ensure that directory in which it's created exists"
-  default = "/opt/tb/repo/tb-gcp-tr/static-host/endpoint-meta.json"
+  default = "/opt/tb/repo/tb-gcp-tr/gae-self-service-portal/endpoint-meta.json"
+
 }
 
 variable "ssp_iam_service_account_roles" {

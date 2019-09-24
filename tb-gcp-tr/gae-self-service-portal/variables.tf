@@ -11,10 +11,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 variable "bucket_name" {
   type    = "string"
-  default = "tb-ssp-ui"
+  default = "tb-ui"
 }
 
 variable "bucket_location" {
@@ -56,4 +55,40 @@ variable "source_bucket" {
   description = "The name of the bucket where to find files to be uploaded to newly created bucket"
   type = "string"
   default = ""
+}
+
+variable "gae-service" {
+  description = "Google Appengine Service hosting Self Service Portal Angular application"
+  default = "default"
+}
+variable "gae-runtime" {
+  description = "Runtime environment for Google Appengine Application"
+  default = "python27"
+}
+variable "gae-login-required" {
+  description = "Lock Appengine service behind IAM"
+  default = "LOGIN_REQUIRED"
+}
+variable "ui-dist-dir" {
+  description = "Directory to serve static files: index.html"
+  default = "tb-self-service-portal"
+}
+variable "ssp-ui-zip" {
+  default = "ssp-ui.zip"
+}
+variable "gae-version" {
+  description = "Version of Appengine Application"
+  default = "v1"
+}
+
+variable "ui-source-local" {
+  default = "/opt/tb/repo/tb-self-service-portal-ui"
+}
+
+variable "ssp_gke_dependency" {
+  description = "Flag to control whether SSP GKE cluster has been created"
+}
+
+variable endpoint_file {
+  description = "JSON file containing IP address of SSP GKE load balancer"
 }

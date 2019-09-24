@@ -21,3 +21,5 @@ override.tf.json
 # Backup files
 *.bak
 *.old
+#node modules
+node_modules/

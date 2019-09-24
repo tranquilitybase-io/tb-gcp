@@ -13,7 +13,7 @@
 # limitations under the License.
 
 output "external_UI_link" {
-  value = "http://${module.UI-static-host.external_ip}"
+  value = "http://${module.self-service-app.external_ip}"
 }
 
 # output "gke-security-endpoint" {
