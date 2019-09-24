@@ -12,14 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-output "self_link" {
-  value = "${google_storage_bucket.UI_bucket.self_link}"
-}
+# This file is used for testing only. When the app is deployed through Terraform it is not used.
 
-output "external_ip" {
-  value = "${module.load_balancer.load_balancer_ip_address}"
-}
-
-output "bucket_name" {
-  value = "${google_storage_bucket.UI_bucket.name}"
-}
+runtime: python27
+api_version: 1
+threadsafe: yes
+handlers:
+  - url: /
+    static_files: dist/tb-self-service-portal/index.html
+    upload: dist/tb-self-service-portal/index.html
+    login: required
+  - url: /
+    static_dir: dist/tb-self-service-portal/
+    login: required
+skip_files:
+  - e2e/
+  - node_modules/
+  - src/
+  - ^LICENSE

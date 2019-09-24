@@ -1,5 +1,6 @@
-TB Static-Host Terraform module
-=========================
+Self Service Portal Google Appengine Terraform module
+
+This module deploys the Tranquility Base Angular web portal onto Google Appengine.
 
 This module creates GCS bucket, sets the object ACLs and creates loadBalancer that exposes the bucket to the public.
 

@@ -309,13 +309,13 @@ module "SharedServices_ssp" {
   dependency_var = "${module.SharedServices_configuration_file.id}"
 }
 
-module "UI-static-host" {
-  source = "../static-host"
+module "self-service-app" {
+  source = "../gae-self-service-portal"
 
-  bucket_name     = "tranquility-base-ui"
-  bucket_location = "EU"
   project_id      = "${module.shared_projects.shared_ssp_id}"
   source_bucket   = "${var.ssp_ui_source_bucket}"
+  ssp_gke_dependency = "${null_resource.get_endpoint.id}"
+  endpoint_file = "${var.endpoint_file}"
 }
 
 # This is only temporrary piece of code.
@@ -339,20 +339,21 @@ resource "null_resource" "get_endpoint" {
       EOF
 }
  #   command = "echo -n 'http://' > ${var.endpoint_file} && kubectl --context=${module.k8s-ssp_context.context_name} get svc istio-ingressgateway -n istio-system -o jsonpath='{.status.loadBalancer.ingress[0].ip}' >> ${var.endpoint_file}"
-  
+
   depends_on = ["module.SharedServices_ssp"]
 
 }
 
 resource "google_storage_bucket_object" "backend-endpoint" {
   name   = "assets/endpoint-meta.json"
-  bucket = "${module.UI-static-host.bucket_name}"
+  bucket = "${module.self-service-app.bucket_name}"
   source = "${var.endpoint_file}"
   cache_control = "no-cache, max-age=0"
 
-  # Added depends_on to ensure that this resource isn't created until upload_to_static_host null_resource in module.UI-static-host is ready
-  depends_on = ["module.UI-static-host", "null_resource.get_endpoint"]
+  # Added depends_on to ensure that this resource isn't created until upload_to_static_host null_resource in module.self-service-app is ready
+  depends_on = ["module.self-service-app", "null_resource.get_endpoint"]
 }
+
 
 // add bucket to store terraform ssp activator state
 resource "random_id" "activator_bucket_name" {
