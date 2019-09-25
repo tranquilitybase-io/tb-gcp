@@ -27,12 +27,11 @@ output "shared_operations_id" {
     value = "${google_project.shared_operations.project_id}"
 }
 
-/*
 output "shared_telemetry_id" {
     description = "identifier for the shared_telemetry project."
     value = "${google_project.shared_telemetry.project_id}"
 }
-*/
+
 output "shared_ssp_id" {
     description = "identifier for the shared_ssp project."
     value = "${google_project.shared_ssp.project_id}"
