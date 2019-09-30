@@ -36,7 +36,7 @@ export class DeployService {
     aws: {
       params: {
         bucket: 'terraform-state-ssp-2',
-        terraform_url: 'https://aadfef28824f0ea635adbfafd75468bd1c4cac44:aadfef28824f0ea635adbfafd75468bd1c4cac44@github.com/tranquilitybase-io/tb-activator.git',
+        terraform_url: 'https://github.com/tranquilitybase-io/tb-activator.git',
         user_role:  'arn:aws:iam::498001843362:role/fullPermissions',
         region: 'eu-central-1',
         env_data: 'dev.tfvars'
