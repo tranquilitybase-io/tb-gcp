@@ -48,7 +48,7 @@ cluster_ssp_master_authorized_cidrs = [
     display_name = "mgmt-1"
   }
 ]
-cluster_ssp_min_master_version = "1.12.8"
+#cluster_ssp_min_master_version = "latest"
 istio_status = "false"
 ssp_repository_name = "SSP-activator-tf"
 
@@ -65,7 +65,7 @@ cluster_sec_master_authorized_cidrs = [
     display_name = "mgmt-1"
   }
 ]
-cluster_sec_min_master_version = "1.12.8"
+#cluster_sec_min_master_version = "latest"
 vault-lb-name = "sec-vault-lb"
 sec-vault-keyring = "vault"
 location = "EU"
@@ -83,7 +83,7 @@ cluster_opt_master_authorized_cidrs = [
     display_name = "mgmt-1"
   }
 ]
-cluster_opt_min_master_version = "1.12.8"
+#cluster_opt_min_master_version = "latest"
 
 #SSP Deployment
 application_yaml_path = "./deployment.yaml"
