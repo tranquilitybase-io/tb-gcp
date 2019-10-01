@@ -27,24 +27,3 @@ spec:
     protocol: HTTPS
   resolution: DNS
   location: MESH_EXTERNAL
----
-# see https://istio.io/blog/2018/egress-tcp/
-apiVersion: networking.istio.io/v1alpha3
-kind: ServiceEntry
-metadata:
-  name: cloud-sql-instance
-  # namespace: itop
-spec:
-  hosts:
-  # although blog article says that `hosts` field is ignored for TCP service entries,
-  # clients fail to establish connection when `hosts` is omitted,
-  # namely "curl: (56) Recv failure: Connection reset by peer"
-  #
-  # use `gcloud sql instances list` to find out the IP address of your Google Cloud Instance
-  - {{ .Values.istioServiceEntry.cloudSqlInstanceIp }}
-  ports:
-  - name: tcp
-    number: {{ .Values.istioServiceEntry.cloudSqlInstancePort }} # at the moment, Google Cloud SQL always available on port 3307
-    protocol: tcp # enable TCP traffic
-  location: MESH_EXTERNAL
-  resolution: DNS
