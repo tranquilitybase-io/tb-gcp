@@ -1,0 +1,200 @@
+#!/bin/bash
+# Copyright 2019 The Tranquility Base Authors
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#     http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+function print_help {
+	echo "Usage: $0 <arguments>"
+	echo
+	echo "-b, --bootstrap-random-id <id>		(REQUIRED) Bootstrap project's random ID (e.g. -b c556112f)"
+	echo "-f, --parent-folder-id <id>		(REQUIRED) Landing zone's parent folder ID (e.g. -f 238741628734)"
+	echo "-l, --lz-discriminator <string>		(REQUIRED) Landing zone's folder discriminator (e.g. -l usr1)"
+	echo
+}
+
+# Constants
+TB_FOLDER_PREFIX="Tranquility Base - "
+APPLICATIONS_FOLDER_NAME="Applications"
+SHARED_SVCS_FOLDER_NAME="Shared Services"
+
+APPLICATION_PROJ_PREFIXES=(activator- workspace-)
+SHARED_NET_PROJ_PREFIX="shared-networking-"
+
+BS_RND_ID=""
+LZ_DISCRIMINATOR=""
+PARENT_FOLDER_ID=""
+SP_RND_ID=""
+
+while (( "$#" )); do
+  case "$1" in
+    -b|--bootstrap-random-id)
+      BS_RND_ID=$2
+      shift 2
+      ;;
+    -f|--parent-folder-id)
+      PARENT_FOLDER_ID=$2
+      shift 2
+      ;;
+    -h|--help)
+      print_help
+      exit 0
+      ;;
+    -l|--lz-discriminator)
+      LZ_DISCRIMINATOR=$2
+      shift 2
+      ;;
+    --) # end argument parsing
+      shift
+      break
+      ;;
+    -*|--*=) # unsupported flags
+      echo "Error: Unsupported flag $1" >&2
+      exit 1
+      ;;
+    *) # unsupported positional arguments
+      echo "Error: Unsupported positional argument $1" >&2
+      shift
+      ;;
+  esac
+done
+
+if [[ -z ${BS_RND_ID} || -z ${LZ_DISCRIMINATOR} || -z ${PARENT_FOLDER_ID} ]]; then
+	echo "ERROR: Invalid arguments."
+	echo
+	print_help
+	exit 1
+fi
+
+# More constants
+BOOTSTRAP_PROJ_PREFIX="bootstrap-${LZ_DISCRIMINATOR}-"
+
+# Collect bootstrap project name
+bootstrap_project=$(gcloud projects list --format='value(projectId)' --filter="projectId=${BOOTSTRAP_PROJ_PREFIX}${BS_RND_ID}")
+if [[ -z "${bootstrap_project}" ]]; then
+	echo "ERROR: Was not able to find the bootstrap project."
+	exit 1
+else
+	echo "Found project ${bootstrap_project}."
+fi
+
+# Collect TB folder ID and name
+tb_folder_id=$(gcloud resource-manager folders list --format='value(name)' --folder ${PARENT_FOLDER_ID} --filter="displayName~'^${TB_FOLDER_PREFIX}${LZ_DISCRIMINATOR}$'")
+if [[ -z "${tb_folder_id}" ]]; then
+	echo "ERROR: Was not able to find the ${TB_FOLDER_PREFIX}${LZ_DISCRIMINATOR} folder."
+	exit 1
+else
+	echo "Found '${TB_FOLDER_PREFIX}${LZ_DISCRIMINATOR}' (${tb_folder_id}) folder."
+fi
+
+# Collect TB sub-folders ID and name
+applications_folder_id=$(gcloud resource-manager folders list --format='value(name)' --folder ${tb_folder_id} --filter="displayName:'${APPLICATIONS_FOLDER_NAME}'")
+if [[ -z "${applications_folder_id}" ]]; then
+	echo "ERROR: Was not able to find the ${APPLICATIONS_FOLDER_NAME} folder."
+	exit 1
+else
+	echo "Found '${APPLICATIONS_FOLDER_NAME}' (${applications_folder_id}) folder."
+fi
+
+shared_svcs_folder_id=$(gcloud resource-manager folders list --format='value(name)' --folder ${tb_folder_id} --filter="displayName:'${SHARED_SVCS_FOLDER_NAME}'")
+if [[ -z "${shared_svcs_folder_id}" ]]; then
+	echo "ERROR: Was not able to find the ${SHARED_SVCS_FOLDER_NAME} folder."
+	exit 1
+else
+	echo "Found '${SHARED_SVCS_FOLDER_NAME}' (${shared_svcs_folder_id}) folder."
+fi
+
+# Collect shared networking project name
+shared_net_project=$(gcloud projects list --format='value(projectId)' --filter="projectId~'${SHARED_NET_PROJ_PREFIX}' AND parent.id=${shared_svcs_folder_id} AND parent.type:folder")
+if [[ -z "${shared_net_project}" ]]; then
+	echo "ERROR: Was not able to find the shared services project."
+	exit 1
+else
+	echo "Found ${shared_net_project} project."
+fi
+
+# Collect Application project names
+application_projects=$(for prefix in ${APPLICATION_PROJ_PREFIXES[@]}; do gcloud projects list --format='value(projectId)' --filter="projectId~'${prefix}' AND parent.id=${applications_folder_id} AND parent.type:folder"; done | tr '\n' ' ')
+if [[ -z "${application_projects}" ]]; then
+	echo "Didn't find any application projects."
+else
+	echo "Found ${application_projects} application project(s)."
+fi
+
+# Collect other shared project names
+other_shared_svcs_projects=$(gcloud projects list --format='value(projectId)' --filter="projectId!~'${SHARED_NET_PROJ_PREFIX}' AND parent.id=${shared_svcs_folder_id} AND parent.type:folder" | tr '\n' ' ')
+if [[ -z "${other_shared_svcs_projects}" ]]; then
+	echo "ERROR: Didn't find any other shared services projects."
+	exit 1
+else
+	echo "Found ${other_shared_svcs_projects} project(s)."
+fi
+
+
+# Ask for confirmation
+read -p "SHOULD THE ABOVE FOLDERS AND PROJECTS BE DELETED? (press Y to continue or any other key to abort) " -n 1 -r
+echo
+if [[ $REPLY != "Y" ]]
+then
+	echo "Aborting..."
+	exit 0
+fi
+
+echo
+
+# Delete liens
+echo "Deleting Liens..."
+echo
+gcloud alpha --project ${shared_net_project} resource-manager liens delete $(gcloud --project ${shared_net_project} alpha resource-manager liens list --format='value(name)' --filter=origin=xpn.googleapis.com --limit=1)
+echo
+
+# Delete Application projects
+if [[ -z "${application_projects}" ]]; then
+	echo "No application projects to delete. Skipping..."
+else
+	echo "Deleting application project(s)..."
+	echo
+	for project in ${application_projects[@]}; do
+		gcloud projects delete ${project} --quiet
+	done
+fi
+echo
+
+# Delete shared services projects (other then networking)
+echo "Deleting shared services projects (other then networking)..."
+echo
+for project in ${other_shared_svcs_projects}; do
+	gcloud projects delete ${project} --quiet
+done
+echo
+
+# Delete shared networking project
+echo "Deleting shared networking project..."
+echo
+gcloud projects delete ${shared_net_project} --quiet
+echo
+
+# Delete TB (sub-)folders
+echo "Deleting folders..."
+echo
+for folder in ${shared_svcs_folder_id} ${applications_folder_id} ${tb_folder_id}; do
+	gcloud resource-manager folders delete ${folder}
+done
+
+# Delete bootstrap project
+echo "Deleting bootstrap project..."
+echo
+gcloud projects delete ${bootstrap_project} --quiet
+echo
+
+exit 0
+
