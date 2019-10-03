@@ -1,5 +1,4 @@
-
-cal gcloud
+# Local gcloud
 **/.gcloud/*
 # Local IDE directories
 **/.idea/*
