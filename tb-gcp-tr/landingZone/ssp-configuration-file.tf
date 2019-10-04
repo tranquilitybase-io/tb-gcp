@@ -13,7 +13,7 @@
 # limitations under the License.
 
 resource "local_file" "ssp_config_map" {
-  content = "${local.ssp_config_map_configuration}"
+  content  = local.ssp_config_map_configuration
   filename = "/tmp/tb-gcp-tr/bootstrap/ssp-config.yaml"
 }
 
@@ -37,4 +37,6 @@ data:
     shared_network_name: ${var.shared_vpc_name}
     shared_networking_id: ${module.shared_projects.shared_networking_id}
 FILE
+
 }
+
