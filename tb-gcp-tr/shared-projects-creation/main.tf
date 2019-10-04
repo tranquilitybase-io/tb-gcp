@@ -17,54 +17,54 @@ resource "random_id" "project" {
 }
 
 resource "google_project" "shared_networking" {
-  name = "${var.shared_networking_project_name}-${random_id.project.hex}"
-  project_id = "${var.shared_networking_project_name}-${random_id.project.hex}"
-  folder_id = "${var.root_id}"
-  billing_account = "${var.billing_account_id}"
+  name                = "${var.shared_networking_project_name}-${random_id.project.hex}"
+  project_id          = "${var.shared_networking_project_name}-${random_id.project.hex}"
+  folder_id           = var.root_id
+  billing_account     = var.billing_account_id
   auto_create_network = false
 }
 
 resource "google_project" "shared_security" {
-  name = "${var.shared_security_project_name}-${random_id.project.hex}"
-  project_id = "${var.shared_security_project_name}-${random_id.project.hex}"
-  folder_id = "${var.root_id}"
-  billing_account = "${var.billing_account_id}"
+  name                = "${var.shared_security_project_name}-${random_id.project.hex}"
+  project_id          = "${var.shared_security_project_name}-${random_id.project.hex}"
+  folder_id           = var.root_id
+  billing_account     = var.billing_account_id
   auto_create_network = false
-  depends_on = ["google_project.shared_networking"]
+  depends_on          = [google_project.shared_networking]
 }
 
 resource "google_project" "shared_operations" {
-  name = "${var.shared_operations_project_name}-${random_id.project.hex}"
-  project_id = "${var.shared_operations_project_name}-${random_id.project.hex}"
-  folder_id = "${var.root_id}"
-  billing_account = "${var.billing_account_id}"
+  name                = "${var.shared_operations_project_name}-${random_id.project.hex}"
+  project_id          = "${var.shared_operations_project_name}-${random_id.project.hex}"
+  folder_id           = var.root_id
+  billing_account     = var.billing_account_id
   auto_create_network = false
-  depends_on = ["google_project.shared_networking"]
+  depends_on          = [google_project.shared_networking]
 }
 
-
 resource "google_project" "shared_telemetry" {
-  name = "${var.shared_telemetry_project_name}-${random_id.project.hex}"
-  project_id = "${var.shared_telemetry_project_name}-${random_id.project.hex}"
-  folder_id = "${var.root_id}"
-  billing_account = "${var.billing_account_id}"
+  name                = "${var.shared_telemetry_project_name}-${random_id.project.hex}"
+  project_id          = "${var.shared_telemetry_project_name}-${random_id.project.hex}"
+  folder_id           = var.root_id
+  billing_account     = var.billing_account_id
   auto_create_network = false
-  depends_on = ["google_project.shared_networking"]
+  depends_on          = [google_project.shared_networking]
 }
 
 resource "google_project" "shared_billing" {
-  name = "${var.shared_billing_project_name}-${random_id.project.hex}"
-  project_id = "${var.shared_billing_project_name}-${random_id.project.hex}"
-  folder_id = "${var.root_id}"
-  billing_account = "${var.billing_account_id}"
+  name                = "${var.shared_billing_project_name}-${random_id.project.hex}"
+  project_id          = "${var.shared_billing_project_name}-${random_id.project.hex}"
+  folder_id           = var.root_id
+  billing_account     = var.billing_account_id
   auto_create_network = false
 }
 
 resource "google_project" "shared_ssp" {
-  name = "${var.shared_ssp_project_name}-${random_id.project.hex}"
-  project_id = "${var.shared_ssp_project_name}-${random_id.project.hex}"
-  folder_id = "${var.root_id}"
-  billing_account = "${var.billing_account_id}"
+  name                = "${var.shared_ssp_project_name}-${random_id.project.hex}"
+  project_id          = "${var.shared_ssp_project_name}-${random_id.project.hex}"
+  folder_id           = var.root_id
+  billing_account     = var.billing_account_id
   auto_create_network = false
-  depends_on = ["google_project.shared_networking"]
+  depends_on          = [google_project.shared_networking]
 }
+

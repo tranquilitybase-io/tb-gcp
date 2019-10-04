@@ -13,46 +13,48 @@
 # limitations under the License.
 
 variable "root_id" {
-    type = "string"
-    description = "id for the parent (organization or folder) where these projects will be created."
+  type        = string
+  description = "id for the parent (organization or folder) where these projects will be created."
 }
 
 variable "billing_account_id" {
-    type = "string"
-    description = "Id of billing account thi which projects will be assigned"
+  type        = string
+  description = "Id of billing account thi which projects will be assigned"
 }
 
 variable "shared_networking_project_name" {
-    type = "string"
-    default = "shared-networking"
-    description = "Shared networking project name."
+  type        = string
+  default     = "shared-networking"
+  description = "Shared networking project name."
 }
 
 variable "shared_security_project_name" {
-    type = "string"
-    default = "shared-security"
-    description = "Shared security project name."
+  type        = string
+  default     = "shared-security"
+  description = "Shared security project name."
 }
 
 variable "shared_telemetry_project_name" {
-    type = "string"
-    default = "shared-telemetry"
-    description = "Shared telemetry project name."
+  type        = string
+  default     = "shared-telemetry"
+  description = "Shared telemetry project name."
 }
 
 variable "shared_operations_project_name" {
-    type = "string"
-    default = "shared-operations"
-    description = "Shared operations project name."
+  type        = string
+  default     = "shared-operations"
+  description = "Shared operations project name."
 }
 
 variable "shared_billing_project_name" {
-    type = "string"
-    default = "shared-billing"
-    description = "Shared billing project name."
+  type        = string
+  default     = "shared-billing"
+  description = "Shared billing project name."
 }
+
 variable "shared_ssp_project_name" {
-    type = "string"
-    default = "shared-ssp"
-    description = "Shared ssp project name."
+  type        = string
+  default     = "shared-ssp"
+  description = "Shared ssp project name."
 }
+

@@ -13,31 +13,32 @@
 # limitations under the License.
 
 output "shared_networking_id" {
-    description = "identifier for the shared_networking project."
-    value = "${google_project.shared_networking.project_id}"
+  description = "identifier for the shared_networking project."
+  value       = google_project.shared_networking.project_id
 }
 
 output "shared_security_id" {
-    description = "identifier for the shared_security project."
-    value = "${google_project.shared_security.project_id}"
+  description = "identifier for the shared_security project."
+  value       = google_project.shared_security.project_id
 }
 
 output "shared_operations_id" {
-    description = "identifier for the shared_operations project."
-    value = "${google_project.shared_operations.project_id}"
+  description = "identifier for the shared_operations project."
+  value       = google_project.shared_operations.project_id
 }
 
 output "shared_telemetry_id" {
-    description = "identifier for the shared_telemetry project."
-    value = "${google_project.shared_telemetry.project_id}"
+  description = "identifier for the shared_telemetry project."
+  value       = google_project.shared_telemetry.project_id
 }
 
 output "shared_ssp_id" {
-    description = "identifier for the shared_ssp project."
-    value = "${google_project.shared_ssp.project_id}"
+  description = "identifier for the shared_ssp project."
+  value       = google_project.shared_ssp.project_id
 }
 
 output "shared_ssp_name" {
-    description = "identifier for the shared_ssp project."
-    value = "${google_project.shared_ssp.name}"
+  description = "identifier for the shared_ssp project."
+  value       = google_project.shared_ssp.name
 }
+
