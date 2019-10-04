@@ -42,7 +42,6 @@ resource "kubernetes_cluster_role_binding" "helm_role_binding" {
   }
 
   # TODO Depend the provider on the ClusterRoleBinding to avoid the following sleep
-  # TODO Depend the provider on the ClusterRoleBinding to avoid the following sleep
   provisioner "local-exec" {
     command = "sleep 15"
   }
