@@ -93,7 +93,10 @@ variable "cluster_autoscaling_max_nodes" {
 }
 
 variable "cluster_master_authorized_cidrs" {
-  type = list(string)
+  type = list(object({
+    cidr_block = string
+    display_name = string
+  }))
 }
 
 variable "cluster_daily_maintenance_start" {
