@@ -27,7 +27,7 @@ Resources required:
 
 ## Terraform and Google Provider versions
 
-`Terraform ~> 0.11.11` and `Google Provider = 2.13`
+`Terraform ~> 0.12` and `Google Provider ~> 2.16`
 
 ## Usage
 

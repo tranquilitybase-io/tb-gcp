@@ -73,7 +73,7 @@ resource "kubernetes_secret" "sql-proxy-sa-credentials" {
     namespace = kubernetes_namespace.ns.metadata[0].name
   }
   data = {
-    cloudsql-proxy-sa-credentials.json = base64decode(google_service_account_key.sql-proxy-sa-key.private_key)
+    "cloudsql-proxy-sa-credentials.json" = base64decode(google_service_account_key.sql-proxy-sa-key.private_key)
   }
 
   depends_on = [null_resource.dependencies_waiter]
