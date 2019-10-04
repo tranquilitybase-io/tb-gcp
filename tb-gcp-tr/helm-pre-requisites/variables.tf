@@ -14,14 +14,14 @@
 
 # Optional variables
 variable "tiller_svc_accnt_name" {
-    type = "string"
-    default = "tiller"
-    description = "K8 service account with cluster admin for Tiller to be able to deploy the Helm Charts"
+  type        = string
+  default     = "tiller"
+  description = "K8 service account with cluster admin for Tiller to be able to deploy the Helm Charts"
 }
 
 variable "provider_alias" {
-  type = "string"
-  default = "common"
+  type        = string
+  default     = "common"
   description = "Provider's alias to differentiate configuration between GKE clusters"
 }
 
