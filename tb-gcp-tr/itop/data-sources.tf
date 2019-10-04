@@ -18,10 +18,11 @@
 # - Any data we access via the $data prefixes means its an external source and not something we create.
 
 data "google_project" "host-project" {
-  project_id = "${var.host_project_id}"
+  project_id = var.host_project_id
 }
 
 data "google_container_cluster" "k8_cluster" {
-  name       = "${var.k8_cluster_name}"
-  project    = "${data.google_project.host-project.project_id}"
+  name    = var.k8_cluster_name
+  project = data.google_project.host-project.project_id
 }
+
