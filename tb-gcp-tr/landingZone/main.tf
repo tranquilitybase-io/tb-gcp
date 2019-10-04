@@ -36,10 +36,6 @@ provider "google-beta" {
 
 provider "kubernetes" {
   alias   = "k8s"
-  version = "~>1.6"
-  region  = "${var.region}"
-  zone    = "${var.region_zone}"
-  project = "${module.shared_projects.shared_networking_id}"
 }
 
 terraform {
