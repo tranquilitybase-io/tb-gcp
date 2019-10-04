@@ -104,6 +104,8 @@ resource "google_project_iam_custom_role" "vault-seal-kms" {
   title       = "KMS Encrypter Decryptor Viewer"
   description = "KMS crypto key permissions to encrypt, decrypt, and view key data"
 
+  # cloudkms.cryptoKeys.get below is required until hashicorp/vault#5999 is merged.
+  # The auto-unsealer attempts to read the key, which requires this additional permission.
   permissions = [
     "cloudkms.cryptoKeyVersions.useToEncrypt",
     "cloudkms.cryptoKeyVersions.useToDecrypt",
@@ -227,25 +229,6 @@ resource "kubernetes_secret" "vault-tls" {
   }
 }
 
-# Render the YAML file
-data "template_file" "vault" {
-  template = file("${path.module}/../vault/k8s/vault.yaml")
-
-  vars = {
-    load_balancer_ip         = google_compute_address.vault.address
-    num_vault_pods           = var.num_vault_pods
-    vault_container          = var.vault_container
-    vault_init_container     = var.vault_init_container
-    vault_recovery_shares    = var.vault_recovery_shares
-    vault_recovery_threshold = var.vault_recovery_threshold
-    project                  = google_kms_key_ring.vault.project
-    kms_region               = google_kms_key_ring.vault.location
-    kms_key_ring             = google_kms_key_ring.vault.name
-    kms_crypto_key           = google_kms_crypto_key.vault-init.name
-    gcs_bucket_name          = google_storage_bucket.vault.name
-  }
-}
-
 resource "null_resource" "apply" {
   triggers = {
     host                   = md5(var.vault-gke-sec-endpoint)
@@ -263,7 +246,19 @@ resource "null_resource" "apply" {
 gcloud container clusters get-credentials "${var.vault-gke-sec-name}" --region="${var.vault-region}" --project="${var.vault_cluster_project}"
 
 CONTEXT="gke_${var.vault_cluster_project}_${var.vault-region}_${var.vault-gke-sec-name}"
-echo '${data.template_file.vault.rendered}' | kubectl apply --context="$CONTEXT" -f -
+echo '${templatefile("${path.module}/../vault/k8s/vault.yaml", {
+    load_balancer_ip         = google_compute_address.vault.address
+    num_vault_pods           = var.num_vault_pods
+    vault_container          = var.vault_container
+    vault_init_container     = var.vault_init_container
+    vault_recovery_shares    = var.vault_recovery_shares
+    vault_recovery_threshold = var.vault_recovery_threshold
+    project                  = google_kms_key_ring.vault.project
+    kms_region               = google_kms_key_ring.vault.location
+    kms_key_ring             = google_kms_key_ring.vault.name
+    kms_crypto_key           = google_kms_crypto_key.vault-init.name
+    gcs_bucket_name          = google_storage_bucket.vault.name
+  })}' | kubectl apply --context="$CONTEXT" -f -
 EOF
 
   }
