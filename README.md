@@ -185,6 +185,7 @@ export GOOGLE_APPLICATION_CREDENTIALS='/Users/me/Downloads/myservice-account-key
 ```
 3. Run the tests
 ```
+cd tb-test
 inspec exec . -t gcp:// --input-file=attributes.yml
 ```
 
