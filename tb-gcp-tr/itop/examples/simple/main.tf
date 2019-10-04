@@ -15,12 +15,13 @@
 # Setup of folders in empty/new org
 
 module "itop-on-gke" {
-    source = "../../"
-    host_project_id = "${var.host_project_id}"
-    region = "${var.region}"
-    region_zone = "${var.region_zone}"
-    database_user_name = "${var.database_user_name}"
-    database_user_password = "${var.database_user_password}"
-    k8_cluster_name = "${var.k8_cluster_name}"
-    itop_chart_local_path = "${var.itop_chart_local_path}"
+  source                 = "../../"
+  host_project_id        = var.host_project_id
+  region                 = var.region
+  region_zone            = var.region_zone
+  database_user_name     = var.database_user_name
+  database_user_password = var.database_user_password
+  k8_cluster_name        = var.k8_cluster_name
+  itop_chart_local_path  = var.itop_chart_local_path
 }
+

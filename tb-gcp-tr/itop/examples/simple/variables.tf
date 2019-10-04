@@ -14,36 +14,37 @@
 
 # Mandatory variables
 variable "region" {
-    type = "string"
-    description = "The Region"
+  type        = string
+  description = "The Region"
 }
 
 variable "region_zone" {
-    type = "string"
-    description = "The Zone"
+  type        = string
+  description = "The Zone"
 }
 
 variable "host_project_id" {
-    type = "string"
-    description = "The host project where the aggregated logs will live."
+  type        = string
+  description = "The host project where the aggregated logs will live."
 }
 
 variable "database_user_name" {
-    type = "string"
-    description = "The database username name"
+  type        = string
+  description = "The database username name"
 }
 
 variable "database_user_password" {
-    type = "string"
-    description = "The database name"
+  type        = string
+  description = "The database name"
 }
 
 variable "k8_cluster_name" {
-    type = "string"
-    description = "The k8 cluster this runs on"
+  type        = string
+  description = "The k8 cluster this runs on"
 }
 
 variable "itop_chart_local_path" {
-    type = "string"
-    description = "The path of where the itop chart is on the local system"
+  type        = string
+  description = "The path of where the itop chart is on the local system"
 }
+
