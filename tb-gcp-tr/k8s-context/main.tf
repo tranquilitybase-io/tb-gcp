@@ -19,9 +19,7 @@ resource "null_resource" "k8s_config" {
   provisioner "local-exec" {
     command = <<EOT
     gcloud beta container clusters get-credentials "${var.cluster_name}" --region="${var.region}" --project="${var.cluster_project}"
-    
-EOT
-
+    EOT
   }
 }
 
