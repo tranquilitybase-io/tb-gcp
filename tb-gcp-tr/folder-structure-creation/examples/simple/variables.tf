@@ -12,31 +12,32 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-variable "region" { 
-    type = "string"
-    default = "europe-west2"
-    description = "region name."
+variable "region" {
+  type        = string
+  default     = "europe-west2"
+  description = "region name."
 }
 
 variable "region_zone" {
-    type = "string"
-    default = "europe-west2-a"
-    description = "zone name in the region provided."
+  type        = string
+  default     = "europe-west2-a"
+  description = "zone name in the region provided."
 }
 
 variable "root_id" {
-    type = "string"
-    description = "id for the parent where these folders will be created."
+  type        = string
+  description = "id for the parent where these folders will be created."
 }
 
 variable "root_is_org" {
-    type = "string"
-    default = "true"
-    description = "determines whether root directory is an org or a directory inside an org."
+  type        = string
+  default     = "true"
+  description = "determines whether root directory is an org or a directory inside an org."
 }
 
 variable "shared_services_projects" {
-  type = "list"
-  default = []
+  type        = list(string)
+  default     = []
   description = "A list of projects to create inside the Shared Services folder, to host the shared services resources upon creation."
 }
+
