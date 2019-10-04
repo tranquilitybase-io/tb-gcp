@@ -13,12 +13,12 @@
 # limitations under the License.
 
 provider "google" {
-  project = "${var.host_project_id}"
-  region = "${var.region}"
-  zone = "${var.region_zone}"
+  project = var.host_project_id
+  region  = var.region
+  zone    = var.region_zone
 }
-
 
 provider "kubernetes" {
   config_context_cluster = "gke_${var.host_project_id}_${var.region_zone}_${var.k8_cluster_name}"
 }
+
