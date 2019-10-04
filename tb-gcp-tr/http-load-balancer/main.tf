@@ -18,7 +18,7 @@
 # CREATE A PUBLIC IP ADDRESS
 
 resource "google_compute_global_address" "default" {
-  project      = "${var.project}"
+  project      = var.project
   name         = "${var.name}-address"
   ip_version   = "IPV4"
   address_type = "EXTERNAL"
@@ -27,32 +27,32 @@ resource "google_compute_global_address" "default" {
 # CREATE FORWARDING RULE AND PROXY
 
 resource "google_compute_target_http_proxy" "http" {
-  project = "${var.project}"
+  project = var.project
   name    = "${var.name}-http-proxy"
-  url_map = "${var.url_map}"
+  url_map = var.url_map
 }
 
 resource "google_compute_global_forwarding_rule" "http" {
-  project    = "${var.project}"
+  project    = var.project
   name       = "${var.name}-http-rule"
-  target     = "${google_compute_target_http_proxy.http.self_link}"
-  ip_address = "${google_compute_global_address.default.address}"
+  target     = google_compute_target_http_proxy.http.self_link
+  ip_address = google_compute_global_address.default.address
   port_range = "80"
 
-  depends_on = ["google_compute_global_address.default"]
+  depends_on = [google_compute_global_address.default]
 }
 
 # IF DNS ENTRY REQUESTED, CREATE A RECORD POINTING TO THE PUBLIC IP OF THE CLB
 
 resource "google_dns_record_set" "dns" {
-  project = "${var.project}"
-  count   = "${var.create_dns_entries ? length(var.custom_domain_names) : 0}"
+  project = var.project
+  count   = var.create_dns_entries ? length(var.custom_domain_names) : 0
 
-  name = "${element(var.custom_domain_names, count.index)}"
+  name = element(var.custom_domain_names, count.index)
   type = "A"
-  ttl  = "${var.dns_record_ttl}"
+  ttl  = var.dns_record_ttl
 
-  managed_zone = "${var.dns_managed_zone_name}"
+  managed_zone = var.dns_managed_zone_name
 
   rrdatas = ["google_compute_global_address.default.address"]
 }
