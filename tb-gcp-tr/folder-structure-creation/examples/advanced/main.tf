@@ -15,13 +15,14 @@
 # Setup of folders in existing directory inside already existing org.
 
 module "advanced-folder-with-project-example" {
-    source = "../../"
+  source = "../../"
 
-    region = "${var.region}"
-    region_zone = "${var.region_zone}"
+  region      = var.region
+  region_zone = var.region_zone
 
-    root_is_org = "true"
-    root_id = "${var.root_id}"
+  root_is_org = "true"
+  root_id     = var.root_id
 
-    shared_services_projects = "${var.shared_services_projects}"
+  shared_services_projects = var.shared_services_projects
 }
+
