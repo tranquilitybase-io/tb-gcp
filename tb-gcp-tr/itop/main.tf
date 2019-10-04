@@ -14,7 +14,7 @@
 
 resource "null_resource" "dependencies_waiter" {
   triggers = {
-    dependency_vars = "${var.dependency_vars}"
+    dependency_vars = var.dependency_vars
   }
 }
 
@@ -26,15 +26,15 @@ resource "random_id" "db_name_suffix" {
 
 # Create the CloudSQL database instance
 resource "google_sql_database_instance" "master" {
-  project = "${data.google_project.host-project.project_id}"
-  name = "${var.database_instance_name}-${random_id.db_name_suffix.hex}"
-  database_version = "${var.database_version}"
-  region = "${var.region}"
+  project          = data.google_project.host-project.project_id
+  name             = "${var.database_instance_name}-${random_id.db_name_suffix.hex}"
+  database_version = var.database_version
+  region           = var.region
 
   settings {
     # Second-generation instance tiers are based on the machine
     # type. See argument reference below.
-    tier = "${var.database_tier}"
+    tier = var.database_tier
   }
 }
 
@@ -44,10 +44,10 @@ resource "random_password" "itop_db_user_password" {
 }
 
 resource "google_sql_user" "users" {
-  name     = "${var.database_user_name}"
-  instance = "${google_sql_database_instance.master.name}"
-  password = "${random_password.itop_db_user_password.result}"
-  project  = "${var.host_project_id}"
+  name     = var.database_user_name
+  instance = google_sql_database_instance.master.name
+  password = random_password.itop_db_user_password.result
+  project  = var.host_project_id
   host     = "cloudsqlproxy~%"
 }
 
@@ -56,65 +56,66 @@ resource "google_sql_user" "users" {
 # so that any pods we install into this namespace will be injected with the istio sidcar proxy
 resource "kubernetes_namespace" "ns" {
   metadata {
-    name = "${var.itop_namespace}"
+    name = var.itop_namespace
 
     labels = {
       istio-injection = "enabled"
     }
   }
 
-  depends_on = ["null_resource.dependencies_waiter"]
+  depends_on = [null_resource.dependencies_waiter]
 }
 
 # Put the CloudProxy svc account key (created in IAM) into the Kubernetes secret
 resource "kubernetes_secret" "sql-proxy-sa-credentials" {
-  metadata = {
-    name = "cloudsql-proxy-sa-credentials"
-    namespace = "${kubernetes_namespace.ns.metadata.0.name}"
+  metadata {
+    name      = "cloudsql-proxy-sa-credentials"
+    namespace = kubernetes_namespace.ns.metadata[0].name
   }
-  data {
-    cloudsql-proxy-sa-credentials.json = "${base64decode(google_service_account_key.sql-proxy-sa-key.private_key)}"
+  data = {
+    cloudsql-proxy-sa-credentials.json = base64decode(google_service_account_key.sql-proxy-sa-key.private_key)
   }
 
-  depends_on = ["null_resource.dependencies_waiter"]
+  depends_on = [null_resource.dependencies_waiter]
 }
 
 # install the helm itop helm charts
 resource "helm_release" "itop" {
   name       = "itop"
-  repository = "${var.itop_chart_local_path}"
+  repository = var.itop_chart_local_path
   chart      = "itop"
-  namespace  = "${kubernetes_namespace.ns.metadata.0.name}"
+  namespace  = kubernetes_namespace.ns.metadata[0].name
 
   set {
     name  = "cloudSqlProxySidecar.instanceConnectionName"
-    value = "${google_sql_database_instance.master.connection_name}"
+    value = google_sql_database_instance.master.connection_name
   }
 
   set {
     name  = "cloudSqlProxySidecar.databaseInstanceName"
-    value = "${google_sql_database_instance.master.name}"
+    value = google_sql_database_instance.master.name
   }
 
   set {
     name  = "istioServiceEntry.cloudSqlInstanceIp"
-    value = "${google_sql_database_instance.master.public_ip_address}"
+    value = google_sql_database_instance.master.public_ip_address
   }
 
   set {
     name  = "replicaCount"
-    value = "${var.itop_replica_count}"
+    value = var.itop_replica_count
   }
 
   set {
     name  = "image.repository"
-    value = "${var.itop_image_repository}"
+    value = var.itop_image_repository
   }
 
   set {
     name  = "image.tag"
-    value = "${var.itop_image_tag}"
+    value = var.itop_image_tag
   }
 
-  depends_on = ["null_resource.dependencies_waiter"]
+  depends_on = [null_resource.dependencies_waiter]
 }
+

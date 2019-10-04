@@ -14,20 +14,23 @@
 
 # service account used to access the CloudSQL database via the cloud proxy
 resource "google_service_account" "sql-proxy-sa" {
-  account_id   = "${var.cloudsql_proxy_sa_name}"
+  account_id   = var.cloudsql_proxy_sa_name
   display_name = "${var.cloudsql_proxy_sa_name} service account"
-  project      = "${data.google_project.host-project.project_id}"
-
+  project      = data.google_project.host-project.project_id
   //depends_on = ["google_project_services.project"]
 }
 
 # assign default service agent permission in service project
 resource "google_project_iam_member" "sql-proxy-client" {
-  project = "${data.google_project.host-project.project_id}"
+  project = data.google_project.host-project.project_id
   role    = "roles/cloudsql.client"
-  member  = "${format("serviceAccount:%s", google_service_account.sql-proxy-sa.email)}"
+  member = format(
+    "serviceAccount:%s",
+    google_service_account.sql-proxy-sa.email,
+  )
 }
 
 resource "google_service_account_key" "sql-proxy-sa-key" {
-  service_account_id = "${google_service_account.sql-proxy-sa.name}"
+  service_account_id = google_service_account.sql-proxy-sa.name
 }
+
