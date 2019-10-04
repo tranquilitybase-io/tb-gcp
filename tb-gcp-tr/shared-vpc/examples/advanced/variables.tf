@@ -21,7 +21,7 @@ variable "region" {
 variable "region_zone" {
   default = "europe-west2-a"
   type    = "string"
-  default = "zone name in the region provided."
+  description = "zone name in the region provided."
 }
 
 variable "host_project_id" {
