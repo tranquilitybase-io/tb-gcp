@@ -13,5 +13,6 @@
 # limitations under the License.
 
 output "all_apis_enabled" {
-  value = "${join(",", google_project_services.project_shared.*.id)}"
+  value = join(",", google_project_services.project_shared.*.id)
 }
+
