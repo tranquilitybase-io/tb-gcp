@@ -23,5 +23,6 @@ output "router_uri" {
 }*/
 
 output "gke_subnetwork_ids" {
-  value = "${join(",", google_compute_subnetwork.gke.*.id)}"
+  value = join(",", google_compute_subnetwork.gke.*.id)
 }
+
