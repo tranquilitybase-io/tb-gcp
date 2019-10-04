@@ -13,8 +13,8 @@
 # limitations under the License.
 
 resource "null_resource" "kubernetes_resource" {
-  triggers {
-    content = "${var.dependency_var}"
+  triggers = {
+    content = var.dependency_var
   }
 
   provisioner "local-exec" {
@@ -25,7 +25,8 @@ if [[ -n "${var.cluster_context}" ]]; then
 fi
 kubectl $kubectl_config_args apply -f ${var.k8s_template_file}
 EOF
-}
+
+  }
 
   provisioner "local-exec" {
     command = <<EOF
@@ -35,6 +36,9 @@ if [[ -n "${var.cluster_context}" ]]; then
 fi
 kubectl $kubectl_config_args delete -f ${var.k8s_template_file}
 EOF
-    when    = "destroy"
+
+
+    when = destroy
   }
 }
+
