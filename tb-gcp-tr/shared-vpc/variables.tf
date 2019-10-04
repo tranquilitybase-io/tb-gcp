@@ -25,7 +25,10 @@ variable "shared_vpc_name" {
 }
 
 variable "standard_network_subnets" {
-  type        = list(string)
+  type        = list(object({
+    name = string
+    cidr = string
+  }))
   default     = []
   description = "cidr ranges for standard (non-gke) subnetworks"
 }
@@ -49,7 +52,12 @@ variable "tags" {
 }
 
 variable "gke_network_subnets" {
-  type        = list(string)
+  type        = list(object({
+    name = string
+    cidr = string
+    pod_cidr = string
+    service_cidr = string
+  }))
   default     = []
   description = "cidr ranges for gke subnetworks"
 }
