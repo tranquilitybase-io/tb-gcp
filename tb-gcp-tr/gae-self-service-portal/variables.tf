@@ -12,13 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 variable "bucket_name" {
-  type    = "string"
+  type    = string
   default = "tb-ui"
 }
 
 variable "bucket_location" {
   description = "Location of the bucket that will store the static website"
-  default = "EU"
+  default     = "EU"
 }
 
 variable "project_id" {
@@ -27,58 +27,63 @@ variable "project_id" {
 
 variable "bucket_storage_class" {
   description = "Storage class of the bucket that will store the static website"
-  default = "MULTI_REGIONAL"
+  default     = "MULTI_REGIONAL"
 }
 
 variable "bucket_versioning" {
   description = "Enable versioning for the bucket that will store the static website"
-  default = false
+  default     = false
 }
 
 variable "main_page_suffix" {
   description = "bucket's directory index where missing objects are treated as potential directories"
-  default = "index.html"
+  default     = "index.html"
 }
 
 variable "not_found_page" {
   description = "The custom object to return when a requested resource is not found"
-  default = "404.html"
+  default     = "404.html"
 }
 
 variable "role_entity" {
   description = "Sets bucket default object ACLs to allow all users read access to objects"
-  type = "list"
-  default = ["READER:allUsers"]
+  type        = list(string)
+  default     = ["READER:allUsers"]
 }
 
 variable "source_bucket" {
   description = "The name of the bucket where to find files to be uploaded to newly created bucket"
-  type = "string"
-  default = ""
+  type        = string
+  default     = ""
 }
 
 variable "gae-service" {
   description = "Google Appengine Service hosting Self Service Portal Angular application"
-  default = "default"
+  default     = "default"
 }
+
 variable "gae-runtime" {
   description = "Runtime environment for Google Appengine Application"
-  default = "python27"
+  default     = "python27"
 }
+
 variable "gae-login-required" {
   description = "Lock Appengine service behind IAM"
-  default = "LOGIN_REQUIRED"
+  default     = "LOGIN_REQUIRED"
 }
+
 variable "ui-dist-dir" {
   description = "Directory to serve static files: index.html"
-  default = "tb-self-service-portal"
+  default     = "tb-self-service-portal"
 }
+
 variable "ssp-ui-zip" {
   default = "ssp-ui.zip"
 }
+
 variable "gae-version" {
   description = "Version of Appengine Application"
-  default = "v1"
+  default     = "v1"
 }
 
 variable "ui-source-local" {
@@ -89,6 +94,7 @@ variable "ssp_gke_dependency" {
   description = "Flag to control whether SSP GKE cluster has been created"
 }
 
-variable endpoint_file {
+variable "endpoint_file" {
   description = "JSON file containing IP address of SSP GKE load balancer"
 }
+

@@ -13,13 +13,14 @@
 # limitations under the License.
 
 output "self_link" {
-  value = "${google_storage_bucket.ssp-ui-static-files.self_link}"
+  value = google_storage_bucket.ssp-ui-static-files.self_link
 }
 
 output "external_ip" {
-  value = "${module.load_balancer.load_balancer_ip_address}"
+  value = module.load_balancer.load_balancer_ip_address
 }
 
 output "bucket_name" {
-  value = "${google_storage_bucket.ssp-ui-static-files.name}"
+  value = google_storage_bucket.ssp-ui-static-files.name
 }
+
