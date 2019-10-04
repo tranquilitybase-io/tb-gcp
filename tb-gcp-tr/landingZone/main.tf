@@ -368,9 +368,7 @@ resource "null_resource" "get_endpoint" {
 
       echo "Loadbalancer is not reachable after 10,5 minutes"
       exit 1
-      
-EOF
-
+      EOF
   }
 
   #   command = "echo -n 'http://' > ${var.endpoint_file} && kubectl --context=${module.k8s-ssp_context.context_name} get svc istio-ingressgateway -n istio-system -o jsonpath='{.status.loadBalancer.ingress[0].ip}' >> ${var.endpoint_file}"
@@ -400,14 +398,6 @@ resource "google_storage_bucket_iam_binding" "ssp-terraform-state-storage-admin"
   bucket = var.terraform_state_bucket_name
   role   = "roles/storage.admin"
 
-  # TF-UPGRADE-TODO: In Terraform v0.10 and earlier, it was sometimes necessary to
-  # force an interpolation expression to be interpreted as a list by wrapping it
-  # in an extra set of list brackets. That form was supported for compatibility in
-  # v0.11, but is no longer supported in Terraform v0.12.
-  #
-  # If the expression in the following list itself returns a list, remove the
-  # brackets to avoid interpretation as a list of lists. If the expression
-  # returns a single list item then leave it as-is and remove this TODO comment.
   members = [
     local.service_account_name,
   ]
@@ -424,14 +414,6 @@ resource "google_sourcerepo_repository_iam_binding" "terraform-code-store-admin-
   project    = module.shared_projects.shared_ssp_id
   role       = "roles/source.admin"
 
-  # TF-UPGRADE-TODO: In Terraform v0.10 and earlier, it was sometimes necessary to
-  # force an interpolation expression to be interpreted as a list by wrapping it
-  # in an extra set of list brackets. That form was supported for compatibility in
-  # v0.11, but is no longer supported in Terraform v0.12.
-  #
-  # If the expression in the following list itself returns a list, remove the
-  # brackets to avoid interpretation as a list of lists. If the expression
-  # returns a single list item then leave it as-is and remove this TODO comment.
   members = [
     local.service_account_name,
   ]
