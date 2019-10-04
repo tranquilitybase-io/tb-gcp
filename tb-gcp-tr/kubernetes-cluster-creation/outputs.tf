@@ -13,13 +13,13 @@
 # limitations under the License.
 
 output "cluster_sa" {
-  value = "${google_service_account.cluster.email}"
+  value = google_service_account.cluster.email
 }
 
 output "node_id" {
   description = "identifier for node id needed for ssp deployment."
-  value = "${google_container_node_pool.gke_node_pool.id}"
-} 
+  value       = google_container_node_pool.gke_node_pool.id
+}
 
 # output "cluster_sa_role" {
 #   value = "${google_project_iam_member.cluster_serviceAgent.role}"
@@ -29,36 +29,35 @@ output "node_id" {
 #   value = "${google_container_cluster.gke.master_auth.0.client_certificate}"
 # }
 
-
 # output "cluster_client_key" {
 #   value = "${google_container_cluster.gke.master_auth.0.client_key}"
 # }
 
-
 output "cluster_ca_certificate" {
-  value = "${google_container_cluster.gke.master_auth.0.cluster_ca_certificate}"
+  value = google_container_cluster.gke.master_auth[0].cluster_ca_certificate
 }
 
 output "cluster_endpoint" {
-  value = "${google_container_cluster.gke.endpoint}"
+  value = google_container_cluster.gke.endpoint
 }
 
 output "cluster_master_auth_0_client_certificate" {
-   value = "${google_container_cluster.gke.master_auth.0.client_certificate}"
+  value = google_container_cluster.gke.master_auth[0].client_certificate
 }
 
 output "cluster_master_auth_0_client_key" {
-   value = "${google_container_cluster.gke.master_auth.0.client_key}"
+  value = google_container_cluster.gke.master_auth[0].client_key
 }
 
 output "cluster_master_auth_0_cluster_ca_certificate" {
-   value = "${google_container_cluster.gke.master_auth.0.cluster_ca_certificate}"
+  value = google_container_cluster.gke.master_auth[0].cluster_ca_certificate
 }
 
 output "cluster_master_auth_username" {
-   value = "${google_container_cluster.gke.master_auth.0.username}"
+  value = google_container_cluster.gke.master_auth[0].username
 }
 
 output "cluster_master_auth_password" {
-   value = "${google_container_cluster.gke.master_auth.0.password}"
+  value = google_container_cluster.gke.master_auth[0].password
 }
+

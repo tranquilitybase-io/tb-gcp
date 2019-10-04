@@ -13,17 +13,17 @@
 # limitations under the License.
 
 variable "region" {
-  type = "string"
+  type        = string
   description = "The region to host the cluster in"
-  default = "europe-west2"
+  default     = "europe-west2"
 }
 
 variable "sharedvpc_project_id" {
-  type = "string"
+  type = string
 }
 
 variable "sharedvpc_network" {
-  type = "string"
+  type = string
 }
 
 variable "cluster_project_id" {
@@ -39,17 +39,17 @@ variable "cluster_pool_name" {
 }
 
 variable "cluster_machine_type" {
-  type = "string"
+  type    = string
   default = "n1-standard-2"
 }
 
 variable "cluster_enable_private_nodes" {
   default = "false"
-  type = "string"
+  type    = string
 }
 
 variable "cluster_master_cidr" {
-  type = "string"
+  type = string
 }
 
 variable "cluster_subnetwork" {
@@ -61,90 +61,91 @@ variable "cluster_service_account" {
 }
 
 variable "cluster_service_account_roles" {
-  type = "list"
-  default = []
+  type        = list(string)
+  default     = []
   description = "Service account to associate to the nodes in the cluster"
 }
 
 variable "pod-mon-service" {
-  type = "string"
+  type    = string
   default = "monitoring.googleapis.com/kubernetes"
- }
+}
 
- variable "pod-log-service" {
-   type = "string"
+variable "pod-log-service" {
+  type    = string
   default = "logging.googleapis.com/kubernetes"
-  }
+}
 
 variable "cluster_min_master_version" {
-  default = "latest"
+  default     = "latest"
   description = "Master node minimal version"
-  type = "string"
+  type        = string
 }
 
 variable "cluster_autoscaling_min_nodes" {
-  type = "string"
-  default ="1"
+  type    = string
+  default = "1"
 }
 
 variable "cluster_autoscaling_max_nodes" {
-  type = "string"
+  type    = string
   default = "3"
 }
 
 variable "cluster_master_authorized_cidrs" {
-  type = "list"
+  type = list(string)
 }
 
 variable "cluster_daily_maintenance_start" {
-  type = "string"
+  type    = string
   default = "02:00"
 }
 
 variable "cluster_node_disk_size" {
-  type = "string"
+  type    = string
   default = "10"
 }
 
 variable "cluster_oauth_scopes" {
-  type = "list"
+  type = list(string)
   default = [
-      "compute-rw",
-      "storage-ro",
-      "logging-write",
-      "monitoring",
-      "https://www.googleapis.com/auth/userinfo.email",
-    ]
+    "compute-rw",
+    "storage-ro",
+    "logging-write",
+    "monitoring",
+    "https://www.googleapis.com/auth/userinfo.email",
+  ]
 }
 
 variable "apis_dependency" {
-  type = "string"
+  type        = string
   description = "Creates dependency on apis-activation module"
 }
 
 variable "shared_vpc_dependency" {
-  type = "string"
+  type        = string
   description = "Creates dependency on shared-vpc module"
 }
 
 variable "istio_permissive_mtls" {
-  type = "string"
+  type    = string
   default = "false"
 }
 
 variable "istio_status" {
-  type = "string"
+  type    = string
   default = "true"
 }
 
 variable "gke_pod_network_name" {
-  type        = "string"
+  type        = string
   default     = "gke-pods-snet"
   description = "Name for the gke pod network"
 }
 
 variable "gke_service_network_name" {
-  type        = "string"
+  type        = string
   default     = "gke-services-snet"
   description = "Name for the gke service network"
 }
+
