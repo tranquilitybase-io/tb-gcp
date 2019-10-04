@@ -25,34 +25,35 @@
 ############ Providers config for kubernetes ####################
 # Query the client configuration for our current service account, which shoudl
 # have permission to talk to the GKE cluster since it created it.
-data "google_client_config" "current" {}
+data "google_client_config" "current" {
+}
 
 # This file contains all the interactions with Kubernetes
 provider "kubernetes" {
   load_config_file = false
-  host = "${var.vault-gke-sec-endpoint}"
-  alias = "vault"
+  host             = var.vault-gke-sec-endpoint
+  alias            = "vault"
 
-  cluster_ca_certificate = "${base64decode(var.vault-gke-sec-cluster_ca_cert)}"
-  token = "${data.google_client_config.current.access_token}"
+  cluster_ca_certificate = base64decode(var.vault-gke-sec-cluster_ca_cert)
+  token                  = data.google_client_config.current.access_token
 }
 
 resource "null_resource" "apis_dependency" {
   triggers = {
-    apis = "${var.apis_dependency}"
+    apis = var.apis_dependency
   }
 }
 
 # Generate servcie account key
 resource "google_service_account_key" "vault" {
-  service_account_id = "${var.vault-sa}"
+  service_account_id = var.vault-sa
 }
 
 # GCS storage bucket for vault backend
 resource "google_storage_bucket" "vault" {
   name          = "${var.vault_cluster_project}-vault-storage"
-  project       = "${var.vault_cluster_project}"
-  location      = "${var.vault-gcs-location}"
+  project       = var.vault_cluster_project
+  location      = var.vault-gcs-location
   force_destroy = true
   storage_class = "MULTI_REGIONAL"
 
@@ -73,24 +74,24 @@ resource "google_storage_bucket" "vault" {
 
 # Grant service account access to the storage bucket
 resource "google_storage_bucket_iam_member" "vault-server" {
-  count  = "${length(var.storage_bucket_roles)}"
-  bucket = "${google_storage_bucket.vault.name}"
-  role   = "${element(var.storage_bucket_roles, count.index)}"
+  count  = length(var.storage_bucket_roles)
+  bucket = google_storage_bucket.vault.name
+  role   = element(var.storage_bucket_roles, count.index)
   member = "serviceAccount:${var.vault-sa}"
 }
 
 # Create the KMS key ring
 resource "google_kms_key_ring" "vault" {
-  name     = "${var.vault_keyring_name}"
-  location = "${var.vault-region}"
-  project  = "${var.vault_cluster_project}"
-  depends_on = ["null_resource.apis_dependency"]
+  name       = var.vault_keyring_name
+  location   = var.vault-region
+  project    = var.vault_cluster_project
+  depends_on = [null_resource.apis_dependency]
 }
 
 # Create the crypto key for encrypting init keys
 resource "google_kms_crypto_key" "vault-init" {
-  name            = "${var.vault_crypto_key_name}"
-  key_ring        = "${google_kms_key_ring.vault.id}"
+  name            = var.vault_crypto_key_name
+  key_ring        = google_kms_key_ring.vault.id
   rotation_period = "604800s"
 }
 
@@ -98,7 +99,7 @@ resource "google_kms_crypto_key" "vault-init" {
 # KMS auto-unsealer. Once hashicorp/vault#5999 is merged, this can be replaced
 # with the built-in roles/cloudkms.cryptoKeyEncrypterDecryptor role.
 resource "google_project_iam_custom_role" "vault-seal-kms" {
-  project     = "${var.vault_cluster_project}"
+  project     = var.vault_cluster_project
   role_id     = "kmsEncrypterDecryptorViewer"
   title       = "KMS Encrypter Decryptor Viewer"
   description = "KMS crypto key permissions to encrypt, decrypt, and view key data"
@@ -106,25 +107,22 @@ resource "google_project_iam_custom_role" "vault-seal-kms" {
   permissions = [
     "cloudkms.cryptoKeyVersions.useToEncrypt",
     "cloudkms.cryptoKeyVersions.useToDecrypt",
-
-    # This is required until hashicorp/vault#5999 is merged. The auto-unsealer
-    # attempts to read the key, which requires this additional permission.
     "cloudkms.cryptoKeys.get",
   ]
 }
 
 # Grant service account access to the key
 resource "google_kms_crypto_key_iam_member" "vault-init" {
-  crypto_key_id = "${google_kms_crypto_key.vault-init.id}"
-  role = "projects/${var.vault_cluster_project}/roles/${google_project_iam_custom_role.vault-seal-kms.role_id}"
-  member = "serviceAccount:${var.vault-sa}"
+  crypto_key_id = google_kms_crypto_key.vault-init.id
+  role          = "projects/${var.vault_cluster_project}/roles/${google_project_iam_custom_role.vault-seal-kms.role_id}"
+  member        = "serviceAccount:${var.vault-sa}"
 }
 
 # Provision IP
 resource "google_compute_address" "vault" {
-  name    = "${var.vault-lb}"
-  region  = "${var.vault-region}"
-  project = "${var.vault_cluster_project}"
+  name    = var.vault-lb
+  region  = var.vault-region
+  project = var.vault_cluster_project
 }
 
 ############### TLS Cert config ####################
@@ -137,12 +135,12 @@ resource "tls_private_key" "vault-ca" {
 }
 
 resource "tls_self_signed_cert" "vault-ca" {
-  key_algorithm   = "${tls_private_key.vault-ca.algorithm}"
-  private_key_pem = "${tls_private_key.vault-ca.private_key_pem}"
+  key_algorithm   = tls_private_key.vault-ca.algorithm
+  private_key_pem = tls_private_key.vault-ca.private_key_pem
 
   subject {
-    common_name  = "${var.vault-cert-common-name}"
-    organization = "${var.vault-cert-organization}"
+    common_name  = var.vault-cert-common-name
+    organization = var.vault-cert-organization
   }
 
   validity_period_hours = 8760
@@ -171,8 +169,8 @@ resource "tls_private_key" "vault" {
 
 # Create the request to sign the cert with our CA
 resource "tls_cert_request" "vault" {
-  key_algorithm   = "${tls_private_key.vault.algorithm}"
-  private_key_pem = "${tls_private_key.vault.private_key_pem}"
+  key_algorithm   = tls_private_key.vault.algorithm
+  private_key_pem = tls_private_key.vault.private_key_pem
 
   dns_names = [
     "vault",
@@ -181,22 +179,22 @@ resource "tls_cert_request" "vault" {
   ]
 
   ip_addresses = [
-    "${google_compute_address.vault.address}",
+    google_compute_address.vault.address,
   ]
 
   subject {
-    common_name  = "${var.vault-cert-common-name}"
-    organization = "${var.vault-cert-organization}"
+    common_name  = var.vault-cert-common-name
+    organization = var.vault-cert-organization
   }
 }
 
 # Now sign the cert
 resource "tls_locally_signed_cert" "vault" {
-  cert_request_pem = "${tls_cert_request.vault.cert_request_pem}"
+  cert_request_pem = tls_cert_request.vault.cert_request_pem
 
-  ca_key_algorithm   = "${tls_private_key.vault-ca.algorithm}"
-  ca_private_key_pem = "${tls_private_key.vault-ca.private_key_pem}"
-  ca_cert_pem        = "${tls_self_signed_cert.vault-ca.cert_pem}"
+  ca_key_algorithm   = tls_private_key.vault-ca.algorithm
+  ca_private_key_pem = tls_private_key.vault-ca.private_key_pem
+  ca_cert_pem        = tls_self_signed_cert.vault-ca.cert_pem
 
   validity_period_hours = 8760
 
@@ -217,53 +215,48 @@ resource "tls_locally_signed_cert" "vault" {
 
 # Write the secret
 resource "kubernetes_secret" "vault-tls" {
-  provider = "kubernetes.vault"
+  provider = kubernetes.vault
   metadata {
     name = "vault-tls"
   }
 
-  data {
+  data = {
     "vault.crt" = "${tls_locally_signed_cert.vault.cert_pem}\n${tls_self_signed_cert.vault-ca.cert_pem}"
-    "vault.key" = "${tls_private_key.vault.private_key_pem}"
-    "ca.crt"    = "${tls_self_signed_cert.vault-ca.cert_pem}"
+    "vault.key" = tls_private_key.vault.private_key_pem
+    "ca.crt"    = tls_self_signed_cert.vault-ca.cert_pem
   }
 }
 
 # Render the YAML file
 data "template_file" "vault" {
-  template = "${file("${path.module}/../vault/k8s/vault.yaml")}"
+  template = file("${path.module}/../vault/k8s/vault.yaml")
 
-  vars {
-    load_balancer_ip         = "${google_compute_address.vault.address}"
-    num_vault_pods           = "${var.num_vault_pods}"
-    vault_container          = "${var.vault_container}"
-    vault_init_container     = "${var.vault_init_container}"
-    vault_recovery_shares    = "${var.vault_recovery_shares}"
-    vault_recovery_threshold = "${var.vault_recovery_threshold}"
-
-    project = "${google_kms_key_ring.vault.project}"
-
-    kms_region     = "${google_kms_key_ring.vault.location}"
-    kms_key_ring   = "${google_kms_key_ring.vault.name}"
-    kms_crypto_key = "${google_kms_crypto_key.vault-init.name}"
-
-    gcs_bucket_name = "${google_storage_bucket.vault.name}"
+  vars = {
+    load_balancer_ip         = google_compute_address.vault.address
+    num_vault_pods           = var.num_vault_pods
+    vault_container          = var.vault_container
+    vault_init_container     = var.vault_init_container
+    vault_recovery_shares    = var.vault_recovery_shares
+    vault_recovery_threshold = var.vault_recovery_threshold
+    project                  = google_kms_key_ring.vault.project
+    kms_region               = google_kms_key_ring.vault.location
+    kms_key_ring             = google_kms_key_ring.vault.name
+    kms_crypto_key           = google_kms_crypto_key.vault-init.name
+    gcs_bucket_name          = google_storage_bucket.vault.name
   }
 }
 
 resource "null_resource" "apply" {
-  triggers {
-    host                   = "${md5(var.vault-gke-sec-endpoint)}"
-    username               = "${md5(var.vault-gke-sec-username)}"
-    password               = "${md5(var.vault-gke-sec-password)}"
-    client_certificate     = "${md5(var.vault-gke-sec-client-ca)}"
-    client_key             = "${md5(var.vault-gke-sec-client-key)}"
-    cluster_ca_certificate = "${md5(var.vault-gke-sec-cluster_ca_cert)}"
+  triggers = {
+    host                   = md5(var.vault-gke-sec-endpoint)
+    username               = md5(var.vault-gke-sec-username)
+    password               = md5(var.vault-gke-sec-password)
+    client_certificate     = md5(var.vault-gke-sec-client-ca)
+    client_key             = md5(var.vault-gke-sec-client-key)
+    cluster_ca_certificate = md5(var.vault-gke-sec-cluster_ca_cert)
   }
 
-  depends_on = [
-    "kubernetes_secret.vault-tls",
-  ]
+  depends_on = [kubernetes_secret.vault-tls]
 
   provisioner "local-exec" {
     command = <<EOF
@@ -272,6 +265,7 @@ gcloud container clusters get-credentials "${var.vault-gke-sec-name}" --region="
 CONTEXT="gke_${var.vault_cluster_project}_${var.vault-region}_${var.vault-gke-sec-name}"
 echo '${data.template_file.vault.rendered}' | kubectl apply --context="$CONTEXT" -f -
 EOF
+
   }
 }
 
@@ -290,38 +284,40 @@ done
 echo "Pods are not ready after 15m3s."
 exit 1
 EOF
+
   }
 
-  depends_on = ["null_resource.apply"]
+  depends_on = [null_resource.apply]
 }
 
 # Build the URL for the keys on GCS
 data "google_storage_object_signed_url" "keys" {
-  bucket = "${google_storage_bucket.vault.name}"
+  bucket = google_storage_bucket.vault.name
   path   = "root-token.enc"
 
-  credentials = "${base64decode(google_service_account_key.vault.private_key)}"
+  credentials = base64decode(google_service_account_key.vault.private_key)
 
-  depends_on = ["null_resource.wait-for-finish"]
+  depends_on = [null_resource.wait-for-finish]
 }
 
 # Download the encrypted recovery unseal keys and initial root token from GCS
 data "http" "keys" {
-  url = "${data.google_storage_object_signed_url.keys.signed_url}"
+  url = data.google_storage_object_signed_url.keys.signed_url
 }
 
 # Decrypt the values
 data "google_kms_secret" "keys" {
-  crypto_key = "${google_kms_crypto_key.vault-init.id}"
-  ciphertext = "${data.http.keys.body}"
+  crypto_key = google_kms_crypto_key.vault-init.id
+  ciphertext = data.http.keys.body
 }
 
 # Output the initial root token
 output "root_token" {
-  value = "${data.google_kms_secret.keys.plaintext}"
+  value = data.google_kms_secret.keys.plaintext
 }
 
 # Output when vault is running on k8s
 output "is_running" {
-  value = "${null_resource.wait-for-finish.id != "" }" # Always returns true
+  value = null_resource.wait-for-finish.id != "" # Always returns true
 }
+
