@@ -37,13 +37,21 @@ variable "service_project_ids" {
 }
 
 variable "standard_network_subnets" {
-  type        = list(string)
+  type        = list(object({
+    Name = string
+    CIDR = string
+  }))
   default     = []
   description = "cidr ranges for standard (non-gke) subnetworks"
 }
 
 variable "gke_network_subnets" {
-  type        = list(string)
+  type           = list(object({
+    Name         = string
+    node_cidr    = string
+    pod_cird     = string
+    service_cidr = string
+  }))
   default     = []
   description = "cidr ranges for gke subnetworks"
 }
