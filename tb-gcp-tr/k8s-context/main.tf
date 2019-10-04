@@ -13,12 +13,15 @@
 # limitations under the License.
 
 resource "null_resource" "k8s_config" {
-  triggers {
-    content = "${var.dependency_var}"
+  triggers = {
+    content = var.dependency_var
   }
   provisioner "local-exec" {
     command = <<EOT
     gcloud beta container clusters get-credentials "${var.cluster_name}" --region="${var.region}" --project="${var.cluster_project}"
-    EOT
+    
+EOT
+
   }
 }
+
