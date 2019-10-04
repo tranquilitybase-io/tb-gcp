@@ -60,7 +60,7 @@ gcloud beta billing accounts set-iam-policy ${BILLING_ACCOUNT} billing.yaml
 
 * Give the service account the ability to share VPCs among projects:
 
-``` bash
+```
 gcloud resource-manager folders add-iam-policy-binding ${FOLDER_ID} --member=serviceAccount:tb-bootstrap-builder@${PROJECT_ID}.iam.gserviceaccount.com --role=roles/compute.xpnAdmin
 ```
 
@@ -168,3 +168,24 @@ terraform apply -var-file=input.tfvars
 1. After the bootstrap deployment, you may want to disable the `tb-bootstrap-builder` service account;
 1. An initial password for the `itop` user used to access the Cloud SQL instance on the `shared-operations-` project, this password is displayed on the `terraform-server` logs and should be reset as soon as possible;
 1. vault: root token should be surfaced from the vault terraform module to the root terraform module and changed as soon as possible.
+
+### Inspec tests
+
+Attributes can be defined in tb-test/attributes.yml
+
+The actual tests are defined in tb-test/controls/example.rb
+
+
+1. Download inspec https://downloads.chef.io/inspec
+
+2. Create a service account with permissions to view the resources you wish to test, and set an environment variable to point to the location of the service account key
+
+``` 
+export GOOGLE_APPLICATION_CREDENTIALS='/Users/me/Downloads/myservice-account-key.json'
+```
+3. Run the tests
+```
+inspec exec . -t gcp:// --input-file=attributes.yml
+```
+
+Inspec is documented quite well https://github.com/inspec/inspec-gcp
