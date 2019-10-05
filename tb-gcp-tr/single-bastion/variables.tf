@@ -13,7 +13,7 @@
 # limitations under the License.
 
 variable "credentials_file" {
-  type = "string"
+  type = string
 }
 
 variable "region" {
@@ -21,15 +21,15 @@ variable "region" {
 }
 
 variable "sharedvpc_project_id" {
-  type = "string"
+  type = string
 }
 
 variable "sharedvpc_network" {
-  type = "string"
+  type = string
 }
 
 variable "bastion_service_account" {
-  type        = "string"
+  type        = string
   description = "Service account to associate to the bastion host"
 }
 
@@ -38,17 +38,18 @@ variable "bastion_project_id" {
 }
 
 variable "bastion_machine_type" {
-  type = "string"
+  type = string
 }
 
 variable "bastion_name" {
-  type = "string"
+  type = string
 }
 
 variable "bastion_subnetwork" {
-  type = "string"
+  type = string
 }
 
 variable "bastion_source_cidr" {
-  type = "list"
+  type = list(string)
 }
+
