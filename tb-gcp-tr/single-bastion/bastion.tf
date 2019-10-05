@@ -34,7 +34,7 @@ resource "google_compute_instance" "bastion" {
     }
   }
 
-  metadata_startup_script = data.template_file.startup-script.rendered
+  metadata_startup_script = templatefile(format("%s/files/bastion_bootstrap.sh", path.module))
 
   service_account {
     email = google_service_account.bastion.email

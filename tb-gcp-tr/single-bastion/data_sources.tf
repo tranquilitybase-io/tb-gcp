@@ -36,10 +36,6 @@ data "google_compute_zones" "available" {
   region = var.region
 }
 
-data "template_file" "startup-script" {
-  template = file(format("%s/files/bastion_bootstrap.sh", path.module))
-}
-
 data "google_compute_image" "debian9" {
   family  = "debian-9"
   project = "debian-cloud"
