@@ -67,7 +67,7 @@ EOF
 systemctl restart google-fluentd
 
 # install Terraform 0.11
-wget https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_amd64.zip
+wget https://releases.hashicorp.com/terraform/0.12.9/terraform_0.12.9_linux_amd64.zip
 apt-get -y update
 apt-get -y install unzip
 apt-get -y install zip
@@ -79,8 +79,8 @@ npm install -g @angular/cli
 node -v
 npm -v
 
-unzip -d /usr/local/bin/ terraform_0.11.13_linux_amd64.zip
-rm terraform_0.11.13_linux_amd64.zip
+unzip -d /usr/local/bin/ terraform_0.12.9_linux_amd64.zip
+rm terraform_0.12.9_linux_amd64.zip
 
 # install kubectl ?
 #export HOME=/root
