@@ -12,7 +12,7 @@ The following instructions assume the following requisites are met:
 * a project exists to host a service account and GCE images which will be used to deploy Tranquility Base;
 * an organization exists as well as a folder under it. Tranquility Base's folder structure and projects will be created under this organization or folder;
 * a billing account has been previously setup and can be used for all projects created by Tranquility Base;
-* `terraform` `~0.11` is installed;
+* `terraform` `~0.12` is installed;
 * `packer` `~1.4` is installed.
 
 ### Initial setup:
