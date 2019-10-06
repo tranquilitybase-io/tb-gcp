@@ -1,3 +1,4 @@
+#!/bin/bash
 # Copyright 2019 The Tranquility Base Authors
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,7 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
 exec >> /var/log/git_init.log 2>&1
 user_email="$1"
 git config --global user.email "$user_email"
