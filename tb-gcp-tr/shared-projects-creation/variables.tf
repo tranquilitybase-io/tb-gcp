@@ -58,3 +58,9 @@ variable "shared_ssp_project_name" {
   description = "Shared ssp project name."
 }
 
+variable "tb_bastion_project_name" {
+  type        = string
+  default     = "tb-bastion"
+  description = "Bastion project name."
+}
+
