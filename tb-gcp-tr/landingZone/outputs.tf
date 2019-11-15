@@ -12,10 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-output "external_UI_link" {
-  value = "http://${module.self-service-app.external_ip}"
-}
-
 # output "gke-security-endpoint" {
 #    value = "${module.gke-security.endpoint}"
 # }

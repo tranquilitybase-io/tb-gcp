@@ -173,6 +173,8 @@ apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
   name: selfservice
+  annotations:
+    cloud.google.com/load-balancer-type: "Internal"
 spec:
   host: selfservice
   trafficPolicy:
