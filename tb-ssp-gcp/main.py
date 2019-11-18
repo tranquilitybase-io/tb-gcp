@@ -62,7 +62,7 @@ def run_terraform():
 
     add_to_log.add_to_log(postdata.get("user"), app_name, tf_data, config)
 
-    terraform_source_path = '/opt/tb/repo/tb-gcp-activator/'  # this should be the param to python script
+    terraform_source_path = '/opt/tb/repo/tb-gcp/tb-gcp-activator/'  # this should be the param to python script
     activator_terraform_code_store = config['activator_terraform_code_store']
     gcloud.clone_code_store(config['ssp_project_name'], activator_terraform_code_store)
 
