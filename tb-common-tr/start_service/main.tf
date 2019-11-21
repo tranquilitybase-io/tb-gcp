@@ -14,7 +14,7 @@
 
 resource "null_resource" "kubernetes_resource" {
   triggers = {
-    content = var.dependency_var
+    content = "${var.dependency_var}"
   }
 
   provisioner "local-exec" {

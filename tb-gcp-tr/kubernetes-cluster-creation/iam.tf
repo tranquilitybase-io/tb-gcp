@@ -24,7 +24,7 @@ provider "google-beta" {
 
 # create compute service account for kubernetes cluster
 resource "google_service_account" "cluster" {
-  account_id   = var.cluster_service_account
+  account_id   = "${var.cluster_service_account}"
   display_name = "${var.cluster_service_account} service account"
   project      = var.cluster_project_id
 }
