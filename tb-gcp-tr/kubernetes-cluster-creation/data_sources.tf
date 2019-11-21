@@ -13,16 +13,16 @@
 # limitations under the License.
 
 data "google_project" "shared-vpc" {
-  project_id = var.sharedvpc_project_id
+  project_id = "${var.sharedvpc_project_id}"
 }
 
 data "google_project" "cluster" {
-  project_id = var.cluster_project_id
+  project_id = "${var.cluster_project_id}"
 }
 
 resource "null_resource" "shared_vpc_created" {
   triggers = {
-    trigger_dependency = var.shared_vpc_dependency
+    trigger_dependency = "${var.shared_vpc_dependency}"
   }
 }
 
