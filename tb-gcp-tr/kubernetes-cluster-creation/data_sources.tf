@@ -17,7 +17,7 @@ data "google_project" "shared-vpc" {
 }
 
 data "google_project" "cluster" {
-  project_id = "${var.cluster_project_id}"
+  project_id = var.cluster_project_id
 }
 
 resource "null_resource" "shared_vpc_created" {
