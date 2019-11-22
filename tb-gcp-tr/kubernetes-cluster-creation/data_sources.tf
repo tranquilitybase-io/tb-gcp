@@ -13,7 +13,7 @@
 # limitations under the License.
 
 data "google_project" "shared-vpc" {
-  project_id = "${var.sharedvpc_project_id}"
+  project_id = var.sharedvpc_project_id
 }
 
 data "google_project" "cluster" {
