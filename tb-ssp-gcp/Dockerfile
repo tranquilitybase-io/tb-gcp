@@ -21,11 +21,9 @@ WORKDIR /opt/tb/repo
 
 ARG tb_repo_url=https://github.com/tranquilitybase-io
 
-# RUN git clone --depth 1 ${tb_repo_url}/tb-common-tr.git
-# RUN git clone --depth 1 ${tb_repo_url}/tb-gcp-tr.git
-# RUN git clone --depth 1 ${tb_repo_url}/tb-gcp-activator.git
-RUN git clone --depth 1 ${tb_repo_url}/tb-gcp.git
-
+RUN git clone --depth 1 ${tb_repo_url}/tb-common-tr.git
+RUN git clone --depth 1 ${tb_repo_url}/tb-gcp-tr.git
+RUN git clone --depth 1 ${tb_repo_url}/tb-gcp-activator.git
 RUN rm -rf **/.git  rm -rf **/.gitignore **/.idea
 
 # Build SSP derivelable image
