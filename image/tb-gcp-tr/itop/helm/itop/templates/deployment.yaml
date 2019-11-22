@@ -1,0 +1,45 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ include "itop.fullname" . }}
+  labels:
+    version: {{ .Chart.AppVersion }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "itop.name" . }}
+        version: {{ .Chart.AppVersion }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+        - name: cloudsqlproxy
+          image: {{ .Values.cloudSqlProxySidecar.image }}
+          command: ["/cloud_sql_proxy",
+                    "-instances={{ required "The .Values.cloudSqlProxySidecar.instanceConnectionName is required" .Values.cloudSqlProxySidecar.instanceConnectionName }}=tcp:{{ .Values.cloudSqlProxySidecar.dbPort }}",
+                    "-credential_file=/secrets/cloudsql/cloudsql-proxy-sa-credentials.json"]
+          volumeMounts:
+            - name: cloudsql-proxy-secrets-volume
+              mountPath: /secrets/cloudsql
+              readOnly: true
+      volumes:
+        - name: cloudsql-proxy-secrets-volume
+          secret:
+            secretName: cloudsql-proxy-sa-credentials

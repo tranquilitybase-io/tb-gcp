@@ -1,0 +1,9 @@
+version: '3'
+services:
+  gcp-sdk:
+    privileged: true
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    volumes:
+      - ../:/mnt/jenkins-deployment:rw,delegated

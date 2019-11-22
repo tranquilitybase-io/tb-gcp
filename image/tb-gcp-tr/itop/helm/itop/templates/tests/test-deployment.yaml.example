@@ -1,0 +1,41 @@
+#####
+# This is use for testing
+# Remove or comment out
+#####
+#apiVersion: extensions/v1beta1
+#kind: Deployment
+#metadata:
+#  name: mysqlclient
+#  labels:
+#    version: v1
+#spec:
+#  replicas: 1
+#  template:
+#    metadata:
+#      labels:
+#        app: mysqlclient
+#        version: v1
+#    spec:
+#      containers:
+#      - name: mysql-client
+#        image: arey/mysql-client
+#        command: ["/bin/sh", "-ec", "while :; do echo '.'; sleep 5 ; done"]
+#        resources:
+#          # requests:
+#          #   cpu: "100m"
+#        imagePullPolicy: IfNotPresent #Always
+#        ports:
+#        - containerPort: 33060
+#      - name: cloud-sqlproxy
+#        image: {{ .Values.cloudSqlProxySidecar.image }}
+#        command: ["/cloud_sql_proxy",
+#                  "-instances={{ required "The .Values.cloudSqlProxySidecar.instanceConnectionName is required" .Values.cloudSqlProxySidecar.instanceConnectionName }}=tcp:{{ .Values.cloudSqlProxySidecar.dbPort }}",
+#                  "-credential_file=/secrets/cloudsql/cloudsql-proxy-sa-credentials.json"]
+#        volumeMounts:
+#          - name: cloudsql-proxy-secrets-volume
+#            mountPath: /secrets/cloudsql
+#            readOnly: true
+#      volumes:
+#        - name: cloudsql-proxy-secrets-volume
+#          secret:
+#            secretName: cloudsql-proxy-sa-credentials
