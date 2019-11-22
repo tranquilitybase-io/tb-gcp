@@ -22,7 +22,7 @@ data "google_project" "cluster" {
 
 resource "null_resource" "shared_vpc_created" {
   triggers = {
-    trigger_dependency = "${var.shared_vpc_dependency}"
+    trigger_dependency = var.shared_vpc_dependency
   }
 }
 
