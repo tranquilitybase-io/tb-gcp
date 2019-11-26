@@ -2,9 +2,7 @@
 
 Hi, and welcome to Tranquility Base - the open source multi-cloud infrastructure-as-code Landing Zone together with a self-service portal for automating the provisioning of a set of DevOps-ready reference architectures. 
 
-The current version is feature complete for this release but we are aware there will be bugs to be fixed and patches to be made. For example there will be security improvements to be made and we are working to identify and update the codebase to address them. 
-
-If you want to help us with this or contribute to Tranquility Base in general please contact us on [contact@tranquilitybase.io]
+The current version is feature complete for this release but we are aware there will be bugs to be fixed and patches to be made. For example there will be security improvements to be made and we are working to identify and update the codebase to address them. Please review the issues list for an idea of the enhancements and fixes we're planning to implement. If you want to help us with this or contribute to Tranquility Base in general please contact us on [contact@tranquilitybase.io]
 
 ## Example Deployment instructions
 
