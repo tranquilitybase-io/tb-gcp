@@ -15,7 +15,6 @@ resources:
     type: project.py
     properties:
       # Change this to your organization ID.
-      organization-id: "gftdevgcp.com"
       # You can also create the project in a folder.
       # If both organization-id and parent-folder-id are provided,
       # the project will be created in parent-folder-id.
@@ -89,7 +88,7 @@ resources:
             members:
               # This is already not on the project, but in case it shows up, let's
               # remove it.
-              - user:ddwk@gftdevgcp.com
+              - user:1234567890@cloudservices.gserviceaccount.com
         # The bindings to remove. Note that these are idempotent, in the sense
         # that any binding here that is not actually on the project is considered
         # to have been removed successfully.
