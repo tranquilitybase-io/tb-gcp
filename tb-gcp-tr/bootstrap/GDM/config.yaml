@@ -1,0 +1,101 @@
+imports:
+  - path: project.py
+  - path: apis.py
+  - path: service-accounts.py
+  - path: network-template.py
+  - path: vm-template.py
+  - path: cloud-storage-bucket.py
+
+
+resources:
+  # The "name" property below will be the ID of the new project
+  # If you want your project to have a different name, use the "project-name"
+  # property.
+  - name: deployment-template-53427
+    type: project.py
+    properties:
+      # Change this to your organization ID.
+      organization-id: "gftdevgcp.com"
+      # You can also create the project in a folder.
+      # If both organization-id and parent-folder-id are provided,
+      # the project will be created in parent-folder-id.
+      parent-folder-id: "943956663445"
+      project: deployment-template-53427
+      region: europe-west2
+      zone: europe-west2-a
+      machineType: n1-standard-4
+      concurrent_api_activation: true
+
+
+      # Change the following to your organization's billing account
+      billing-account-name: billingAccounts/01A2F5-73127B-50AE5B
+
+      # The apis to enable in the new project.
+      # To see the possible APIs, use: gcloud services list --available
+      apis:
+        - appengine.googleapis.com
+        - bigquery-json.googleapis.com
+        - cloudkms.googleapis.com
+        - container.googleapis.com
+        - containerregistry.googleapis.com
+        - datastore.googleapis.com
+        - iap.googleapis.com
+        - iam.googleapis.com
+        - logging.googleapis.com
+        - oslogin.googleapis.com
+        - serviceusage.googleapis.com
+        - sqladmin.googleapis.com
+        - storage-api.googleapis.com
+        - sourcerepo.googleapis.com
+        - deploymentmanager.googleapis.com
+        - pubsub.googleapis.com
+        - storage-component.googleapis.com
+        - monitoring.googleapis.com
+        - compute.googleapis.com
+        - iamcredentials.googleapis.com
+        - cloudbilling.googleapis.com
+        - cloudresourcemanager.googleapis.com
+
+      # The service accounts you want to create in the project
+      service-accounts:
+        - my-service-account-1
+        - my-service-account-2
+
+      networks:
+        - my-network
+
+      vm:
+        - my-vm
+
+      bucket-export-settings:
+        create-bucket: true
+        # If using an already existing bucket, specify this
+        # bucket: <my bucket name>
+
+      # Makes the service account that Deployment Manager would use in the
+      # generated project when making deployments in this new project a
+      # project owner.
+      set-dm-service-account-as-owner: true
+      # The patches to apply to the project's IAM policy. Note that these are
+      # always applied as a patch to the project's current IAM policy, not as a
+      # diff with the existing properties stored in DM. This means that removing
+      # a binding from the 'add' section will not remove the binding on the
+      # project during the next update. Instead it must be added to the 'remove'
+      # section.
+      iam-policy-patch:
+        # These are the bindings to add.
+        add:
+          - role: roles/owner
+            members:
+              # This is already not on the project, but in case it shows up, let's
+              # remove it.
+              - user:ddwk@gftdevgcp.com
+        # The bindings to remove. Note that these are idempotent, in the sense
+        # that any binding here that is not actually on the project is considered
+        # to have been removed successfully.
+        remove:
+          - role: roles/owner
+            members:
+              # This is already not on the project, but in case it shows up, let's
+              # remove it.
+              - serviceAccount:1234567890@cloudservices.gserviceaccount.com
