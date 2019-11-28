@@ -27,7 +27,7 @@ resources:
 
 
       # Change the following to your organization's billing account
-      billing-account-name: billingAccounts/01A2F5-73127B-50AE5B
+      billing-account-name: billingAccounts/[BILLING_ID]
 
       # The apis to enable in the new project.
       # To see the possible APIs, use: gcloud services list --available
