@@ -73,8 +73,7 @@ def add_gcp_log(user, app_name, app_id, tf_data, env_data, ssp_project_name):
             'app_name': app_name,
             'app_id': app_id,
             'tf_data': tf_data,
-            'env_data': env_data,
-            'description': 'Learn Cloud Datastore'
+            'env_data': env_data
         })
 
     client.put(task)
