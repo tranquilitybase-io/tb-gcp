@@ -33,18 +33,34 @@ CORS(app)
 
 @app.route("/isalive", endpoint='isalive', methods=['GET'])
 def is_alive():
+    """
+    Helper function to determine if the API is active or not.
+
+    :return: HTTP response for Flask to render
+    """
     config = read_config_map()
     for k, v in config.items():
         print(k, v)
 
     response = app.make_response("Backend is working!")
     response.headers['Access-Control-Allow-Origin'] = '*'
+
     return response
 
 
 @app.route("/destroy", endpoint='destroy', methods=['POST'])
 @app.route("/build", endpoint='build', methods=['POST'])
 def run_terraform():
+    """
+    Builds and destroys infrastructure using an activator, responding POST requests to /build and /destroy endpoints.
+
+    The configuration YAML file read by read_config_map() determines where this new infrastructure should sit
+    within a GCP project, as well as setting other properties like billing.
+
+    Accepts JSON content-type input.
+
+    :return: HTTP response to be rendered by Flask
+    """
     postdata = request.json
     tf_data = postdata.get("tf_data")
     app_name = postdata.get("app_name", 'default_activator')
