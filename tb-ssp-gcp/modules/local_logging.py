@@ -17,6 +17,12 @@ import os
 
 
 def get_logger():
+    """
+    Returns a logger object. Used to ensure logging consistency across the project.
+
+    :return: logging.Logger object
+    """
+
     logger = logging.getLogger('tb-ssp-gcp')
     logger.setLevel(logging.DEBUG)
 
