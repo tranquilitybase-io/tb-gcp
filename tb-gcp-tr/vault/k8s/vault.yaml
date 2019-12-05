@@ -17,12 +17,11 @@ apiVersion: v1
 kind: Service
 metadata:
   name: vault
-  annotations:
-    cloud.google.com/load-balancer-type: "Internal"
   labels:
     app: vault
 spec:
   type: LoadBalancer
+  loadBalancerIP: ${load_balancer_ip}
   externalTrafficPolicy: Local
   selector:
     app: vault
@@ -111,6 +110,7 @@ spec:
               fieldPath: status.podIP
         - name: VAULT_LOCAL_CONFIG
           value: |
+            api_addr     = "https://${load_balancer_ip}"
             cluster_addr = "https://$(POD_IP_ADDR):8201"
 
             log_level = "warn"
