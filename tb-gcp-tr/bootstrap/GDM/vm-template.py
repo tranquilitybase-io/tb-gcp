@@ -9,6 +9,7 @@ def GenerateConfig(context):
       'name': vm,
       'type': 'gcp-types/compute-v1:instances',
       'properties': {
+          'tags': {'items': ['no-ip', 'iap']},
           'project': project_id,
           'region': 'europe-west2',
           'zone': context.properties['zone'],
@@ -29,12 +30,7 @@ def GenerateConfig(context):
               }
           }],
           'networkInterfaces': [{
-              'network': COMPUTE_URL_BASE + 'projects/' + context.properties['project']
-                         + '/global/networks/default',
-              'accessConfigs': [{
-                  'name': 'External NAT',
-                  'type': 'ONE_TO_ONE_NAT'
-              }]
+              'subnetwork': '$(ref.bootstrap-network-subnet.selfLink)',
           }],
           'metadata': {
               'dependsOn': [project_id],

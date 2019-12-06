@@ -5,7 +5,9 @@ imports:
   - path: network-template.py
   - path: vm-template.py
   - path: cloud-storage-bucket.py
-
+  - path: IAM-policy.py
+  - path: nat-gateway.py
+  - path: sub-network.py
 
 resources:
   # The "name" property below will be the ID of the new project
@@ -15,6 +17,7 @@ resources:
     type: project.py
     properties:
       # Change this to your organization ID.
+      organization-id: "gftdevgcp.com"
       # You can also create the project in a folder.
       # If both organization-id and parent-folder-id are provided,
       # the project will be created in parent-folder-id.
@@ -23,11 +26,11 @@ resources:
       region: europe-west2
       zone: europe-west2-a
       machineType: n1-standard-4
-      concurrent_api_activation: true
+      concurrent_api_activation: False
 
 
       # Change the following to your organization's billing account
-      billing-account-name: billingAccounts/[BILLING_ID]
+      billing-account-name: billingAccounts/[BILLING_ACCOUNT_ID]
 
       # The apis to enable in the new project.
       # To see the possible APIs, use: gcloud services list --available
@@ -54,6 +57,7 @@ resources:
         - iamcredentials.googleapis.com
         - cloudbilling.googleapis.com
         - cloudresourcemanager.googleapis.com
+        - runtimeconfig.googleapis.com
 
       # The service accounts you want to create in the project
       service-accounts:
@@ -61,10 +65,65 @@ resources:
         - my-service-account-2
 
       networks:
-        - my-network
+        - my-network1
 
       vm:
-        - my-vm
+        - my-vm-1
+
+      startupScript: |
+        #!/bin/bash
+        echo 1 > /proc/sys/net/ipv4/ip_forward
+        iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+
+        gcloud components update -q
+        gcloud components install beta -q
+
+        cat <<EOF > /usr/local/sbin/health-check-server.py
+        #!/usr/bin/python
+        from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
+        import subprocess
+
+        PORT_NUMBER = 80
+        PING_HOST = "www.google.com"
+
+        def connectivityCheck():
+            try:
+            subprocess.check_call(["ping", "-c", "1", PING_HOST])
+            return True
+            except subprocess.CalledProcessError as e:
+            return False
+
+        #This class will handle any incoming request
+        class myHandler(BaseHTTPRequestHandler):
+            def do_GET(self):
+            if self.path == '/health-check':
+                if connectivityCheck():
+                self.send_response(200)
+                else:
+                self.send_response(503)
+            else:
+                self.send_response(404)
+
+
+        try:
+            server = HTTPServer(("", PORT_NUMBER), myHandler)
+            print "Started httpserver on port " , PORT_NUMBER
+            #Wait forever for incoming http requests
+            server.serve_forever()
+
+        except KeyboardInterrupt:
+            print "^C received, shutting down the web server"
+            server.socket.close()
+        EOF
+
+        nohup python /usr/local/sbin/health-check-server.py >/dev/null 2>&1 &
+
+        #register a runtime config variable for a waiter to complete
+        CONFIG_NAME=$(curl http://metadata.google.internal/computeMetadata/v1/instance/attributes/runtime-config -H "Metadata-Flavor: Google")
+        VARIABLE_NAME=$(curl http://metadata.google.internal/computeMetadata/v1/instance/attributes/runtime-variable -H "Metadata-Flavor: Google")
+
+        gcloud beta runtime-config configs variables set $VARIABLE_NAME 1 --config-name $CONFIG_NAME
+
 
       bucket-export-settings:
         create-bucket: true
@@ -88,12 +147,12 @@ resources:
             members:
               # This is already not on the project, but in case it shows up, let's
               # remove it.
-              - user:1234567890@cloudservices.gserviceaccount.com
+              - serviceAccount:1234567890@cloudservices.gserviceaccount.com
         # The bindings to remove. Note that these are idempotent, in the sense
         # that any binding here that is not actually on the project is considered
         # to have been removed successfully.
         remove:
-          - role: roles/owner
+          - role: roles/iap.tunnelResourceAccessor
             members:
               # This is already not on the project, but in case it shows up, let's
               # remove it.
