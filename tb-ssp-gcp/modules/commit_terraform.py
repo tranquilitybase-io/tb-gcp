@@ -19,12 +19,17 @@ from os import popen
 
 from modules.app_config import DEFAULT_SHELL
 
+
 def commit_terraform(terraform_path, backend_prefix, user_email, activator_terraform_code_store):
-    Popen([DEFAULT_SHELL, "/opt/ssp/bash/pull_changes.sh", ], stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True).communicate()
+    Popen([DEFAULT_SHELL, "/opt/ssp/bash/pull_changes.sh", ], stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+          universal_newlines=True).communicate()
     popen("mkdir -p " "/opt/ssp/" + activator_terraform_code_store + "/" + backend_prefix)
     popen("cp -a " + terraform_path + "*" + " /opt/ssp/" + activator_terraform_code_store + "/" + backend_prefix)
-    Popen([DEFAULT_SHELL, "/opt/ssp/bash/git_init.sh", user_email, ], stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True).communicate()
-    Popen([DEFAULT_SHELL, "/opt/ssp/bash/commit_changes.sh", ], stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True).communicate()
+    Popen([DEFAULT_SHELL, "/opt/ssp/bash/git_init.sh", user_email, ], stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+          universal_newlines=True).communicate()
+    Popen([DEFAULT_SHELL, "/opt/ssp/bash/commit_changes.sh", ], stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+          universal_newlines=True).communicate()
+
 
 def create_hash(user, app_name):
     sha_1 = hashlib.sha1()
