@@ -40,6 +40,7 @@
     "node-sass": "^4.12.0",
     "puppeteer": "^1.18.1",
     "rxjs": "~6.3.3",
+    "serialize-javascript": "^2.1.1",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26"
   },
@@ -62,6 +63,7 @@
     "karma-jasmine-html-reporter": "^0.2.2",
     "nodemon": "^1.19.2",
     "protractor": "~5.4.0",
+    "serialize-javascript": "^2.1.1",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
     "typescript": "~3.2.2"
