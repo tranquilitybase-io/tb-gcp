@@ -21,6 +21,10 @@ There are a number of set-up tasks required to get **Transitive Dependency Downl
 pip install -r requirements.txt
 ```
 - Installing dependencies for **TDD**: *pip-licenses* and *pipdeptree* 
+```
+pip install pip-licenses
+pip install pipdeptree
+```
 
 ## Running TDD
 To execute TDD run the following command while your python virtual environment is setup and you're in the directory where your requirements file is located:
