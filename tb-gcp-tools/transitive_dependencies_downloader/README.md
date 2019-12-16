@@ -23,7 +23,7 @@ pip install -r requirements.txt
 - Installing dependencies for **TDD**: *pip-licenses* and *pipdeptree* 
 
 ## Running TDD
-To execute TDD run the following command from your shell of choice:
+To execute TDD run the following command while your python virtual environment is setup and you're in the directory where your requirements file is located:
 ```
 python list_dependencies.py -f
 ```
