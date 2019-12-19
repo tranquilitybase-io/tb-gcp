@@ -111,7 +111,7 @@ def replace(file_path, pattern, subst):
         with open(file_path) as old_file:
             for line in old_file:
                 if re.match(pattern, line):
-                    new_file.write(subst + '\n')
+                    new_file.write(subst + "\n")
                 else:
                     new_file.write(line)
     remove(file_path)
