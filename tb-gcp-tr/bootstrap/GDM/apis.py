@@ -44,4 +44,3 @@ def GenerateConfig(context):
 def ApiResourceName(project_id, api_name):
   return project_id + '-' + api_name
 
-  

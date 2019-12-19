@@ -109,7 +109,8 @@ def GenerateConfig(context):
           'project': project_id,
           'zone': context.properties['zone'],
           'machineType': context.properties['machineType'],
-          'vm': context.properties['vm']
+          'vm': context.properties['vm'],
+          'startup-script': context.properties['startup-script']
         },
     }, {
       'name': 'cloud-storage-bucket',

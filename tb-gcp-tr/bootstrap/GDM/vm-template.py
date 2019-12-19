@@ -36,8 +36,7 @@ def GenerateConfig(context):
               'dependsOn': [project_id],
               'items': [{
                   'key': 'startup-script',
-                  'value': ''.join(['#!/bin/bash\n',
-                                    'python -m SimpleHTTPServer 80']),
+                  'value': context.properties['startup-script'],
               }],
               'runtimePolicy': ['CREATE']
           }
