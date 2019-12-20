@@ -43,7 +43,7 @@ spec:
     spec:
       containers:
       - name: selfservice
-        image: gcr.io/tranquility-base-images/self-service-portal:v31
+        image: gcr.io/tranquility-base-images/self-service-portal:v32
         resources:
           requests:
             cpu: "100m"
