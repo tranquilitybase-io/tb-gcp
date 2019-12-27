@@ -21,13 +21,42 @@ logger = get_logger()
 
 
 def create_client(project_id):
+    """
+    Returns a datastore client object for a given project
+
+    :param project_id:
+    :return: datastore.Client
+    """
+
     return datastore.Client(project_id)
 
+
 def list_logs(client):
+    """
+    Lists the terraform event logs for a given project.
+
+    :param client: a datastore client
+    :return: list of datastore entries
+    """
+
     query = client.query(kind='TerraformEventLog')
     return list(query.fetch())
 
+
 def add_gcp_log(user, app_name, app_id, tf_data, env_data, ssp_project_name):
+    """
+    Logs an activity to the datastore terraform event logs. Useful for auditing.
+
+    All logs are timestamped.
+
+    :param user: user who performed the action
+    :param app_name: application name to log
+    :param app_id: application id to log
+    :param tf_data: terraform data to log
+    :param env_data: environment data to log
+    :param ssp_project_name: project name of the SSP project, where these logs are saved to
+    :return: None
+    """
 
     client = datastore.Client(project=ssp_project_name)
 
@@ -44,8 +73,7 @@ def add_gcp_log(user, app_name, app_id, tf_data, env_data, ssp_project_name):
             'app_name': app_name,
             'app_id': app_id,
             'tf_data': tf_data,
-            'env_data': env_data,
-            'description': 'Learn Cloud Datastore'
+            'env_data': env_data
         })
 
     client.put(task)

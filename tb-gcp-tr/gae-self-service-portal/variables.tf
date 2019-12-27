@@ -45,12 +45,6 @@ variable "not_found_page" {
   default     = "404.html"
 }
 
-variable "role_entity" {
-  description = "Sets bucket default object ACLs to allow all users read access to objects"
-  type        = list(string)
-  default     = ["READER:allUsers"]
-}
-
 variable "source_bucket" {
   description = "The name of the bucket where to find files to be uploaded to newly created bucket"
   type        = string

@@ -31,45 +31,6 @@ resource "google_storage_bucket" "ssp-ui-static-files" {
   }
 }
 
-resource "google_storage_default_object_acl" "ssp-ui-static-files-obj-acl" {
-  bucket      = google_storage_bucket.ssp-ui-static-files.name
-  role_entity = var.role_entity
-}
-
-# CREATE LOADBALANCER TO GET EXTERNAL IP AND ACCESS TO THE BUCKET
-resource "google_compute_backend_bucket" "ssp-create-backend-bucket" {
-  project = var.project_id
-
-  name        = "${google_storage_bucket.ssp-ui-static-files.name}-backend-bucket"
-  bucket_name = google_storage_bucket.ssp-ui-static-files.name
-}
-
-resource "google_compute_url_map" "ssp-bucket-url-map" {
-  project = var.project_id
-
-  name        = "${google_storage_bucket.ssp-ui-static-files.name}-url-map"
-  description = "URL map for ${var.bucket_name}"
-
-  default_service = google_compute_backend_bucket.ssp-create-backend-bucket.self_link
-
-  host_rule {
-    hosts        = ["*"]
-    path_matcher = "all"
-  }
-
-  path_matcher {
-    name            = "all"
-    default_service = google_compute_backend_bucket.ssp-create-backend-bucket.self_link
-  }
-}
-
-module "load_balancer" {
-  source  = "../http-load-balancer"
-  project = var.project_id
-  name    = google_storage_bucket.ssp-ui-static-files.name
-  url_map = google_compute_url_map.ssp-bucket-url-map.self_link
-}
-
 # PUSH CONTENT TO THE BUCKET
 resource "null_resource" "sync-ssp-ui-buckets" {
   count = var.source_bucket == "" ? 0 : 1
@@ -83,8 +44,7 @@ resource "null_resource" "sync-ssp-ui-buckets" {
   }
 
   depends_on = [
-    google_storage_bucket.ssp-ui-static-files,
-    google_storage_default_object_acl.ssp-ui-static-files-obj-acl,
+    google_storage_bucket.ssp-ui-static-files
   ]
 }
 
