@@ -19,9 +19,9 @@ FROM alpine/git AS tbcode
 RUN mkdir -p /opt/tb/repo
 WORKDIR /opt/tb/repo
 
-ADD tb-common-tr /opt/tb/repo/tb-common-tr/
-ADD tb-gcp-tr /opt/tb/repo/tb-gcp-tr/
-ADD tb-gcp-activator /opt/tb/repo/tb-gcp-activator/
+COPY tb-common-tr /opt/tb/repo/tb-common-tr/
+COPY tb-gcp-tr /opt/tb/repo/tb-gcp-tr/
+COPY tb-gcp-activator /opt/tb/repo/tb-gcp-activator/
 
 RUN rm -rf **/.git  rm -rf **/.gitignore **/.idea
 # RUN rm -R tb-gcp
