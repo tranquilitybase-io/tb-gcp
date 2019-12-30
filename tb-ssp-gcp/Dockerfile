@@ -37,7 +37,7 @@ RUN mkdir -p /opt/ssp \
     && mkdir -p /opt/ssp/bash \
     && mkdir -p /root/.ssh
 
-ADD tb-ssp-gcp/main.py /opt/ssp/
+COPY tb-ssp-gcp/main.py /opt/ssp/
 COPY tb-ssp-gcp/requirements.txt /opt/ssp/
 COPY tb-ssp-gcp/modules /opt/ssp/modules/
 RUN ls -l /opt/ssp
