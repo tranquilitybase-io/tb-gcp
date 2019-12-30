@@ -424,6 +424,13 @@ resource "google_sourcerepo_repository_iam_binding" "terraform-code-store-admin-
   depends_on = [google_sourcerepo_repository.activator-terraform-code-store]
 }
 
+// used only to enable datastore
+resource "google_app_engine_application" "enable-datastore" {
+  project     = module.shared_projects.shared_ssp_id
+  location_id = var.region
+  depends_on  = [google_sourcerepo_repository_iam_binding.terraform-code-store-admin-binding]
+}
+
 module "bastion-security" {
   source = "./../bastion"
 
