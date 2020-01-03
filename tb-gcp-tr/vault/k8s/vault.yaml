@@ -111,6 +111,7 @@ spec:
               fieldPath: status.podIP
         - name: VAULT_LOCAL_CONFIG
           value: |
+            api_addr     = "https://${load_balancer_ip}"
             cluster_addr = "https://$(POD_IP_ADDR):8201"
 
             log_level = "warn"
