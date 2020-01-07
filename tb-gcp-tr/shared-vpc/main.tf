@@ -73,7 +73,7 @@ resource "google_compute_subnetwork" "tb-bastion-subnetwork" {
   name                     = "bastion-subnetwork"
   ip_cidr_range            = "10.0.6.0/24"
   region                   = var.region
-  private_ip_google_access = false
+  private_ip_google_access = true
   project                  = var.host_project_id
   network                  = google_compute_network.shared_network.name
   enable_flow_logs         = var.enable_flow_logs

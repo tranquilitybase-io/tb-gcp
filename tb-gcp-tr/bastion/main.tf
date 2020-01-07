@@ -34,7 +34,7 @@ resource "google_compute_firewall" "shared-network" {
   }
 }
 
-resource "google_compute_firewall" "shared-network" {
+resource "google_compute_firewall" "shared-net-bast" {
   depends_on = [google_service_account.bastion_service_account]
   name    = "allow-iap-ingress-ssh-rdp"
   network = var.shared_vpc_name
@@ -58,6 +58,29 @@ resource "google_compute_instance" "tb_windows_bastion" {
   boot_disk {
     initialize_params {
       image = "windows-server-2019-dc-v20191008"
+    }
+  }
+  network_interface {
+    subnetwork = "projects/${var.shared_networking_id}/regions/${var.region}/subnetworks/bastion-subnetwork"
+    access_config {
+    }
+  }
+  service_account {
+    email = google_service_account.bastion_service_account.email
+    scopes = []
+  }
+}
+
+resource "google_compute_instance" "tb_linux_bastion" {
+  depends_on = [
+    google_service_account.bastion_service_account]
+  project = var.tb_bastion_id
+  zone = var.region_zone
+  name = "tb-linux-bastion"
+  machine_type = "n1-standard-2"
+  boot_disk {
+    initialize_params {
+      image = "debian-9-stretch-v20191210"
     }
   }
   network_interface {
