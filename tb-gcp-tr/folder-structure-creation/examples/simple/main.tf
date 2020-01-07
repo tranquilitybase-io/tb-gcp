@@ -15,11 +15,12 @@
 # Setup of folders in empty/new org
 
 module "simple-folder-example" {
-    source = "../../"
+  source = "../../"
 
-    region = "${var.region}"
-    region_zone = "${var.region_zone}"
+  region      = var.region
+  region_zone = var.region_zone
 
-    root_is_org = "true"
-    root_id = "${var.root_id}"
+  root_is_org = "true"
+  root_id     = var.root_id
 }
+

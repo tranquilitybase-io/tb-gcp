@@ -1,10 +1,8 @@
 # Tranquility Base 
 
-Hi, and welcome to Tranquility Base - the open source multi-cloud infrastructure-as-code Landing Zone together with a self-service portal for automating the provisioning of a set of DevOps-ready reference architectures. 
+Hi, and welcome to Tranquility Base - the open source multi-cloud infrastructure-as-code Landing Zone together with a self-service portal for automating the provisioning of a set of DevOps-ready reference architectures. For further description of Tranquility Base, please head over to [tranquilitybase.io](https://www.tranquilitybase.io/).
 
-The current version is feature complete for this release but we are aware there will be bugs to be fixed and patches to be made. For example there will be security improvements to be made and we are working to identify and update the codebase to address them. 
-
-If you want to help us with this or contribute to Tranquility Base in general please contact us on [contact@tranquilitybase.io]
+The current version is feature complete for this release but we are aware there will be bugs to be fixed and patches to be made. For example there will be security improvements to be made and we are working to identify and update the codebase to address them. Please review the issues list for an idea of the enhancements and fixes we're planning to implement. If you want to help us with this or contribute to Tranquility Base in general please contact us on [contact@tranquilitybase.io]
 
 ## Example Deployment instructions
 
@@ -12,7 +10,7 @@ The following instructions assume the following requisites are met:
 * a project exists to host a service account and GCE images which will be used to deploy Tranquility Base;
 * an organization exists as well as a folder under it. Tranquility Base's folder structure and projects will be created under this organization or folder;
 * a billing account has been previously setup and can be used for all projects created by Tranquility Base;
-* `terraform` `~0.11` is installed;
+* `terraform` `~0.12` is installed;
 * `packer` `~1.4` is installed.
 
 ### Initial setup:

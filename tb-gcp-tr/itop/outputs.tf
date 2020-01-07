@@ -13,22 +13,22 @@
 # limitations under the License.
 
 output "database_instance_id" {
-    description = "The created database instance id"
-    value = "google_sql_database_instance.master.project.project_id"
-
+  description = "The created database instance id"
+  value       = "google_sql_database_instance.master.project.project_id"
 }
 
 output "database_instance_connection_name" {
-    description = "The database connection name"
-    value = "google_sql_database_instance.master.connection_name"
+  description = "The database connection name"
+  value       = "google_sql_database_instance.master.connection_name"
 }
 
 output "database_instance_connection_username" {
-    description = "The database connection password"
-    value = "${var.database_user_name}"
+  description = "The database connection password"
+  value       = var.database_user_name
 }
 
 output "database_instance_connection_password" {
-    description = "The database connection password"
-    value = "${random_password.itop_db_user_password.result}"
+  description = "The database connection password"
+  value       = random_password.itop_db_user_password.result
 }
+

@@ -13,16 +13,17 @@
 # limitations under the License.
 
 output "tbase_id" {
-    description = "identifier for the tranquility base folder created."
-    value = "${google_folder.tbase_folder.name}"
+  description = "identifier for the tranquility base folder created."
+  value       = google_folder.tbase_folder.name
 }
 
 output "activators_id" {
-    description = "identifier for the activators folder created."
-    value = "${google_folder.activators_folder.name}"
+  description = "identifier for the activators folder created."
+  value       = google_folder.activators_folder.name
 }
 
 output "shared_services_id" {
-    description = "identifier for the shared services folder created."
-    value = "${google_folder.shared_services_folder.name}"
+  description = "identifier for the shared services folder created."
+  value       = google_folder.shared_services_folder.name
 }
+

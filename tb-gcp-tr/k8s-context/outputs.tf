@@ -13,11 +13,12 @@
 # limitations under the License.
 
 output "k8s-context_id" {
-    description = "identifier for the module output"
-    value = "${null_resource.k8s_config.id}"
+  description = "identifier for the module output"
+  value       = null_resource.k8s_config.id
 }
 
 output "context_name" {
-    description = "GKE context name stored into ~/.kube/config"
-    value = "gke_${var.cluster_project}_${var.region}_${var.cluster_name}"
+  description = "GKE context name stored into ~/.kube/config"
+  value       = "gke_${var.cluster_project}_${var.region}_${var.cluster_name}"
 }
+

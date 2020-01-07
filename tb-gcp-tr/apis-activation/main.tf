@@ -13,7 +13,7 @@
 # limitations under the License.
 
 resource "google_project_services" "project" {
-  project = "${var.host_project_id}"
+  project = var.host_project_id
   services = [
     "appengine.googleapis.com",
     "bigquery-json.googleapis.com",
@@ -37,7 +37,6 @@ resource "google_project_services" "project" {
   ]
 }
 
-
 /*
 resource "google_project_services" "ssp_project" {
   project = "${var.ssp_project_id}"
@@ -47,8 +46,8 @@ resource "google_project_services" "ssp_project" {
 */
 
 resource "google_project_services" "project_shared" {
-  count = "${var.service_projects_number}"
-  project = "${var.service_project_ids[count.index]}"
+  count   = var.service_projects_number
+  project = var.service_project_ids[count.index]
   services = [
     "appengine.googleapis.com",
     "bigquery-json.googleapis.com",
@@ -71,5 +70,6 @@ resource "google_project_services" "project_shared" {
     "sqladmin.googleapis.com",
     "storage-api.googleapis.com",
   ]
-  depends_on = ["google_project_services.project"]
+  depends_on = [google_project_services.project]
 }
+

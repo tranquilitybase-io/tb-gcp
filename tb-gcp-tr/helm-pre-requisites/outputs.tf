@@ -13,5 +13,6 @@
 # limitations under the License.
 
 output "tiller_svc_accnt_name" {
-  value = "${var.tiller_svc_accnt_name}"
+  value = var.tiller_svc_accnt_name
 }
+

@@ -33,18 +33,34 @@ CORS(app)
 
 @app.route("/isalive", endpoint='isalive', methods=['GET'])
 def is_alive():
+    """
+    Helper function to determine if the API is active or not.
+
+    :return: HTTP response for Flask to render
+    """
     config = read_config_map()
     for k, v in config.items():
         print(k, v)
 
     response = app.make_response("Backend is working!")
     response.headers['Access-Control-Allow-Origin'] = '*'
+
     return response
 
 
 @app.route("/destroy", endpoint='destroy', methods=['POST'])
 @app.route("/build", endpoint='build', methods=['POST'])
 def run_terraform():
+    """
+    Builds and destroys infrastructure using an activator, responding POST requests to /build and /destroy endpoints.
+
+    The configuration YAML file read by read_config_map() determines where this new infrastructure should sit
+    within a GCP project, as well as setting other properties like billing.
+
+    Accepts JSON content-type input.
+
+    :return: HTTP response to be rendered by Flask
+    """
     postdata = request.json
     tf_data = postdata.get("tf_data")
     app_name = postdata.get("app_name", 'default_activator')
@@ -88,6 +104,15 @@ def run_terraform():
 
 
 def update_activator_input_subnets(backend_prefix, config, terraform_activator_path, formatted_app_name):
+    """
+    Creates subnets for an existing activator
+
+    :param backend_prefix: prefix string for the subnets
+    :param config: dictionary-based config
+    :param terraform_activator_path: path on disk to the activator. should contain an input.tfvars file.
+    :param formatted_app_name: application name
+    :return:
+    """
     terraform_subnets_path = '/opt/ssp/tf_create_subnets/'
     allocated_subnet_cirds = subnet_pool_handler.retrieve_free_subnet_cidrs('10.0.11.0/24', '10.0.255.0/24', config,
                                                                             formatted_app_name)
@@ -100,6 +125,11 @@ def update_activator_input_subnets(backend_prefix, config, terraform_activator_p
 
 
 def read_config_map():
+    """
+    Returns the SSP configuration as a dictionary
+
+    :return: dict of config
+    """
     try:
         with open("/app/ssp-config.yaml", 'r') as stream:
             try:

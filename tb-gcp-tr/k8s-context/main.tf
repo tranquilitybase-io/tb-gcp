@@ -13,8 +13,8 @@
 # limitations under the License.
 
 resource "null_resource" "k8s_config" {
-  triggers {
-    content = "${var.dependency_var}"
+  triggers = {
+    content = var.dependency_var
   }
   provisioner "local-exec" {
     command = <<EOT
@@ -22,3 +22,4 @@ resource "null_resource" "k8s_config" {
     EOT
   }
 }
+

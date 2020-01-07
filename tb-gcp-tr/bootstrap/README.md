@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-* [terraform](https://www.terraform.io/) version `0.11.13` installed on your machine and available on your command line.
+* [terraform](https://www.terraform.io/) version `~0.12` installed on your machine and available on your command line.
 
 ## Building Tranquility Base bootstrap infrastructure
 
@@ -76,14 +76,3 @@ You can choose a version of TB Landing Zone that is to be deployed to GCP by sel
 `bootstrap_host_disk_image = "projects/<project_id>/global/images/family/tb-tr-debian-9"`
 
 For more details regarding accepted image references see: https://www.terraform.io/docs/providers/google/r/compute_instance.html#image
-
-
-
- 
-
-
-
-
-
-
-

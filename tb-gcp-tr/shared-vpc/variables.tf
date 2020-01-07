@@ -12,88 +12,95 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 variable "host_project_id" {
-  type        = "string"
+  type        = string
   default     = ""
   description = "Identifier for the host project to be used"
 }
 
-variable shared_vpc_name {
-  type        = "string"
+variable "shared_vpc_name" {
+  type        = string
   default     = "shared-network"
   description = "Name for the shared vpc network"
 }
 
-variable standard_network_subnets {
-  type        = "list"
+variable "standard_network_subnets" {
+  type        = list(object({
+    name = string
+    cidr = string
+  }))
   default     = []
   description = "cidr ranges for standard (non-gke) subnetworks"
 }
 
 variable "region" {
   default     = "europe-west2"
-  type        = "string"
+  type        = string
   description = "region name"
 }
 
-variable enable_flow_logs {
-  type        = "string"
+variable "enable_flow_logs" {
+  type        = string
   default     = "false"
   description = "Boolean value to determine whether to enable flowlogs in subnet creation"
 }
 
-variable tags {
-  type        = "map"
-  default     = { }
+variable "tags" {
+  type        = map(string)
+  default     = {}
   description = "A map of tags to add to all resources"
 }
 
-variable gke_network_subnets {
-  type        = "list"
+variable "gke_network_subnets" {
+  type        = list(object({
+    name = string
+    cidr = string
+    pod_cidr = string
+    service_cidr = string
+  }))
   default     = []
   description = "cidr ranges for gke subnetworks"
 }
 
 variable "gke_pod_network_name" {
-  type        = "string"
+  type        = string
   default     = "gke-pods-snet"
   description = "Name for the gke pod network"
 }
 
 variable "gke_service_network_name" {
-  type        = "string"
+  type        = string
   default     = "gke-services-snet"
   description = "Name for the gke service network"
 }
 
-variable router_name {
-  type        = "string"
+variable "router_name" {
+  type        = string
   default     = "vpc-network-router"
   description = "router name"
 }
 
-variable create_nat_gateway {
-  type        = "string"
+variable "create_nat_gateway" {
+  type        = string
   default     = "true"
   description = "Boolean value to determine whether to create a NAT gateway"
 }
 
-variable router_nat_name {
-  type        = "string"
+variable "router_nat_name" {
+  type        = string
   default     = "vpc-network-nat-gateway"
   description = "Name for the router NAT gateway"
 }
 
 variable "service_project_ids" {
-  type        = "list"
+  type        = list(string)
   default     = []
   description = "Associated service projects to link with the host project."
 }
 
 variable "service_projects_number" {
-  type = "string"
-  default =""
+  type        = string
+  default     = ""
   description = "Number of service projects attached to shared vpc host"
 }
 

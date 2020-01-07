@@ -13,16 +13,8 @@
 # limitations under the License.
 
 provider "google" {
-  version = "2.1"
-
-  region = "${var.region}"
-  zone   = "${var.region_zone}"
+  region = var.region
+  zone   = var.region_zone
+  version = "~> 2.5"
 }
-
-# # separate google-beta provider needed to assign sharedvpc networkUser permissions
-# provider "google-beta" {
-#   version = "2.1"
-#   project = "${var.host_project_id}"
-#   region  = "${var.region}"
-# }
 

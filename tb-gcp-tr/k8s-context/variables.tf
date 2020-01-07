@@ -14,21 +14,23 @@
 
 variable "dependency_var" {
   description = "Variable used only for dependency tracking"
-  default = "empty"
-  type = "string"
+  default     = "empty"
+  type        = string
 }
+
 variable "region" {
-  type = "string"
+  type        = string
   description = "The region to host the cluster in"
-  default = "europe-west2"
+  default     = "europe-west2"
 }
 
 variable "cluster_project" {
-  type = "string"
+  type        = string
   description = "Project of the cluster"
 }
 
 variable "cluster_name" {
-  type = "string"
+  type        = string
   description = "Name of the cluster"
 }
+

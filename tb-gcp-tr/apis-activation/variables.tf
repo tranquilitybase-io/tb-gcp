@@ -13,25 +13,26 @@
 # limitations under the License.
 
 variable "service_projects_number" {
-  type = "string"
-  default =""
+  type        = string
+  default     = ""
   description = "Number of service projects attached to shared vpc host"
 }
 
 variable "service_project_ids" {
-  type        = "list"
+  type        = list(string)
   default     = []
   description = "Associated service projects to link with the host project."
 }
 
 variable "host_project_id" {
-  type        = "string"
+  type        = string
   default     = ""
   description = "Identifier for the host project to be used"
 }
 
 variable "ssp_project_id" {
-  type        = "string"
+  type        = string
   default     = ""
   description = "Identifier for the host project to be used"
 }
+
