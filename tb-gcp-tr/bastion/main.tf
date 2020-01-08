@@ -62,8 +62,6 @@ resource "google_compute_instance" "tb_windows_bastion" {
   }
   network_interface {
     subnetwork = "projects/${var.shared_networking_id}/regions/${var.region}/subnetworks/bastion-subnetwork"
-    access_config {
-    }
   }
   service_account {
     email = google_service_account.bastion_service_account.email
@@ -85,8 +83,6 @@ resource "google_compute_instance" "tb_linux_bastion" {
   }
   network_interface {
     subnetwork = "projects/${var.shared_networking_id}/regions/${var.region}/subnetworks/bastion-subnetwork"
-    access_config {
-    }
   }
   service_account {
     email = google_service_account.bastion_service_account.email
