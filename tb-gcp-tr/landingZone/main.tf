@@ -437,5 +437,6 @@ module "bastion-security" {
 
   tb_bastion_id = module.shared_projects.tb_bastion_id
   shared_networking_id = module.shared_projects.shared_networking_id
+  nat_static_ip = module.shared-vpc.nat_static_ip
 }
 

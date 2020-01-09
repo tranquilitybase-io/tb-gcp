@@ -29,3 +29,7 @@ output "gke_subnetwork_ids" {
 output "tb_subnetwork_name"{
   value = google_compute_subnetwork.tb-bastion-subnetwork.name
 }
+
+output "nat_static_ip" {
+  value = google_compute_address.static.address
+}
