@@ -98,6 +98,7 @@ module "shared-vpc" {
   create_nat_gateway       = var.create_nat_gateway
   router_nat_name          = var.router_nat_name
   service_projects_number  = var.service_projects_number
+  region                   = var.region
   service_project_ids      = [module.shared_projects.shared_security_id, module.shared_projects.shared_operations_id, module.shared_projects.shared_ssp_id]
 }
 
