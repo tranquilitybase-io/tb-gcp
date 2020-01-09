@@ -42,7 +42,7 @@
   
   
 
-    <meta name="request-id" content="C969:10F81:11CE5EC:1AC5F3F:5E1706A8" data-pjax-transient>
+    <meta name="request-id" content="C833:39D5:EFC188:165D82C:5E1738A7" data-pjax-transient>
 
 
 
@@ -54,7 +54,7 @@
     <meta name="google-site-verification" content="ZzhVyEFwb7w3e0-uOTltm8Jsck2F5StVihD0exw2fsA">
     <meta name="google-site-verification" content="GXs5KoUUkNCoaAZn7wPN-t01Pywp9M3sEjnt_3_ZWPc">
 
-    <meta name="octolytics-host" content="collector.githubapp.com" /><meta name="octolytics-app-id" content="github" /><meta name="octolytics-event-url" content="https://collector.githubapp.com/github-external/browser_event" /><meta name="octolytics-dimension-request_id" content="C969:10F81:11CE5EC:1AC5F3F:5E1706A8" /><meta name="octolytics-dimension-region_edge" content="ams" /><meta name="octolytics-dimension-region_render" content="iad" /><meta name="octolytics-dimension-ga_id" content="" class="js-octo-ga-id" /><meta name="octolytics-dimension-visitor_id" content="4008789937269180073" />
+    <meta name="octolytics-host" content="collector.githubapp.com" /><meta name="octolytics-app-id" content="github" /><meta name="octolytics-event-url" content="https://collector.githubapp.com/github-external/browser_event" /><meta name="octolytics-dimension-request_id" content="C833:39D5:EFC188:165D82C:5E1738A7" /><meta name="octolytics-dimension-region_edge" content="ams" /><meta name="octolytics-dimension-region_render" content="iad" /><meta name="octolytics-dimension-ga_id" content="" class="js-octo-ga-id" /><meta name="octolytics-dimension-visitor_id" content="4330961288182577319" />
 
 <meta name="analytics-location" content="/&lt;user-name&gt;/&lt;repo-name&gt;/blob/show" data-pjax-transient="true" />
 
@@ -74,11 +74,11 @@
 
       <meta name="expected-hostname" content="github.com">
 
-      <meta name="js-proxy-site-detection-payload" content="ZmQ1MWVmMjY0OTcxODRlZTQyNjRmZTVjMjBiMTZjNGQ2Mjk3NTM5NDcyNmFhZTY4YjA3MDU2NTQwYjI1MTdjY3x7InJlbW90ZV9hZGRyZXNzIjoiNzkuMTIzLjI5LjIyNyIsInJlcXVlc3RfaWQiOiJDOTY5OjEwRjgxOjExQ0U1RUM6MUFDNUYzRjo1RTE3MDZBOCIsInRpbWVzdGFtcCI6MTU3ODU2NzMzNywiaG9zdCI6ImdpdGh1Yi5jb20ifQ==">
+      <meta name="js-proxy-site-detection-payload" content="NWJlNDA5M2MwM2E2NGY1OTBhN2Q5NTZhYjA1ZTQ0MGNiMDk3ZmQyNmM3MWE1NWY3ZjRlYWE4YzYxYTMwZjRiZnx7InJlbW90ZV9hZGRyZXNzIjoiNzkuMTIzLjI5LjIyNyIsInJlcXVlc3RfaWQiOiJDODMzOjM5RDU6RUZDMTg4OjE2NUQ4MkM6NUUxNzM4QTciLCJ0aW1lc3RhbXAiOjE1Nzg1ODAxMzUsImhvc3QiOiJnaXRodWIuY29tIn0=">
 
     <meta name="enabled-features" content="MARKETPLACE_FEATURED_BLOG_POSTS,MARKETPLACE_INVOICED_BILLING,MARKETPLACE_SOCIAL_PROOF_CUSTOMERS,MARKETPLACE_TRENDING_SOCIAL_PROOF,MARKETPLACE_RECOMMENDATIONS,MARKETPLACE_PENDING_INSTALLATIONS">
 
-    <meta name="html-safe-nonce" content="53a6e8dfc35271625aed86fdff2c090e3714348b">
+    <meta name="html-safe-nonce" content="e4161acd0d3675a9979003b28cfeb58ae8fc04af">
 
   <meta http-equiv="x-pjax-version" content="804dd5523544604839bf642694fe9798">
   
@@ -144,7 +144,7 @@
         <div class="d-flex flex-items-center">
             <a href="/join?source=header-repo"
               class="d-inline-block d-lg-none f5 text-white no-underline border border-gray-dark rounded-2 px-2 py-1 mr-3 mr-sm-5"
-              data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C969:10F81:11CE5EC:1AC5F3F:5E1706A8&quot;,&quot;originating_url&quot;:&quot;https://github.com/istio/istio/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="c95501bd069c92178ae030a45e22a7e57920b16a6306ea293d6a367d4d63abfc"
+              data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C833:39D5:EFC188:165D82C:5E1738A7&quot;,&quot;originating_url&quot;:&quot;https://github.com/istio/istio/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="e6b3bfec8c347e76e31f9eb0fd3d8b767dea389dedfa38795e8bb38bfae27b96"
               data-ga-click="(Logged out) Header, clicked Sign up, text:sign-up">
               Sign&nbsp;up
             </a>
@@ -284,7 +284,7 @@
           aria-autocomplete="list"
           aria-controls="jump-to-results"
           aria-label="Search"
-          data-jump-to-suggestions-path="/_graphql/GetSuggestedNavigationDestinations#csrf-token=eqMw87xbP0Q7ZHLqlGWg1U4b+bziDVTUYpgxHJhYIpTjXoAC0GF87QFOFDwlsxCZ2ly4G+VM0zFvHnCTqZFfJw=="
+          data-jump-to-suggestions-path="/_graphql/GetSuggestedNavigationDestinations#csrf-token=llR070dOt3arfjYQfA+1AsGD0Ispryr/ZrrOmqJ4znkL4ruaUKDUNgVBxHziOLWgsXPNrSqmc1OxPJzEhSRp7Q=="
           spellcheck="false"
           autocomplete="off"
           >
@@ -411,13 +411,13 @@
 
         <a href="/login?return_to=%2Fistio%2Fistio%2Fblob%2Fmaster%2FLICENSE"
           class="HeaderMenu-link no-underline mr-3"
-          data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C969:10F81:11CE5EC:1AC5F3F:5E1706A8&quot;,&quot;originating_url&quot;:&quot;https://github.com/istio/istio/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="533e6a35db89afcffea03d9be7e7d28e5a39343103e6c109c3221f14d53b82da"
+          data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C833:39D5:EFC188:165D82C:5E1738A7&quot;,&quot;originating_url&quot;:&quot;https://github.com/istio/istio/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="23222f0001a3fd699b752dc45ee4fb7f3ee0eb20674cf2e7661be3ae79953378"
           data-ga-click="(Logged out) Header, clicked Sign in, text:sign-in">
           Sign&nbsp;in
         </a>
           <a href="/join?source=header-repo&amp;source_repo=istio%2Fistio"
             class="HeaderMenu-link d-inline-block no-underline border border-gray-dark rounded-1 px-2 py-1"
-            data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C969:10F81:11CE5EC:1AC5F3F:5E1706A8&quot;,&quot;originating_url&quot;:&quot;https://github.com/istio/istio/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="533e6a35db89afcffea03d9be7e7d28e5a39343103e6c109c3221f14d53b82da"
+            data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C833:39D5:EFC188:165D82C:5E1738A7&quot;,&quot;originating_url&quot;:&quot;https://github.com/istio/istio/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="23222f0001a3fd699b752dc45ee4fb7f3ee0eb20674cf2e7661be3ae79953378"
             data-ga-click="(Logged out) Header, clicked Sign up, text:sign-up">
             Sign&nbsp;up
           </a>
@@ -484,7 +484,7 @@
 
   <li>
     
-  <a class="tooltipped tooltipped-s btn btn-sm btn-with-count" aria-label="You must be signed in to watch a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;notification subscription menu watch&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C969:10F81:11CE5EC:1AC5F3F:5E1706A8&quot;,&quot;originating_url&quot;:&quot;https://github.com/istio/istio/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="34cb81d125c323bec7ee021465fa7b31990490fe733e2a9e6c3ac32fc4dbbdc3" href="/login?return_to=%2Fistio%2Fistio">
+  <a class="tooltipped tooltipped-s btn btn-sm btn-with-count" aria-label="You must be signed in to watch a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;notification subscription menu watch&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C833:39D5:EFC188:165D82C:5E1738A7&quot;,&quot;originating_url&quot;:&quot;https://github.com/istio/istio/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="f3b730d5d819ee33bee8b9b9ba34a2e66e91bcdb095e99078350a93d5f118a3e" href="/login?return_to=%2Fistio%2Fistio">
     <svg class="octicon octicon-eye v-align-text-bottom" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8.06 2C3 2 0 8 0 8s3 6 8.06 6C13 14 16 8 16 8s-3-6-7.94-6zM8 12c-2.2 0-4-1.78-4-4 0-2.2 1.8-4 4-4 2.22 0 4 1.8 4 4 0 2.22-1.78 4-4 4zm2-4c0 1.11-.89 2-2 2-1.11 0-2-.89-2-2 0-1.11.89-2 2-2 1.11 0 2 .89 2 2z"/></svg>
     Watch
 </a>    <a class="social-count" href="/istio/istio/watchers"
@@ -495,20 +495,20 @@
   </li>
 
   <li>
-        <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to star a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;star button&quot;,&quot;repository_id&quot;:74175805,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C969:10F81:11CE5EC:1AC5F3F:5E1706A8&quot;,&quot;originating_url&quot;:&quot;https://github.com/istio/istio/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="80db4932bc3f656fe9c2576b3f7447c1af1a15d1164b83d7d20643717fa4b48c" href="/login?return_to=%2Fistio%2Fistio">
+        <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to star a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;star button&quot;,&quot;repository_id&quot;:74175805,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C833:39D5:EFC188:165D82C:5E1738A7&quot;,&quot;originating_url&quot;:&quot;https://github.com/istio/istio/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="c35c481190aa9eab7b62a3ef4bff3a35d299e5f8917a391241bd4f2e15deb9a7" href="/login?return_to=%2Fistio%2Fistio">
       <svg aria-label="star" height="16" class="octicon octicon-star v-align-text-bottom" viewBox="0 0 14 16" version="1.1" width="14" role="img"><path fill-rule="evenodd" d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74L14 6z"/></svg>
 
       Star
 </a>
     <a class="social-count js-social-count" href="/istio/istio/stargazers"
-      aria-label="21175 users starred this repository">
+      aria-label="21177 users starred this repository">
       21.2k
     </a>
 
   </li>
 
   <li>
-      <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to fork a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;repo details fork button&quot;,&quot;repository_id&quot;:74175805,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C969:10F81:11CE5EC:1AC5F3F:5E1706A8&quot;,&quot;originating_url&quot;:&quot;https://github.com/istio/istio/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="c85a38cd08c68276e49448ef713a4486765c1b1f68269c8aca9de68fc20adee8" href="/login?return_to=%2Fistio%2Fistio">
+      <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to fork a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;repo details fork button&quot;,&quot;repository_id&quot;:74175805,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C833:39D5:EFC188:165D82C:5E1738A7&quot;,&quot;originating_url&quot;:&quot;https://github.com/istio/istio/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="d9627ac72d0f149c62bd5f2454f638186db852fd9d79b5dcbe8ba63e9db035f0" href="/login?return_to=%2Fistio%2Fistio">
         <svg class="octicon octicon-repo-forked v-align-text-bottom" viewBox="0 0 10 16" version="1.1" width="10" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 1a1.993 1.993 0 00-1 3.72V6L5 8 3 6V4.72A1.993 1.993 0 002 1a1.993 1.993 0 00-1 3.72V6.5l3 3v1.78A1.993 1.993 0 005 15a1.993 1.993 0 001-3.72V9.5l3-3V4.72A1.993 1.993 0 008 1zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3 10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3-10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"/></svg>
         Fork
 </a>
@@ -538,7 +538,7 @@
       <a itemprop="url" data-hotkey="g i" class="js-selected-navigation-item reponav-item" data-selected-links="repo_issues repo_labels repo_milestones /istio/istio/issues" href="/istio/istio/issues">
         <div class="d-inline"><svg class="octicon octicon-issue-opened" viewBox="0 0 14 16" version="1.1" width="14" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 011.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"/></svg></div>
         <span itemprop="name">Issues</span>
-        <span class="Counter">997</span>
+        <span class="Counter">1,000</span>
         <meta itemprop="position" content="2">
 </a>    </span>
 
@@ -547,7 +547,7 @@
     <a data-hotkey="g p" data-skip-pjax="true" itemprop="url" class="js-selected-navigation-item reponav-item" data-selected-links="repo_pulls checks /istio/istio/pulls" href="/istio/istio/pulls">
       <div class="d-inline"><svg class="octicon octicon-git-pull-request" viewBox="0 0 12 16" version="1.1" width="12" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M11 11.28V5c-.03-.78-.34-1.47-.94-2.06C9.46 2.35 8.78 2.03 8 2H7V0L4 3l3 3V4h1c.27.02.48.11.69.31.21.2.3.42.31.69v6.28A1.993 1.993 0 0010 15a1.993 1.993 0 001-3.72zm-1 2.92c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zM4 3c0-1.11-.89-2-2-2a1.993 1.993 0 00-1 3.72v6.56A1.993 1.993 0 002 15a1.993 1.993 0 001-3.72V4.72c.59-.34 1-.98 1-1.72zm-.8 10c0 .66-.55 1.2-1.2 1.2-.65 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"/></svg></div>
       <span itemprop="name">Pull requests</span>
-      <span class="Counter">68</span>
+      <span class="Counter">71</span>
       <meta itemprop="position" content="4">
 </a>  </span>
 
@@ -583,14 +583,14 @@
       <span itemscope itemtype="http://schema.org/ListItem" itemprop="itemListElement">
         <a itemprop="url" class="js-selected-navigation-item reponav-item" data-selected-links="repo_issues repo_labels repo_milestones /istio/istio/issues" href="/istio/istio/issues">
           <span itemprop="name">Issues</span>
-          <span class="Counter">997</span>
+          <span class="Counter">1,000</span>
           <meta itemprop="position" content="2">
 </a>      </span>
 
     <span itemscope itemtype="http://schema.org/ListItem" itemprop="itemListElement">
       <a itemprop="url" class="js-selected-navigation-item reponav-item" data-selected-links="repo_pulls checks /istio/istio/pulls" href="/istio/istio/pulls">
         <span itemprop="name">Pull requests</span>
-        <span class="Counter">68</span>
+        <span class="Counter">71</span>
         <meta itemprop="position" content="3">
 </a>    </span>
 
@@ -630,13 +630,13 @@
           <div class="signup-prompt-bg rounded-1">
       <div class="signup-prompt p-4 text-center mb-4 rounded-1">
         <div class="position-relative">
-          <!-- '"` --><!-- </textarea></xmp> --></option></form><form action="/prompt_dismissals/signup" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="_method" value="put" /><input type="hidden" name="authenticity_token" value="QMS2jwZew6EpO9krKc8ZS+e0x/Tu+jWGgcrC0Nln/CAkcN1RLPfzbXlMeUE2N3cYhve5EFUE8KFBK9mNd54cmQ==" />
+          <!-- '"` --><!-- </textarea></xmp> --></option></form><form action="/prompt_dismissals/signup" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="_method" value="put" /><input type="hidden" name="authenticity_token" value="H9ufEA/xHUwWwF0LjsMdTeOztN/0tBkMhWta7TPngrrzKo3sILZdpP4yK0apTQ0idjgFX0pWI045fWpUTb675w==" />
             <button type="submit" class="position-absolute top-0 right-0 btn-link link-gray" data-ga-click="(Logged out) Sign up prompt, clicked Dismiss, text:dismiss">
               Dismiss
             </button>
 </form>          <h3 class="pt-2">Join GitHub today</h3>
           <p class="col-6 mx-auto">GitHub is home to over 40 million developers working together to host and review code, manage projects, and build software together.</p>
-          <a class="btn btn-primary" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;files signup prompt&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C969:10F81:11CE5EC:1AC5F3F:5E1706A8&quot;,&quot;originating_url&quot;:&quot;https://github.com/istio/istio/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="f3f380a1a0bb6a6f2e7e6203fe93368ef561836043a746c22daa98a4e810c2c7" data-ga-click="(Logged out) Sign up prompt, clicked Sign up, text:sign-up" href="/join?source=prompt-blob-show&amp;source_repo=istio%2Fistio">Sign up</a>
+          <a class="btn btn-primary" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;files signup prompt&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C833:39D5:EFC188:165D82C:5E1738A7&quot;,&quot;originating_url&quot;:&quot;https://github.com/istio/istio/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="68487fbd8dce7e1b2c6948ba42ea24e24bd5949533ce92e3e72a6bd914a433a7" data-ga-click="(Logged out) Sign up prompt, clicked Sign up, text:sign-up" href="/join?source=prompt-blob-show&amp;source_repo=istio%2Fistio">Sign up</a>
         </div>
       </div>
     </div>

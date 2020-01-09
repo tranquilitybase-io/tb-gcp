@@ -42,7 +42,7 @@
   
   
 
-    <meta name="request-id" content="C97F:340AA:1EE93A6:2E74AC2:5E1706BC" data-pjax-transient>
+    <meta name="request-id" content="C816:22988:95C71D:DF992C:5E173881" data-pjax-transient>
 
 
 
@@ -54,7 +54,7 @@
     <meta name="google-site-verification" content="ZzhVyEFwb7w3e0-uOTltm8Jsck2F5StVihD0exw2fsA">
     <meta name="google-site-verification" content="GXs5KoUUkNCoaAZn7wPN-t01Pywp9M3sEjnt_3_ZWPc">
 
-    <meta name="octolytics-host" content="collector.githubapp.com" /><meta name="octolytics-app-id" content="github" /><meta name="octolytics-event-url" content="https://collector.githubapp.com/github-external/browser_event" /><meta name="octolytics-dimension-request_id" content="C97F:340AA:1EE93A6:2E74AC2:5E1706BC" /><meta name="octolytics-dimension-region_edge" content="ams" /><meta name="octolytics-dimension-region_render" content="iad" /><meta name="octolytics-dimension-ga_id" content="" class="js-octo-ga-id" /><meta name="octolytics-dimension-visitor_id" content="6038432795202094781" />
+    <meta name="octolytics-host" content="collector.githubapp.com" /><meta name="octolytics-app-id" content="github" /><meta name="octolytics-event-url" content="https://collector.githubapp.com/github-external/browser_event" /><meta name="octolytics-dimension-request_id" content="C816:22988:95C71D:DF992C:5E173881" /><meta name="octolytics-dimension-region_edge" content="ams" /><meta name="octolytics-dimension-region_render" content="iad" /><meta name="octolytics-dimension-ga_id" content="" class="js-octo-ga-id" /><meta name="octolytics-dimension-visitor_id" content="2404767081260595330" />
 
 <meta name="analytics-location" content="/&lt;user-name&gt;/&lt;repo-name&gt;/blob/show" data-pjax-transient="true" />
 
@@ -74,11 +74,11 @@
 
       <meta name="expected-hostname" content="github.com">
 
-      <meta name="js-proxy-site-detection-payload" content="MjkyMDgwODBmMTkwODdmNDk4OWY5NDExMzliMjE5NzQ2N2U2Y2I0OWZjMTExMTIwNWJlZjdmNDRmNWM4MzBkNHx7InJlbW90ZV9hZGRyZXNzIjoiNzkuMTIzLjI5LjIyNyIsInJlcXVlc3RfaWQiOiJDOTdGOjM0MEFBOjFFRTkzQTY6MkU3NEFDMjo1RTE3MDZCQyIsInRpbWVzdGFtcCI6MTU3ODU2NzM1NywiaG9zdCI6ImdpdGh1Yi5jb20ifQ==">
+      <meta name="js-proxy-site-detection-payload" content="ZWU4YWJlZDNhZmY3ZjJjZGViNjRmNjlmYjVmOWMzYTMyOThhNzIxNGI0MDgwN2I3OGZjMjNkNDBjM2JiMGNhNXx7InJlbW90ZV9hZGRyZXNzIjoiNzkuMTIzLjI5LjIyNyIsInJlcXVlc3RfaWQiOiJDODE2OjIyOTg4Ojk1QzcxRDpERjk5MkM6NUUxNzM4ODEiLCJ0aW1lc3RhbXAiOjE1Nzg1ODAwOTgsImhvc3QiOiJnaXRodWIuY29tIn0=">
 
     <meta name="enabled-features" content="MARKETPLACE_FEATURED_BLOG_POSTS,MARKETPLACE_INVOICED_BILLING,MARKETPLACE_SOCIAL_PROOF_CUSTOMERS,MARKETPLACE_TRENDING_SOCIAL_PROOF,MARKETPLACE_RECOMMENDATIONS,MARKETPLACE_PENDING_INSTALLATIONS">
 
-    <meta name="html-safe-nonce" content="d6efc03119f4c08d5309a3a2408475f13db6b584">
+    <meta name="html-safe-nonce" content="406381438c97fe13eb5d3dfdbeb71d3ff3bcc5b4">
 
   <meta http-equiv="x-pjax-version" content="804dd5523544604839bf642694fe9798">
   
@@ -144,7 +144,7 @@
         <div class="d-flex flex-items-center">
             <a href="/join?source=header-repo"
               class="d-inline-block d-lg-none f5 text-white no-underline border border-gray-dark rounded-2 px-2 py-1 mr-3 mr-sm-5"
-              data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C97F:340AA:1EE93A6:2E74AC2:5E1706BC&quot;,&quot;originating_url&quot;:&quot;https://github.com/urllib3/urllib3/blob/master/LICENSE.txt&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="8b7be3a86222a03a188f0bba7d4a1224789ebba28b78245e86c9d2a7d5fb9b57"
+              data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C816:22988:95C71D:DF992C:5E173881&quot;,&quot;originating_url&quot;:&quot;https://github.com/urllib3/urllib3/blob/master/LICENSE.txt&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="ee844192dfc42f706075a5d8d224764b3ad5ddb6af687ec343217cc764b339cf"
               data-ga-click="(Logged out) Header, clicked Sign up, text:sign-up">
               Sign&nbsp;up
             </a>
@@ -284,7 +284,7 @@
           aria-autocomplete="list"
           aria-controls="jump-to-results"
           aria-label="Search"
-          data-jump-to-suggestions-path="/_graphql/GetSuggestedNavigationDestinations#csrf-token=+2dfrcWmI65xySN1a31WOVX8a2bL66fL8vao597+h8rn67OccJyJSaG/VelLVuou5FK2CA0Q58undPbMmH7Bmw=="
+          data-jump-to-suggestions-path="/_graphql/GetSuggestedNavigationDestinations#csrf-token=6oceCM11Pd4ZvbhIYXJ1RrqOjfnwiQh8Zj0bfqJXjKTdLik/auiSolr7x1A0kjt7X++DkGyREDINVis19hv5uA=="
           spellcheck="false"
           autocomplete="off"
           >
@@ -411,13 +411,13 @@
 
         <a href="/login?return_to=%2Furllib3%2Furllib3%2Fblob%2Fmaster%2FLICENSE.txt"
           class="HeaderMenu-link no-underline mr-3"
-          data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C97F:340AA:1EE93A6:2E74AC2:5E1706BC&quot;,&quot;originating_url&quot;:&quot;https://github.com/urllib3/urllib3/blob/master/LICENSE.txt&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="cc75d4a5fa06d404b4e824be1d7aebf1fd958a4c4c18a50d03cc3d38ad7853d4"
+          data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C816:22988:95C71D:DF992C:5E173881&quot;,&quot;originating_url&quot;:&quot;https://github.com/urllib3/urllib3/blob/master/LICENSE.txt&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="59c6f36ef1b82e026830a607847036d57779fadfb2cda0cae463ac7608889f59"
           data-ga-click="(Logged out) Header, clicked Sign in, text:sign-in">
           Sign&nbsp;in
         </a>
           <a href="/join?source=header-repo&amp;source_repo=urllib3%2Furllib3"
             class="HeaderMenu-link d-inline-block no-underline border border-gray-dark rounded-1 px-2 py-1"
-            data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C97F:340AA:1EE93A6:2E74AC2:5E1706BC&quot;,&quot;originating_url&quot;:&quot;https://github.com/urllib3/urllib3/blob/master/LICENSE.txt&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="cc75d4a5fa06d404b4e824be1d7aebf1fd958a4c4c18a50d03cc3d38ad7853d4"
+            data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C816:22988:95C71D:DF992C:5E173881&quot;,&quot;originating_url&quot;:&quot;https://github.com/urllib3/urllib3/blob/master/LICENSE.txt&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="59c6f36ef1b82e026830a607847036d57779fadfb2cda0cae463ac7608889f59"
             data-ga-click="(Logged out) Header, clicked Sign up, text:sign-up">
             Sign&nbsp;up
           </a>
@@ -515,7 +515,7 @@
 
   <li>
     
-  <a class="tooltipped tooltipped-s btn btn-sm btn-with-count" aria-label="You must be signed in to watch a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;notification subscription menu watch&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C97F:340AA:1EE93A6:2E74AC2:5E1706BC&quot;,&quot;originating_url&quot;:&quot;https://github.com/urllib3/urllib3/blob/master/LICENSE.txt&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="e91f99154dd99478cf605187d29e8280f05e1401ea856f875c557bc6ce71bb78" href="/login?return_to=%2Furllib3%2Furllib3">
+  <a class="tooltipped tooltipped-s btn btn-sm btn-with-count" aria-label="You must be signed in to watch a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;notification subscription menu watch&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C816:22988:95C71D:DF992C:5E173881&quot;,&quot;originating_url&quot;:&quot;https://github.com/urllib3/urllib3/blob/master/LICENSE.txt&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="32e3a00a293071f04dee7f38a76ade29bf10f7577a52320b717df6f081d13d82" href="/login?return_to=%2Furllib3%2Furllib3">
     <svg class="octicon octicon-eye v-align-text-bottom" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8.06 2C3 2 0 8 0 8s3 6 8.06 6C13 14 16 8 16 8s-3-6-7.94-6zM8 12c-2.2 0-4-1.78-4-4 0-2.2 1.8-4 4-4 2.22 0 4 1.8 4 4 0 2.22-1.78 4-4 4zm2-4c0 1.11-.89 2-2 2-1.11 0-2-.89-2-2 0-1.11.89-2 2-2 1.11 0 2 .89 2 2z"/></svg>
     Watch
 </a>    <a class="social-count" href="/urllib3/urllib3/watchers"
@@ -526,20 +526,20 @@
   </li>
 
   <li>
-        <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to star a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;star button&quot;,&quot;repository_id&quot;:2410676,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C97F:340AA:1EE93A6:2E74AC2:5E1706BC&quot;,&quot;originating_url&quot;:&quot;https://github.com/urllib3/urllib3/blob/master/LICENSE.txt&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="d2c315e7713b9e4e6781102a5ec643709dea923ee79444ae5dea059e4c34990c" href="/login?return_to=%2Furllib3%2Furllib3">
+        <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to star a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;star button&quot;,&quot;repository_id&quot;:2410676,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C816:22988:95C71D:DF992C:5E173881&quot;,&quot;originating_url&quot;:&quot;https://github.com/urllib3/urllib3/blob/master/LICENSE.txt&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="43edae3db7142391bd8ba6d0a398749901d489937f28108644aff8f5a5bd8dd9" href="/login?return_to=%2Furllib3%2Furllib3">
       <svg aria-label="star" height="16" class="octicon octicon-star v-align-text-bottom" viewBox="0 0 14 16" version="1.1" width="14" role="img"><path fill-rule="evenodd" d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74L14 6z"/></svg>
 
       Star
 </a>
     <a class="social-count js-social-count" href="/urllib3/urllib3/stargazers"
-      aria-label="2207 users starred this repository">
+      aria-label="2208 users starred this repository">
       2.2k
     </a>
 
   </li>
 
   <li>
-      <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to fork a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;repo details fork button&quot;,&quot;repository_id&quot;:2410676,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C97F:340AA:1EE93A6:2E74AC2:5E1706BC&quot;,&quot;originating_url&quot;:&quot;https://github.com/urllib3/urllib3/blob/master/LICENSE.txt&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="179216c23bbc7d1de03cb0bebcce0663303be51a355d2858d8cf50db890c2e21" href="/login?return_to=%2Furllib3%2Furllib3">
+      <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to fork a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;repo details fork button&quot;,&quot;repository_id&quot;:2410676,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C816:22988:95C71D:DF992C:5E173881&quot;,&quot;originating_url&quot;:&quot;https://github.com/urllib3/urllib3/blob/master/LICENSE.txt&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="4295387d132cbbcb17b19fd85929624c36d76e8cd507393470a94e6fef1a5c41" href="/login?return_to=%2Furllib3%2Furllib3">
         <svg class="octicon octicon-repo-forked v-align-text-bottom" viewBox="0 0 10 16" version="1.1" width="10" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 1a1.993 1.993 0 00-1 3.72V6L5 8 3 6V4.72A1.993 1.993 0 002 1a1.993 1.993 0 00-1 3.72V6.5l3 3v1.78A1.993 1.993 0 005 15a1.993 1.993 0 001-3.72V9.5l3-3V4.72A1.993 1.993 0 008 1zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3 10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3-10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"/></svg>
         Fork
 </a>
@@ -660,34 +660,17 @@
     <a class="d-none js-permalink-shortcut" data-hotkey="y" href="/urllib3/urllib3/blob/fb71b3854c466f76fcae2681f867b4f4db0351ec/LICENSE.txt">Permalink</a>
 
     <!-- blob contrib key: blob_contributors:v21:6ad8d4c6024e7b162849a5c7a7d73208 -->
-          <div class="signup-prompt mx-auto mb-6 p-4 border rounded-2"
-      style="background-image: url('https://github.githubassets.com/images/modules/site/heroes/octocat-unpacking-hubot.svg'); background-position: 94% 96%; background-size: auto 170%;">
-      <div class="position-relative">
-        <!-- '"` --><!-- </textarea></xmp> --></option></form><form action="/prompt_dismissals/blobs" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="_method" value="put" /><input type="hidden" name="authenticity_token" value="MVosiZ1uGqSjli4IvAHntP1OM4LjV/EIy3HLEdqOUxVlz9hsmdk+q+pUlkF8CATtN7Q12pLHrIaL/f2zleQ8lQ==" />
-          <button
-            type="submit"
-            class="position-absolute top-0 right-0 py-1 px-2 border bg-white btn-link link-gray no-underline f6"
-            data-ga-click="(Logged out) Sign up prompt, click, text:Dismiss"
-            data-ga-load="Blob, view, type:redesigned signup prompt">
-            Dismiss
-          </button>
-</form>        <h3>All your code in one place</h3>
-        <p class="col-md-7">
-          GitHub makes it easy to scale back on context switching. Read rendered
-          documentation, see the history of any file, and collaborate with
-          contributors on projects across GitHub.
-        </p>
-        <a href="/join?source=prompt-blob-show"
-          class="btn btn-primary mr-2"
-          data-ga-click="(Logged out) Sign up prompt, click, text:Sign up for free"
-          data-ga-load="Blob, view, type:redesigned signup prompt">
-          Sign up for free
-        </a>
-        <a href="/pricing"
-          data-ga-click="(Logged out) Sign up prompt, click, text:See pricing for teams and enterprises"
-          data-ga-load="Blob, view, type:redesigned signup prompt">
-          See pricing for teams and enterprises
-        </a>
+          <div class="signup-prompt-bg rounded-1">
+      <div class="signup-prompt p-4 text-center mb-4 rounded-1">
+        <div class="position-relative">
+          <!-- '"` --><!-- </textarea></xmp> --></option></form><form action="/prompt_dismissals/signup" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="_method" value="put" /><input type="hidden" name="authenticity_token" value="TL2ctFEeCg7/zge3IsPZmBMip0EyFZ0DEWbXqF9yd/2GV1MBNfbIQoY6rtPbIjAIDqdzw9lozdsjBsEQXQ/qUQ==" />
+            <button type="submit" class="position-absolute top-0 right-0 btn-link link-gray" data-ga-click="(Logged out) Sign up prompt, clicked Dismiss, text:dismiss">
+              Dismiss
+            </button>
+</form>          <h3 class="pt-2">Join GitHub today</h3>
+          <p class="col-6 mx-auto">GitHub is home to over 40 million developers working together to host and review code, manage projects, and build software together.</p>
+          <a class="btn btn-primary" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;files signup prompt&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C816:22988:95C71D:DF992C:5E173881&quot;,&quot;originating_url&quot;:&quot;https://github.com/urllib3/urllib3/blob/master/LICENSE.txt&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="da658df896393914b008cba375ebf13c6538f2c4fd4abf15fc525f78f29346f5" data-ga-click="(Logged out) Sign up prompt, clicked Sign up, text:sign-up" href="/join?source=prompt-blob-show&amp;source_repo=urllib3%2Furllib3">Sign up</a>
+        </div>
       </div>
     </div>
 

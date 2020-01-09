@@ -42,7 +42,7 @@
   
   
 
-    <meta name="request-id" content="C974:26746:4C58F8:723187:5E1706B1" data-pjax-transient>
+    <meta name="request-id" content="C825:39DA:197E75B:2616CD1:5E173890" data-pjax-transient>
 
 
 
@@ -54,7 +54,7 @@
     <meta name="google-site-verification" content="ZzhVyEFwb7w3e0-uOTltm8Jsck2F5StVihD0exw2fsA">
     <meta name="google-site-verification" content="GXs5KoUUkNCoaAZn7wPN-t01Pywp9M3sEjnt_3_ZWPc">
 
-    <meta name="octolytics-host" content="collector.githubapp.com" /><meta name="octolytics-app-id" content="github" /><meta name="octolytics-event-url" content="https://collector.githubapp.com/github-external/browser_event" /><meta name="octolytics-dimension-request_id" content="C974:26746:4C58F8:723187:5E1706B1" /><meta name="octolytics-dimension-region_edge" content="ams" /><meta name="octolytics-dimension-region_render" content="iad" /><meta name="octolytics-dimension-ga_id" content="" class="js-octo-ga-id" /><meta name="octolytics-dimension-visitor_id" content="2135685159668090546" />
+    <meta name="octolytics-host" content="collector.githubapp.com" /><meta name="octolytics-app-id" content="github" /><meta name="octolytics-event-url" content="https://collector.githubapp.com/github-external/browser_event" /><meta name="octolytics-dimension-request_id" content="C825:39DA:197E75B:2616CD1:5E173890" /><meta name="octolytics-dimension-region_edge" content="ams" /><meta name="octolytics-dimension-region_render" content="iad" /><meta name="octolytics-dimension-ga_id" content="" class="js-octo-ga-id" /><meta name="octolytics-dimension-visitor_id" content="9180302922432854160" />
 
 <meta name="analytics-location" content="/&lt;user-name&gt;/&lt;repo-name&gt;/blob/show" data-pjax-transient="true" />
 
@@ -74,11 +74,11 @@
 
       <meta name="expected-hostname" content="github.com">
 
-      <meta name="js-proxy-site-detection-payload" content="ZDJlNTcyMTcxZWRkZDY0MjA4OTczZmNkOWRhNTcyYWVjMzBmZTM5ZjkwMmJlOGU4NTUyYmJlZjgzODE4MTA1NXx7InJlbW90ZV9hZGRyZXNzIjoiNzkuMTIzLjI5LjIyNyIsInJlcXVlc3RfaWQiOiJDOTc0OjI2NzQ2OjRDNThGODo3MjMxODc6NUUxNzA2QjEiLCJ0aW1lc3RhbXAiOjE1Nzg1NjczNDYsImhvc3QiOiJnaXRodWIuY29tIn0=">
+      <meta name="js-proxy-site-detection-payload" content="ODZmMTZjZTUyYjNhMjY1ODNiOGE4Y2Y0YWI2ZDhmYjIyZjRjMWE4YjllMTY0Nzg0MGU1ODc2MDU0MTViNDNhN3x7InJlbW90ZV9hZGRyZXNzIjoiNzkuMTIzLjI5LjIyNyIsInJlcXVlc3RfaWQiOiJDODI1OjM5REE6MTk3RTc1QjoyNjE2Q0QxOjVFMTczODkwIiwidGltZXN0YW1wIjoxNTc4NTgwMTEyLCJob3N0IjoiZ2l0aHViLmNvbSJ9">
 
     <meta name="enabled-features" content="MARKETPLACE_FEATURED_BLOG_POSTS,MARKETPLACE_INVOICED_BILLING,MARKETPLACE_SOCIAL_PROOF_CUSTOMERS,MARKETPLACE_TRENDING_SOCIAL_PROOF,MARKETPLACE_RECOMMENDATIONS,MARKETPLACE_PENDING_INSTALLATIONS">
 
-    <meta name="html-safe-nonce" content="2514f3328524bae4cd94ee3a1523c46544c51945">
+    <meta name="html-safe-nonce" content="1da6997888576a826bae132ca74289ea9edec31a">
 
   <meta http-equiv="x-pjax-version" content="804dd5523544604839bf642694fe9798">
   
@@ -144,7 +144,7 @@
         <div class="d-flex flex-items-center">
             <a href="/join?source=header-repo"
               class="d-inline-block d-lg-none f5 text-white no-underline border border-gray-dark rounded-2 px-2 py-1 mr-3 mr-sm-5"
-              data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C974:26746:4C58F8:723187:5E1706B1&quot;,&quot;originating_url&quot;:&quot;https://github.com/etingof/pyasn1/blob/master/LICENSE.rst&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="14847271b19ea7a24fc4f010e8fac30cd1cfdfecf75a1a33604048928383d6c9"
+              data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C825:39DA:197E75B:2616CD1:5E173890&quot;,&quot;originating_url&quot;:&quot;https://github.com/etingof/pyasn1/blob/master/LICENSE.rst&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="e0633d708dfc2d2ac10f4525d71137197529e64061d470970c2c96b38d4e16d5"
               data-ga-click="(Logged out) Header, clicked Sign up, text:sign-up">
               Sign&nbsp;up
             </a>
@@ -284,7 +284,7 @@
           aria-autocomplete="list"
           aria-controls="jump-to-results"
           aria-label="Search"
-          data-jump-to-suggestions-path="/_graphql/GetSuggestedNavigationDestinations#csrf-token=BSLg/JQQaeULtMvGO6Hj2AgHULYEst28WeA0zQ6QyuR3/Jwm6ctaJ809WiWEUO9YTZ27lP1Hgp37C111VTLo0g=="
+          data-jump-to-suggestions-path="/_graphql/GetSuggestedNavigationDestinations#csrf-token=X4vVg7wNmt1nDhrQmNqw+0Vpg4lL8tUbFA91GDcT++sCgayz1zgWRbwx3DaGjvHx4nERpr+1ifq4RxiTMNMehA=="
           spellcheck="false"
           autocomplete="off"
           >
@@ -411,13 +411,13 @@
 
         <a href="/login?return_to=%2Fetingof%2Fpyasn1%2Fblob%2Fmaster%2FLICENSE.rst"
           class="HeaderMenu-link no-underline mr-3"
-          data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C974:26746:4C58F8:723187:5E1706B1&quot;,&quot;originating_url&quot;:&quot;https://github.com/etingof/pyasn1/blob/master/LICENSE.rst&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="23bb25ec4cf2aca09c5d90cf2d8899e0cde9a701d3f3975bbed2b91a1003859f"
+          data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C825:39DA:197E75B:2616CD1:5E173890&quot;,&quot;originating_url&quot;:&quot;https://github.com/etingof/pyasn1/blob/master/LICENSE.rst&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="914b788dc934257502b35520c2d354a0027842a897e1750ba0911c7d789f729e"
           data-ga-click="(Logged out) Header, clicked Sign in, text:sign-in">
           Sign&nbsp;in
         </a>
           <a href="/join?source=header-repo&amp;source_repo=etingof%2Fpyasn1"
             class="HeaderMenu-link d-inline-block no-underline border border-gray-dark rounded-1 px-2 py-1"
-            data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C974:26746:4C58F8:723187:5E1706B1&quot;,&quot;originating_url&quot;:&quot;https://github.com/etingof/pyasn1/blob/master/LICENSE.rst&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="23bb25ec4cf2aca09c5d90cf2d8899e0cde9a701d3f3975bbed2b91a1003859f"
+            data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C825:39DA:197E75B:2616CD1:5E173890&quot;,&quot;originating_url&quot;:&quot;https://github.com/etingof/pyasn1/blob/master/LICENSE.rst&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="914b788dc934257502b35520c2d354a0027842a897e1750ba0911c7d789f729e"
             data-ga-click="(Logged out) Header, clicked Sign up, text:sign-up">
             Sign&nbsp;up
           </a>
@@ -512,7 +512,7 @@
 
   <li>
     
-  <a class="tooltipped tooltipped-s btn btn-sm btn-with-count" aria-label="You must be signed in to watch a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;notification subscription menu watch&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C974:26746:4C58F8:723187:5E1706B1&quot;,&quot;originating_url&quot;:&quot;https://github.com/etingof/pyasn1/blob/master/LICENSE.rst&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="7db3335c738b6f9d3ad6d580ba6338101478add16fec448c0950bf342d7e0955" href="/login?return_to=%2Fetingof%2Fpyasn1">
+  <a class="tooltipped tooltipped-s btn btn-sm btn-with-count" aria-label="You must be signed in to watch a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;notification subscription menu watch&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C825:39DA:197E75B:2616CD1:5E173890&quot;,&quot;originating_url&quot;:&quot;https://github.com/etingof/pyasn1/blob/master/LICENSE.rst&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="b498988b7eafb229885b167214235f030ca00e0656dddaf3b2cea487d0bd4e57" href="/login?return_to=%2Fetingof%2Fpyasn1">
     <svg class="octicon octicon-eye v-align-text-bottom" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8.06 2C3 2 0 8 0 8s3 6 8.06 6C13 14 16 8 16 8s-3-6-7.94-6zM8 12c-2.2 0-4-1.78-4-4 0-2.2 1.8-4 4-4 2.22 0 4 1.8 4 4 0 2.22-1.78 4-4 4zm2-4c0 1.11-.89 2-2 2-1.11 0-2-.89-2-2 0-1.11.89-2 2-2 1.11 0 2 .89 2 2z"/></svg>
     Watch
 </a>    <a class="social-count" href="/etingof/pyasn1/watchers"
@@ -523,7 +523,7 @@
   </li>
 
   <li>
-        <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to star a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;star button&quot;,&quot;repository_id&quot;:52479161,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C974:26746:4C58F8:723187:5E1706B1&quot;,&quot;originating_url&quot;:&quot;https://github.com/etingof/pyasn1/blob/master/LICENSE.rst&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="95721f63ef711f62f65c0bc465ffaf64bf160bf2c90ece16c1ca9d5f65e4ea53" href="/login?return_to=%2Fetingof%2Fpyasn1">
+        <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to star a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;star button&quot;,&quot;repository_id&quot;:52479161,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C825:39DA:197E75B:2616CD1:5E173890&quot;,&quot;originating_url&quot;:&quot;https://github.com/etingof/pyasn1/blob/master/LICENSE.rst&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="83c2d8ab9ca732d39d794a6d6f710a5a81af0e6975407470ce5a393f32f6b140" href="/login?return_to=%2Fetingof%2Fpyasn1">
       <svg aria-label="star" height="16" class="octicon octicon-star v-align-text-bottom" viewBox="0 0 14 16" version="1.1" width="14" role="img"><path fill-rule="evenodd" d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74L14 6z"/></svg>
 
       Star
@@ -536,7 +536,7 @@
   </li>
 
   <li>
-      <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to fork a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;repo details fork button&quot;,&quot;repository_id&quot;:52479161,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C974:26746:4C58F8:723187:5E1706B1&quot;,&quot;originating_url&quot;:&quot;https://github.com/etingof/pyasn1/blob/master/LICENSE.rst&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="ba8f0497027155f389bd7755c7a774c0dd4c439949546b8940edb757b3b05da7" href="/login?return_to=%2Fetingof%2Fpyasn1">
+      <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to fork a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;repo details fork button&quot;,&quot;repository_id&quot;:52479161,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C825:39DA:197E75B:2616CD1:5E173890&quot;,&quot;originating_url&quot;:&quot;https://github.com/etingof/pyasn1/blob/master/LICENSE.rst&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="fb0dd378ee0b57950b6e4f95376a5408e354c2b6cce203598e3e842af1898b40" href="/login?return_to=%2Fetingof%2Fpyasn1">
         <svg class="octicon octicon-repo-forked v-align-text-bottom" viewBox="0 0 10 16" version="1.1" width="10" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 1a1.993 1.993 0 00-1 3.72V6L5 8 3 6V4.72A1.993 1.993 0 002 1a1.993 1.993 0 00-1 3.72V6.5l3 3v1.78A1.993 1.993 0 005 15a1.993 1.993 0 001-3.72V9.5l3-3V4.72A1.993 1.993 0 008 1zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3 10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3-10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"/></svg>
         Fork
 </a>
@@ -660,13 +660,13 @@
           <div class="signup-prompt-bg rounded-1">
       <div class="signup-prompt p-4 text-center mb-4 rounded-1">
         <div class="position-relative">
-          <!-- '"` --><!-- </textarea></xmp> --></option></form><form action="/prompt_dismissals/signup" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="_method" value="put" /><input type="hidden" name="authenticity_token" value="ckZZIPg/NNJtYLe/dT+aO6RxY2eYQ62WZJ70o+psbQOlU0/c+PMEHqG0z8Gf6dWwlxzph92LKF1bQy2ZrvLIlg==" />
+          <!-- '"` --><!-- </textarea></xmp> --></option></form><form action="/prompt_dismissals/signup" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="_method" value="put" /><input type="hidden" name="authenticity_token" value="Expk4pxrR+YMeTA/Q0GY6UzqiiEjulE/pQn91JVbKYuhjkbj+pt9XklMSUJcd1zquVNRr1N3pg/PgjiYTQTXLg==" />
             <button type="submit" class="position-absolute top-0 right-0 btn-link link-gray" data-ga-click="(Logged out) Sign up prompt, clicked Dismiss, text:dismiss">
               Dismiss
             </button>
 </form>          <h3 class="pt-2">Join GitHub today</h3>
           <p class="col-6 mx-auto">GitHub is home to over 40 million developers working together to host and review code, manage projects, and build software together.</p>
-          <a class="btn btn-primary" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;files signup prompt&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C974:26746:4C58F8:723187:5E1706B1&quot;,&quot;originating_url&quot;:&quot;https://github.com/etingof/pyasn1/blob/master/LICENSE.rst&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="dc87163a5bec9b5aad1895268ff803d04963c265c9ba9c0d82b0434dbaff986a" data-ga-click="(Logged out) Sign up prompt, clicked Sign up, text:sign-up" href="/join?source=prompt-blob-show&amp;source_repo=etingof%2Fpyasn1">Sign up</a>
+          <a class="btn btn-primary" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;files signup prompt&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C825:39DA:197E75B:2616CD1:5E173890&quot;,&quot;originating_url&quot;:&quot;https://github.com/etingof/pyasn1/blob/master/LICENSE.rst&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="93bec5f0315fd10774007805ebed72a00f535a72a4c46e6654a327870bc01f80" data-ga-click="(Logged out) Sign up prompt, clicked Sign up, text:sign-up" href="/join?source=prompt-blob-show&amp;source_repo=etingof%2Fpyasn1">Sign up</a>
         </div>
       </div>
     </div>

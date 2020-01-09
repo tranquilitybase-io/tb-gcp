@@ -1058,5 +1058,5 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
               </div>
     
-      <script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"971b6146e9","applicationID":"103821001","transactionName":"Yl1QMUFZV0JVV0IIWVsXcwZHUVZfG0RXBlNqW1MGW10=","queueTime":0,"applicationTime":22,"atts":"ThpTRwlDREw=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+      <script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"971b6146e9","applicationID":"103821001","transactionName":"Yl1QMUFZV0JVV0IIWVsXcwZHUVZfG0RXBlNqW1MGW10=","queueTime":0,"applicationTime":45,"atts":"ThpTRwlDREw=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
 </html>

@@ -42,7 +42,7 @@
   
   
 
-    <meta name="request-id" content="C963:340A0:CD18B1:1341397:5E1706A2" data-pjax-transient>
+    <meta name="request-id" content="C80C:2674F:1E85E56:2DB8BB9:5E173874" data-pjax-transient>
 
 
 
@@ -54,7 +54,7 @@
     <meta name="google-site-verification" content="ZzhVyEFwb7w3e0-uOTltm8Jsck2F5StVihD0exw2fsA">
     <meta name="google-site-verification" content="GXs5KoUUkNCoaAZn7wPN-t01Pywp9M3sEjnt_3_ZWPc">
 
-    <meta name="octolytics-host" content="collector.githubapp.com" /><meta name="octolytics-app-id" content="github" /><meta name="octolytics-event-url" content="https://collector.githubapp.com/github-external/browser_event" /><meta name="octolytics-dimension-request_id" content="C963:340A0:CD18B1:1341397:5E1706A2" /><meta name="octolytics-dimension-region_edge" content="ams" /><meta name="octolytics-dimension-region_render" content="iad" /><meta name="octolytics-dimension-ga_id" content="" class="js-octo-ga-id" /><meta name="octolytics-dimension-visitor_id" content="6280319941654021794" />
+    <meta name="octolytics-host" content="collector.githubapp.com" /><meta name="octolytics-app-id" content="github" /><meta name="octolytics-event-url" content="https://collector.githubapp.com/github-external/browser_event" /><meta name="octolytics-dimension-request_id" content="C80C:2674F:1E85E56:2DB8BB9:5E173874" /><meta name="octolytics-dimension-region_edge" content="ams" /><meta name="octolytics-dimension-region_render" content="iad" /><meta name="octolytics-dimension-ga_id" content="" class="js-octo-ga-id" /><meta name="octolytics-dimension-visitor_id" content="1061533479823947893" />
 
 <meta name="analytics-location" content="/&lt;user-name&gt;/&lt;repo-name&gt;/blob/show" data-pjax-transient="true" />
 
@@ -74,11 +74,11 @@
 
       <meta name="expected-hostname" content="github.com">
 
-      <meta name="js-proxy-site-detection-payload" content="YzBmMjUxZDI4MDcxY2NiMjA0NDk1NDAxODFjODYwZjU4YTYxNDYxM2YzMTNhMTYwYjA0Y2RjODk2MzNjMjJlMnx7InJlbW90ZV9hZGRyZXNzIjoiNzkuMTIzLjI5LjIyNyIsInJlcXVlc3RfaWQiOiJDOTYzOjM0MEEwOkNEMThCMToxMzQxMzk3OjVFMTcwNkEyIiwidGltZXN0YW1wIjoxNTc4NTY3MzMwLCJob3N0IjoiZ2l0aHViLmNvbSJ9">
+      <meta name="js-proxy-site-detection-payload" content="MzgxMmIyNjkyODIwMzk4ODk4MGYxNWRmYjk1OTIyZTk0NWJlYmMxMWZkMGViYjc3MDQxNWYwMjlhMzg4OTQ0M3x7InJlbW90ZV9hZGRyZXNzIjoiNzkuMTIzLjI5LjIyNyIsInJlcXVlc3RfaWQiOiJDODBDOjI2NzRGOjFFODVFNTY6MkRCOEJCOTo1RTE3Mzg3NCIsInRpbWVzdGFtcCI6MTU3ODU4MDA4NSwiaG9zdCI6ImdpdGh1Yi5jb20ifQ==">
 
     <meta name="enabled-features" content="MARKETPLACE_FEATURED_BLOG_POSTS,MARKETPLACE_INVOICED_BILLING,MARKETPLACE_SOCIAL_PROOF_CUSTOMERS,MARKETPLACE_TRENDING_SOCIAL_PROOF,MARKETPLACE_RECOMMENDATIONS,MARKETPLACE_PENDING_INSTALLATIONS">
 
-    <meta name="html-safe-nonce" content="24e4d59c29689e58cee176d0316698f31b73a742">
+    <meta name="html-safe-nonce" content="783898a91a8ab63d7eefc11855bef814fed12d99">
 
   <meta http-equiv="x-pjax-version" content="804dd5523544604839bf642694fe9798">
   
@@ -144,7 +144,7 @@
         <div class="d-flex flex-items-center">
             <a href="/join?source=header-repo"
               class="d-inline-block d-lg-none f5 text-white no-underline border border-gray-dark rounded-2 px-2 py-1 mr-3 mr-sm-5"
-              data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C963:340A0:CD18B1:1341397:5E1706A2&quot;,&quot;originating_url&quot;:&quot;https://github.com/hashicorp/packer/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="d4313dbcbb57b9c42b8d42cedd88071025238c68439f04c3ddb28fc95143572e"
+              data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C80C:2674F:1E85E56:2DB8BB9:5E173874&quot;,&quot;originating_url&quot;:&quot;https://github.com/hashicorp/packer/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="b87145d15cd273ab50c64caf019f0b21c424828c25add77d1365e807f45a97eb"
               data-ga-click="(Logged out) Header, clicked Sign up, text:sign-up">
               Sign&nbsp;up
             </a>
@@ -284,7 +284,7 @@
           aria-autocomplete="list"
           aria-controls="jump-to-results"
           aria-label="Search"
-          data-jump-to-suggestions-path="/_graphql/GetSuggestedNavigationDestinations#csrf-token=YE8NzpViAdHuwiPeh0cQwViZysIAXe9QifSnFjZq8Xf22lxAOmJO1JXNX9tBfDvXKMqroHW1D7A4uAUXlJfxsg=="
+          data-jump-to-suggestions-path="/_graphql/GetSuggestedNavigationDestinations#csrf-token=TLD4xRhZlLPMI/rOVH+plFEF8NYlFnhGQ1fM4TmTRTonHdoIAqqKuHuPq6kBvA8aoAGhhomRdzafHqrv+Qaayg=="
           spellcheck="false"
           autocomplete="off"
           >
@@ -411,13 +411,13 @@
 
         <a href="/login?return_to=%2Fhashicorp%2Fpacker%2Fblob%2Fmaster%2FLICENSE"
           class="HeaderMenu-link no-underline mr-3"
-          data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C963:340A0:CD18B1:1341397:5E1706A2&quot;,&quot;originating_url&quot;:&quot;https://github.com/hashicorp/packer/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="95dc707fff24264926a5b851fcb09c2670579127875ce0d792cfee9b54e5377e"
+          data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C80C:2674F:1E85E56:2DB8BB9:5E173874&quot;,&quot;originating_url&quot;:&quot;https://github.com/hashicorp/packer/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="cf0f0c8878503d945e7d8acddee345d616029ceb4ca59b360432215b397e82b9"
           data-ga-click="(Logged out) Header, clicked Sign in, text:sign-in">
           Sign&nbsp;in
         </a>
           <a href="/join?source=header-repo&amp;source_repo=hashicorp%2Fpacker"
             class="HeaderMenu-link d-inline-block no-underline border border-gray-dark rounded-1 px-2 py-1"
-            data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C963:340A0:CD18B1:1341397:5E1706A2&quot;,&quot;originating_url&quot;:&quot;https://github.com/hashicorp/packer/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="95dc707fff24264926a5b851fcb09c2670579127875ce0d792cfee9b54e5377e"
+            data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C80C:2674F:1E85E56:2DB8BB9:5E173874&quot;,&quot;originating_url&quot;:&quot;https://github.com/hashicorp/packer/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="cf0f0c8878503d945e7d8acddee345d616029ceb4ca59b360432215b397e82b9"
             data-ga-click="(Logged out) Header, clicked Sign up, text:sign-up">
             Sign&nbsp;up
           </a>
@@ -484,7 +484,7 @@
 
   <li>
     
-  <a class="tooltipped tooltipped-s btn btn-sm btn-with-count" aria-label="You must be signed in to watch a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;notification subscription menu watch&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C963:340A0:CD18B1:1341397:5E1706A2&quot;,&quot;originating_url&quot;:&quot;https://github.com/hashicorp/packer/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="77fb915b158ab1699d37dcd83e0c0b5c5e6e66275d7fae1dc55b01d39481168f" href="/login?return_to=%2Fhashicorp%2Fpacker">
+  <a class="tooltipped tooltipped-s btn btn-sm btn-with-count" aria-label="You must be signed in to watch a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;notification subscription menu watch&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C80C:2674F:1E85E56:2DB8BB9:5E173874&quot;,&quot;originating_url&quot;:&quot;https://github.com/hashicorp/packer/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="74d10e9f818692ea2201c6a3a3763f9f927afebfb8dc3043e325ce202cb04aa4" href="/login?return_to=%2Fhashicorp%2Fpacker">
     <svg class="octicon octicon-eye v-align-text-bottom" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8.06 2C3 2 0 8 0 8s3 6 8.06 6C13 14 16 8 16 8s-3-6-7.94-6zM8 12c-2.2 0-4-1.78-4-4 0-2.2 1.8-4 4-4 2.22 0 4 1.8 4 4 0 2.22-1.78 4-4 4zm2-4c0 1.11-.89 2-2 2-1.11 0-2-.89-2-2 0-1.11.89-2 2-2 1.11 0 2 .89 2 2z"/></svg>
     Watch
 </a>    <a class="social-count" href="/hashicorp/packer/watchers"
@@ -495,7 +495,7 @@
   </li>
 
   <li>
-        <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to star a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;star button&quot;,&quot;repository_id&quot;:8966356,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C963:340A0:CD18B1:1341397:5E1706A2&quot;,&quot;originating_url&quot;:&quot;https://github.com/hashicorp/packer/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="bc093e00f5628454e030d1f4bbb9a75b11e1e59b471a6156c93f3551dc42ae1d" href="/login?return_to=%2Fhashicorp%2Fpacker">
+        <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to star a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;star button&quot;,&quot;repository_id&quot;:8966356,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C80C:2674F:1E85E56:2DB8BB9:5E173874&quot;,&quot;originating_url&quot;:&quot;https://github.com/hashicorp/packer/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="581b9187327f9d6608a0e20a2930d6fcbeebe293466b98832b5ea97fc57ad9af" href="/login?return_to=%2Fhashicorp%2Fpacker">
       <svg aria-label="star" height="16" class="octicon octicon-star v-align-text-bottom" viewBox="0 0 14 16" version="1.1" width="14" role="img"><path fill-rule="evenodd" d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74L14 6z"/></svg>
 
       Star
@@ -508,12 +508,12 @@
   </li>
 
   <li>
-      <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to fork a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;repo details fork button&quot;,&quot;repository_id&quot;:8966356,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C963:340A0:CD18B1:1341397:5E1706A2&quot;,&quot;originating_url&quot;:&quot;https://github.com/hashicorp/packer/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="e25555973ba021b5e34e4bdaefacae025534b55e9ec61f6a8f5fa0369051ee59" href="/login?return_to=%2Fhashicorp%2Fpacker">
+      <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to fork a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;repo details fork button&quot;,&quot;repository_id&quot;:8966356,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C80C:2674F:1E85E56:2DB8BB9:5E173874&quot;,&quot;originating_url&quot;:&quot;https://github.com/hashicorp/packer/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="2b0c90d223f5f4fb2555c14101dda67ea678e9c08175f38a37444ad598da93ff" href="/login?return_to=%2Fhashicorp%2Fpacker">
         <svg class="octicon octicon-repo-forked v-align-text-bottom" viewBox="0 0 10 16" version="1.1" width="10" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 1a1.993 1.993 0 00-1 3.72V6L5 8 3 6V4.72A1.993 1.993 0 002 1a1.993 1.993 0 00-1 3.72V6.5l3 3v1.78A1.993 1.993 0 005 15a1.993 1.993 0 001-3.72V9.5l3-3V4.72A1.993 1.993 0 008 1zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3 10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3-10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"/></svg>
         Fork
 </a>
     <a href="/hashicorp/packer/network/members" class="social-count"
-       aria-label="2654 users forked this repository">
+       aria-label="2655 users forked this repository">
       2.7k
     </a>
   </li>
@@ -640,13 +640,13 @@
           <div class="signup-prompt-bg rounded-1">
       <div class="signup-prompt p-4 text-center mb-4 rounded-1">
         <div class="position-relative">
-          <!-- '"` --><!-- </textarea></xmp> --></option></form><form action="/prompt_dismissals/signup" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="_method" value="put" /><input type="hidden" name="authenticity_token" value="NMRRhQ++N3rj5SS5yfJFgyLBMZtVX0b2PLXUPWzi+HBdP7VN+lfbpv8lLvHuUmVPAJdtMKIKWEKDIYWeKDX3dQ==" />
+          <!-- '"` --><!-- </textarea></xmp> --></option></form><form action="/prompt_dismissals/signup" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="_method" value="put" /><input type="hidden" name="authenticity_token" value="sppNEv0VwBTWQqcdVFeq7J06LzuhFHbfef/2Hw9p6coHPVp76Gk0Mr7r+TCPnR0GzR8Sai1+27xVg5oMdQyOEw==" />
             <button type="submit" class="position-absolute top-0 right-0 btn-link link-gray" data-ga-click="(Logged out) Sign up prompt, clicked Dismiss, text:dismiss">
               Dismiss
             </button>
 </form>          <h3 class="pt-2">Join GitHub today</h3>
           <p class="col-6 mx-auto">GitHub is home to over 40 million developers working together to host and review code, manage projects, and build software together.</p>
-          <a class="btn btn-primary" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;files signup prompt&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C963:340A0:CD18B1:1341397:5E1706A2&quot;,&quot;originating_url&quot;:&quot;https://github.com/hashicorp/packer/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="8f4ebb32ba105b8f5cb849cb944b6d3df7b386db66a9362f8339d39f5750d372" data-ga-click="(Logged out) Sign up prompt, clicked Sign up, text:sign-up" href="/join?source=prompt-blob-show&amp;source_repo=hashicorp%2Fpacker">Sign up</a>
+          <a class="btn btn-primary" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;files signup prompt&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C80C:2674F:1E85E56:2DB8BB9:5E173874&quot;,&quot;originating_url&quot;:&quot;https://github.com/hashicorp/packer/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="19625a45e4eedd15d85c41cbb1fa0dfdb0baf1d214572393c49589f925a11fa0" data-ga-click="(Logged out) Sign up prompt, clicked Sign up, text:sign-up" href="/join?source=prompt-blob-show&amp;source_repo=hashicorp%2Fpacker">Sign up</a>
         </div>
       </div>
     </div>

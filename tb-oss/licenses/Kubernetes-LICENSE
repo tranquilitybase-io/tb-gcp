@@ -42,7 +42,7 @@
   
   
 
-    <meta name="request-id" content="C96C:10F7C:467333:68D9D6:5E1706AB" data-pjax-transient>
+    <meta name="request-id" content="C834:340A0:EF9B80:1664C80:5E1738A8" data-pjax-transient>
 
 
 
@@ -54,7 +54,7 @@
     <meta name="google-site-verification" content="ZzhVyEFwb7w3e0-uOTltm8Jsck2F5StVihD0exw2fsA">
     <meta name="google-site-verification" content="GXs5KoUUkNCoaAZn7wPN-t01Pywp9M3sEjnt_3_ZWPc">
 
-    <meta name="octolytics-host" content="collector.githubapp.com" /><meta name="octolytics-app-id" content="github" /><meta name="octolytics-event-url" content="https://collector.githubapp.com/github-external/browser_event" /><meta name="octolytics-dimension-request_id" content="C96C:10F7C:467333:68D9D6:5E1706AB" /><meta name="octolytics-dimension-region_edge" content="ams" /><meta name="octolytics-dimension-region_render" content="iad" /><meta name="octolytics-dimension-ga_id" content="" class="js-octo-ga-id" /><meta name="octolytics-dimension-visitor_id" content="1502645248396297899" />
+    <meta name="octolytics-host" content="collector.githubapp.com" /><meta name="octolytics-app-id" content="github" /><meta name="octolytics-event-url" content="https://collector.githubapp.com/github-external/browser_event" /><meta name="octolytics-dimension-request_id" content="C834:340A0:EF9B80:1664C80:5E1738A8" /><meta name="octolytics-dimension-region_edge" content="ams" /><meta name="octolytics-dimension-region_render" content="iad" /><meta name="octolytics-dimension-ga_id" content="" class="js-octo-ga-id" /><meta name="octolytics-dimension-visitor_id" content="1225438313831676073" />
 
 <meta name="analytics-location" content="/&lt;user-name&gt;/&lt;repo-name&gt;/blob/show" data-pjax-transient="true" />
 
@@ -74,11 +74,11 @@
 
       <meta name="expected-hostname" content="github.com">
 
-      <meta name="js-proxy-site-detection-payload" content="MTJjNmQ4MDMwMjYyMzJhOGIyNTc0MjM5MWJkNzVlYzMyODcwYTA4OWRhNTgxOTVlOThlMzM2NGE1Y2FmMmQxNXx7InJlbW90ZV9hZGRyZXNzIjoiNzkuMTIzLjI5LjIyNyIsInJlcXVlc3RfaWQiOiJDOTZDOjEwRjdDOjQ2NzMzMzo2OEQ5RDY6NUUxNzA2QUIiLCJ0aW1lc3RhbXAiOjE1Nzg1NjczMzksImhvc3QiOiJnaXRodWIuY29tIn0=">
+      <meta name="js-proxy-site-detection-payload" content="MjAzNzNkZWRhYzg0ZjE0NThlZmFhNzJlYTFmMmU3MjU1NmE3NDJjNWI2MWRhOTQ5NjYyOGYzZTUzYjBhNjRlZnx7InJlbW90ZV9hZGRyZXNzIjoiNzkuMTIzLjI5LjIyNyIsInJlcXVlc3RfaWQiOiJDODM0OjM0MEEwOkVGOUI4MDoxNjY0QzgwOjVFMTczOEE4IiwidGltZXN0YW1wIjoxNTc4NTgwMTM3LCJob3N0IjoiZ2l0aHViLmNvbSJ9">
 
     <meta name="enabled-features" content="MARKETPLACE_FEATURED_BLOG_POSTS,MARKETPLACE_INVOICED_BILLING,MARKETPLACE_SOCIAL_PROOF_CUSTOMERS,MARKETPLACE_TRENDING_SOCIAL_PROOF,MARKETPLACE_RECOMMENDATIONS,MARKETPLACE_PENDING_INSTALLATIONS">
 
-    <meta name="html-safe-nonce" content="6781e350558b5859fc9d265319fd703082cfa1d9">
+    <meta name="html-safe-nonce" content="f2c6d6f983213866212d3d8bfbf7188e73885c31">
 
   <meta http-equiv="x-pjax-version" content="804dd5523544604839bf642694fe9798">
   
@@ -144,7 +144,7 @@
         <div class="d-flex flex-items-center">
             <a href="/join?source=header-repo"
               class="d-inline-block d-lg-none f5 text-white no-underline border border-gray-dark rounded-2 px-2 py-1 mr-3 mr-sm-5"
-              data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C96C:10F7C:467333:68D9D6:5E1706AB&quot;,&quot;originating_url&quot;:&quot;https://github.com/kubernetes/kubernetes/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="511ecbf903e3b63d2d11114ab3939a2482b549e300c53958050dd715f901cd12"
+              data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C834:340A0:EF9B80:1664C80:5E1738A8&quot;,&quot;originating_url&quot;:&quot;https://github.com/kubernetes/kubernetes/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="7c9215b6609caded19a2e5fc6cf04e7d980a86ba5874858477dac13b2e44e44c"
               data-ga-click="(Logged out) Header, clicked Sign up, text:sign-up">
               Sign&nbsp;up
             </a>
@@ -284,7 +284,7 @@
           aria-autocomplete="list"
           aria-controls="jump-to-results"
           aria-label="Search"
-          data-jump-to-suggestions-path="/_graphql/GetSuggestedNavigationDestinations#csrf-token=ubli6lVvbU6vjEKEaYN6Qv48dX3YaKCX7L28tsdMRePlizrprLUm35z0Br0tmHqY8SvzMECWmIUtmnCdSf6iXw=="
+          data-jump-to-suggestions-path="/_graphql/GetSuggestedNavigationDestinations#csrf-token=53GXvMYujTrdr4sCXha7n0+RvqjGFofGxKaMjNriTGBa1zKF2zTpE0VB9GEIviK126gI4BIddxRdLLiBHsEIHQ=="
           spellcheck="false"
           autocomplete="off"
           >
@@ -411,13 +411,13 @@
 
         <a href="/login?return_to=%2Fkubernetes%2Fkubernetes%2Fblob%2Fmaster%2FLICENSE"
           class="HeaderMenu-link no-underline mr-3"
-          data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C96C:10F7C:467333:68D9D6:5E1706AB&quot;,&quot;originating_url&quot;:&quot;https://github.com/kubernetes/kubernetes/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="46cf7f749b492a03e50c3f499d7bb1375ade029c3f0a5e30eeb0879489a8a03b"
+          data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C834:340A0:EF9B80:1664C80:5E1738A8&quot;,&quot;originating_url&quot;:&quot;https://github.com/kubernetes/kubernetes/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="b6a0df2fa3678e7e5bfe76f372d538b400dd03ce84decce7ff1eefdae952f404"
           data-ga-click="(Logged out) Header, clicked Sign in, text:sign-in">
           Sign&nbsp;in
         </a>
           <a href="/join?source=header-repo&amp;source_repo=kubernetes%2Fkubernetes"
             class="HeaderMenu-link d-inline-block no-underline border border-gray-dark rounded-1 px-2 py-1"
-            data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C96C:10F7C:467333:68D9D6:5E1706AB&quot;,&quot;originating_url&quot;:&quot;https://github.com/kubernetes/kubernetes/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="46cf7f749b492a03e50c3f499d7bb1375ade029c3f0a5e30eeb0879489a8a03b"
+            data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C834:340A0:EF9B80:1664C80:5E1738A8&quot;,&quot;originating_url&quot;:&quot;https://github.com/kubernetes/kubernetes/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="b6a0df2fa3678e7e5bfe76f372d538b400dd03ce84decce7ff1eefdae952f404"
             data-ga-click="(Logged out) Header, clicked Sign up, text:sign-up">
             Sign&nbsp;up
           </a>
@@ -484,36 +484,36 @@
 
   <li>
     
-  <a class="tooltipped tooltipped-s btn btn-sm btn-with-count" aria-label="You must be signed in to watch a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;notification subscription menu watch&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C96C:10F7C:467333:68D9D6:5E1706AB&quot;,&quot;originating_url&quot;:&quot;https://github.com/kubernetes/kubernetes/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="1f2b20ec44ba073bf980e462007bae3741ff4628c835f8721e081bfcee668e5a" href="/login?return_to=%2Fkubernetes%2Fkubernetes">
+  <a class="tooltipped tooltipped-s btn btn-sm btn-with-count" aria-label="You must be signed in to watch a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;notification subscription menu watch&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C834:340A0:EF9B80:1664C80:5E1738A8&quot;,&quot;originating_url&quot;:&quot;https://github.com/kubernetes/kubernetes/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="1ea86465f4eceeb56067fba744c6612822a74b12e682ec5f6dbe11c19768193c" href="/login?return_to=%2Fkubernetes%2Fkubernetes">
     <svg class="octicon octicon-eye v-align-text-bottom" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8.06 2C3 2 0 8 0 8s3 6 8.06 6C13 14 16 8 16 8s-3-6-7.94-6zM8 12c-2.2 0-4-1.78-4-4 0-2.2 1.8-4 4-4 2.22 0 4 1.8 4 4 0 2.22-1.78 4-4 4zm2-4c0 1.11-.89 2-2 2-1.11 0-2-.89-2-2 0-1.11.89-2 2-2 1.11 0 2 .89 2 2z"/></svg>
     Watch
 </a>    <a class="social-count" href="/kubernetes/kubernetes/watchers"
-       aria-label="3125 users are watching this repository">
+       aria-label="3126 users are watching this repository">
       3.1k
     </a>
 
   </li>
 
   <li>
-        <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to star a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;star button&quot;,&quot;repository_id&quot;:20580498,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C96C:10F7C:467333:68D9D6:5E1706AB&quot;,&quot;originating_url&quot;:&quot;https://github.com/kubernetes/kubernetes/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="5478a67f3071433a56b72a2ccaeab398eb4c8a0260fc67fad724aed88247246f" href="/login?return_to=%2Fkubernetes%2Fkubernetes">
+        <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to star a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;star button&quot;,&quot;repository_id&quot;:20580498,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C834:340A0:EF9B80:1664C80:5E1738A8&quot;,&quot;originating_url&quot;:&quot;https://github.com/kubernetes/kubernetes/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="28640164be21ee06d8dd3575a0b9d1aa3cb6adff1e449ab526cb6d807544ec99" href="/login?return_to=%2Fkubernetes%2Fkubernetes">
       <svg aria-label="star" height="16" class="octicon octicon-star v-align-text-bottom" viewBox="0 0 14 16" version="1.1" width="14" role="img"><path fill-rule="evenodd" d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74L14 6z"/></svg>
 
       Star
 </a>
     <a class="social-count js-social-count" href="/kubernetes/kubernetes/stargazers"
-      aria-label="62150 users starred this repository">
+      aria-label="62162 users starred this repository">
       62.2k
     </a>
 
   </li>
 
   <li>
-      <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to fork a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;repo details fork button&quot;,&quot;repository_id&quot;:20580498,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C96C:10F7C:467333:68D9D6:5E1706AB&quot;,&quot;originating_url&quot;:&quot;https://github.com/kubernetes/kubernetes/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="ce83fd3c0d9b0c53d1945ed75cf3d9fb32a565629785f32ad12dfabfbb685504" href="/login?return_to=%2Fkubernetes%2Fkubernetes">
+      <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to fork a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;repo details fork button&quot;,&quot;repository_id&quot;:20580498,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C834:340A0:EF9B80:1664C80:5E1738A8&quot;,&quot;originating_url&quot;:&quot;https://github.com/kubernetes/kubernetes/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="e2470ee00f8282c0e613066b3e823db81c0d30a2339467df249f28f1b8225088" href="/login?return_to=%2Fkubernetes%2Fkubernetes">
         <svg class="octicon octicon-repo-forked v-align-text-bottom" viewBox="0 0 10 16" version="1.1" width="10" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 1a1.993 1.993 0 00-1 3.72V6L5 8 3 6V4.72A1.993 1.993 0 002 1a1.993 1.993 0 00-1 3.72V6.5l3 3v1.78A1.993 1.993 0 005 15a1.993 1.993 0 001-3.72V9.5l3-3V4.72A1.993 1.993 0 008 1zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3 10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3-10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"/></svg>
         Fork
 </a>
     <a href="/kubernetes/kubernetes/network/members" class="social-count"
-       aria-label="21940 users forked this repository">
+       aria-label="21945 users forked this repository">
       21.9k
     </a>
   </li>
@@ -538,7 +538,7 @@
       <a itemprop="url" data-hotkey="g i" class="js-selected-navigation-item reponav-item" data-selected-links="repo_issues repo_labels repo_milestones /kubernetes/kubernetes/issues" href="/kubernetes/kubernetes/issues">
         <div class="d-inline"><svg class="octicon octicon-issue-opened" viewBox="0 0 14 16" version="1.1" width="14" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 011.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"/></svg></div>
         <span itemprop="name">Issues</span>
-        <span class="Counter">2,213</span>
+        <span class="Counter">2,209</span>
         <meta itemprop="position" content="2">
 </a>    </span>
 
@@ -547,7 +547,7 @@
     <a data-hotkey="g p" data-skip-pjax="true" itemprop="url" class="js-selected-navigation-item reponav-item" data-selected-links="repo_pulls checks /kubernetes/kubernetes/pulls" href="/kubernetes/kubernetes/pulls">
       <div class="d-inline"><svg class="octicon octicon-git-pull-request" viewBox="0 0 12 16" version="1.1" width="12" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M11 11.28V5c-.03-.78-.34-1.47-.94-2.06C9.46 2.35 8.78 2.03 8 2H7V0L4 3l3 3V4h1c.27.02.48.11.69.31.21.2.3.42.31.69v6.28A1.993 1.993 0 0010 15a1.993 1.993 0 001-3.72zm-1 2.92c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zM4 3c0-1.11-.89-2-2-2a1.993 1.993 0 00-1 3.72v6.56A1.993 1.993 0 002 15a1.993 1.993 0 001-3.72V4.72c.59-.34 1-.98 1-1.72zm-.8 10c0 .66-.55 1.2-1.2 1.2-.65 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"/></svg></div>
       <span itemprop="name">Pull requests</span>
-      <span class="Counter">983</span>
+      <span class="Counter">986</span>
       <meta itemprop="position" content="4">
 </a>  </span>
 
@@ -584,14 +584,14 @@
       <span itemscope itemtype="http://schema.org/ListItem" itemprop="itemListElement">
         <a itemprop="url" class="js-selected-navigation-item reponav-item" data-selected-links="repo_issues repo_labels repo_milestones /kubernetes/kubernetes/issues" href="/kubernetes/kubernetes/issues">
           <span itemprop="name">Issues</span>
-          <span class="Counter">2,213</span>
+          <span class="Counter">2,209</span>
           <meta itemprop="position" content="2">
 </a>      </span>
 
     <span itemscope itemtype="http://schema.org/ListItem" itemprop="itemListElement">
       <a itemprop="url" class="js-selected-navigation-item reponav-item" data-selected-links="repo_pulls checks /kubernetes/kubernetes/pulls" href="/kubernetes/kubernetes/pulls">
         <span itemprop="name">Pull requests</span>
-        <span class="Counter">983</span>
+        <span class="Counter">986</span>
         <meta itemprop="position" content="3">
 </a>    </span>
 
@@ -626,19 +626,19 @@
   
 
 
-    <a class="d-none js-permalink-shortcut" data-hotkey="y" href="/kubernetes/kubernetes/blob/ef69bc910f0e47bbe3cf396d4bebf4f678cf6f3a/LICENSE">Permalink</a>
+    <a class="d-none js-permalink-shortcut" data-hotkey="y" href="/kubernetes/kubernetes/blob/edad4bbfc824215fc254096dfbbd1b2ab8ce6781/LICENSE">Permalink</a>
 
     <!-- blob contrib key: blob_contributors:v21:b4f6d3c86778eb5ede8acd9186c128b5 -->
           <div class="signup-prompt-bg rounded-1">
       <div class="signup-prompt p-4 text-center mb-4 rounded-1">
         <div class="position-relative">
-          <!-- '"` --><!-- </textarea></xmp> --></option></form><form action="/prompt_dismissals/signup" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="_method" value="put" /><input type="hidden" name="authenticity_token" value="fosDpX03mFvEOwnFgAJ6qVU2iqViMF3UclTkLDEDStwVc9YMwXxtJwEQp6sMzPituU/P4PkpIxPUJsjasPsw0g==" />
+          <!-- '"` --><!-- </textarea></xmp> --></option></form><form action="/prompt_dismissals/signup" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="_method" value="put" /><input type="hidden" name="authenticity_token" value="KzyedjeI1wcxdC9eJpSszEuwngxctKd32tMYBLVGjo7FW8k+DWCiz8tLg0B5nWlm+fteXfNsme+9ICe3+/EeQA==" />
             <button type="submit" class="position-absolute top-0 right-0 btn-link link-gray" data-ga-click="(Logged out) Sign up prompt, clicked Dismiss, text:dismiss">
               Dismiss
             </button>
 </form>          <h3 class="pt-2">Join GitHub today</h3>
           <p class="col-6 mx-auto">GitHub is home to over 40 million developers working together to host and review code, manage projects, and build software together.</p>
-          <a class="btn btn-primary" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;files signup prompt&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C96C:10F7C:467333:68D9D6:5E1706AB&quot;,&quot;originating_url&quot;:&quot;https://github.com/kubernetes/kubernetes/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="fc1e683b18a346623f9f024cb6d1ab85ad21cf79d2c110a4d9e31ad8d9c96378" data-ga-click="(Logged out) Sign up prompt, clicked Sign up, text:sign-up" href="/join?source=prompt-blob-show&amp;source_repo=kubernetes%2Fkubernetes">Sign up</a>
+          <a class="btn btn-primary" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;files signup prompt&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C834:340A0:EF9B80:1664C80:5E1738A8&quot;,&quot;originating_url&quot;:&quot;https://github.com/kubernetes/kubernetes/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="c363f822d09dae25d8628a88d1ab133145d2e9504072a4553e50d0e860676f2e" data-ga-click="(Logged out) Sign up prompt, clicked Sign up, text:sign-up" href="/join?source=prompt-blob-show&amp;source_repo=kubernetes%2Fkubernetes">Sign up</a>
         </div>
       </div>
     </div>
@@ -1754,7 +1754,7 @@ See discusison here: https://github.com/kubernetes/kubernetes-template-project/i
             Copy permalink
           </clipboard-copy>
         </li>
-        <li><a class="dropdown-item js-update-url-with-hash" id="js-view-git-blame" role="menuitem" href="/kubernetes/kubernetes/blame/ef69bc910f0e47bbe3cf396d4bebf4f678cf6f3a/LICENSE">View git blame</a></li>
+        <li><a class="dropdown-item js-update-url-with-hash" id="js-view-git-blame" role="menuitem" href="/kubernetes/kubernetes/blame/edad4bbfc824215fc254096dfbbd1b2ab8ce6781/LICENSE">View git blame</a></li>
           <li><a class="dropdown-item" id="js-new-issue" role="menuitem" href="/kubernetes/kubernetes/issues/new/choose">Reference in new issue</a></li>
       </ul>
     </details-menu>

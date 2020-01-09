@@ -42,7 +42,7 @@
   
   
 
-    <meta name="request-id" content="C96D:10F81:11CE896:1AC630D:5E1706AC" data-pjax-transient>
+    <meta name="request-id" content="C81F:39D7:14D227B:1F1E9CD:5E17388B" data-pjax-transient>
 
 
 
@@ -54,7 +54,7 @@
     <meta name="google-site-verification" content="ZzhVyEFwb7w3e0-uOTltm8Jsck2F5StVihD0exw2fsA">
     <meta name="google-site-verification" content="GXs5KoUUkNCoaAZn7wPN-t01Pywp9M3sEjnt_3_ZWPc">
 
-    <meta name="octolytics-host" content="collector.githubapp.com" /><meta name="octolytics-app-id" content="github" /><meta name="octolytics-event-url" content="https://collector.githubapp.com/github-external/browser_event" /><meta name="octolytics-dimension-request_id" content="C96D:10F81:11CE896:1AC630D:5E1706AC" /><meta name="octolytics-dimension-region_edge" content="ams" /><meta name="octolytics-dimension-region_render" content="iad" /><meta name="octolytics-dimension-ga_id" content="" class="js-octo-ga-id" /><meta name="octolytics-dimension-visitor_id" content="6344036262526518956" />
+    <meta name="octolytics-host" content="collector.githubapp.com" /><meta name="octolytics-app-id" content="github" /><meta name="octolytics-event-url" content="https://collector.githubapp.com/github-external/browser_event" /><meta name="octolytics-dimension-request_id" content="C81F:39D7:14D227B:1F1E9CD:5E17388B" /><meta name="octolytics-dimension-region_edge" content="ams" /><meta name="octolytics-dimension-region_render" content="iad" /><meta name="octolytics-dimension-ga_id" content="" class="js-octo-ga-id" /><meta name="octolytics-dimension-visitor_id" content="701826060363708555" />
 
 <meta name="analytics-location" content="/&lt;user-name&gt;/&lt;repo-name&gt;/blob/show" data-pjax-transient="true" />
 
@@ -74,11 +74,11 @@
 
       <meta name="expected-hostname" content="github.com">
 
-      <meta name="js-proxy-site-detection-payload" content="NTU5NDM4OGI0MWYzOGY3YTA1MTQyOTJlNjlkNWQwMTYxOWM4OTdmMTUyNjI1OWY2OWQ3ZWI1Nzg0NTJkMjkwY3x7InJlbW90ZV9hZGRyZXNzIjoiNzkuMTIzLjI5LjIyNyIsInJlcXVlc3RfaWQiOiJDOTZEOjEwRjgxOjExQ0U4OTY6MUFDNjMwRDo1RTE3MDZBQyIsInRpbWVzdGFtcCI6MTU3ODU2NzM0MCwiaG9zdCI6ImdpdGh1Yi5jb20ifQ==">
+      <meta name="js-proxy-site-detection-payload" content="YTc4MmZlMWRjNDVlZTgwM2MyZjNmYTk5OWU5NWFiZTdiZmU3NzdjNTZjMDk3YmIxMTI3NmZkZjljZjZlM2E4Mnx7InJlbW90ZV9hZGRyZXNzIjoiNzkuMTIzLjI5LjIyNyIsInJlcXVlc3RfaWQiOiJDODFGOjM5RDc6MTREMjI3QjoxRjFFOUNEOjVFMTczODhCIiwidGltZXN0YW1wIjoxNTc4NTgwMTA3LCJob3N0IjoiZ2l0aHViLmNvbSJ9">
 
     <meta name="enabled-features" content="MARKETPLACE_FEATURED_BLOG_POSTS,MARKETPLACE_INVOICED_BILLING,MARKETPLACE_SOCIAL_PROOF_CUSTOMERS,MARKETPLACE_TRENDING_SOCIAL_PROOF,MARKETPLACE_RECOMMENDATIONS,MARKETPLACE_PENDING_INSTALLATIONS">
 
-    <meta name="html-safe-nonce" content="11ab90903290a3c17b19d29570ec8ddd7862749d">
+    <meta name="html-safe-nonce" content="ae76126b7fb02a66718b42edb862e66e2f5a44bd">
 
   <meta http-equiv="x-pjax-version" content="804dd5523544604839bf642694fe9798">
   
@@ -144,7 +144,7 @@
         <div class="d-flex flex-items-center">
             <a href="/join?source=header-repo"
               class="d-inline-block d-lg-none f5 text-white no-underline border border-gray-dark rounded-2 px-2 py-1 mr-3 mr-sm-5"
-              data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C96D:10F81:11CE896:1AC630D:5E1706AC&quot;,&quot;originating_url&quot;:&quot;https://github.com/pallets/markupsafe/blob/master/LICENSE.rst&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="3c15d49b7674d8865021686a1815a9ab365deeee7ce652711159a6a5086c63a6"
+              data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C81F:39D7:14D227B:1F1E9CD:5E17388B&quot;,&quot;originating_url&quot;:&quot;https://github.com/pallets/markupsafe/blob/master/LICENSE.rst&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="ac866bd6dfbc2720c942a94e6292f44708c69a712503e3f08b3e9c0fdfb04bb5"
               data-ga-click="(Logged out) Header, clicked Sign up, text:sign-up">
               Sign&nbsp;up
             </a>
@@ -284,7 +284,7 @@
           aria-autocomplete="list"
           aria-controls="jump-to-results"
           aria-label="Search"
-          data-jump-to-suggestions-path="/_graphql/GetSuggestedNavigationDestinations#csrf-token=bl4HB43T3R1rTUlUBq07mKFcL2TIdNR8w1rdASU2dEt0bQ2cmRadFhKBIjK0Dq4iTDLYuW1KWusi87pVb2aYWw=="
+          data-jump-to-suggestions-path="/_graphql/GetSuggestedNavigationDestinations#csrf-token=1DVjxWKs8SK9a+UNfgYbAUz7cbovZTjge6x2wlYkJbfuDYdd3XVmO6NZXlxYlxpMsWcchl513GCiqZIgS4qwJQ=="
           spellcheck="false"
           autocomplete="off"
           >
@@ -411,13 +411,13 @@
 
         <a href="/login?return_to=%2Fpallets%2Fmarkupsafe%2Fblob%2Fmaster%2FLICENSE.rst"
           class="HeaderMenu-link no-underline mr-3"
-          data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C96D:10F81:11CE896:1AC630D:5E1706AC&quot;,&quot;originating_url&quot;:&quot;https://github.com/pallets/markupsafe/blob/master/LICENSE.rst&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="a4dd459725cfb01ab8244f62cda3c62f79918d1c237746e94f7d4816fee7dedd"
+          data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C81F:39D7:14D227B:1F1E9CD:5E17388B&quot;,&quot;originating_url&quot;:&quot;https://github.com/pallets/markupsafe/blob/master/LICENSE.rst&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="a4d4dbaa4d42fe8b6937e1d41b0bad76b2066c9955b9476e966e5764aea40854"
           data-ga-click="(Logged out) Header, clicked Sign in, text:sign-in">
           Sign&nbsp;in
         </a>
           <a href="/join?source=header-repo&amp;source_repo=pallets%2Fmarkupsafe"
             class="HeaderMenu-link d-inline-block no-underline border border-gray-dark rounded-1 px-2 py-1"
-            data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C96D:10F81:11CE896:1AC630D:5E1706AC&quot;,&quot;originating_url&quot;:&quot;https://github.com/pallets/markupsafe/blob/master/LICENSE.rst&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="a4dd459725cfb01ab8244f62cda3c62f79918d1c237746e94f7d4816fee7dedd"
+            data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C81F:39D7:14D227B:1F1E9CD:5E17388B&quot;,&quot;originating_url&quot;:&quot;https://github.com/pallets/markupsafe/blob/master/LICENSE.rst&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="a4d4dbaa4d42fe8b6937e1d41b0bad76b2066c9955b9476e966e5764aea40854"
             data-ga-click="(Logged out) Header, clicked Sign up, text:sign-up">
             Sign&nbsp;up
           </a>
@@ -515,7 +515,7 @@
 
   <li>
     
-  <a class="tooltipped tooltipped-s btn btn-sm btn-with-count" aria-label="You must be signed in to watch a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;notification subscription menu watch&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C96D:10F81:11CE896:1AC630D:5E1706AC&quot;,&quot;originating_url&quot;:&quot;https://github.com/pallets/markupsafe/blob/master/LICENSE.rst&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="f969d731389e0096cd45b23da2ab0d70afc519c751cf8cecb7bf1d4c3c092469" href="/login?return_to=%2Fpallets%2Fmarkupsafe">
+  <a class="tooltipped tooltipped-s btn btn-sm btn-with-count" aria-label="You must be signed in to watch a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;notification subscription menu watch&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C81F:39D7:14D227B:1F1E9CD:5E17388B&quot;,&quot;originating_url&quot;:&quot;https://github.com/pallets/markupsafe/blob/master/LICENSE.rst&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="8b510e4a7b21ff02d17f486e5b3b841cfddd59d8def2fe3bbc6381ca57e92e6b" href="/login?return_to=%2Fpallets%2Fmarkupsafe">
     <svg class="octicon octicon-eye v-align-text-bottom" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8.06 2C3 2 0 8 0 8s3 6 8.06 6C13 14 16 8 16 8s-3-6-7.94-6zM8 12c-2.2 0-4-1.78-4-4 0-2.2 1.8-4 4-4 2.22 0 4 1.8 4 4 0 2.22-1.78 4-4 4zm2-4c0 1.11-.89 2-2 2-1.11 0-2-.89-2-2 0-1.11.89-2 2-2 1.11 0 2 .89 2 2z"/></svg>
     Watch
 </a>    <a class="social-count" href="/pallets/markupsafe/watchers"
@@ -526,7 +526,7 @@
   </li>
 
   <li>
-        <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to star a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;star button&quot;,&quot;repository_id&quot;:734244,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C96D:10F81:11CE896:1AC630D:5E1706AC&quot;,&quot;originating_url&quot;:&quot;https://github.com/pallets/markupsafe/blob/master/LICENSE.rst&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="dc918e1ffb21e03d026d91da3de8ed6c425db05a6f7007cd15e99f70e0e0590d" href="/login?return_to=%2Fpallets%2Fmarkupsafe">
+        <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to star a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;star button&quot;,&quot;repository_id&quot;:734244,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C81F:39D7:14D227B:1F1E9CD:5E17388B&quot;,&quot;originating_url&quot;:&quot;https://github.com/pallets/markupsafe/blob/master/LICENSE.rst&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="a6a398adcf3a4faca10a9b3605290d943a6f3d87d1523a197f84edb51f854795" href="/login?return_to=%2Fpallets%2Fmarkupsafe">
       <svg aria-label="star" height="16" class="octicon octicon-star v-align-text-bottom" viewBox="0 0 14 16" version="1.1" width="14" role="img"><path fill-rule="evenodd" d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74L14 6z"/></svg>
 
       Star
@@ -539,7 +539,7 @@
   </li>
 
   <li>
-      <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to fork a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;repo details fork button&quot;,&quot;repository_id&quot;:734244,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C96D:10F81:11CE896:1AC630D:5E1706AC&quot;,&quot;originating_url&quot;:&quot;https://github.com/pallets/markupsafe/blob/master/LICENSE.rst&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="be169669608079d59d45760259a3789597c22e5c01c815b43ee66ec4cfec6465" href="/login?return_to=%2Fpallets%2Fmarkupsafe">
+      <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to fork a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;repo details fork button&quot;,&quot;repository_id&quot;:734244,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C81F:39D7:14D227B:1F1E9CD:5E17388B&quot;,&quot;originating_url&quot;:&quot;https://github.com/pallets/markupsafe/blob/master/LICENSE.rst&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="694ba2e8ba218088aafcf9541155528a00136520d3435f2ab42079278481a265" href="/login?return_to=%2Fpallets%2Fmarkupsafe">
         <svg class="octicon octicon-repo-forked v-align-text-bottom" viewBox="0 0 10 16" version="1.1" width="10" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 1a1.993 1.993 0 00-1 3.72V6L5 8 3 6V4.72A1.993 1.993 0 002 1a1.993 1.993 0 00-1 3.72V6.5l3 3v1.78A1.993 1.993 0 005 15a1.993 1.993 0 001-3.72V9.5l3-3V4.72A1.993 1.993 0 008 1zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3 10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3-10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"/></svg>
         Fork
 </a>
@@ -653,13 +653,13 @@
           <div class="signup-prompt-bg rounded-1">
       <div class="signup-prompt p-4 text-center mb-4 rounded-1">
         <div class="position-relative">
-          <!-- '"` --><!-- </textarea></xmp> --></option></form><form action="/prompt_dismissals/signup" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="_method" value="put" /><input type="hidden" name="authenticity_token" value="X/wlKo7YOl1l+9UwHjY/rEEa7+0JRx4KMl1wtm+P8/Su1E4B+9dFJb93aWvHlWuvV1h25sF5A7L1JnfwJt69AA==" />
+          <!-- '"` --><!-- </textarea></xmp> --></option></form><form action="/prompt_dismissals/signup" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="_method" value="put" /><input type="hidden" name="authenticity_token" value="fHlGwPRbCz0Xu+j2CHVc97nFURQdwJBlxfvjGubpYmXiUVZnUfcOrKeEfjZhOGKfixeGIAao6FY7fwe8H2wOkw==" />
             <button type="submit" class="position-absolute top-0 right-0 btn-link link-gray" data-ga-click="(Logged out) Sign up prompt, clicked Dismiss, text:dismiss">
               Dismiss
             </button>
 </form>          <h3 class="pt-2">Join GitHub today</h3>
           <p class="col-6 mx-auto">GitHub is home to over 40 million developers working together to host and review code, manage projects, and build software together.</p>
-          <a class="btn btn-primary" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;files signup prompt&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C96D:10F81:11CE896:1AC630D:5E1706AC&quot;,&quot;originating_url&quot;:&quot;https://github.com/pallets/markupsafe/blob/master/LICENSE.rst&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="47aabf9d6c5f5b745ffac32042dd878ba852553bf8e31dcbab7e5cfe8ef9ab71" data-ga-click="(Logged out) Sign up prompt, clicked Sign up, text:sign-up" href="/join?source=prompt-blob-show&amp;source_repo=pallets%2Fmarkupsafe">Sign up</a>
+          <a class="btn btn-primary" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;files signup prompt&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C81F:39D7:14D227B:1F1E9CD:5E17388B&quot;,&quot;originating_url&quot;:&quot;https://github.com/pallets/markupsafe/blob/master/LICENSE.rst&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="6cb82142c50ab9803e36a325bc97da34f0670bd2874e8f23d81ed78f31a07e0e" data-ga-click="(Logged out) Sign up prompt, clicked Sign up, text:sign-up" href="/join?source=prompt-blob-show&amp;source_repo=pallets%2Fmarkupsafe">Sign up</a>
         </div>
       </div>
     </div>

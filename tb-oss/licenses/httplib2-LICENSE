@@ -42,7 +42,7 @@
   
   
 
-    <meta name="request-id" content="C967:3ACF8:CBC843:132274A:5E1706A6" data-pjax-transient>
+    <meta name="request-id" content="C810:3ACF6:95700F:DECB3A:5E17387B" data-pjax-transient>
 
 
 
@@ -54,7 +54,7 @@
     <meta name="google-site-verification" content="ZzhVyEFwb7w3e0-uOTltm8Jsck2F5StVihD0exw2fsA">
     <meta name="google-site-verification" content="GXs5KoUUkNCoaAZn7wPN-t01Pywp9M3sEjnt_3_ZWPc">
 
-    <meta name="octolytics-host" content="collector.githubapp.com" /><meta name="octolytics-app-id" content="github" /><meta name="octolytics-event-url" content="https://collector.githubapp.com/github-external/browser_event" /><meta name="octolytics-dimension-request_id" content="C967:3ACF8:CBC843:132274A:5E1706A6" /><meta name="octolytics-dimension-region_edge" content="ams" /><meta name="octolytics-dimension-region_render" content="iad" /><meta name="octolytics-dimension-ga_id" content="" class="js-octo-ga-id" /><meta name="octolytics-dimension-visitor_id" content="1922629531673757351" />
+    <meta name="octolytics-host" content="collector.githubapp.com" /><meta name="octolytics-app-id" content="github" /><meta name="octolytics-event-url" content="https://collector.githubapp.com/github-external/browser_event" /><meta name="octolytics-dimension-request_id" content="C810:3ACF6:95700F:DECB3A:5E17387B" /><meta name="octolytics-dimension-region_edge" content="ams" /><meta name="octolytics-dimension-region_render" content="iad" /><meta name="octolytics-dimension-ga_id" content="" class="js-octo-ga-id" /><meta name="octolytics-dimension-visitor_id" content="4327376489434003579" />
 
 <meta name="analytics-location" content="/&lt;user-name&gt;/&lt;repo-name&gt;/blob/show" data-pjax-transient="true" />
 
@@ -74,11 +74,11 @@
 
       <meta name="expected-hostname" content="github.com">
 
-      <meta name="js-proxy-site-detection-payload" content="ZGE0OTc0MjhkMjIxNzYzNDRkNmIyMzBlYjFjNmRmMTFjMjcwNGRkZmE1NmQwODZjMDY0MDFlZGE0YTIyNzA1Znx7InJlbW90ZV9hZGRyZXNzIjoiNzkuMTIzLjI5LjIyNyIsInJlcXVlc3RfaWQiOiJDOTY3OjNBQ0Y4OkNCQzg0MzoxMzIyNzRBOjVFMTcwNkE2IiwidGltZXN0YW1wIjoxNTc4NTY3MzM1LCJob3N0IjoiZ2l0aHViLmNvbSJ9">
+      <meta name="js-proxy-site-detection-payload" content="ZmMwODZhNTc2ZGIxNzhmOGY2YjI2OGE4ZWQyMTAzZDJjMjA3ZmJkZTQ4MDQzMDg1NGI0MTViZTcwNjhkNTcyNnx7InJlbW90ZV9hZGRyZXNzIjoiNzkuMTIzLjI5LjIyNyIsInJlcXVlc3RfaWQiOiJDODEwOjNBQ0Y2Ojk1NzAwRjpERUNCM0E6NUUxNzM4N0IiLCJ0aW1lc3RhbXAiOjE1Nzg1ODAwOTEsImhvc3QiOiJnaXRodWIuY29tIn0=">
 
     <meta name="enabled-features" content="MARKETPLACE_FEATURED_BLOG_POSTS,MARKETPLACE_INVOICED_BILLING,MARKETPLACE_SOCIAL_PROOF_CUSTOMERS,MARKETPLACE_TRENDING_SOCIAL_PROOF,MARKETPLACE_RECOMMENDATIONS,MARKETPLACE_PENDING_INSTALLATIONS">
 
-    <meta name="html-safe-nonce" content="9056421fec98b6a3289d19147a616e3af4a03d65">
+    <meta name="html-safe-nonce" content="dbb13f630d581000cf1162184bd57ee03b337b3e">
 
   <meta http-equiv="x-pjax-version" content="804dd5523544604839bf642694fe9798">
   
@@ -144,7 +144,7 @@
         <div class="d-flex flex-items-center">
             <a href="/join?source=header-repo"
               class="d-inline-block d-lg-none f5 text-white no-underline border border-gray-dark rounded-2 px-2 py-1 mr-3 mr-sm-5"
-              data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C967:3ACF8:CBC843:132274A:5E1706A6&quot;,&quot;originating_url&quot;:&quot;https://github.com/GoogleCloudPlatform/google-auth-library-python-httplib2/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="90e5489b245895c212be9026008622c16518e4be895437f6f325fb1be6fef26a"
+              data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C810:3ACF6:95700F:DECB3A:5E17387B&quot;,&quot;originating_url&quot;:&quot;https://github.com/GoogleCloudPlatform/google-auth-library-python-httplib2/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="de900e4767dce8e40c01922996cc0c03f36dd25ac10e1b97894e105a63cfa447"
               data-ga-click="(Logged out) Header, clicked Sign up, text:sign-up">
               Sign&nbsp;up
             </a>
@@ -284,7 +284,7 @@
           aria-autocomplete="list"
           aria-controls="jump-to-results"
           aria-label="Search"
-          data-jump-to-suggestions-path="/_graphql/GetSuggestedNavigationDestinations#csrf-token=IQlYZEqHK82hxoqQAHDGxdJYNJtDhKrZ7PB3d/ONciODE0lZ0Xj/Ygy1zBa6708abx2K8ZAnRaeOGeEzIGxTMA=="
+          data-jump-to-suggestions-path="/_graphql/GetSuggestedNavigationDestinations#csrf-token=hvefN3duNj+rf2iIg+I/o1ksrhImFILe0UZOGrszvqXYfXv3e7RnsbF7b8b4Ncl7iIgmyJ3m5msWA4X4onIqLg=="
           spellcheck="false"
           autocomplete="off"
           >
@@ -411,13 +411,13 @@
 
         <a href="/login?return_to=%2FGoogleCloudPlatform%2Fgoogle-auth-library-python-httplib2%2Fblob%2Fmaster%2FLICENSE"
           class="HeaderMenu-link no-underline mr-3"
-          data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C967:3ACF8:CBC843:132274A:5E1706A6&quot;,&quot;originating_url&quot;:&quot;https://github.com/GoogleCloudPlatform/google-auth-library-python-httplib2/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="e8e35c78af8d1241c286c783e07ab8bbe467e563a0e33fa2204a1263695cf78c"
+          data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C810:3ACF6:95700F:DECB3A:5E17387B&quot;,&quot;originating_url&quot;:&quot;https://github.com/GoogleCloudPlatform/google-auth-library-python-httplib2/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="01d4562d446e120a2b9a9531d023141bcf7941f018ff0294958f46503946b734"
           data-ga-click="(Logged out) Header, clicked Sign in, text:sign-in">
           Sign&nbsp;in
         </a>
           <a href="/join?source=header-repo&amp;source_repo=GoogleCloudPlatform%2Fgoogle-auth-library-python-httplib2"
             class="HeaderMenu-link d-inline-block no-underline border border-gray-dark rounded-1 px-2 py-1"
-            data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C967:3ACF8:CBC843:132274A:5E1706A6&quot;,&quot;originating_url&quot;:&quot;https://github.com/GoogleCloudPlatform/google-auth-library-python-httplib2/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="e8e35c78af8d1241c286c783e07ab8bbe467e563a0e33fa2204a1263695cf78c"
+            data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C810:3ACF6:95700F:DECB3A:5E17387B&quot;,&quot;originating_url&quot;:&quot;https://github.com/GoogleCloudPlatform/google-auth-library-python-httplib2/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="01d4562d446e120a2b9a9531d023141bcf7941f018ff0294958f46503946b734"
             data-ga-click="(Logged out) Header, clicked Sign up, text:sign-up">
             Sign&nbsp;up
           </a>
@@ -484,7 +484,7 @@
 
   <li>
     
-  <a class="tooltipped tooltipped-s btn btn-sm btn-with-count" aria-label="You must be signed in to watch a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;notification subscription menu watch&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C967:3ACF8:CBC843:132274A:5E1706A6&quot;,&quot;originating_url&quot;:&quot;https://github.com/GoogleCloudPlatform/google-auth-library-python-httplib2/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="14ea17b78ad736e13c3d76771cc14e683e8742cd218704960d4d2b9c1286eb8a" href="/login?return_to=%2FGoogleCloudPlatform%2Fgoogle-auth-library-python-httplib2">
+  <a class="tooltipped tooltipped-s btn btn-sm btn-with-count" aria-label="You must be signed in to watch a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;notification subscription menu watch&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C810:3ACF6:95700F:DECB3A:5E17387B&quot;,&quot;originating_url&quot;:&quot;https://github.com/GoogleCloudPlatform/google-auth-library-python-httplib2/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="5a7f6c5901da9c3e31e31319dcb2d114b9abbbe3f01d42d7def8e90ed8908d87" href="/login?return_to=%2FGoogleCloudPlatform%2Fgoogle-auth-library-python-httplib2">
     <svg class="octicon octicon-eye v-align-text-bottom" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8.06 2C3 2 0 8 0 8s3 6 8.06 6C13 14 16 8 16 8s-3-6-7.94-6zM8 12c-2.2 0-4-1.78-4-4 0-2.2 1.8-4 4-4 2.22 0 4 1.8 4 4 0 2.22-1.78 4-4 4zm2-4c0 1.11-.89 2-2 2-1.11 0-2-.89-2-2 0-1.11.89-2 2-2 1.11 0 2 .89 2 2z"/></svg>
     Watch
 </a>    <a class="social-count" href="/GoogleCloudPlatform/google-auth-library-python-httplib2/watchers"
@@ -495,7 +495,7 @@
   </li>
 
   <li>
-        <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to star a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;star button&quot;,&quot;repository_id&quot;:88093283,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C967:3ACF8:CBC843:132274A:5E1706A6&quot;,&quot;originating_url&quot;:&quot;https://github.com/GoogleCloudPlatform/google-auth-library-python-httplib2/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="7185bc6f45fbef767375159ff612386f98e15ab86135ed2c97d2bab9013f8942" href="/login?return_to=%2FGoogleCloudPlatform%2Fgoogle-auth-library-python-httplib2">
+        <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to star a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;star button&quot;,&quot;repository_id&quot;:88093283,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C810:3ACF6:95700F:DECB3A:5E17387B&quot;,&quot;originating_url&quot;:&quot;https://github.com/GoogleCloudPlatform/google-auth-library-python-httplib2/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="591bddb39ff29f914b3543e352cd4a8483b2b7c87f75b30319b48b44d05d0c95" href="/login?return_to=%2FGoogleCloudPlatform%2Fgoogle-auth-library-python-httplib2">
       <svg aria-label="star" height="16" class="octicon octicon-star v-align-text-bottom" viewBox="0 0 14 16" version="1.1" width="14" role="img"><path fill-rule="evenodd" d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74L14 6z"/></svg>
 
       Star
@@ -508,7 +508,7 @@
   </li>
 
   <li>
-      <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to fork a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;repo details fork button&quot;,&quot;repository_id&quot;:88093283,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C967:3ACF8:CBC843:132274A:5E1706A6&quot;,&quot;originating_url&quot;:&quot;https://github.com/GoogleCloudPlatform/google-auth-library-python-httplib2/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="1e8b36d99bcd62c7cba9100c3c5871b3ea947578d57f4c660ba2d89e19828272" href="/login?return_to=%2FGoogleCloudPlatform%2Fgoogle-auth-library-python-httplib2">
+      <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to fork a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;repo details fork button&quot;,&quot;repository_id&quot;:88093283,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C810:3ACF6:95700F:DECB3A:5E17387B&quot;,&quot;originating_url&quot;:&quot;https://github.com/GoogleCloudPlatform/google-auth-library-python-httplib2/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="1612c5f4520d6dc16b13c98ca981b8db2cfd7b5734f02425f7012812916571e8" href="/login?return_to=%2FGoogleCloudPlatform%2Fgoogle-auth-library-python-httplib2">
         <svg class="octicon octicon-repo-forked v-align-text-bottom" viewBox="0 0 10 16" version="1.1" width="10" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 1a1.993 1.993 0 00-1 3.72V6L5 8 3 6V4.72A1.993 1.993 0 002 1a1.993 1.993 0 00-1 3.72V6.5l3 3v1.78A1.993 1.993 0 005 15a1.993 1.993 0 001-3.72V9.5l3-3V4.72A1.993 1.993 0 008 1zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3 10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3-10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"/></svg>
         Fork
 </a>
@@ -632,13 +632,13 @@
           <div class="signup-prompt-bg rounded-1">
       <div class="signup-prompt p-4 text-center mb-4 rounded-1">
         <div class="position-relative">
-          <!-- '"` --><!-- </textarea></xmp> --></option></form><form action="/prompt_dismissals/signup" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="_method" value="put" /><input type="hidden" name="authenticity_token" value="3O3RYbYhz/zRkF3S689eVwGVu58Y6mV0oPj0GJ2NjnpyY1Ob0QwdRECI/Gj8B9fQVk2hTngHp8OXW+ui8WnJ0g==" />
+          <!-- '"` --><!-- </textarea></xmp> --></option></form><form action="/prompt_dismissals/signup" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="_method" value="put" /><input type="hidden" name="authenticity_token" value="LTGYe9u0aEDu74BWJEwoNxb6IS5IRSqI7g8t/GUdf948AWARJSE3HPT/YU/SjsaokRnwKWplnEAd9s3a6T+ULw==" />
             <button type="submit" class="position-absolute top-0 right-0 btn-link link-gray" data-ga-click="(Logged out) Sign up prompt, clicked Dismiss, text:dismiss">
               Dismiss
             </button>
 </form>          <h3 class="pt-2">Join GitHub today</h3>
           <p class="col-6 mx-auto">GitHub is home to over 40 million developers working together to host and review code, manage projects, and build software together.</p>
-          <a class="btn btn-primary" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;files signup prompt&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C967:3ACF8:CBC843:132274A:5E1706A6&quot;,&quot;originating_url&quot;:&quot;https://github.com/GoogleCloudPlatform/google-auth-library-python-httplib2/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="ee56df14b961074c447088bfbfb0e72da1ce254c7f5895dec403bf0539ca3628" data-ga-click="(Logged out) Sign up prompt, clicked Sign up, text:sign-up" href="/join?source=prompt-blob-show&amp;source_repo=GoogleCloudPlatform%2Fgoogle-auth-library-python-httplib2">Sign up</a>
+          <a class="btn btn-primary" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;files signup prompt&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C810:3ACF6:95700F:DECB3A:5E17387B&quot;,&quot;originating_url&quot;:&quot;https://github.com/GoogleCloudPlatform/google-auth-library-python-httplib2/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="1adca455fc23ec9dfa424336892937368a165b0772e6e840d7b3ae1536e4be20" data-ga-click="(Logged out) Sign up prompt, clicked Sign up, text:sign-up" href="/join?source=prompt-blob-show&amp;source_repo=GoogleCloudPlatform%2Fgoogle-auth-library-python-httplib2">Sign up</a>
         </div>
       </div>
     </div>

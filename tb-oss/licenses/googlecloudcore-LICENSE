@@ -42,7 +42,7 @@
   
   
 
-    <meta name="request-id" content="C961:22992:1B108DE:28D4E04:5E1706A0" data-pjax-transient>
+    <meta name="request-id" content="C830:10F82:1955318:2601D9D:5E1738A3" data-pjax-transient>
 
 
 
@@ -54,7 +54,7 @@
     <meta name="google-site-verification" content="ZzhVyEFwb7w3e0-uOTltm8Jsck2F5StVihD0exw2fsA">
     <meta name="google-site-verification" content="GXs5KoUUkNCoaAZn7wPN-t01Pywp9M3sEjnt_3_ZWPc">
 
-    <meta name="octolytics-host" content="collector.githubapp.com" /><meta name="octolytics-app-id" content="github" /><meta name="octolytics-event-url" content="https://collector.githubapp.com/github-external/browser_event" /><meta name="octolytics-dimension-request_id" content="C961:22992:1B108DE:28D4E04:5E1706A0" /><meta name="octolytics-dimension-region_edge" content="ams" /><meta name="octolytics-dimension-region_render" content="iad" /><meta name="octolytics-dimension-ga_id" content="" class="js-octo-ga-id" /><meta name="octolytics-dimension-visitor_id" content="4765979236896278177" />
+    <meta name="octolytics-host" content="collector.githubapp.com" /><meta name="octolytics-app-id" content="github" /><meta name="octolytics-event-url" content="https://collector.githubapp.com/github-external/browser_event" /><meta name="octolytics-dimension-request_id" content="C830:10F82:1955318:2601D9D:5E1738A3" /><meta name="octolytics-dimension-region_edge" content="ams" /><meta name="octolytics-dimension-region_render" content="iad" /><meta name="octolytics-dimension-ga_id" content="" class="js-octo-ga-id" /><meta name="octolytics-dimension-visitor_id" content="6077301149719279779" />
 
 <meta name="analytics-location" content="/&lt;user-name&gt;/&lt;repo-name&gt;/blob/show" data-pjax-transient="true" />
 
@@ -74,11 +74,11 @@
 
       <meta name="expected-hostname" content="github.com">
 
-      <meta name="js-proxy-site-detection-payload" content="ZTczNDFkNzMzZjkwZDUzNTE4NmRkODdkOTYyNDBhOTc5ZWQ3NzUzOThhYTFhODY1MTRmNTlkZWE2ZTM1ZWM3MHx7InJlbW90ZV9hZGRyZXNzIjoiNzkuMTIzLjI5LjIyNyIsInJlcXVlc3RfaWQiOiJDOTYxOjIyOTkyOjFCMTA4REU6MjhENEUwNDo1RTE3MDZBMCIsInRpbWVzdGFtcCI6MTU3ODU2NzMyOSwiaG9zdCI6ImdpdGh1Yi5jb20ifQ==">
+      <meta name="js-proxy-site-detection-payload" content="NjU5NjNjYzRiYzBkZGY4MTM4MzczMjczZTdlNDIyOTYyYmUwNzU2YTNiMmQ3YTI2MWNhN2M0YzViNjVjYTgwY3x7InJlbW90ZV9hZGRyZXNzIjoiNzkuMTIzLjI5LjIyNyIsInJlcXVlc3RfaWQiOiJDODMwOjEwRjgyOjE5NTUzMTg6MjYwMUQ5RDo1RTE3MzhBMyIsInRpbWVzdGFtcCI6MTU3ODU4MDEzMSwiaG9zdCI6ImdpdGh1Yi5jb20ifQ==">
 
     <meta name="enabled-features" content="MARKETPLACE_FEATURED_BLOG_POSTS,MARKETPLACE_INVOICED_BILLING,MARKETPLACE_SOCIAL_PROOF_CUSTOMERS,MARKETPLACE_TRENDING_SOCIAL_PROOF,MARKETPLACE_RECOMMENDATIONS,MARKETPLACE_PENDING_INSTALLATIONS">
 
-    <meta name="html-safe-nonce" content="e37b36e809d0b63625d95c6d589940366e4a3858">
+    <meta name="html-safe-nonce" content="7d4d9fbf3adc43b47128eccd9fe60275f7433ba5">
 
   <meta http-equiv="x-pjax-version" content="804dd5523544604839bf642694fe9798">
   
@@ -144,7 +144,7 @@
         <div class="d-flex flex-items-center">
             <a href="/join?source=header-repo"
               class="d-inline-block d-lg-none f5 text-white no-underline border border-gray-dark rounded-2 px-2 py-1 mr-3 mr-sm-5"
-              data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C961:22992:1B108DE:28D4E04:5E1706A0&quot;,&quot;originating_url&quot;:&quot;https://github.com/googleapis/google-cloud-python/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="6845cc4e42f214b750c49d44ab3782c5f880fe86c97a8a7830f16527d6208c61"
+              data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C830:10F82:1955318:2601D9D:5E1738A3&quot;,&quot;originating_url&quot;:&quot;https://github.com/googleapis/google-cloud-python/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="576d36850db71b4f3ed60fcfd45a7cb55576fa9730b9a30d122ab600063642a8"
               data-ga-click="(Logged out) Header, clicked Sign up, text:sign-up">
               Sign&nbsp;up
             </a>
@@ -284,7 +284,7 @@
           aria-autocomplete="list"
           aria-controls="jump-to-results"
           aria-label="Search"
-          data-jump-to-suggestions-path="/_graphql/GetSuggestedNavigationDestinations#csrf-token=RycvC/b3pjiHcKUWypmO0fCtyB6ZAPrGVXJktAvNv6HQTEKI+s/oXrAPJt8L19OQoVDT4M860AbxPz0YyWc04Q=="
+          data-jump-to-suggestions-path="/_graphql/GetSuggestedNavigationDestinations#csrf-token=325XgGQNsLqH3nrlZLNAyszdXec2EsafA8KPqn67OMxxqtmyXUESMeIwDQC6sY67zPaDX0+ZkJ1B7EGrz1YqFA=="
           spellcheck="false"
           autocomplete="off"
           >
@@ -411,13 +411,13 @@
 
         <a href="/login?return_to=%2Fgoogleapis%2Fgoogle-cloud-python%2Fblob%2Fmaster%2FLICENSE"
           class="HeaderMenu-link no-underline mr-3"
-          data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C961:22992:1B108DE:28D4E04:5E1706A0&quot;,&quot;originating_url&quot;:&quot;https://github.com/googleapis/google-cloud-python/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="5fe06cf4704d1b523b3048b072cffae6e2eea10f058a10a2879b867de73e2bbf"
+          data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C830:10F82:1955318:2601D9D:5E1738A3&quot;,&quot;originating_url&quot;:&quot;https://github.com/googleapis/google-cloud-python/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="219bdde66b4014e559949b78ece27546bb7b30f2e5ff5df78f490d1140e1c69e"
           data-ga-click="(Logged out) Header, clicked Sign in, text:sign-in">
           Sign&nbsp;in
         </a>
           <a href="/join?source=header-repo&amp;source_repo=googleapis%2Fgoogle-cloud-python"
             class="HeaderMenu-link d-inline-block no-underline border border-gray-dark rounded-1 px-2 py-1"
-            data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C961:22992:1B108DE:28D4E04:5E1706A0&quot;,&quot;originating_url&quot;:&quot;https://github.com/googleapis/google-cloud-python/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="5fe06cf4704d1b523b3048b072cffae6e2eea10f058a10a2879b867de73e2bbf"
+            data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C830:10F82:1955318:2601D9D:5E1738A3&quot;,&quot;originating_url&quot;:&quot;https://github.com/googleapis/google-cloud-python/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="219bdde66b4014e559949b78ece27546bb7b30f2e5ff5df78f490d1140e1c69e"
             data-ga-click="(Logged out) Header, clicked Sign up, text:sign-up">
             Sign&nbsp;up
           </a>
@@ -484,7 +484,7 @@
 
   <li>
     
-  <a class="tooltipped tooltipped-s btn btn-sm btn-with-count" aria-label="You must be signed in to watch a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;notification subscription menu watch&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C961:22992:1B108DE:28D4E04:5E1706A0&quot;,&quot;originating_url&quot;:&quot;https://github.com/googleapis/google-cloud-python/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="400f709837c900bee8ce2f508b6938aae64437fa34460fc97f8502d5cd25f0f4" href="/login?return_to=%2Fgoogleapis%2Fgoogle-cloud-python">
+  <a class="tooltipped tooltipped-s btn btn-sm btn-with-count" aria-label="You must be signed in to watch a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;notification subscription menu watch&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C830:10F82:1955318:2601D9D:5E1738A3&quot;,&quot;originating_url&quot;:&quot;https://github.com/googleapis/google-cloud-python/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="c775e0a4d8578565ddb67070c6a58c26876567550b9d2d101daf0d8a63cbd256" href="/login?return_to=%2Fgoogleapis%2Fgoogle-cloud-python">
     <svg class="octicon octicon-eye v-align-text-bottom" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8.06 2C3 2 0 8 0 8s3 6 8.06 6C13 14 16 8 16 8s-3-6-7.94-6zM8 12c-2.2 0-4-1.78-4-4 0-2.2 1.8-4 4-4 2.22 0 4 1.8 4 4 0 2.22-1.78 4-4 4zm2-4c0 1.11-.89 2-2 2-1.11 0-2-.89-2-2 0-1.11.89-2 2-2 1.11 0 2 .89 2 2z"/></svg>
     Watch
 </a>    <a class="social-count" href="/googleapis/google-cloud-python/watchers"
@@ -495,7 +495,7 @@
   </li>
 
   <li>
-        <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to star a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;star button&quot;,&quot;repository_id&quot;:16316451,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C961:22992:1B108DE:28D4E04:5E1706A0&quot;,&quot;originating_url&quot;:&quot;https://github.com/googleapis/google-cloud-python/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="a385bd9cba38c647922b0b65401846422718b576c0ee6a33c915d7da105c6492" href="/login?return_to=%2Fgoogleapis%2Fgoogle-cloud-python">
+        <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to star a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;star button&quot;,&quot;repository_id&quot;:16316451,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C830:10F82:1955318:2601D9D:5E1738A3&quot;,&quot;originating_url&quot;:&quot;https://github.com/googleapis/google-cloud-python/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="82e64dfca23ff0ffe3518ca96bc05c0d3864ffbc824c16d7bbb7e99e2b267469" href="/login?return_to=%2Fgoogleapis%2Fgoogle-cloud-python">
       <svg aria-label="star" height="16" class="octicon octicon-star v-align-text-bottom" viewBox="0 0 14 16" version="1.1" width="14" role="img"><path fill-rule="evenodd" d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74L14 6z"/></svg>
 
       Star
@@ -508,12 +508,12 @@
   </li>
 
   <li>
-      <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to fork a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;repo details fork button&quot;,&quot;repository_id&quot;:16316451,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C961:22992:1B108DE:28D4E04:5E1706A0&quot;,&quot;originating_url&quot;:&quot;https://github.com/googleapis/google-cloud-python/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="002d82359edfc026b0bf7730cfc9e3146a9acec040b16b20970a90923fe57dd1" href="/login?return_to=%2Fgoogleapis%2Fgoogle-cloud-python">
+      <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to fork a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;repo details fork button&quot;,&quot;repository_id&quot;:16316451,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C830:10F82:1955318:2601D9D:5E1738A3&quot;,&quot;originating_url&quot;:&quot;https://github.com/googleapis/google-cloud-python/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="caa65225b39b8d1cdabc7a63790e380fe5556dc6929a2df77a5c06d083b3afed" href="/login?return_to=%2Fgoogleapis%2Fgoogle-cloud-python">
         <svg class="octicon octicon-repo-forked v-align-text-bottom" viewBox="0 0 10 16" version="1.1" width="10" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 1a1.993 1.993 0 00-1 3.72V6L5 8 3 6V4.72A1.993 1.993 0 002 1a1.993 1.993 0 00-1 3.72V6.5l3 3v1.78A1.993 1.993 0 005 15a1.993 1.993 0 001-3.72V9.5l3-3V4.72A1.993 1.993 0 008 1zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3 10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3-10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"/></svg>
         Fork
 </a>
     <a href="/googleapis/google-cloud-python/network/members" class="social-count"
-       aria-label="1262 users forked this repository">
+       aria-label="1263 users forked this repository">
       1.3k
     </a>
   </li>
@@ -626,19 +626,19 @@
   
 
 
-    <a class="d-none js-permalink-shortcut" data-hotkey="y" href="/googleapis/google-cloud-python/blob/be8e6d4f298ecd4aabbc6f6afd03845c5a02932d/LICENSE">Permalink</a>
+    <a class="d-none js-permalink-shortcut" data-hotkey="y" href="/googleapis/google-cloud-python/blob/0384238268a9cc84275eb5350458a91ec81e1d68/LICENSE">Permalink</a>
 
     <!-- blob contrib key: blob_contributors:v21:f7421d432458674d4db76d17ba1a05e2 -->
           <div class="signup-prompt-bg rounded-1">
       <div class="signup-prompt p-4 text-center mb-4 rounded-1">
         <div class="position-relative">
-          <!-- '"` --><!-- </textarea></xmp> --></option></form><form action="/prompt_dismissals/signup" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="_method" value="put" /><input type="hidden" name="authenticity_token" value="ctWrFqIvKPfabBreyjBDcAHIvY18dUcvLic2rVOgJcWcwittuR5uhlc4H08A4qZtrZv/upT/HzsymsK6fh2b7Q==" />
+          <!-- '"` --><!-- </textarea></xmp> --></option></form><form action="/prompt_dismissals/signup" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="_method" value="put" /><input type="hidden" name="authenticity_token" value="iwcdNusW25eP4Wl3ejc2CNqipKDtNy6Z8cqkevf1h3qkyY2vAth0b0EPD2Y0K2xSaE4iIzgzCGro9JnuO6G21Q==" />
             <button type="submit" class="position-absolute top-0 right-0 btn-link link-gray" data-ga-click="(Logged out) Sign up prompt, clicked Dismiss, text:dismiss">
               Dismiss
             </button>
 </form>          <h3 class="pt-2">Join GitHub today</h3>
           <p class="col-6 mx-auto">GitHub is home to over 40 million developers working together to host and review code, manage projects, and build software together.</p>
-          <a class="btn btn-primary" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;files signup prompt&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C961:22992:1B108DE:28D4E04:5E1706A0&quot;,&quot;originating_url&quot;:&quot;https://github.com/googleapis/google-cloud-python/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="b45258792615d0086cf676f0b804fb98b8439d552559936ca16dfb5e03e87b7b" data-ga-click="(Logged out) Sign up prompt, clicked Sign up, text:sign-up" href="/join?source=prompt-blob-show&amp;source_repo=googleapis%2Fgoogle-cloud-python">Sign up</a>
+          <a class="btn btn-primary" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;files signup prompt&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C830:10F82:1955318:2601D9D:5E1738A3&quot;,&quot;originating_url&quot;:&quot;https://github.com/googleapis/google-cloud-python/blob/master/LICENSE&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="612dc861180586938846b1aff5df92439d6c11fd5f7323f99cd861818305a38e" data-ga-click="(Logged out) Sign up prompt, clicked Sign up, text:sign-up" href="/join?source=prompt-blob-show&amp;source_repo=googleapis%2Fgoogle-cloud-python">Sign up</a>
         </div>
       </div>
     </div>
@@ -790,55 +790,16 @@
 
 
 
-    
-  <div class="Box Box--condensed d-flex flex-column flex-shrink-0">
-      <div class="Box-body d-flex flex-justify-between bg-blue-light flex-column flex-md-row flex-items-start flex-md-items-center">
-        <span class="pr-md-4 f6">
-          <img class="avatar" width="20" height="20" alt="" src="https://camo.githubusercontent.com/08d690d7f6a07ea658883b715ec2e88cb2ebca83/68747470733a2f2f302e67726176617461722e636f6d2f6176617461722f65333236613535643539663135396330626634363861623563666535613630613f643d68747470732533412532462532466769746875622e6769746875626173736574732e636f6d253246696d6167657325324667726176617461727325324667726176617461722d757365722d3432302e706e6726723d6726733d313430" data-canonical-src="https://0.gravatar.com/avatar/e326a55d59f159c0bf468ab5cfe5a60a?d=https%3A%2F%2Fgithub.githubassets.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png&amp;r=g&amp;s=140" />
-          <span class="text-bold link-gray-dark lh-default v-align-middle">Brian J. Watson</span>
-            <span class="lh-default v-align-middle">
-              <a data-pjax="true" title="Fix LICENSE to match http://www.apache.org/licenses/LICENSE-2.0.txt
-
-Specifically, fix the brackets. All other changes are just whitespace." class="link-gray" href="/googleapis/google-cloud-python/commit/6e199fd5aaf49cb647d9d9bc90ecc111d08199a0">Fix LICENSE to match</a> <a href="http://www.apache.org/licenses/LICENSE-2.0.txt" rel="nofollow">http://www.apache.org/licenses/LICENSE-2.0.txt</a>
-            </span>
-        </span>
-        <span class="d-inline-block flex-shrink-0 v-align-bottom f6 mt-2 mt-md-0">
-          <a class="pr-2 text-mono link-gray" href="/googleapis/google-cloud-python/commit/6e199fd5aaf49cb647d9d9bc90ecc111d08199a0" data-pjax>6e199fd</a>
-          <relative-time datetime="2016-06-27T15:47:34Z" class="no-wrap">Jun 27, 2016</relative-time>
-        </span>
+    <include-fragment src="/googleapis/google-cloud-python/contributors/master/LICENSE" class="Box Box--condensed commit-loader">
+      <div class="Box-body bg-blue-light f6">
+        Fetching contributors&hellip;
       </div>
 
-    <div class="Box-body d-flex flex-items-center flex-auto f6 border-bottom-0 flex-wrap" >
-      <details class="details-reset details-overlay details-overlay-dark lh-default text-gray-dark float-left mr-2" id="blob_contributors_box">
-        <summary class="btn-link">
-          <span><strong>2</strong> contributors</span>
-        </summary>
-        <details-dialog
-          class="Box Box--overlay d-flex flex-column anim-fade-in fast"
-          aria-label="Users who have contributed to this file"
-          src="/googleapis/google-cloud-python/contributors-list/master/LICENSE" preload>
-          <div class="Box-header">
-            <button class="Box-btn-octicon btn-octicon float-right" type="button" aria-label="Close dialog" data-close-dialog>
-              <svg class="octicon octicon-x" viewBox="0 0 12 16" version="1.1" width="12" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48L7.48 8z"/></svg>
-            </button>
-            <h3 class="Box-title">
-              Users who have contributed to this file
-            </h3>
-          </div>
-          <include-fragment class="octocat-spinner my-3" aria-label="Loading..."></include-fragment>
-        </details-dialog>
-      </details>
-        <span class="">
-    <a class="avatar-link" data-hovercard-type="user" data-hovercard-url="/users/silvolu/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="/googleapis/google-cloud-python/commits/master/LICENSE?author=silvolu">
-      <img class="avatar mr-1" src="https://avatars2.githubusercontent.com/u/596919?s=40&amp;v=4" width="20" height="20" alt="@silvolu" /> 
-</a>    <a class="avatar-link" data-hovercard-type="user" data-hovercard-url="/users/jgeewax/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="/googleapis/google-cloud-python/commits/master/LICENSE?author=jgeewax">
-      <img class="avatar mr-1" src="https://avatars2.githubusercontent.com/u/112928?s=40&amp;v=4" width="20" height="20" alt="@jgeewax" /> 
-</a>
-</span>
-
-    </div>
-  </div>
-
+      <div class="Box-body d-flex flex-items-center" >
+          <img alt="" class="loader-loading mr-2" src="https://github.githubassets.com/images/spinners/octocat-spinner-32-EAF2F5.gif" width="16" height="16" />
+        <span class="text-red h6 loader-error">Cannot retrieve contributors at this time</span>
+      </div>
+</include-fragment>
 
 
 
@@ -1743,7 +1704,7 @@ Specifically, fix the brackets. All other changes are just whitespace." class="l
             Copy permalink
           </clipboard-copy>
         </li>
-        <li><a class="dropdown-item js-update-url-with-hash" id="js-view-git-blame" role="menuitem" href="/googleapis/google-cloud-python/blame/be8e6d4f298ecd4aabbc6f6afd03845c5a02932d/LICENSE">View git blame</a></li>
+        <li><a class="dropdown-item js-update-url-with-hash" id="js-view-git-blame" role="menuitem" href="/googleapis/google-cloud-python/blame/0384238268a9cc84275eb5350458a91ec81e1d68/LICENSE">View git blame</a></li>
           <li><a class="dropdown-item" id="js-new-issue" role="menuitem" href="/googleapis/google-cloud-python/issues/new/choose">Reference in new issue</a></li>
       </ul>
     </details-menu>
