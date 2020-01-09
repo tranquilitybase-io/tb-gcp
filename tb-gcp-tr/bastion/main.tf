@@ -22,15 +22,40 @@ resource "google_compute_subnetwork_iam_binding" "bastion_subnet_permission" {
 }
 
 # Firewall rule to allow ingress traffic on port 22 and 80
-resource "google_compute_firewall" "shared-network" {
+//resource "google_compute_firewall" "shared-network" {
+//  depends_on = [google_service_account.bastion_service_account]
+//  name    = "http-https-ssh-allow"
+//  network = var.shared_vpc_name
+//  project = var.shared_networking_id
+//  source_service_accounts = ["${google_service_account.bastion_service_account.email}"]
+//  allow {
+//    protocol = "tcp"
+//    ports    = ["80", "22", "443"]
+//  }
+//}
+
+resource "google_compute_firewall" "shared-net-bast" {
   depends_on = [google_service_account.bastion_service_account]
-  name    = "http-https-ssh-allow"
+  name    = "allow-iap-ingress-ssh-rdp"
   network = var.shared_vpc_name
   project = var.shared_networking_id
-  source_service_accounts = ["${google_service_account.bastion_service_account.email}"]
+  target_service_accounts = ["${google_service_account.bastion_service_account.email}"]
+  source_ranges = ["35.235.240.0/20"]
   allow {
     protocol = "tcp"
-    ports    = ["80", "22", "443"]
+    ports    = ["3389", "22"]
+  }
+}
+
+resource "google_compute_firewall" "bast-nat-http" {
+  depends_on = [google_service_account.bastion_service_account]
+  name    = "bastion-http-https-allow"
+  network = var.shared_vpc_name
+  project = var.shared_networking_id
+  source_ranges = [var.nat_static_ip]
+  allow {
+    protocol = "tcp"
+    ports    = ["80", "443"]
   }
 }
 
@@ -49,8 +74,27 @@ resource "google_compute_instance" "tb_windows_bastion" {
   }
   network_interface {
     subnetwork = "projects/${var.shared_networking_id}/regions/${var.region}/subnetworks/bastion-subnetwork"
-    access_config {
+  }
+  service_account {
+    email = google_service_account.bastion_service_account.email
+    scopes = []
+  }
+}
+
+resource "google_compute_instance" "tb_linux_bastion" {
+  depends_on = [
+    google_service_account.bastion_service_account]
+  project = var.tb_bastion_id
+  zone = var.region_zone
+  name = "tb-linux-bastion"
+  machine_type = "n1-standard-2"
+  boot_disk {
+    initialize_params {
+      image = "debian-9-stretch-v20191210"
     }
+  }
+  network_interface {
+    subnetwork = "projects/${var.shared_networking_id}/regions/${var.region}/subnetworks/bastion-subnetwork"
   }
   service_account {
     email = google_service_account.bastion_service_account.email

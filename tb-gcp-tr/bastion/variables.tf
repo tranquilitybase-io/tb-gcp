@@ -27,3 +27,8 @@ variable "shared_networking_id" {
   type        = string
   description = "identifier for the shared_networking project."
 }
+
+variable "nat_static_ip" {
+  type = string
+  description = "NAT Static IP"
+}

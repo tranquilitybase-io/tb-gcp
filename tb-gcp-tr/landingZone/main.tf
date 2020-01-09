@@ -77,6 +77,7 @@ module "apis_activation" {
   source = "./../apis-activation"
 
   ssp_project_id          = module.shared_projects.shared_ssp_id
+  bastion_project_id              = module.shared_projects.tb_bastion_id
   host_project_id         = module.shared_projects.shared_networking_id
   service_projects_number = var.service_projects_number
   service_project_ids     = [module.shared_projects.shared_security_id, module.shared_projects.shared_operations_id, module.shared_projects.shared_ssp_id]
@@ -436,5 +437,6 @@ module "bastion-security" {
 
   tb_bastion_id = module.shared_projects.tb_bastion_id
   shared_networking_id = module.shared_projects.shared_networking_id
+  nat_static_ip = module.shared-vpc.nat_static_ip
 }
 

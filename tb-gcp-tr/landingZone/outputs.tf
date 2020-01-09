@@ -37,3 +37,7 @@ output "vault-root-token" {
   value = module.vault.root_token
 }
 
+output "nat-static-ip" {
+  value = module.shared-vpc.nat_static_ip
+}
+

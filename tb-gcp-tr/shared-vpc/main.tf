@@ -73,7 +73,7 @@ resource "google_compute_subnetwork" "tb-bastion-subnetwork" {
   name                     = "bastion-subnetwork"
   ip_cidr_range            = "10.0.6.0/24"
   region                   = var.region
-  private_ip_google_access = false
+  private_ip_google_access = true
   project                  = var.host_project_id
   network                  = google_compute_network.shared_network.name
   enable_flow_logs         = var.enable_flow_logs
@@ -82,6 +82,11 @@ resource "google_compute_subnetwork" "tb-bastion-subnetwork" {
 ###
 # Additional Networking Resources
 ###
+resource "google_compute_address" "static" {
+  count  = 2
+  name   = "nat-manual-ip-${count.index}"
+  region = google_compute_subnetwork.gke.region
+}
 
 resource "google_compute_router" "router" {
   name    = var.router_name
@@ -96,7 +101,8 @@ resource "google_compute_router_nat" "simple-nat" {
   project                            = var.host_project_id
   router                             = google_compute_router.router.name
   region                             = var.region
-  nat_ip_allocate_option             = "AUTO_ONLY"
+  nat_ip_allocate_option             = "MANUAL_ONLY"
+  nat_ips = google_compute_address.static.*.self_link
   source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
 }
 
