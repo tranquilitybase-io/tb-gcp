@@ -53,6 +53,7 @@ resource "google_compute_firewall" "bast-nat-http" {
   network = var.shared_vpc_name
   project = var.shared_networking_id
   source_ranges = [var.nat_static_ip]
+  source_service_accounts = ["${google_service_account.bastion_service_account.email}"]
   allow {
     protocol = "tcp"
     ports    = ["80", "443"]
