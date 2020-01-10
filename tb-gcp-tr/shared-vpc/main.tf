@@ -84,7 +84,6 @@ resource "google_compute_subnetwork" "tb-bastion-subnetwork" {
 ###
 resource "google_compute_address" "static" {
   name   = "nat-static-ip"
-  region = var.region
 }
 
 resource "google_compute_router" "router" {
