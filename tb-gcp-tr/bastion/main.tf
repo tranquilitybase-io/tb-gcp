@@ -21,19 +21,6 @@ resource "google_compute_subnetwork_iam_binding" "bastion_subnet_permission" {
   ]
 }
 
-# Firewall rule to allow ingress traffic on port 22 and 80
-//resource "google_compute_firewall" "shared-network" {
-//  depends_on = [google_service_account.bastion_service_account]
-//  name    = "http-https-ssh-allow"
-//  network = var.shared_vpc_name
-//  project = var.shared_networking_id
-//  source_service_accounts = ["${google_service_account.bastion_service_account.email}"]
-//  allow {
-//    protocol = "tcp"
-//    ports    = ["80", "22", "443"]
-//  }
-//}
-
 resource "google_compute_firewall" "shared-net-bast" {
   depends_on = [google_service_account.bastion_service_account]
   name    = "allow-iap-ingress-ssh-rdp"
