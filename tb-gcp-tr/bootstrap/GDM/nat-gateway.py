@@ -22,7 +22,6 @@ def GenerateConfig(context):
   zone = context.properties['zone']
 
   resources = []
-        # create an instance template that points to a reserved static IP address
   template_name = prefix + '-igtemplatew'
   runtime_var_name = prefix + '/0'
   rt_config_name = prefix + '-config'
@@ -85,8 +84,6 @@ def GenerateConfig(context):
     }
   })
 
-        # create an instance greoup manager of size 1  with autohealing enabled
-        # it will make sure that the NAT gateway VM is always up
   igm_name = prefix + '-igm2'
   resources.append({
     'name': igm_name,
@@ -104,7 +101,7 @@ def GenerateConfig(context):
     }
   })
 
-        # Wait until a GCE VM is created by the instance group manager.
+
   waiter_name = prefix + '-waiter2'
   resources.append({
     'name': waiter_name,
@@ -125,7 +122,6 @@ def GenerateConfig(context):
     }
   })
 
-        # Find a name of the GCE VM created by the instance group manager
   get_mig_instances = prefix + '-get-mig-instances'
   resources.append({
     'name': get_mig_instances,
@@ -140,7 +136,7 @@ def GenerateConfig(context):
     }
   })
 
-  #create a route that will allow to use the NAT gateway VM as a next hop
+
   route_name = prefix + 'routes5'
   resources.append({
     'name': route_name,
