@@ -93,6 +93,12 @@ EOF
 
 }
 
+variable "vault_namespace" {
+  type        = string
+  default     = "itop"
+  description = "The namespace to deploy the itop"
+}
+
 variable "vault_recovery_shares" {
   type    = string
   default = "1"

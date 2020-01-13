@@ -229,6 +229,18 @@ resource "kubernetes_secret" "vault-tls" {
   }
 }
 
+resource "kubernetes_namespace" "namespace" {
+  metadata {
+    name = var.vault_namespace
+
+    labels = {
+      istio-injection = "enabled"
+    }
+  }
+
+}
+
+
 resource "null_resource" "apply" {
   triggers = {
     host                   = md5(var.vault-gke-sec-endpoint)
