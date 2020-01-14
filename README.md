@@ -39,7 +39,7 @@ gcloud --project ${PROJECT_ID} iam service-accounts keys create tb-bootstrap-bui
 ``` bash
 gcloud beta billing accounts get-iam-policy ${BILLING_ACCOUNT} > billing.yaml
 ```
-
+ 
 * Edit `billing.yaml` and add the following entry to the existing bindings (replace `PROJECT_ID` below before saving):
 
 ``` yaml
