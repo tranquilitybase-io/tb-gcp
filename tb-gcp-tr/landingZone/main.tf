@@ -119,17 +119,17 @@ module "gke-ssp" {
   cluster_pool_name            = var.cluster_ssp_pool_name
   cluster_master_cidr          = var.cluster_ssp_master_cidr
   cluster_master_authorized_cidrs = concat(
-    var.cluster_ssp_master_authorized_cidrs,
-    [
-      merge(
-        {
-          "display_name" = "initial-admin-ip"
-        },
-        {
-          "cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
-        },
-      ),
-    ],
+  var.cluster_ssp_master_authorized_cidrs,
+  [
+    merge(
+    {
+      "display_name" = "initial-admin-ip"
+    },
+    {
+      "cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
+    },
+    ),
+  ],
   )
   cluster_min_master_version = var.cluster_ssp_min_master_version
 
@@ -167,17 +167,17 @@ module "gke-security" {
   cluster_pool_name             = var.cluster_sec_pool_name
   cluster_master_cidr           = var.cluster_sec_master_cidr
   cluster_master_authorized_cidrs = concat(
-    var.cluster_sec_master_authorized_cidrs,
-    [
-      merge(
-        {
-          "display_name" = "initial-admin-ip"
-        },
-        {
-          "cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
-        },
-      ),
-    ],
+  var.cluster_sec_master_authorized_cidrs,
+  [
+    merge(
+    {
+      "display_name" = "initial-admin-ip"
+    },
+    {
+      "cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
+    },
+    ),
+  ],
   )
   cluster_min_master_version = var.cluster_sec_min_master_version
   istio_status               = var.istio_status
@@ -236,17 +236,17 @@ module "gke-operations" {
   cluster_pool_name            = var.cluster_opt_pool_name
   cluster_master_cidr          = var.cluster_opt_master_cidr
   cluster_master_authorized_cidrs = concat(
-    var.cluster_opt_master_authorized_cidrs,
-    [
-      merge(
-        {
-          "display_name" = "initial-admin-ip"
-        },
-        {
-          "cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
-        },
-      ),
-    ],
+  var.cluster_opt_master_authorized_cidrs,
+  [
+    merge(
+    {
+      "display_name" = "initial-admin-ip"
+    },
+    {
+      "cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
+    },
+    ),
+  ],
   )
   cluster_min_master_version = var.cluster_opt_min_master_version
 
@@ -288,6 +288,7 @@ provider "helm" {
 }
 
 # Deploys itop on GKE Operations cluster
+/*
 module "itop" {
   source = "../itop"
   providers = {
@@ -304,6 +305,7 @@ module "itop" {
 
   dependency_vars = module.gke-operations.node_id
 }
+*/
 
 module "k8s-ssp_context" {
   source = "../k8s-context"

@@ -89,6 +89,7 @@ rm terraform_0.12.9_linux_amd64.zip
 # move TB Repo files from packer's home directory to target /opt/tb/repo directory
 mkdir -p /opt/tb
 mv repo /opt/tb/
+mv tb-gcp-tr /opt/tb/repo
 
 # Build self service portal ui angular app
 cd /opt/tb/repo/tb-self-service-portal-ui/

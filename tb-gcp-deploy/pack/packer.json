@@ -28,7 +28,8 @@
     {
       "type": "shell",
       "inline": [
-        "mkdir -p repo"
+        "mkdir -p repo",
+        "mkdir -p tb-gcp-tr"
       ]
     },
     {
@@ -43,8 +44,83 @@
     },
     {
       "type": "file",
-      "source": "{{user `tb_repos_root_path`}}/tb-gcp-tr",
-      "destination": "repo/"
+      "source": "{{user `tb_repos_root_path`}}/tb-gcp-tr/apis-activation",
+      "destination": "tb-gcp-tr/"
+    },
+    {
+      "type": "file",
+      "source": "{{user `tb_repos_root_path`}}/tb-gcp-tr/bootstrap",
+      "destination": "tb-gcp-tr/"
+    },
+    {
+      "type": "file",
+      "source": "{{user `tb_repos_root_path`}}/tb-gcp-tr/folder-structure-creation",
+      "destination": "tb-gcp-tr/"
+    },
+    {
+      "type": "file",
+      "source": "{{user `tb_repos_root_path`}}/tb-gcp-tr/gae-self-service-portal",
+      "destination": "tb-gcp-tr/"
+    },
+    {
+      "type": "file",
+      "source": "{{user `tb_repos_root_path`}}/tb-gcp-tr/helm-pre-requisites",
+      "destination": "tb-gcp-tr/"
+    },
+    {
+      "type": "file",
+      "source": "{{user `tb_repos_root_path`}}/tb-gcp-tr/http-load-balancer",
+      "destination": "tb-gcp-tr/"
+    },
+    {
+      "type": "file",
+      "source": "{{user `tb_repos_root_path`}}/tb-gcp-tr/k8s-context",
+      "destination": "tb-gcp-tr/"
+    },
+    {
+      "type": "file",
+      "source": "{{user `tb_repos_root_path`}}/tb-gcp-tr/kubernetes-cluster-creation",
+      "destination": "tb-gcp-tr/"
+    },
+    {
+      "type": "file",
+      "source": "{{user `tb_repos_root_path`}}/tb-gcp-tr/landingZone",
+      "destination": "tb-gcp-tr/"
+    },
+    {
+      "type": "file",
+      "source": "{{user `tb_repos_root_path`}}/tb-gcp-tr/shared-projects-creation",
+      "destination": "tb-gcp-tr/"
+    },
+    {
+      "type": "file",
+      "source": "{{user `tb_repos_root_path`}}/tb-gcp-tr/shared-vpc",
+      "destination": "tb-gcp-tr/"
+    },
+    {
+      "type": "file",
+      "source": "{{user `tb_repos_root_path`}}/tb-gcp-tr/single-bastion",
+      "destination": "tb-gcp-tr/"
+    },
+    {
+      "type": "file",
+      "source": "{{user `tb_repos_root_path`}}/tb-gcp-tr/vault",
+      "destination": "tb-gcp-tr/"
+    },
+    {
+      "type": "file",
+      "source": "{{user `tb_repos_root_path`}}/tb-gcp-tr/.gitignore",
+      "destination": "tb-gcp-tr/"
+    },
+    {
+      "type": "file",
+      "source": "{{user `tb_repos_root_path`}}/tb-gcp-tr/LICENSE",
+      "destination": "tb-gcp-tr/"
+    },
+    {
+      "type": "file",
+      "source": "{{user `tb_repos_root_path`}}/tb-gcp-tr/README.md",
+      "destination": "tb-gcp-tr/"
     },
     {
       "type": "file",
