@@ -7,9 +7,10 @@ Description: This short program will takes as input a requirements.txt file
 Author: Thomas Bailey
 """
 
+import os
 import re
 import json
-from subprocess import check_output
+import subprocess
 
 def remove_requirements_versioning(requirements):
     """ Returns list of requirements without their version
@@ -36,9 +37,11 @@ def process_requirement(req):
     print('Processing package ' + req)
 
     # retrieve transitive dependencies
-    output = check_output("pipdeptree -p " + str(req), shell=True).decode('utf-8').replace('\r','')
+    pp = subprocess.Popen(["pipdeptree", "--packages", str(req)], stdout=subprocess.PIPE)
+    output, err = pp.communicate()
+    output = output.decode('utf-8').replace('\r','')
     output_line = list(filter(None, output.split('\n')))
-    print(output_line)
+
 
     # retrieve licenses for each transitive and top level dependency
     for count, line in enumerate(output_line):
@@ -74,7 +77,9 @@ if __name__ == '__main__':
     output_file = open('transitive_dependencies.txt', 'a+')
 
     # store licenses for all packages in current environment
-    licenses = check_output("pip-licenses --format=json", shell=True).decode('utf-8')
+    p = subprocess.Popen(["pip-licenses", "--format=json"], stdout=subprocess.PIPE)
+    licenses, err = p.communicate()
+    licenses = licenses.decode('utf-8').replace('\r','')
     licenses_dict = json.loads(licenses)
 
     # remove package versioning for processi
