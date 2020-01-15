@@ -32,7 +32,7 @@ def append_license(license_val, line):
 
 def process_requirement(req):
     """ Output a file listing all top-level and transitive dependencies
-    and their respective licenses named transitive_dependencies.txt 
+    and their respective licenses named transitive_dependencies.txt
     with indentation.
 
     """
