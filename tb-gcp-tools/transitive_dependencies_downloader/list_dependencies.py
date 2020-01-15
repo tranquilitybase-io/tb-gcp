@@ -24,15 +24,14 @@ def remove_requirements_versioning(requirements):
 
     return [req.split('==')[0] if '==' in req else req for req in requirements]
 
-def append_license(license, line):
+def append_license(license_val, line):
     """ Add software license to the line corresponding to a package. """
 
-    line += ' | License: ' + license
+    line += ' | License: ' + license_val
     output_file.write(line + '\n')
 
 def process_requirement(req):
-    """
-    Output a file listing all top-level and transitive dependencies 
+    """ Output a file listing all top-level and transitive dependencies
     and their respective licenses named transitive_dependencies.txt 
     with indentation.
 
