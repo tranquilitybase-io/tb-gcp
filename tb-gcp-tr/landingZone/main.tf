@@ -288,6 +288,7 @@ provider "helm" {
 }
 
 # Deploys itop on GKE Operations cluster
+/*
 module "itop" {
   source = "../itop"
   providers = {
@@ -304,6 +305,7 @@ module "itop" {
 
   dependency_vars = module.gke-operations.node_id
 }
+*/
 
 module "k8s-ssp_context" {
   source = "../k8s-context"
