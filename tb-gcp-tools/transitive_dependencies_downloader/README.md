@@ -14,17 +14,17 @@ oauth2client==4.1.3 | License: Apache 2.0
 ## Pre-requisites
 There are a number of set-up tasks required to get **Transitive Dependency Downloader** to work correctly.
 
-  - Creation of virtual environment
+ - Creation of virtual environment
 
 > More information can be found here: [https://docs.python.org/3/library/venv.html](https://docs.python.org/3/library/venv.html)
 
-  - Installing of packages from requirements text file you'd like to retrieve dependency tree and licenses for. For example:
+ - Installing of packages from requirements text file you'd like to retrieve dependency tree and licenses for. For example:
 
 ```python
 pip install -r requirements.txt
 ```
 
-  - Installing dependencies for **TDD**: *pip-licenses* and *pipdeptree* 
+ - Installing dependencies for **TDD**: *pip-licenses* and *pipdeptree* 
 
 ```python
 pip install pip-licenses
