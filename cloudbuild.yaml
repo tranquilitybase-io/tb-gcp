@@ -56,9 +56,9 @@ steps:
 
 substitutions:
   _TB_IMAGE_BUCKET: tbase-images
-  _IMAGE_NAME: tbase-image
-  _IMAGE_FAMILY: tbase-bootstrap
+  _IMAGE_NAME: ""
+  _IMAGE_FAMILY: tb-tr-debian-9
   _IMAGE_ZONE: europe-west2
-  _TESTS_DIR: tb-test/scripts
-  _TEST_INSTANCE_ZONE: europe-west2
+#  _TESTS_DIR: tb-test/scripts
+#  _TEST_INSTANCE_ZONE: europe-west2
 
