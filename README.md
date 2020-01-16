@@ -174,10 +174,8 @@ Attributes can be defined in tb-test/attributes.yml
 The actual tests are defined in tb-test/controls/example.rb
 
 
-1. Download inspec https://downloads.chef.io/inspec
-
+1. Download [inspec](https://downloads.chef.io/inspec)
 2. Create a service account with permissions to view the resources you wish to test, and set an environment variable to point to the location of the service account key
-
 ``` 
 export GOOGLE_APPLICATION_CREDENTIALS='/Users/me/Downloads/myservice-account-key.json'
 ```
@@ -186,5 +184,4 @@ export GOOGLE_APPLICATION_CREDENTIALS='/Users/me/Downloads/myservice-account-key
 cd tb-test
 inspec exec . -t gcp:// --input-file=attributes.yml
 ```
-
-Inspec is documented quite well https://github.com/inspec/inspec-gcp
+Inspec is [documented](https://github.com/inspec/inspec-gcp) quite well 
