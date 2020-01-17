@@ -70,12 +70,14 @@ module "shared_projects" {
   shared_telemetry_project_name  = var.shared_telemetry_project_name
   shared_operations_project_name = var.shared_operations_project_name
   shared_billing_project_name    = var.shared_billing_project_name
+  tb_bastion_project_name = var.tb_bastion_project_name
 }
 
 module "apis_activation" {
   source = "./../apis-activation"
 
   ssp_project_id          = module.shared_projects.shared_ssp_id
+  bastion_project_id              = module.shared_projects.tb_bastion_id
   host_project_id         = module.shared_projects.shared_networking_id
   service_projects_number = var.service_projects_number
   service_project_ids     = [module.shared_projects.shared_security_id, module.shared_projects.shared_operations_id, module.shared_projects.shared_ssp_id]
@@ -428,5 +430,13 @@ resource "google_app_engine_application" "enable-datastore" {
   project     = module.shared_projects.shared_ssp_id
   location_id = var.region
   depends_on  = [google_sourcerepo_repository_iam_binding.terraform-code-store-admin-binding]
+}
+
+module "bastion-security" {
+  source = "./../bastion"
+
+  tb_bastion_id = module.shared_projects.tb_bastion_id
+  shared_networking_id = module.shared_projects.shared_networking_id
+  nat_static_ip = module.shared-vpc.nat_static_ip
 }
 
