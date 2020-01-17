@@ -56,7 +56,7 @@ steps:
 
 substitutions:
   _TB_IMAGE_BUCKET: tbase-images
-  _IMAGE_NAME: ""
+  _IMAGE_NAME: "bootstrap-server"
   _IMAGE_FAMILY: tb-tr-debian-9
   _IMAGE_ZONE: europe-west2
 #  _TESTS_DIR: tb-test/scripts
