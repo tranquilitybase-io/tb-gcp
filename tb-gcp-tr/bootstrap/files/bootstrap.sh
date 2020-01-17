@@ -39,8 +39,8 @@ key_name = "${key_name}"
 EOF
 
 #Set the default KMS key for the terraform state bucket
-gsutil kms encryption -k projects/${project}/locations/${keyring_location}/keyRings/${keyring_name}/cryptoKeys/${key_name} gs://${terraform_state_bucket_name}
-echo "gsutil kms encryption -k projects/${project}/locations/${keyring_location}/keyRings/${keyring_name}/cryptoKeys/${key_name} gs://${terraform_state_bucket_name}"
+gsutil kms encryption -k projects/"${project}"/locations/"${keyring_location}"/keyRings/"${keyring_name}"/cryptoKeys/"${key_name}" gs://"${terraform_state_bucket_name}"
+echo 'gsutil kms encryption -k projects/"${project}"/locations/"${keyring_location}"/keyRings/"${keyring_name}"/cryptoKeys/"${key_name}" gs://"${terraform_state_bucket_name}"'
 
 terraform init -backend-config="bucket=${terraform_state_bucket_name}" -backend-config="prefix=landingZone"
 
