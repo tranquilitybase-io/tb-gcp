@@ -112,3 +112,19 @@ variable "main_iam_service_account_roles" {
   description = "Roles attached to service account"
 }
 
+variable "kms_location" {
+  type        = string
+  description = "Location of the KMS keyring that will be created to encrypt terraform bucket state"
+}
+variable "kms_rotation_period" {
+  type        = string
+  description = "Rotation period of the KMS crypto key"
+}
+variable "kms_purpose" {
+  type        = string
+  description = "The immutable purpose of this crypto key. A given key can only be used for the operations allowed by its purpose."
+}
+variable "kms_algorithm" {
+  type        = string
+  description = "Indicates what parameters must be used for each cryptographic operation"
+}

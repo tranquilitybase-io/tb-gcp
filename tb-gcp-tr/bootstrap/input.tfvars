@@ -21,3 +21,9 @@ tb_discriminator = "dev"
 
 #CREATE-BOOTSTRAP-TERRAFORM-SERVER
 bootstrap_host_disk_image = "projects/<project_id>/global/images/family/tb-tr-debian-9"
+
+#KMS parameters for bucket CMEK encryption
+kms_location = "europe"
+kms_rotation_period = "100000s"
+kms_purpose = "ENCRYPT_DECRYPT"
+kms_algorithm = "CRYPTO_KEY_VERSION_ALGORITHM_UNSPECIFIED"

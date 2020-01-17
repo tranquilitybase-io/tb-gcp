@@ -105,6 +105,27 @@ resource "google_storage_bucket" "terraform-state-bucket-res" {
   depends_on = [google_project_services.bootstrap_project_apis]
 }
 
+#Create KMS key ring to use CMEK in TF state bucket
+#NOTE: Google doesn't allow deleting Keyrings (or Crypto Keys) within.
+# Therefore, we create a new keyring with random name
+resource "google_kms_key_ring" "keyring" {
+  project    = google_project.bootstrap-res.project_id
+  name     = "terraform-keyring-${random_id.project.hex}"
+  location = var.kms_location
+  depends_on = [google_project_services.bootstrap_project_apis]
+}
+
+#Create a crypto key within the keyring
+resource "google_kms_crypto_key" "key" {
+  name            = "terraform-key"
+  key_ring        = google_kms_key_ring.keyring.self_link
+  rotation_period = var.kms_rotation_period
+  purpose         = var.kms_purpose
+  version_template {
+    algorithm     = var.kms_algorithm
+  }
+}
+
 #CREATE-BOOTSTRAP-TERRAFORM-SERVER
 resource "google_compute_instance" "bootstrap_terraform_server" {
   project      = google_project.bootstrap-res.project_id
@@ -131,6 +152,10 @@ resource "google_compute_instance" "bootstrap_terraform_server" {
     billing_account_id           = var.billing_account_id
     tb_discriminator             = var.tb_discriminator
     terraform_state_bucket_name  = google_storage_bucket.terraform-state-bucket-res.name
+    project                      = google_project.bootstrap-res.project_id
+    keyring_location             = var.kms_location
+    keyring_name                 = google_kms_key_ring.keyring.name
+    key_name                     = google_kms_crypto_key.key.name
   })
 
   service_account {
@@ -144,4 +169,3 @@ resource "google_compute_instance" "bootstrap_terraform_server" {
 
   depends_on = [google_project_services.bootstrap_project_apis]
 }
-

@@ -32,7 +32,16 @@ root_is_org = "${root_is_org}"
 billing_account_id = "${billing_account_id}"
 tb_discriminator = "${tb_discriminator}"
 terraform_state_bucket_name = "${terraform_state_bucket_name}"
+project = "${project}"
+keyring_location = "${keyring_location}"
+keyring_name = "${keyring_name}"
+key_name = "${key_name}"
 EOF
+
+#Set the default KMS key for the terraform state bucket
+gsutil kms encryption -k projects/${project}/locations/${keyring_location}/keyRings/${keyring_name}/cryptoKeys/${key_name} gs://${terraform_state_bucket_name}
+echo "gsutil kms encryption -k projects/${project}/locations/${keyring_location}/keyRings/${keyring_name}/cryptoKeys/${key_name} gs://${terraform_state_bucket_name}"
+
 terraform init -backend-config="bucket=${terraform_state_bucket_name}" -backend-config="prefix=landingZone"
 
 apply_failures=0
