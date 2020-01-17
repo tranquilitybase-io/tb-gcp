@@ -68,3 +68,11 @@ resource "google_project" "shared_ssp" {
   depends_on          = [google_project.shared_networking]
 }
 
+resource "google_project" "tb_bastion" {
+  name                = "${var.tb_bastion_project_name}-${random_id.project.hex}"
+  project_id          = "${var.tb_bastion_project_name}-${random_id.project.hex}"
+  folder_id           = var.root_id
+  billing_account     = var.billing_account_id
+  auto_create_network = false
+  depends_on          = [google_project.shared_networking]
+}

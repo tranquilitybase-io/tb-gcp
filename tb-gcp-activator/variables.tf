@@ -14,6 +14,7 @@
 
 variable "project_id" {
   description = "ID of project to set up the infrastructure on"
+  default = ""
 }
 
 variable "region" {

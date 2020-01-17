@@ -13,8 +13,7 @@
 # limitations under the License.
 
 provider "google" {
-  version = "~> 1.19"
-  project = "${var.project_id}"
+  version = "~> 2.5"
   region = "${var.region}"
 }
 
@@ -51,7 +50,7 @@ resource "google_project" "activator" {
   folder_id = "${replace(var.activator_folder_id, "folders/" , "")}"
   auto_create_network = false
   billing_account = "${var.billing_account}"
-  labels {
+  labels = {
     review-date = "20190321"
     creation-date = "20190321"
     folder-level-1 = "internal"
@@ -119,7 +118,7 @@ resource "google_project" "workspace" {
   folder_id = "${replace(var.activator_folder_id, "folders/" , "")}"
   auto_create_network = false
   billing_account = "${var.billing_account}"
-  labels {
+  labels = {
     review-date = "20190321"
     creation-date = "20190321"
     folder-level-1 = "internal"

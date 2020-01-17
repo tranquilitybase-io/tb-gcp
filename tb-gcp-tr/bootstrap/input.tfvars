@@ -13,11 +13,11 @@
 # limitations under the License.
 
 #PROVIDER
-region = "europe-west2"
-region_zone = "europe-west2-a"
+region = ""
+region_zone = ""
 folder_id = ""
 billing_account_id = ""
-tb_discriminator = "dev"
+tb_discriminator = ""
 
 #CREATE-BOOTSTRAP-TERRAFORM-SERVER
 bootstrap_host_disk_image = "projects/<project_id>/global/images/family/tb-tr-debian-9"

@@ -1,11 +1,11 @@
 # Copyright 2019 The Tranquility Base Authors
-# 
+#
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# 
+#
 #     http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -69,9 +69,23 @@ resource "google_compute_subnetwork" "gke" {
   }
 }
 
+resource "google_compute_subnetwork" "tb-bastion-subnetwork" {
+  name                     = "bastion-subnetwork"
+  ip_cidr_range            = "10.0.6.0/24"
+  region                   = var.region
+  private_ip_google_access = true
+  project                  = var.host_project_id
+  network                  = google_compute_network.shared_network.name
+  enable_flow_logs         = var.enable_flow_logs
+  depends_on = [google_compute_network.shared_network]
+}
 ###
 # Additional Networking Resources
 ###
+resource "google_compute_address" "static" {
+  name   = "nat-static-ip"
+  project = var.host_project_id
+}
 
 resource "google_compute_router" "router" {
   name    = var.router_name
@@ -86,23 +100,15 @@ resource "google_compute_router_nat" "simple-nat" {
   project                            = var.host_project_id
   router                             = google_compute_router.router.name
   region                             = var.region
-  nat_ip_allocate_option             = "AUTO_ONLY"
+  nat_ip_allocate_option             = "MANUAL_ONLY"
+  nat_ips                             = google_compute_address.static.*.self_link
   source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
 }
 
-# Firewall rule to allow ingress traffic on port 22 and 80
-resource "google_compute_firewall" "shared-network" {
-  name    = "http-https-ssh-allow"
-  network = google_compute_network.shared_network.name
-  project = var.host_project_id
-  allow {
-    protocol = "tcp"
-    ports    = ["80", "22", "443"]
-  }
-}
+
 
 ###
-# Attaching service projects 
+# Attaching service projects
 ###
 
 resource "google_compute_shared_vpc_service_project" "service_project" {
@@ -117,4 +123,3 @@ resource "google_compute_shared_vpc_service_project" "service_project" {
     google_compute_subnetwork.standard,
   ]
 }
-

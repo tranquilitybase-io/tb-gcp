@@ -17,22 +17,15 @@ To run this application we have to create a docker image and place it in a Kuber
 
 ## Build docker image 
 
-Run following commands to create docker image
+Make sure you're in the `tb-gcp` directory. Run following commands to create docker image.
 
 ### Build image
+
 ```bash
 gcloud auth configure-docker
-docker build --no-cache -t <name of your repository>:<version number> .
+docker build --no-cache -f tb-ssp-gcp/Dockerfile -t <name of your repository>:<version number> .
 eg.
-docker build --no-cache -t self-service-portal:v27 .
-```
-
-##### Build arguments
-
-* `tb_repo_url` - URL address to the Tranquility Base repo, the default value is `https://github.com/tranquilitybase-io`. 
-  Example invocation can look like: 
- ```bash
-  docker build -t <name of your repository>:<version number> --build-arg tb_repo_url=https://<USER>@github.com/<YOUR_REPO_EITH_TB> .
+docker build --no-cache -f tb-ssp-gcp/Dockerfile -t self-service-portal:v33 .
 ```
 
 ### Tag image
@@ -40,7 +33,7 @@ docker build --no-cache -t self-service-portal:v27 .
 
 docker tag <name of your repository>:<version number> gcr.io/<project id>/<name of your repository>:<version number>
 eg.
-docker tag self-service-portal:v27 gcr.io/<project_id>/self-service-portal:v27
+docker tag self-service-portal:v33 gcr.io/<project_id>/self-service-portal:v33
 ```
 
 ### Push repository 
@@ -48,5 +41,5 @@ docker tag self-service-portal:v27 gcr.io/<project_id>/self-service-portal:v27
 ```bash
 docker push gcr.io/<project id>/<name of your repository>:<version number>
 eg.
-docker push gcr.io/<project_id>/self-service-portal:v27
+docker push gcr.io/<project_id>/self-service-portal:v33
 ```

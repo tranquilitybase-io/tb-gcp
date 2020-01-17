@@ -11,6 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+COMPUTE_URL_BASE = 'https://www.googleapis.com/compute/v1/'
 """Creates a single project with specified service accounts and APIs enabled."""
 
 import copy
@@ -21,7 +22,10 @@ def GenerateConfig(context):
   """Generates config."""
 
   project_id = context.env['name']
+  hc_name = project_id + '-hc3'
   billing_name = 'billing_' + project_id
+  rt_config_name = project_id + '-config2'
+  fw_name = project_id + '-hc-fw'
 
   if not IsProjectParentValid(context.properties):
     sys.exit(('Invalid [organization-id, parent-folder-id], '
@@ -75,14 +79,23 @@ def GenerateConfig(context):
               context.properties['concurrent_api_activation']
       }
    }, {
-      'name': 'network-tb3',
+      'name': 'sub-network',
+      'type': 'sub-network.py',
+      'properties': {
+          'project': project_id,
+          'network': '$(ref.bootstrap-network3.selfLink)',
+          'region': context.properties['region'],
+          'ipCidrRange': '192.168.0.0/28',
+          'networks': context.properties['networks']
+        }
+      }, {
+      'name': 'network-tb4',
       'type': 'network-template.py',
       'properties': {
           'project': project_id,
           'networks': context.properties['networks']
         }
-      },
-   {
+      }, {
       'name': 'service-account',
       'type': 'service-accounts.py',
       'properties': {
@@ -96,7 +109,8 @@ def GenerateConfig(context):
           'project': project_id,
           'zone': context.properties['zone'],
           'machineType': context.properties['machineType'],
-          'vm': context.properties['vm']
+          'vm': context.properties['vm'],
+          'startup-script': context.properties['startup-script']
         },
     }, {
       'name': 'cloud-storage-bucket',
@@ -115,7 +129,71 @@ def GenerateConfig(context):
           'project': project_id,
           'region': context.properties['region']
         }
-    }]
+    }, {
+      'name': 'nat-gateway',
+      'type': 'nat-gateway.py',
+      'properties': {
+          'project': project_id,
+          'region': context.properties['region'],
+          'zone': context.properties['zone'],
+          'machineType': context.properties['machineType'],
+          'image': 'https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/family/debian-9',
+          'diskType': 'pd-ssd',
+          'diskSizeGb': '50',
+          'nat-gw-tag': 'natgw',
+          'startupScript': context.properties['startupScript'],
+          'nated-vm-tag': 'no-ip',
+          'healthCheck': '$(ref.' + hc_name + '.selfLink)',
+          'network': '$(ref.bootstrap-network-subnet.selfLink)',
+          'runtimeConfig': '$(ref.' + rt_config_name + '.name)',
+          'runtimeConfigName': rt_config_name,
+          'hc_name': '$(ref.' + hc_name + '.selfLink)'
+
+        }
+     }, {
+      'name': hc_name,
+      'type': 'gcp-types/compute-v1:httpHealthChecks',
+      'properties': {
+          'project': project_id,
+          'port': 80,
+          'requestPath': '/health-check',
+          'healthyThreshold': 1,
+          'unhealthyThreshold': 3,
+          'description': 'integration test http health check',
+          'checkIntervalSec': 10
+        }
+    }, {
+      'name': rt_config_name,
+      'type': 'gcp-types/runtimeconfig-v1beta1:projects.configs',
+      'properties': {
+          'config':  rt_config_name
+      }
+   }, {
+      'name': fw_name,
+      'type': 'gcp-types/compute-v1:firewalls',
+      'properties': {
+          'project': project_id,
+          'network': '$(ref.bootstrap-network3.selfLink)',
+          'sourceRanges': ['209.85.152.0/22', '209.85.204.0/22', '35.191.0.0/16', '130.211.0.0/22'],
+          'targetTags': ['natgw'],
+          'allowed': [{
+              'IPProtocol': 'TCP',
+              'ports': [80]
+          }]
+      }
+  }, {
+      'name': 'fw-iap',
+      'type': 'gcp-types/compute-v1:firewalls',
+      'properties': {
+          'project': project_id,
+          'network': '$(ref.bootstrap-network3.selfLink)',
+          'sourceRanges': ['35.235.240.0/20'],
+          'targetTags': ['iap'],
+          'allowed': [{
+              'IPProtocol': 'TCP'
+          }]
+      }
+  }]
   if context.properties.get('set-dm-service-account-as-owner'):
         svc_acct = 'serviceAccount:{}@cloudservices.gserviceaccount.com'.format(project_id)
   if (context.properties.get('iam-policy-patch') or
