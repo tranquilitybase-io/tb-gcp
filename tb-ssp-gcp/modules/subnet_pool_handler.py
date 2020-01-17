@@ -80,7 +80,7 @@ def update_tf_subnets_input_tfvars(allocated_subnets, input_tfvars_path):
 
 def write_cidr_variable(alocated_subnets, subnet_cidrs, tf_input_path):
     f = open(tf_input_path, "a+")
-    f.write(subnet_cidrs + " = " + str(alocated_subnets).replace("'", "\"") + "\r")
+    f.write(subnet_cidrs + " = " + str(alocated_subnets).replace("'", "\"") + "\n")
     f.close()
 
 
@@ -111,7 +111,7 @@ def replace(file_path, pattern, subst):
         with open(file_path) as old_file:
             for line in old_file:
                 if re.match(pattern, line):
-                    new_file.write(subst + '\r')
+                    new_file.write(subst + "\n")
                 else:
                     new_file.write(line)
     remove(file_path)

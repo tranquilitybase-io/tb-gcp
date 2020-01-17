@@ -19,12 +19,12 @@ FROM alpine/git AS tbcode
 RUN mkdir -p /opt/tb/repo
 WORKDIR /opt/tb/repo
 
-ARG tb_repo_url=https://github.com/tranquilitybase-io
+COPY tb-common-tr /opt/tb/repo/tb-common-tr/
+COPY tb-gcp-tr /opt/tb/repo/tb-gcp-tr/
+COPY tb-gcp-activator /opt/tb/repo/tb-gcp-activator/
 
-RUN git clone --depth 1 ${tb_repo_url}/tb-common-tr.git
-RUN git clone --depth 1 ${tb_repo_url}/tb-gcp-tr.git
-RUN git clone --depth 1 ${tb_repo_url}/tb-gcp-activator.git
 RUN rm -rf **/.git  rm -rf **/.gitignore **/.idea
+# RUN rm -R tb-gcp
 
 # Build SSP derivelable image
 # --------------------------
@@ -37,9 +37,9 @@ RUN mkdir -p /opt/ssp \
     && mkdir -p /opt/ssp/bash \
     && mkdir -p /root/.ssh
 
-ADD main.py /opt/ssp/
-COPY requirements.txt /opt/ssp/
-COPY modules /opt/ssp/modules/
+COPY tb-ssp-gcp/main.py /opt/ssp/
+COPY tb-ssp-gcp/requirements.txt /opt/ssp/
+COPY tb-ssp-gcp/modules /opt/ssp/modules/
 RUN ls -l /opt/ssp
 
 # START install gcloud
@@ -66,8 +66,8 @@ RUN apt-get install -y p7zip \
 RUN apt-get install -y git
 RUN apt-get install -y dos2unix
 
-COPY git_bash_scripts /opt/ssp/bash/
-COPY tf_create_subnets /opt/ssp/tf_create_subnets/
+COPY tb-ssp-gcp/git_bash_scripts /opt/ssp/bash/
+COPY tb-ssp-gcp/tf_create_subnets /opt/ssp/tf_create_subnets/
 
 RUN chmod +x /opt/ssp/bash/commit_changes.sh && \
     chmod +x /opt/ssp/bash/git_init.sh && \
@@ -77,8 +77,8 @@ RUN dos2unix /opt/ssp/bash/commit_changes.sh && \
     dos2unix /opt/ssp/bash/git_init.sh && \
     dos2unix /opt/ssp/bash/pull_changes.sh
 
-ADD https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_amd64.zip bin/
-RUN unzip -d bin/ bin/terraform_0.11.13_linux_amd64.zip
+ADD https://releases.hashicorp.com/terraform/0.12.17/terraform_0.12.17_linux_amd64.zip bin/
+RUN unzip -d bin/ bin/terraform_0.12.17_linux_amd64.zip
 ENV PATH=$PATH:/
 
 # Enable Terraform logging
