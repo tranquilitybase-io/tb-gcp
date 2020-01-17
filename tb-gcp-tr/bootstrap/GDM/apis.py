@@ -19,7 +19,7 @@ def GenerateConfig(context):
 
   project_id = context.properties['project']
   billing = context.properties['billing']
-  concurrent_api_activation = context.properties['concurrent_api_activation']
+  concurrent_api_activation= context.properties['concurrent_api_activation']
 
   resources = []
   for index, api in enumerate(context.properties['apis']):
@@ -43,3 +43,4 @@ def GenerateConfig(context):
 
 def ApiResourceName(project_id, api_name):
   return project_id + '-' + api_name
+
