@@ -111,3 +111,29 @@ resource "google_container_node_pool" "gke_node_pool" {
   depends_on = [google_container_cluster.gke]
 }
 
+resource "null_resource" "istio_install" {
+
+  provisioner "local-exec" {
+    command = "kubectl create clusterrolebinding cluster-admin-binding --clusterrole cluster-admin --user $(gcloud config get-value account)"
+  }
+
+  provisioner "local-exec" {
+    command = "kubectl create namespace istio-system"
+  }
+
+  provisioner "local-exec" {
+    command = "curl -L https://github.com/istio/istio/releases/download/1.2.7/istio-1.2.7-linux.tar.gz | tar -zxf -"
+  }
+
+  provisioner "local-exec" {
+    command = "helm template istio-1.2.7/install/kubernetes/helm/istio-init --namespace istio-system | kubectl apply -f -"
+  }
+
+  provisioner "local-exec" {
+    command = "helm template istio-$ISTIO_VERSION/install/kubernetes/helm/istio --set gateways.istio-ingressgateway.enabled=false --set gateways.istio-ilbgateway.enabled=true --set gateways.istio-ilbgateway.ports[0].name=status-port --set gateways.istio-ilbgateway.ports[0].port=15020 --set gateways.istio-ilbgateway.ports[1].name=http2 --set gateways.istio-ilbgateway.ports[1].port=80 --set gateways.istio-ilbgateway.ports[2].name=https --set gateways.istio-ilbgateway.ports[2].port=443 --set gateways.istio-ilbgateway.ports[3].name=tcp --set gateways.istio-ilbgateway.ports[3].port=31400 --set gateways.istio-ilbgateway.ports[4].name=https-kiali --set gateways.istio-ilbgateway.ports[4].port=15029 --set gateways.istio-ilbgateway.ports[5].name=https-prometheus --set gateways.istio-ilbgateway.ports[5].port=15030 --set gateways.istio-ilbgateway.ports[6].name=https-grafana --set gateways.istio-ilbgateway.ports[6].port=15031 --set gateways.istio-ilbgateway.ports[7].name=https-tracing --set gateways.istio-ilbgateway.ports[7].port=15032 --set gateways.istio-ilbgateway.ports[8].name=tls --set gateways.istio-ilbgateway.ports[8].port=15443 --set global.hub=gcr.io/gke-release/istio --set global.tag=1.2.7-gke.0 --namespace istio-system | kubectl apply -f -"
+  }
+
+  depends_on = [
+    google_container_cluster.gke
+  ]
+}

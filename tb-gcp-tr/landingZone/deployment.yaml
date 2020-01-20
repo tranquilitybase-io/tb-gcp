@@ -73,7 +73,7 @@ metadata:
   name: mygateway
 spec:
   selector:
-    istio: ingressgateway # use istio default controller
+    istio: ilbgateway # use istio default controller
   servers:
   - port:
       number: 80
@@ -124,7 +124,7 @@ metadata:
   namespace: istio-system
 spec:
   selector:
-    istio: ingressgateway # use istio default controller
+    istio: ilbgateway # use istio default controller
   servers:
     - port:
         number: 15031
@@ -140,7 +140,7 @@ metadata:
   namespace: istio-system
 spec:
   selector:
-    istio: ingressgateway # use istio default controller
+    istio: ilbgateway # use istio default controller
   servers:
     - port:
         number: 80

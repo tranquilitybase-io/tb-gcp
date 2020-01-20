@@ -52,7 +52,7 @@ cluster_ssp_master_authorized_cidrs = [
   }
 ]
 #cluster_ssp_min_master_version = "latest"
-istio_status        = "false"
+istio_status        = "true"
 ssp_repository_name = "SSP-activator-tf"
 
 #KUBERNETES SECURITY CLUSTER

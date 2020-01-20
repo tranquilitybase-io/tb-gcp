@@ -5,7 +5,7 @@ metadata:
   name: {{ .Values.gateway.name }}
 spec:
   selector:
-    istio: ingressgateway # use istio default controller
+    istio: ilbgateway # use istio default controller
   servers:
   - port:
       number: {{ .Values.gateway.portNumber }}
