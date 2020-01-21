@@ -36,3 +36,8 @@ variable "ssp_project_id" {
   description = "Identifier for the host project to be used"
 }
 
+variable "bastion_project_id" {
+  type        = string
+  default     = ""
+  description = "Identifier for the host project to be used"
+}

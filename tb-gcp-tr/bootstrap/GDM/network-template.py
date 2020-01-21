@@ -4,18 +4,16 @@ def GenerateConfig(context):
   resources = []
   for network in context.properties['networks']:
     resources.append({
-      'name':  network,
+      'name':  'bootstrap-network3',
       'type': 'gcp-types/compute-v1:networks',
       'properties': {
-          'subnet-mode': 'auto',
           'project': context.properties['project'],
           'routingConfig': {
-              'routingMode': 'GLOBAL',
-              'autoCreateSubnetworks': True
+              'routingMode': 'REGIONAL',
           },
+          'autoCreateSubnetworks': False,
       'metadata': {
-            'dependsOn': ['project'],
-            'runtimePolicy': ['CREATE']
+            'dependsOn': ['project']
           }
       }
     })
