@@ -333,7 +333,7 @@ resource "null_resource" "kubernetes_service_account_key_secret" {
 }
 
 module "SharedServices_configuration_file" {
-  source = "../../../tb-common-tr\/start_service"
+  source = "../../../tb-common-tr/start_service"
 
   k8s_template_file = local_file.ssp_config_map.filename
   cluster_context   = module.k8s-ssp_context.context_name
