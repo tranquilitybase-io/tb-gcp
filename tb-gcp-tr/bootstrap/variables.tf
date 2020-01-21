@@ -92,6 +92,12 @@ variable "metadata_startup_script" {
   description = "Local path to a bootstrap startup script template. Default value is 'files/bootstrap.sh'."
 }
 
+variable "enable_itop" {
+  type = bool
+  default = true
+  description = "Set it to false in order to disable iTop"
+}
+
 variable "scopes" {
   type        = list(string)
   default     = ["https://www.googleapis.com/auth/cloud-platform"]

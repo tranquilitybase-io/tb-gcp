@@ -139,7 +139,7 @@
     },
     {
       "type": "shell",
-      "script": "init.sh",
+      "script": "init-no-itop.sh",
       "execute_command": "echo 'packer' | sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
     }
   ]

@@ -28,11 +28,6 @@ output "sec-gke-endpoint" {
   value = module.gke-security.cluster_endpoint
 }
 
-# iTop deployment
-output "itop_db_user_password" {
-  value = module.itop.database_instance_connection_password
-}
-
 output "vault-root-token" {
   value = module.vault.root_token
 }
