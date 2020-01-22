@@ -18,7 +18,7 @@ region_zone = ""
 folder_id = ""
 billing_account_id = ""
 tb_discriminator = ""
-enable_itop = true
+enable_itop = ""
 
 #CREATE-BOOTSTRAP-TERRAFORM-SERVER
 bootstrap_host_disk_image = "projects/<project_id>/global/images/family/tb-tr-debian-9"

@@ -37,8 +37,9 @@ enable_itop = "${enable_itop}"
 
 EOF
 
-if $enable_itop ; then
-  cd /opt/tb/repo/tb-gcp-tr/landingZone/with-itop/
+if [ "$enable_itop" == "true" ]
+then
+   cd /opt/tb/repo/tb-gcp-tr/landingZone/with-itop/
 fi
 
 terraform init -backend-config="bucket=${terraform_state_bucket_name}" -backend-config="prefix=landingZone"
