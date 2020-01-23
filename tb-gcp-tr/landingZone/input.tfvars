@@ -19,9 +19,9 @@ shared_telemetry_project_name  = "shared-telemetry"
 shared_operations_project_name = "shared-operations"
 shared_billing_project_name    = "shared-billing"
 tb_bastion_project_name = "tb-bastion"
+shared_forseti_project_name    = "shared-forseti"
 
 #APIs ACTIVATION
-
 service_projects_number = "3"
 
 #SHARED VPC

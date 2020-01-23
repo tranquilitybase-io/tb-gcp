@@ -71,6 +71,7 @@ module "shared_projects" {
   shared_operations_project_name = var.shared_operations_project_name
   shared_billing_project_name    = var.shared_billing_project_name
   tb_bastion_project_name = var.tb_bastion_project_name
+  shared_forseti_project_name    = var.shared_forseti_project_name
 }
 
 module "apis_activation" {
@@ -313,6 +314,15 @@ module "k8s-ssp_context" {
   cluster_name    = var.cluster_ssp_name
   cluster_project = module.shared_projects.shared_ssp_id
   dependency_var  = module.gke-ssp.node_id
+}
+
+module "forseti-on-gke" {
+  source              = "terraform-google-modules/forseti/google"
+
+  domain              = "gftdevgcp.com"
+  gsuite_admin_email  = "orme@gft.com"
+  org_id              = "160037278965"
+  project_id          = module.shared_projects.shared_networking_id
 }
 
 resource "null_resource" "kubernetes_service_account_key_secret" {
