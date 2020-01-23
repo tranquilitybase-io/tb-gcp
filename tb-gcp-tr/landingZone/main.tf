@@ -317,12 +317,13 @@ module "k8s-ssp_context" {
 }
 
 module "forseti-on-gke" {
+ # source              = "terraform-google-modules/forseti/google//examples/on_gke_end_to_end"
   source              = "terraform-google-modules/forseti/google"
-
   domain              = "gftdevgcp.com"
   gsuite_admin_email  = "orme@gft.com"
   org_id              = "160037278965"
   project_id          = module.shared_projects.shared_networking_id
+  network             = var.shared_vpc_name
 }
 
 resource "null_resource" "kubernetes_service_account_key_secret" {
