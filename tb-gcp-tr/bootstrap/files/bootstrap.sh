@@ -22,6 +22,14 @@ export HOME=/root
 apt-get -y install git
 apt-get -y install kubectl
 
+enable_itop="${enable_itop}"
+
+if [ "$enable_itop" == "true" ]
+then
+  cd /opt/tb/repo/tb-gcp-tr/landingZone/with-itop/
+else
+  cd /opt/tb/repo/tb-gcp-tr/landingZone/no-itop/
+fi
 
 cat <<EOF > input.auto.tfvars
 clusters_master_whitelist_ip = "${clusters_master_whitelist_ip}"
@@ -32,17 +40,8 @@ root_is_org = "${root_is_org}"
 billing_account_id = "${billing_account_id}"
 tb_discriminator = "${tb_discriminator}"
 terraform_state_bucket_name = "${terraform_state_bucket_name}"
-enable_itop="${enable_itop}"
 
 EOF
-
-if [ "$enable_itop" == "true" ]
-then
-  cd /opt/tb/repo/tb-gcp-tr/landingZone/with-itop/
-else
-  cd /opt/tb/repo/tb-gcp-tr/landingZone/no-itop/
-
-fi
 
 terraform init -backend-config="bucket=${terraform_state_bucket_name}" -backend-config="prefix=landingZone"
 
