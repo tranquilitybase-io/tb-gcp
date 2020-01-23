@@ -32,7 +32,7 @@ root_is_org = "${root_is_org}"
 billing_account_id = "${billing_account_id}"
 tb_discriminator = "${tb_discriminator}"
 terraform_state_bucket_name = "${terraform_state_bucket_name}"
-enable_itop = "${enable_itop}"
+enable_itop="${enable_itop}"
 
 EOF
 
