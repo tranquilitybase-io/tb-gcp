@@ -299,7 +299,7 @@ module "itop" {
   }
 
   host_project_id       = module.shared_projects.shared_operations_id
-  itop_chart_local_path = "../itop/helm"
+  itop_chart_local_path = "../../itop/helm"
   region                = var.region
   region_zone           = var.region_zone
   database_user_name    = var.itop_database_user_name
