@@ -74,6 +74,7 @@ apt-get -y install zip
 apt-get -y install nodejs
 curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 apt-get -y install build-essential nodejs
+apt-get -y install git
 npm install -g @angular/cli
 
 node -v
