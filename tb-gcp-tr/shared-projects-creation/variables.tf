@@ -64,3 +64,8 @@ variable "tb_bastion_project_name" {
   description = "Bastion project name."
 }
 
+variable "shared_forseti_project_name" {
+  type        = string
+  default     = "shared-forseti"
+  description = "Shared Forseti project name."
+}
