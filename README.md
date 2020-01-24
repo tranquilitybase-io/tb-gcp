@@ -124,6 +124,8 @@ cd tb-gcp
 
 * Use packer to create a GCE for the terraform-server:
 
+  **Note: Use `packer-no-itop.json` instead of `packer.json` in order to disable iTop.**
+
 ``` bash
 cd tb-gcp-deploy/pack/
 packer build -var "project_id=${PROJECT_ID}" packer.json
@@ -137,8 +139,8 @@ cd ../../
 cd tb-gcp-tr/bootstrap/
 ```
 
-* Edit your setup's specific variables on `input.tfvars`
-
+* Edit your setup's specific variables on `input.tfvars`. There's a `enable_itop` variable, set it to `false` to disable iTop and `true` to enable it.
+ 
 ``` bash
 vim input.tfvars
 ```
