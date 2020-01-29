@@ -23,7 +23,16 @@ steps:
       - Package image
     args: ['compute', 'images', 'update', '$_IMAGE_NAME','--update-labels','git_repo=$REPO_NAME,git_commit=$COMMIT_SHA,git_branch=$BRANCH_NAME','--project=$PROJECT_ID']
 
-# testing starts here
+  - id: Grant access to image
+    name: 'gcr.io/cloud-builders/gcloud'
+    waitFor:
+      - Label image
+    args: ['gcloud ', 'images', 'add-iam-policy-binding', '$_IMAGE_NAME','--member=$IMAGE_MEMBER','--role=$IMAGE_ROLE']
+    env:
+      - "IMAGE_MEMBER='allAuthenticatedUsers'"
+      - "IMAGE_ROLE='roles/compute.imageUser'"
+
+  # testing starts here
 # create instance from image. instance starting up creates resources required for tranquility base via terraform or GDM in bootstrap.sh
 # run inspec tests (or other) after bootstrap.sh finished
 # run 'terraform destroy' or 'gdm delete' to clean up resources
@@ -31,7 +40,7 @@ steps:
   - id: Run tests
     name: ubuntu
     waitFor:
-      - Package image
+      - Grant access to image
     entrypoint: bash
     args:
     - -c
