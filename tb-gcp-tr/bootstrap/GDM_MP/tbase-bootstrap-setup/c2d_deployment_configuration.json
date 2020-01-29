@@ -1,0 +1,7 @@
+{
+  "defaultDeploymentType": "SINGLE_VM",
+  "imageName": "image-2",
+  "projectId": "gft-group-public",
+  "templateName": "nonexistent_template",
+  "useSolutionPackage": true
+}

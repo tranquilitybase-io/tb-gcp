@@ -1,0 +1,8 @@
+imports:
+- path: tbase-bootstrap-setup.jinja
+
+resources:
+- name: tbase-bootstrap-setup
+  type: tbase-bootstrap-setup.jinja
+  properties:
+    zone: us-central1-f
