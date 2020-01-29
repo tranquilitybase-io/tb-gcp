@@ -27,7 +27,7 @@ steps:
     name: 'gcr.io/cloud-builders/gcloud'
     waitFor:
       - Label image
-    args: ['gcloud ', 'images', 'add-iam-policy-binding', '$_IMAGE_NAME','--member=$_IMAGE_MEMBER','--role=$_IMAGE_ROLE']
+    args: ['compute', 'images', 'add-iam-policy-binding', '$_IMAGE_NAME','--member=$_IMAGE_MEMBER','--role=$_IMAGE_ROLE']
 
   # testing starts here
 # create instance from image. instance starting up creates resources required for tranquility base via terraform or GDM in bootstrap.sh
