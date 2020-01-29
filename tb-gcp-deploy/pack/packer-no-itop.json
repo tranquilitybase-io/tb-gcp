@@ -1,0 +1,151 @@
+{
+  "variables": {
+    "region": "europe-west2",
+    "zone": "europe-west2-a",
+    "project_id": "",
+    "image_suffix": "",
+    "image_name": "tb-tr-debian-9-{{user `image_suffix`}}-{{isotime}}",
+    "image_family": "tb-tr-debian-9",
+    "tb_repos_root_path": "../../"
+  },
+  "builders": [
+    {
+      "type": "googlecompute",
+      "project_id": "{{user `project_id`}}",
+      "machine_type": "n1-standard-1",
+      "source_image_family": "debian-9",
+      "region": "{{user `region`}}",
+      "zone": "{{user `zone`}}",
+      "image_description": "TB, Terraform, Debian 9 based Machine Image",
+      "image_name": "{{user `image_name` | clean_resource_name}}",
+      "image_family": "{{user `image_family` | clean_resource_name}}",
+      "disk_size": 16,
+      "disk_type": "pd-ssd",
+      "ssh_username": "packer"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "mkdir -p repo",
+        "mkdir -p tb-gcp-tr"
+      ]
+    },
+    {
+      "type": "file",
+      "source": "{{user `tb_repos_root_path`}}/tb-common-tr",
+      "destination": "repo/"
+    },
+    {
+      "type": "file",
+      "source": "{{user `tb_repos_root_path`}}/tb-gcp-activator",
+      "destination": "repo/"
+    },
+    {
+      "type": "file",
+      "source": "{{user `tb_repos_root_path`}}/tb-gcp-tr/apis-activation",
+      "destination": "tb-gcp-tr/"
+    },
+    {
+      "type": "file",
+      "source": "{{user `tb_repos_root_path`}}/tb-gcp-tr/bastion",
+      "destination": "tb-gcp-tr/"
+    },
+    {
+      "type": "file",
+      "source": "{{user `tb_repos_root_path`}}/tb-gcp-tr/bootstrap",
+      "destination": "tb-gcp-tr/"
+    },
+    {
+      "type": "file",
+      "source": "{{user `tb_repos_root_path`}}/tb-gcp-tr/folder-structure-creation",
+      "destination": "tb-gcp-tr/"
+    },
+    {
+      "type": "file",
+      "source": "{{user `tb_repos_root_path`}}/tb-gcp-tr/gae-self-service-portal",
+      "destination": "tb-gcp-tr/"
+    },
+    {
+      "type": "file",
+      "source": "{{user `tb_repos_root_path`}}/tb-gcp-tr/helm-pre-requisites",
+      "destination": "tb-gcp-tr/"
+    },
+    {
+      "type": "file",
+      "source": "{{user `tb_repos_root_path`}}/tb-gcp-tr/http-load-balancer",
+      "destination": "tb-gcp-tr/"
+    },
+    {
+      "type": "file",
+      "source": "{{user `tb_repos_root_path`}}/tb-gcp-tr/k8s-context",
+      "destination": "tb-gcp-tr/"
+    },
+    {
+      "type": "file",
+      "source": "{{user `tb_repos_root_path`}}/tb-gcp-tr/kubernetes-cluster-creation",
+      "destination": "tb-gcp-tr/"
+    },
+    {
+      "type": "file",
+      "source": "{{user `tb_repos_root_path`}}/tb-gcp-tr/landingZone",
+      "destination": "tb-gcp-tr/"
+    },
+    {
+      "type": "file",
+      "source": "{{user `tb_repos_root_path`}}/tb-gcp-tr/shared-projects-creation",
+      "destination": "tb-gcp-tr/"
+    },
+    {
+      "type": "file",
+      "source": "{{user `tb_repos_root_path`}}/tb-gcp-tr/shared-vpc",
+      "destination": "tb-gcp-tr/"
+    },
+    {
+      "type": "file",
+      "source": "{{user `tb_repos_root_path`}}/tb-gcp-tr/single-bastion",
+      "destination": "tb-gcp-tr/"
+    },
+    {
+      "type": "file",
+      "source": "{{user `tb_repos_root_path`}}/tb-gcp-tr/vault",
+      "destination": "tb-gcp-tr/"
+    },
+    {
+      "type": "file",
+      "source": "{{user `tb_repos_root_path`}}/tb-gcp-tr/.gitignore",
+      "destination": "tb-gcp-tr/"
+    },
+    {
+      "type": "file",
+      "source": "{{user `tb_repos_root_path`}}/tb-gcp-tr/LICENSE",
+      "destination": "tb-gcp-tr/"
+    },
+    {
+      "type": "file",
+      "source": "{{user `tb_repos_root_path`}}/tb-gcp-tr/README.md",
+      "destination": "tb-gcp-tr/"
+    },
+    {
+      "type": "file",
+      "source": "{{user `tb_repos_root_path`}}/tb-self-service-portal-ui",
+      "destination": "repo/"
+    },
+    {
+      "type": "file",
+      "source": "{{user `tb_repos_root_path`}}/tb-ssp-gcp",
+      "destination": "repo/"
+    },
+    {
+      "type": "file",
+      "source": "{{user `tb_repos_root_path`}}/.gitignore",
+      "destination": "repo/"
+    },
+    {
+      "type": "shell",
+      "script": "init-no-itop.sh",
+      "execute_command": "echo 'packer' | sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
+    }
+  ]
+}

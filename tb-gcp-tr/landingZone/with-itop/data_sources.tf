@@ -12,13 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#PROVIDER
-region = ""
-region_zone = ""
-folder_id = ""
-billing_account_id = ""
-tb_discriminator = ""
-enable_itop = ""
+data "google_client_config" "current" {
+}
 
-#CREATE-BOOTSTRAP-TERRAFORM-SERVER
-bootstrap_host_disk_image = "projects/<project_id>/global/images/family/tb-tr-debian-9"

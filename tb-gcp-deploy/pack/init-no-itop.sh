@@ -1,12 +1,12 @@
 #!/bin/bash
 # Copyright 2019 The Tranquility Base Authors
-#
+# 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#
+# 
 #     http://www.apache.org/licenses/LICENSE-2.0
-#
+# 
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -89,6 +89,7 @@ rm terraform_0.12.9_linux_amd64.zip
 # move TB Repo files from packer's home directory to target /opt/tb/repo directory
 mkdir -p /opt/tb
 mv repo /opt/tb/
+mv tb-gcp-tr /opt/tb/repo
 
 # Build self service portal ui angular app
 cd /opt/tb/repo/tb-self-service-portal-ui/

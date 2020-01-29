@@ -51,7 +51,7 @@ terraform {
 }
 
 module "folder_structure" {
-  source = "./../folder-structure-creation"
+  source = "../../folder-structure-creation"
 
   region           = var.region
   region_zone      = var.region_zone
@@ -61,7 +61,7 @@ module "folder_structure" {
 }
 
 module "shared_projects" {
-  source = "./../shared-projects-creation"
+  source = "../../shared-projects-creation"
 
   root_id                        = module.folder_structure.shared_services_id
   billing_account_id             = var.billing_account_id
@@ -74,7 +74,7 @@ module "shared_projects" {
 }
 
 module "apis_activation" {
-  source = "./../apis-activation"
+  source = "../../apis-activation"
 
   ssp_project_id          = module.shared_projects.shared_ssp_id
   bastion_project_id              = module.shared_projects.tb_bastion_id
@@ -84,7 +84,7 @@ module "apis_activation" {
 }
 
 module "shared-vpc" {
-  source = "./../shared-vpc"
+  source = "../../shared-vpc"
 
   host_project_id          = module.shared_projects.shared_networking_id
   shared_vpc_name          = var.shared_vpc_name
@@ -102,7 +102,7 @@ module "shared-vpc" {
 }
 
 module "gke-ssp" {
-  source = "../kubernetes-cluster-creation"
+  source = "../../kubernetes-cluster-creation"
 
   providers = {
     google                 = google
@@ -121,17 +121,17 @@ module "gke-ssp" {
   cluster_pool_name            = var.cluster_ssp_pool_name
   cluster_master_cidr          = var.cluster_ssp_master_cidr
   cluster_master_authorized_cidrs = concat(
-    var.cluster_ssp_master_authorized_cidrs,
-    [
-      merge(
-        {
-          "display_name" = "initial-admin-ip"
-        },
-        {
-          "cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
-        },
-      ),
-    ],
+  var.cluster_ssp_master_authorized_cidrs,
+  [
+    merge(
+    {
+      "display_name" = "initial-admin-ip"
+    },
+    {
+      "cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
+    },
+    ),
+  ],
   )
   cluster_min_master_version = var.cluster_ssp_min_master_version
 
@@ -149,7 +149,7 @@ resource "google_sourcerepo_repository" "SSP" {
 }
 
 module "gke-security" {
-  source = "../kubernetes-cluster-creation"
+  source = "../../kubernetes-cluster-creation"
 
   providers = {
     google                 = google.vault
@@ -169,17 +169,17 @@ module "gke-security" {
   cluster_pool_name             = var.cluster_sec_pool_name
   cluster_master_cidr           = var.cluster_sec_master_cidr
   cluster_master_authorized_cidrs = concat(
-    var.cluster_sec_master_authorized_cidrs,
-    [
-      merge(
-        {
-          "display_name" = "initial-admin-ip"
-        },
-        {
-          "cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
-        },
-      ),
-    ],
+  var.cluster_sec_master_authorized_cidrs,
+  [
+    merge(
+    {
+      "display_name" = "initial-admin-ip"
+    },
+    {
+      "cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
+    },
+    ),
+  ],
   )
   cluster_min_master_version = var.cluster_sec_min_master_version
   istio_status               = var.istio_status
@@ -192,7 +192,7 @@ module "gke-security" {
 }
 
 module "vault" {
-  source = "../vault"
+  source = "../../vault"
 
   vault_cluster_project             = module.shared_projects.shared_security_id
   vault-gcs-location                = var.location
@@ -218,7 +218,7 @@ module "vault" {
 }
 
 module "gke-operations" {
-  source = "../kubernetes-cluster-creation"
+  source = "../../kubernetes-cluster-creation"
 
   providers = {
     google                 = google
@@ -238,17 +238,17 @@ module "gke-operations" {
   cluster_pool_name            = var.cluster_opt_pool_name
   cluster_master_cidr          = var.cluster_opt_master_cidr
   cluster_master_authorized_cidrs = concat(
-    var.cluster_opt_master_authorized_cidrs,
-    [
-      merge(
-        {
-          "display_name" = "initial-admin-ip"
-        },
-        {
-          "cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
-        },
-      ),
-    ],
+  var.cluster_opt_master_authorized_cidrs,
+  [
+    merge(
+    {
+      "display_name" = "initial-admin-ip"
+    },
+    {
+      "cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
+    },
+    ),
+  ],
   )
   cluster_min_master_version = var.cluster_opt_min_master_version
 
@@ -271,7 +271,7 @@ provider "kubernetes" {
 
 # Deploy gke-operations cluster helm pre-requisite resources
 module "gke_operations_helm_pre_req" {
-  source = "../helm-pre-requisites"
+  source = "../../helm-pre-requisites"
   providers = {
     kubernetes = kubernetes.gke-operations
   }
@@ -289,26 +289,8 @@ provider "helm" {
   service_account = module.gke_operations_helm_pre_req.tiller_svc_accnt_name
 }
 
-# Deploys itop on GKE Operations cluster
-module "itop" {
-  source = "../itop"
-  providers = {
-    kubernetes = kubernetes.gke-operations
-    helm       = helm.gke-operations
-  }
-
-  host_project_id       = module.shared_projects.shared_operations_id
-  itop_chart_local_path = "../itop/helm"
-  region                = var.region
-  region_zone           = var.region_zone
-  database_user_name    = var.itop_database_user_name
-  k8_cluster_name       = var.cluster_sec_name
-
-  dependency_vars = module.gke-operations.node_id
-}
-
 module "k8s-ssp_context" {
-  source = "../k8s-context"
+  source = "../../k8s-context"
 
   cluster_name    = var.cluster_ssp_name
   cluster_project = module.shared_projects.shared_ssp_id
@@ -331,7 +313,7 @@ resource "null_resource" "kubernetes_service_account_key_secret" {
 }
 
 module "SharedServices_configuration_file" {
-  source = "../../tb-common-tr/start_service"
+  source = "../../../tb-common-tr/start_service"
 
   k8s_template_file = local_file.ssp_config_map.filename
   cluster_context   = module.k8s-ssp_context.context_name
@@ -339,7 +321,7 @@ module "SharedServices_configuration_file" {
 }
 
 module "SharedServices_ssp" {
-  source = "../../tb-common-tr/start_service"
+  source = "../../../tb-common-tr/start_service"
 
   k8s_template_file = var.application_yaml_path
   cluster_context   = module.k8s-ssp_context.context_name
@@ -347,7 +329,7 @@ module "SharedServices_ssp" {
 }
 
 module "self-service-app" {
-  source = "../gae-self-service-portal"
+  source = "../../gae-self-service-portal"
 
   project_id         = module.shared_projects.shared_ssp_id
   source_bucket      = var.ssp_ui_source_bucket
@@ -433,7 +415,7 @@ resource "google_app_engine_application" "enable-datastore" {
 }
 
 module "bastion-security" {
-  source = "./../bastion"
+  source = "../../bastion"
 
   tb_bastion_id = module.shared_projects.tb_bastion_id
   shared_networking_id = module.shared_projects.shared_networking_id
