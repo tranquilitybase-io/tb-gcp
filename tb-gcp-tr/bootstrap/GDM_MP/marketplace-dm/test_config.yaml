@@ -1,0 +1,9 @@
+imports:
+- path: tranquility-base.jinja
+
+resources:
+- name: tranquility-base
+  type: tranquility-base.jinja
+  properties:
+    zone: europe-west2-a
+    concurrent_api_activation: False

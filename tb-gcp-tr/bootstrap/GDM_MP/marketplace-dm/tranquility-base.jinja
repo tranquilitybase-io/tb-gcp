@@ -56,24 +56,6 @@ resources:
       tags:
         items:
           - {{ env["deployment"] }}-deployment
-  {% if properties["enableTcp8080"] %}
-  - name: {{ env["deployment"] }}-tcp-8080
-    type: compute.v1.firewall
-    properties:
-      network: {{ networks[0] }}
-      {% if properties.get("tcp8080SourceRanges") %}
-      sourceRanges:
-        {% for source in properties["tcp8080SourceRanges"].split(',') %}
-        - '{{ source | trim }}'
-        {% endfor %}
-      {% else %}
-      sourceRanges: ["0.0.0.0/0"]
-      {% endif %}
-      targetTags: ["{{ env["deployment"] }}-deployment"]
-      allowed:
-        - IPProtocol: TCP
-          ports: ["8080"]
-  {% endif %}
 
 outputs:
   - name: deployment
