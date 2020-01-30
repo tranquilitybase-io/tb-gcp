@@ -99,14 +99,8 @@ cd /opt/tb/repo/tb-self-service-portal-ui/
 sudo npm install
 sudo npm run build --prod
 
-#Navigate to NAT set-up working dir
-cd /opt/tb/repo/tb-gcp-tr/nat-setup-gm/
+#Navigate to Landing Zone working dir
+cd /opt/tb/repo/tb-gcp-tr/landingZone/no-itop/
 # Download required terraform providers
 terraform init -backend=false
-
-
-#Navigate to Landing Zone working dir
-#cd /opt/tb/repo/tb-gcp-tr/landingZone/no-itop/
-# Download required terraform providers
-#terraform init -backend=false
-#pwd
+pwd
