@@ -19,13 +19,13 @@ def GenerateConfig(context):
 
   projectNumber = context.env['project_number']
   billingAccountId = context.properties['billingAccountId']
-  concurrent_api_activation= context.properties['concurrentApiActivation']
+  concurrentApiActivation= context.properties['concurrentApiActivation']
 
   resources = []
   for index, api in enumerate(context.properties['apis']):
     depends_on = [projectNumber, billingAccountId]
     # Serialize the activation of all the apis by making api_n depend on api_n-1
-    if (not concurrent_api_activation) and index != 0:
+    if (not concurrentApiActivation) and index != 0:
         depends_on.append(ApiResourceName(projectNumber, context.properties['apis'][index-1]))
     resources.append({
         'name': ApiResourceName(projectNumber, api),

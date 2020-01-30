@@ -38,6 +38,7 @@ input:
       title: Machine type
     - name: billingAccountId
       title: Billing account that Tranquility Base will use
+      section: TRANQUILITY_BASE
     - name: clustersMasterWhitelistIp
       title: Clusters Master Whitelist IP
       section: TRANQUILITY_BASE
@@ -46,9 +47,6 @@ input:
       section: TRANQUILITY_BASE
     - name: rootIsOrg
       title: Is root an organisation?
-      section: TRANQUILITY_BASE
-    - name: billingAccountId
-      title: Billing account that Tranquility Base will use
       section: TRANQUILITY_BASE
     - name: tbDiscriminator
       title: Tranquility Base Discriminator

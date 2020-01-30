@@ -26,6 +26,11 @@
 {% set tbDiscriminator = properties["tbDiscriminator"] %}
 {% set terraformStateBucketName = properties["terraformStateBucketName"] %}
 {% set concurrentApiActivation = properties["concurrentApiActivation"] %}
+{% set apis = properties["apis"] %}
+{% set apis = [] %}
+{% for api in properties["apis"] %}
+{% set _ = apis.append(api) %}
+{% endfor %}
 
 resources:
   - name: {{ name }}
@@ -64,6 +69,12 @@ resources:
       tags:
         items:
           - {{ env["deployment"] }}-deployment
+  - name: apis-enable
+    type: apis.py
+    properties:
+      billingAccountId: {{ billingAccountId }}
+      concurrentApiActivation: {{ concurrentApiActivation }}
+      apis: {{ apis }}
 
 outputs:
   - name: deployment
