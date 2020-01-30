@@ -19,12 +19,12 @@
 {% set enableStatusWaiter = hasExternalIP %}
 {% set canIpForward = properties["ipForward"] == "On" %}
 {% set projectNumber = env["project_number"] %}
-{% set clustersMasterWhitelistIp = properties["input_clustersMasterWhitelistIp"] %}
-{% set rootId = properties["input_rootId"] %}
-{% set rootIsOrg = properties["input_rootIsOrg"] %}
-{% set billingAccountId = properties["input_billingAccountId"] %}
-{% set tbDiscriminator = properties["input_tbDiscriminator"] %}
-{% set terraformStateBucketName = properties["input_terraformStateBucketName"] %}
+{% set clustersMasterWhitelistIp = properties["clustersMasterWhitelistIp"] %}
+{% set rootId = properties["rootId"] %}
+{% set rootIsOrg = properties["rootIsOrg"] %}
+{% set billingAccountId = properties["billingAccountId"] %}
+{% set tbDiscriminator = properties["tbDiscriminator"] %}
+{% set terraformStateBucketName = properties["terraformStateBucketName"] %}
 {% set concurrentApiActivation = properties["concurrentApiActivation"] %}
 
 resources:

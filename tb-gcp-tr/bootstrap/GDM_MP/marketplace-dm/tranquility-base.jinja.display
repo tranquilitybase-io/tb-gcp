@@ -36,6 +36,26 @@ input:
       title: Zone
     - name: machineType
       title: Machine type
+    - name: billingAccountId
+      title: Billing account that Tranquility Base will use
+    - name: clustersMasterWhitelistIp
+      title: Clusters Master Whitelist IP
+      section: TRANQUILITY_BASE
+    - name: rootId
+      title: Root ID
+      section: TRANQUILITY_BASE
+    - name: rootIsOrg
+      title: Is root an organisation?
+      section: TRANQUILITY_BASE
+    - name: billingAccountId
+      title: Billing account that Tranquility Base will use
+      section: TRANQUILITY_BASE
+    - name: tbDiscriminator
+      title: Tranquility Base Discriminator
+      section: TRANQUILITY_BASE
+    - name: terraformStateBucketName
+      title: Terraform State Bucket Name
+      section: TRANQUILITY_BASE
     - name: bootDiskType
       title: Boot disk type
       section: BOOT_DISK
@@ -64,38 +84,14 @@ input:
         more</a>
       section: NETWORKING
       level: 1
-    - name: input_adminEmailAddress
-      title: Administrator e-mail address
-      tooltip: The e-mail address used to create the administrator account for WordPress.
-      validation: Please enter a valid email address
-      placeholder: user@example.com
-      section: OTHER
-    - name: input_clustersMasterWhitelistIp:
-      title: Clusters Master Whitelist IP
-      section: OTHER
-    - name: input_rootId
-      title: Root ID
-      section: OTHER
-    - name: input_rootIsOrg
-      title: Is root an organisation?
-      section: OTHER
-    - name: input_billingAccountId
-      title: Billing account that Tranquility Base will use
-      section: OTHER
-    - name: input_tbDiscriminator
-      title: Tranquility Base Discriminator
-      section: OTHER
-    - name: input_terraformStateBucketName
-      title: Terraform State Bucket Name
-      section: OTHER
   sections:
     - name: BOOT_DISK
       title: Boot Disk
       tooltip: Each instance requires a disk to boot from.
     - name: NETWORKING
       title: Networking
-    - name: OTHER
-      title: Other Settings
+    - name: TRANQUILITY_BASE
+      title: Tranquility Base required settings
 runtime:
   deployingMessage: Deployment can take several minutes to complete.
   applicationTable:

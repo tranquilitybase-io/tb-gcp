@@ -88,22 +88,17 @@ properties:
       type: GCE_DISK_SIZE
       gceDiskSize:
         diskTypeProperty: bootDiskType
-  input_adminEmailAddress:
+  clustersMasterWhitelistIp:
     type: string
-    pattern: ^[a-zA-Z0-9!#$%&\'*+\/=?^_`{|}~\.-]+@[a-zA-Z0-9](?:[a-zA-Z0-9]?[.-]?[a-zA-Z0-9]+)+[[a-zA-Z0-9]{1}$
-    x-googleProperty:
-      type: EMAIL_ADDRESS
-  input_clustersMasterWhitelistIp:
+  rootId:
     type: string
-  input_rootId:
+  rootIsOrg:
     type: string
-  input_rootIsOrg:
+  billingAccountId:
     type: string
-  input_billingAccountId:
+  tbDiscriminator:
     type: string
-  input_tbDiscriminator:
-    type: string
-  input_terraformStateBucketName:
+  terraformStateBucketName:
     type: string
 
 outputs:
