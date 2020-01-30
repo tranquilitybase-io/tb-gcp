@@ -9,6 +9,8 @@ imports:
     path: common/path_utils.jinja
   - name: vm_instance.py
     path: common/vm_instance.py
+  - name: apis.py
+    path: tranquility-base/apis.py
 
 info:
   version: '1.0'
@@ -91,6 +93,18 @@ properties:
     pattern: ^[a-zA-Z0-9!#$%&\'*+\/=?^_`{|}~\.-]+@[a-zA-Z0-9](?:[a-zA-Z0-9]?[.-]?[a-zA-Z0-9]+)+[[a-zA-Z0-9]{1}$
     x-googleProperty:
       type: EMAIL_ADDRESS
+  input_clustersMasterWhitelistIp:
+    type: string
+  input_rootId:
+    type: string
+  input_rootIsOrg:
+    type: string
+  input_billingAccountId:
+    type: string
+  input_tbDiscriminator:
+    type: string
+  input_terraformStateBucketName:
+    type: string
 
 outputs:
   deployment:

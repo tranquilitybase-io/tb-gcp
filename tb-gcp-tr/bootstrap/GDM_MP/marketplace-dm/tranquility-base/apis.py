@@ -17,31 +17,30 @@
 def GenerateConfig(context):
   """Generates config."""
 
-  project_id = context.env['project_number']
-  # billing = context.properties['billing']
-  concurrent_api_activation= context.properties['concurrent_api_activation']
+  projectNumber = context.env['project_number']
+  billingAccountId = context.properties['billingAccountId']
+  concurrent_api_activation= context.properties['concurrentApiActivation']
 
   resources = []
   for index, api in enumerate(context.properties['apis']):
-    # depends_on = [project_id, billing]
-    depends_on = [project_id]
+    depends_on = [projectNumber, billingAccountId]
     # Serialize the activation of all the apis by making api_n depend on api_n-1
     if (not concurrent_api_activation) and index != 0:
-        depends_on.append(ApiResourceName(project_id, context.properties['apis'][index-1]))
+        depends_on.append(ApiResourceName(projectNumber, context.properties['apis'][index-1]))
     resources.append({
-        'name': ApiResourceName(project_id, api),
+        'name': ApiResourceName(projectNumber, api),
         'type': 'deploymentmanager.v2.virtual.enableService',
         'metadata': {
             'dependsOn': depends_on
         },
         'properties': {
-            'consumerId': 'project:' + project_id,
+            'consumerId': 'project:' + projectNumber,
             'serviceName': api
         }
     })
   return {'resources': resources}
 
 
-def ApiResourceName(project_id, api_name):
-  return project_id + '-' + api_name
+def ApiResourceName(projectNumber, api_name):
+  return projectNumber + '-' + api_name
 

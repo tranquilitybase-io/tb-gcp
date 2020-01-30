@@ -18,6 +18,14 @@
 {# Software status only works if the VM has an external IP. #}
 {% set enableStatusWaiter = hasExternalIP %}
 {% set canIpForward = properties["ipForward"] == "On" %}
+{% set projectNumber = env["project_number"] %}
+{% set clustersMasterWhitelistIp = properties["input_clustersMasterWhitelistIp"] %}
+{% set rootId = properties["input_rootId"] %}
+{% set rootIsOrg = properties["input_rootIsOrg"] %}
+{% set billingAccountId = properties["input_billingAccountId"] %}
+{% set tbDiscriminator = properties["input_tbDiscriminator"] %}
+{% set terraformStateBucketName = properties["input_terraformStateBucketName"] %}
+{% set concurrentApiActivation = properties["concurrentApiActivation"] %}
 
 resources:
   - name: {{ name }}

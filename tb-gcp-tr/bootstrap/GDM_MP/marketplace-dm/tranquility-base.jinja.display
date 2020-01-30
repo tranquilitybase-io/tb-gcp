@@ -70,6 +70,24 @@ input:
       validation: Please enter a valid email address
       placeholder: user@example.com
       section: OTHER
+    - name: input_clustersMasterWhitelistIp:
+      title: Clusters Master Whitelist IP
+      section: OTHER
+    - name: input_rootId
+      title: Root ID
+      section: OTHER
+    - name: input_rootIsOrg
+      title: Is root an organisation?
+      section: OTHER
+    - name: input_billingAccountId
+      title: Billing account that Tranquility Base will use
+      section: OTHER
+    - name: input_tbDiscriminator
+      title: Tranquility Base Discriminator
+      section: OTHER
+    - name: input_terraformStateBucketName
+      title: Terraform State Bucket Name
+      section: OTHER
   sections:
     - name: BOOT_DISK
       title: Boot Disk
