@@ -5,29 +5,9 @@ resources:
   - name: tranquility-base
     type: tranquility-base.jinja
     properties:
-      zone: europe-west2-a
+      tbDiscriminator: dev
+      terraformStateBucketName: tbState
       concurrentApiActivation: False
-      apis:
-        - appengine.googleapis.com
-        - bigquery-json.googleapis.com
-        - cloudkms.googleapis.com
-        - container.googleapis.com
-        - containerregistry.googleapis.com
-        - datastore.googleapis.com
-        - iap.googleapis.com
-        - iam.googleapis.com
-        - logging.googleapis.com
-        - oslogin.googleapis.com
-        - serviceusage.googleapis.com
-        - sqladmin.googleapis.com
-        - storage-api.googleapis.com
-        - sourcerepo.googleapis.com
-        - deploymentmanager.googleapis.com
-        - pubsub.googleapis.com
-        - storage-component.googleapis.com
-        - monitoring.googleapis.com
-        - compute.googleapis.com
-        - iamcredentials.googleapis.com
-        - cloudbilling.googleapis.com
-        - cloudresourcemanager.googleapis.com
-        - runtimeconfig.googleapis.com
+      vm:
+        - tbBootstrapServer
+

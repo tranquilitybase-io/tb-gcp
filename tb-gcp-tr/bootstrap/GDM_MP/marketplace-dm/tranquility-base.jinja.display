@@ -42,11 +42,8 @@ input:
     - name: clustersMasterWhitelistIp
       title: Clusters Master Whitelist IP
       section: TRANQUILITY_BASE
-    - name: rootId
-      title: Root ID
-      section: TRANQUILITY_BASE
-    - name: rootIsOrg
-      title: Is root an organisation?
+    - name: parentFolderId
+      title: Parent Folder ID
       section: TRANQUILITY_BASE
     - name: tbDiscriminator
       title: Tranquility Base Discriminator

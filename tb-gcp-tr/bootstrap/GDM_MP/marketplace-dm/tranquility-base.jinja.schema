@@ -9,8 +9,22 @@ imports:
     path: common/path_utils.jinja
   - name: vm_instance.py
     path: common/vm_instance.py
+  - name: project.py
+    path: tranquility-base/project.py
   - name: apis.py
     path: tranquility-base/apis.py
+  - name: sub-network.py
+    path: tranquility-base/sub-network.py
+  - name: service-accounts.py
+    path: tranquility-base/service-accounts.py
+  - name: network-template.py
+    path: tranquility-base/network-template.py
+  - name: cloud-storage-bucket.py
+    path: tranquility-base/cloud-storage-bucket.py
+  - name: vm-template.py
+    path: tranquility-base/vm-template.py
+  - name: nat-gateway.py
+    path: tranquility-base/nat-gateway.py
 
 info:
   version: '1.0'
@@ -90,9 +104,7 @@ properties:
         diskTypeProperty: bootDiskType
   clustersMasterWhitelistIp:
     type: string
-  rootId:
-    type: string
-  rootIsOrg:
+  parentFolderId:
     type: string
   billingAccountId:
     type: string
