@@ -157,35 +157,35 @@ resources:
         tb_discriminator = "{{ tbDiscriminator }}"
         terraform_state_bucket_name = "{{ terraformStateBucketName }}"
         EOF
-        terraform init -backend-config="bucket={{ terraformStateBucketName }}" -backend-config="prefix=landingZone"
+        # terraform init -backend-config="bucket={{ terraformStateBucketName }}" -backend-config="prefix=landingZone"
 
-        apply_failures=0
-        while [ $apply_failures -lt $MAX_ATTEMPTS ]; do
-        terraform apply -var-file input.tfvars -auto-approve
-        if [ $? -eq 0 ]; then
-        echo "Landing Zone successfully deployed."
-        break
-        fi
-        if [ $((apply_failures +1)) -eq $MAX_ATTEMPTS ]; then
-        echo "Maximum of $MAX_ATTEMPTS reached. Moving on..."
-        break
-        fi
-        echo "Landing Zone deployment failed."
-        apply_failures=$(($apply_failures + 1))
-        echo "Retry #$apply_failures starting in $DELAY_BETWEEN_ATTEMPTS seconds."
-        sleep $DELAY_BETWEEN_ATTEMPTS
-        done
+        # apply_failures=0
+        # while [ $apply_failures -lt $MAX_ATTEMPTS ]; do
+        # terraform apply -var-file input.tfvars -auto-approve
+        # if [ $? -eq 0 ]; then
+        # echo "Landing Zone successfully deployed."
+        # break
+        # fi
+        # if [ $((apply_failures +1)) -eq $MAX_ATTEMPTS ]; then
+        # echo "Maximum of $MAX_ATTEMPTS reached. Moving on..."
+        # break
+        # fi
+        # echo "Landing Zone deployment failed."
+        # apply_failures=$(($apply_failures + 1))
+        # echo "Retry #$apply_failures starting in $DELAY_BETWEEN_ATTEMPTS seconds."
+        # sleep $DELAY_BETWEEN_ATTEMPTS
+        # done
 
         # Commit current TB terraform code to GCR
-        cd /tmp
-        gcloud source repos create tb-terraform-code
-        gcloud source repos clone tb-terraform-code
-        cd /tmp/tb-terraform-code
-        rsync -a /opt/tb/repo/ .
-        git init
-        git add .
-        git commit -m "Landing zone terraform script"
-        git push -u origin master
+        # cd /tmp
+        # gcloud source repos create tb-terraform-code
+        # gcloud source repos clone tb-terraform-code
+        # cd /tmp/tb-terraform-code
+        # rsync -a /opt/tb/repo/ .
+        # git init
+        # git add .
+        # git commit -m "Landing zone terraform script"
+        # git push -u origin master
       natGatewayStartupScript: |
         #!/bin/bash
         echo 1 > /proc/sys/net/ipv4/ip_forward
