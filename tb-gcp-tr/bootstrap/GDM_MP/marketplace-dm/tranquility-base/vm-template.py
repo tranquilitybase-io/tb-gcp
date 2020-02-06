@@ -3,8 +3,6 @@ def GenerateConfig(context):
     """Creates configuration."""
 
     project_id = context.env['project']
-    sourceImage = context.properties['sourceImage']
-    region = context.properties['region']
     resources = []
     for vm in context.properties['vms']:
         resources.append({
@@ -13,8 +11,11 @@ def GenerateConfig(context):
             'properties': {
                 'tags': {'items': ['no-ip', 'iap']},
                 'project': project_id,
-                'region': 'region',
+                'region': context.properties['region'],
                 'zone': context.properties['zone'],
+                'serviceAccounts': [
+                    {"email": context.properties['bootstrapServerServiceAccount']}
+                ],
                 'machineType': ''.join([COMPUTE_URL_BASE, 'projects/',
                                         context.env['project'], '/zones/',
                                         context.properties['zone'], '/machineTypes/',
@@ -25,7 +26,7 @@ def GenerateConfig(context):
                     'boot': True,
                     'autoDelete': True,
                     'initializeParams': {
-                        'sourceImage': sourceImage
+                        'sourceImage': (context.properties['sourceImage'])
                     }
                 }],
                 'networkInterfaces': [{

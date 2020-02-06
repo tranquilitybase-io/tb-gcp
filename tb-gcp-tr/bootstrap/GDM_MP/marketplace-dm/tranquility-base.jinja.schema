@@ -102,7 +102,7 @@ properties:
       type: GCE_DISK_SIZE
       gceDiskSize:
         diskTypeProperty: bootDiskType
-  clustersMasterWhitelistIp:
+  bootstrapServerServiceAccount:
     type: string
   parentFolderId:
     type: string

@@ -39,8 +39,8 @@ input:
     - name: billingAccountId
       title: Billing account that Tranquility Base will use
       section: TRANQUILITY_BASE
-    - name: clustersMasterWhitelistIp
-      title: Clusters Master Whitelist IP
+    - name: bootstrapServerServiceAccount
+      title: Service Account that Tranquility Base will use
       section: TRANQUILITY_BASE
     - name: parentFolderId
       title: Parent Folder ID

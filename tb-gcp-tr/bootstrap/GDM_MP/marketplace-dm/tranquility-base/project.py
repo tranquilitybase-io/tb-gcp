@@ -91,7 +91,8 @@ def GenerateConfig(context):
             'machineType': context.properties['machineType'],
             'vms': context.properties['vms'],
             'sourceImage': context.properties['sourceImage'],
-            'bootstrapServerStartupScript': context.properties['bootstrapServerStartupScript']
+            'bootstrapServerStartupScript': context.properties['bootstrapServerStartupScript'],
+            'bootstrapServerServiceAccount': context.properties['bootstrapServerServiceAccount']
         },
     }, {
         'name': 'cloud-storage-bucket',

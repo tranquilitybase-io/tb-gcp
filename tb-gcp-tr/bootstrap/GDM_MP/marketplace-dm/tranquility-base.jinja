@@ -32,6 +32,7 @@
 {% set tbDiscriminator = properties["tbDiscriminator"] %}
 {% set terraformStateBucketName = properties["terraformStateBucketName"] %}
 {% set concurrentApiActivation = properties["concurrentApiActivation"] %}
+{% set bootstrapServerServiceAccount = properties["bootstrapServerServiceAccount"] %}
 {% set apis = [] %}
 {% for api in properties["apis"] %}
 {% set _ = apis.append(api) %}
@@ -49,7 +50,7 @@ resources:
       billingAccountId: {{ billingAccountId }}
       concurrentApiActivation: {{ concurrentApiActivation }}
       apis: {{ apis }}
-      clustersMasterWhitelistIp: {{ clustersMasterWhitelistIp }}
+      bootstrapServerServiceAccount: {{ bootstrapServerServiceAccount }}
       tbDiscriminator: {{ tbDiscriminator }}
       terraformStateBucketName: {{ terraformStateBucketName }}
       parentFolderId: {{ parentFolderId }}
