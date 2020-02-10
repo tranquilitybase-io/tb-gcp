@@ -67,7 +67,7 @@ input:
         CIDR notation when entering ranges. <a
         href="https://cloud.google.com/compute/docs/networking#firewalls">Learn
         more</a>
-      placeholder: '0.0.0.0/0, 192.169.0.2/24'
+      placeholder: ''
       section: NETWORKING
     - name: ipForward
       title: IP forwarding

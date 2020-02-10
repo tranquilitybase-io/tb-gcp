@@ -5,6 +5,7 @@
 {% set name = "%s-vm-tmpl" % env["name"] %}
 {% set instanceName = "%s-vm" % deployment %}
 {% set zone = properties["zone"] %}
+{% set region = properties["zone"][:-2] %}
 {% set machineType = properties["machineType"] %}
 {% set networks = [] %}
 {% for network in properties["network"] %}
@@ -20,12 +21,22 @@
 {% set canIpForward = properties["ipForward"] == "On" %}
 
 resources:
+  - name: cloud-storage-bucket
+    type: cloud-storage-bucket.py
+    properties:
+        project: {{ project }}
+        zone: {{ zone }}
+        bucket-export-settings:
+            create-bucket: true
+
   - name: {{ name }}
     type: vm_instance.py
     properties:
+      bucketName: $(ref.cloud-storage-bucket.bucketName)
       instanceName: {{ instanceName }}
       sourceImage: https://www.googleapis.com/compute/v1/projects/tbase-ci/global/images/bootstrap-server-dm4mp
       zone: {{ zone }}
+      region: {{ region }}
       machineType: {{ machineType }}
       networks:
       {% for network in networks %}
@@ -53,9 +64,30 @@ resources:
             - 'https://www.googleapis.com/auth/devstorage.read_only'
             - 'https://www.googleapis.com/auth/logging.write'
             - 'https://www.googleapis.com/auth/monitoring.write'
+      bootstrapServerStartupScript: |
+        #!/bin/bash
+        exec >> /var/log/bootstrap.log 2>&1
+
+        MAX_ATTEMPTS=10
+        DELAY_BETWEEN_ATTEMPTS=60
+
+        export HOME=/root
+
+        cd /opt/tb/repo/tb-gcp-tr/landingZone/
+        cat <<EOF > input.auto.tfvars
+        clusters_master_whitelist_ip = {{ vmExternalIP }}
+        region = "{{ region }}"
+        region_zone = "{{ region_zone}}"
+        root_id = "TO ADD"
+        root_is_org = "TO ADD"
+        billing_account_id = "TO ADD"
+        tb_discriminator = "TO ADD"
+        terraform_state_bucket_name = {{ bucketName }}
+        EOF
       tags:
         items:
           - {{ env["deployment"] }}-deployment
+
   {% if properties["enableTcp22"] %}
   - name: {{ env["deployment"] }}-tcp-22
     type: compute.v1.firewall
