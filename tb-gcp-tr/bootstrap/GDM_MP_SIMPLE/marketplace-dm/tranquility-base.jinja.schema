@@ -12,7 +12,7 @@ imports:
 
 info:
   version: '1.0'
-  title: tranquility-base Template
+  title: Tranquility Base Template
 
 required:
   - zone

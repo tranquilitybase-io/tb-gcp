@@ -9,8 +9,22 @@ description:
       We are a technology driven IT consultancy passionate about landing
       business agility for our clients through excellence in engineering and
       transformation.
+  descriptionHtml: >-
+    Tranquility Base is open-source software for deploying applications onto a
+    cloud Datacentre-as-Code infrastructureto create your first cloud
+    deployment, making the environment ready for application migration.
+
+    Best practice knowledge is baked into the code, to enable you to confidently
+    move your migrations at pace whilst keeping full compliance and control.
+
+
+    Application patterns, gained from many successful projects, are coded into
+    the platform allowing development teams to select repeatable deployments
+    from a self-service portal.
   logo: '@media/tranquility-base_store.png'
-  title: tranquility-base
+  tagline: Multi-cloud open source solution to
+  title: Tranquility Base
+  url: 'https://www.tranquilitybase.io/'
   version: default-version
   support:
     - title: Support
