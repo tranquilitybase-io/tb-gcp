@@ -5,4 +5,4 @@ resources:
 - name: tranquility-base
   type: tranquility-base.jinja
   properties:
-    zone: us-central1-f
+    zone: europe-west2-a

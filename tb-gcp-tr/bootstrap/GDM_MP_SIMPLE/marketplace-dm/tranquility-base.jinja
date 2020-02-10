@@ -4,8 +4,10 @@
 {% set deployment = env["deployment"] %}
 {% set name = "%s-vm-tmpl" % env["name"] %}
 {% set instanceName = "%s-vm" % deployment %}
+{% set cloudStorageBucket = "%s-bucket" % deployment %}
 {% set zone = properties["zone"] %}
 {% set region = properties["zone"][:-2] %}
+{% set bucketLocation = "eu" %}
 {% set machineType = properties["machineType"] %}
 {% set networks = [] %}
 {% for network in properties["network"] %}
@@ -19,20 +21,21 @@
 {# Software status only works if the VM has an external IP. #}
 {% set enableStatusWaiter = hasExternalIP %}
 {% set canIpForward = properties["ipForward"] == "On" %}
+{% set bucketName = "%s-tf-export" % project %}
 
 resources:
-  - name: cloud-storage-bucket
+  - name: {{ cloudStorageBucket }}
     type: cloud-storage-bucket.py
     properties:
         project: {{ project }}
-        zone: {{ zone }}
+        bucket-location: {{ bucketLocation }}
         bucket-export-settings:
             create-bucket: true
+            bucket-name: {{ bucketName }}
 
   - name: {{ name }}
     type: vm_instance.py
     properties:
-      bucketName: $(ref.cloud-storage-bucket.bucketName)
       instanceName: {{ instanceName }}
       sourceImage: https://www.googleapis.com/compute/v1/projects/tbase-ci/global/images/bootstrap-server-dm4mp
       zone: {{ zone }}
@@ -75,18 +78,21 @@ resources:
 
         cd /opt/tb/repo/tb-gcp-tr/landingZone/
         cat <<EOF > input.auto.tfvars
-        clusters_master_whitelist_ip = {{ vmExternalIP }}
+        clusters_master_whitelist_ip = "{{ vmExternalIP }}"
         region = "{{ region }}"
-        region_zone = "{{ region_zone}}"
+        region_zone = "{{ zone }}"
         root_id = "TO ADD"
         root_is_org = "TO ADD"
         billing_account_id = "TO ADD"
         tb_discriminator = "TO ADD"
-        terraform_state_bucket_name = {{ bucketName }}
+        terraform_state_bucket_name = "{{ bucketName }}"
         EOF
       tags:
         items:
           - {{ env["deployment"] }}-deployment
+    metadata:
+      dependsOn:
+      - {{ cloudStorageBucket }}
 
   {% if properties["enableTcp22"] %}
   - name: {{ env["deployment"] }}-tcp-22

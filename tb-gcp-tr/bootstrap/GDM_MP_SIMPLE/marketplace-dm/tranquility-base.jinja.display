@@ -69,14 +69,6 @@ input:
         more</a>
       placeholder: ''
       section: NETWORKING
-    - name: ipForward
-      title: IP forwarding
-      tooltip: >-
-        Forwarding allows the instance to help route packets. <a
-        href="https://cloud.google.com/compute/docs/networking#canipforward">Learn
-        more</a>
-      section: NETWORKING
-      level: 1
   sections:
     - name: BOOT_DISK
       title: Boot Disk
