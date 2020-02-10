@@ -1,0 +1,8 @@
+imports:
+- path: tranquility-base.jinja
+
+resources:
+- name: tranquility-base
+  type: tranquility-base.jinja
+  properties:
+    zone: us-central1-f

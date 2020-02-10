@@ -1,0 +1,122 @@
+description:
+  author:
+    title: GFT Group
+    descriptionHtml: >-
+      We are a technology driven IT consultancy passionate about landing
+      business agility for our clients through excellence in engineering and
+      transformation.
+    shortDescription: >-
+      We are a technology driven IT consultancy passionate about landing
+      business agility for our clients through excellence in engineering and
+      transformation.
+  logo: '@media/tranquility-base_store.png'
+  title: tranquility-base
+  version: default-version
+  support:
+    - title: Support
+  icon: '@media/tranquility-base_small.png'
+  documentations: []
+  softwareGroups: []
+input:
+  properties:
+    - name: zone
+      title: Zone
+    - name: machineType
+      title: Machine type
+    - name: bootDiskType
+      title: Boot disk type
+      section: BOOT_DISK
+    - name: bootDiskSizeGb
+      title: Boot disk size in GB
+      section: BOOT_DISK
+    - name: network
+      title: Network name
+      section: NETWORKING
+    - name: subnetwork
+      title: Subnetwork name
+      section: NETWORKING
+    - name: externalIP
+      title: External IP
+      tooltip: >-
+        An external IP address associated with this instance. Selecting "None"
+        will result in the instance having no external internet access. <a
+        href="https://cloud.google.com/compute/docs/configure-instance-ip-addresses">Learn
+        more</a>
+      section: NETWORKING
+    - name: enableTcp22
+      title: Allow TCP port 22 traffic from the Internet
+      section: NETWORKING
+    - name: tcp22SourceRanges
+      title: Source IP ranges for TCP port 22 traffic
+      tooltip: >-
+        Traffic is only allowed from sources within these IP address ranges. Use
+        CIDR notation when entering ranges. <a
+        href="https://cloud.google.com/compute/docs/networking#firewalls">Learn
+        more</a>
+      placeholder: '0.0.0.0/0, 192.169.0.2/24'
+      section: NETWORKING
+    - name: ipForward
+      title: IP forwarding
+      tooltip: >-
+        Forwarding allows the instance to help route packets. <a
+        href="https://cloud.google.com/compute/docs/networking#canipforward">Learn
+        more</a>
+      section: NETWORKING
+      level: 1
+  sections:
+    - name: BOOT_DISK
+      title: Boot Disk
+      tooltip: Each instance requires a disk to boot from.
+    - name: NETWORKING
+      title: Networking
+runtime:
+  deployingMessage: Deployment can take several minutes to complete.
+  applicationTable:
+    rows:
+      - label: Instance
+        value: >-
+          <a href="{{ consoleUrl(outputs().vmSelfLink) }}">{{ outputs().vmName
+          }}</a>
+      - label: Instance zone
+        value: '{{ properties().zone }}'
+      - label: Instance machine type
+        value: '{{ properties().machineType }}'
+  primaryButton:
+    label: SSH
+    type: TYPE_GCE_VM_SSH
+    action: '{{ outputs().vmSelfLink }}'
+  suggestedActions:
+    - heading: No external IP configured
+      description: >-
+        The VM instance has been configured with no external IP or internet
+        access. Connecting to it directly may not be possible. Consider using a
+        <a
+        href="https://cloud.google.com/compute/docs/instances/connecting-advanced#bastion_host">bastion
+        host</a> to access this VM.
+      showIf: '{{ !outputs().hasExternalIP }}'
+    - heading: Open TCP port 22 traffic
+      description: >-
+        This firewall rule is not enabled. To allow specific network traffic
+        from the Internet, create a firewall rule to open TCP port 22 traffic
+        for target tag "{{ outputs().deployment }}-deployment". <a
+        href="https://cloud.google.com/compute/docs/networking">Learn
+        more</a><br> If you are using Google Cloud SDK, type the following
+        command in the terminal:
+      snippet: >-
+        gcloud --project={{ outputs().project }} compute firewall-rules create
+        "{{ outputs().deployment }}-tcp-22" --network {{ outputs().mainNetwork
+        }} --allow tcp:22 --target-tags "{{ outputs().deployment }}-deployment"
+      showIf: '{{ !properties().enableTcp22 }}'
+    - heading: Assign a static external IP address to your VM instance
+      description: >-
+        An ephemeral external IP address has been assigned to the VM instance.
+        If you require a static external IP address, you may promote the address
+        to static. <a
+        href="https://cloud.google.com/compute/docs/instances-and-network#promote_ephemeral_ip">Learn
+        more</a>
+      showIf: '{{ outputs().hasExternalIP }}'
+annotations:
+  autogenSpecType: SINGLE_VM
+  vmImage0: >-
+    https://www.googleapis.com/compute/v1/projects/tbase-ci/global/images/bootstrap-server-dm4mp
+metadata_version: v1
