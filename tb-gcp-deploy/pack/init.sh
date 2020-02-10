@@ -71,6 +71,8 @@ wget https://releases.hashicorp.com/terraform/0.12.9/terraform_0.12.9_linux_amd6
 apt-get -y update
 apt-get -y install unzip
 apt-get -y install zip
+apt-get -y install git
+apt-get -y install kubectl
 apt-get -y install nodejs
 curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 apt-get -y install build-essential nodejs
