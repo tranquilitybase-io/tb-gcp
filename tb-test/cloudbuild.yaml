@@ -62,7 +62,7 @@ steps:
 
 substitutions:
   _TB_IMAGE_BUCKET: tbase-images
-  _IMAGE_NAME: "bootstrap-server"
+  _IMAGE_NAME: "tranquilty-base-bootstrap"
   _IMAGE_FAMILY: tb-tr-debian-9
   _IMAGE_ZONE: europe-west2
   _IMAGE_MEMBER: allAuthenticatedUsers
