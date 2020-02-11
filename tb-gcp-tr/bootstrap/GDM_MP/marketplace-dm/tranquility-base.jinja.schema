@@ -9,22 +9,12 @@ imports:
     path: common/path_utils.jinja
   - name: vm_instance.py
     path: common/vm_instance.py
-  - name: project.py
-    path: tranquility-base/project.py
-  - name: apis.py
-    path: tranquility-base/apis.py
-  - name: sub-network.py
-    path: tranquility-base/sub-network.py
-  - name: service-accounts.py
-    path: tranquility-base/service-accounts.py
-  - name: network-template.py
-    path: tranquility-base/network-template.py
   - name: cloud-storage-bucket.py
-    path: tranquility-base/cloud-storage-bucket.py
-  - name: vm-template.py
-    path: tranquility-base/vm-template.py
-  - name: nat-gateway.py
-    path: tranquility-base/nat-gateway.py
+    path: common/cloud-storage-bucket.py
+  - name: ha-nat-gateway.py
+    path: common/ha-nat-gateway.py
+  - name: single-nat-gateway.py
+    path: common/single-nat-gateway.py
 
 info:
   version: '1.0'
@@ -81,12 +71,6 @@ properties:
         networkProperty: network
         notConfigurable: False
         allowStaticIps: True
-  ipForward:
-    type: string
-    enum:
-      - 'On'
-      - 'Off'
-    default: 'Off'
   bootDiskType:
     type: string
     default: pd-ssd
@@ -102,16 +86,6 @@ properties:
       type: GCE_DISK_SIZE
       gceDiskSize:
         diskTypeProperty: bootDiskType
-  bootstrapServerServiceAccount:
-    type: string
-  parentFolderId:
-    type: string
-  billingAccountId:
-    type: string
-  tbDiscriminator:
-    type: string
-  terraformStateBucketName:
-    type: string
 
 outputs:
   deployment:

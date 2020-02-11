@@ -30,27 +30,13 @@ description:
     - title: Support
   icon: '@media/tranquility-base_small.png'
   documentations: []
+  softwareGroups: []
 input:
   properties:
     - name: zone
       title: Zone
     - name: machineType
       title: Machine type
-    - name: billingAccountId
-      title: Billing account that Tranquility Base will use
-      section: TRANQUILITY_BASE
-    - name: bootstrapServerServiceAccount
-      title: Service Account that Tranquility Base will use
-      section: TRANQUILITY_BASE
-    - name: parentFolderId
-      title: Parent Folder ID
-      section: TRANQUILITY_BASE
-    - name: tbDiscriminator
-      title: Tranquility Base Discriminator
-      section: TRANQUILITY_BASE
-    - name: terraformStateBucketName
-      title: Terraform State Bucket Name
-      section: TRANQUILITY_BASE
     - name: bootDiskType
       title: Boot disk type
       section: BOOT_DISK
@@ -71,22 +57,12 @@ input:
         href="https://cloud.google.com/compute/docs/configure-instance-ip-addresses">Learn
         more</a>
       section: NETWORKING
-    - name: ipForward
-      title: IP forwarding
-      tooltip: >-
-        Forwarding allows the instance to help route packets. <a
-        href="https://cloud.google.com/compute/docs/networking#canipforward">Learn
-        more</a>
-      section: NETWORKING
-      level: 1
   sections:
     - name: BOOT_DISK
       title: Boot Disk
       tooltip: Each instance requires a disk to boot from.
     - name: NETWORKING
       title: Networking
-    - name: TRANQUILITY_BASE
-      title: Tranquility Base required settings
 runtime:
   deployingMessage: Deployment can take several minutes to complete.
   applicationTable:
@@ -123,5 +99,5 @@ runtime:
 annotations:
   autogenSpecType: SINGLE_VM
   vmImage0: >-
-    https://www.googleapis.com/compute/v1/projects/gft-group-public/global/images/image-2
+    https://www.googleapis.com/compute/v1/projects/tbase-ci/global/images/bootstrap-server-dm4mp
 metadata_version: v1

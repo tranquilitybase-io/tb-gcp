@@ -1,13 +1,8 @@
 imports:
-  - path: tranquility-base.jinja
+- path: tranquility-base.jinja
 
 resources:
-  - name: tranquility-base
-    type: tranquility-base.jinja
-    properties:
-      tbDiscriminator: dev
-      terraformStateBucketName: tbState
-      concurrentApiActivation: False
-      vm:
-        - tbBootstrapServer
-
+- name: tranquility-base
+  type: tranquility-base.jinja
+  properties:
+    zone: europe-west2-a

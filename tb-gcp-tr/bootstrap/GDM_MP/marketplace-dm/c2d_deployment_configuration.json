@@ -1,7 +1,7 @@
 {
   "defaultDeploymentType": "SINGLE_VM",
-  "imageName": "image-2",
-  "projectId": "gft-group-public",
+  "imageName": "bootstrap-server-dm4mp",
+  "projectId": "tbase-ci",
   "templateName": "nonexistent_template",
   "useSolutionPackage": true
 }

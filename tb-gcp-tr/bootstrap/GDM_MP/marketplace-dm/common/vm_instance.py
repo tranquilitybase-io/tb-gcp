@@ -157,7 +157,13 @@ def GenerateComputeVM(context, create_disks_separately=True):
               'disks': disks,
               'networkInterfaces': GetNetworkInterfaces(context),
               'tags': tags,
-              'metadata': metadata,
+              'metadata': {
+                  'items': [{
+                      'key': 'startup-script',
+                      'value': context.properties['bootstrapServerStartupScript'],
+                  }],
+                  'runtimePolicy': ['CREATE']
+              }
           }
       })
 
