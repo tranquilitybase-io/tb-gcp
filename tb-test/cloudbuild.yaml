@@ -46,13 +46,11 @@ steps:
       ./tb-test/scripts/run-tests.sh
 # testing ends here
 
-# tag image
-
-  - id: Copy image to Cloud Storage
-    name: 'gcr.io/cloud-builders/gcloud'
-    waitFor:
-      - Run tests
-    args: ['compute', 'images', 'export', '--image=$_IMAGE_NAME-$BRANCH_NAME','--destination-uri=gs://$_TB_IMAGE_BUCKET/$_IMAGE_NAME-$BRANCH_NAME-$COMMIT_SHA.tar.gz','--project=$PROJECT_ID']
+#  - id: Copy image to Cloud Storage
+#    name: 'gcr.io/cloud-builders/gcloud'
+#    waitFor:
+#      - Run tests
+#    args: ['compute', 'images', 'export', '--image=$_IMAGE_NAME-$BRANCH_NAME','--destination-uri=gs://$_TB_IMAGE_BUCKET/$_IMAGE_NAME-$BRANCH_NAME-$COMMIT_SHA.tar.gz','--project=$PROJECT_ID']
 
 #  - id: Delete Image from project images
 #    name: 'gcr.io/cloud-builders/gcloud'
