@@ -140,9 +140,8 @@ resources:
 
         export HOME=/root
 
-        cd /opt/tb/repo/tb-gcp-tr/landingZone/
+        cd /opt/tb/repo/tb-gcp-tr/landingZone/no-itop
         cat <<EOF > input.auto.tfvars
-        clusters_master_whitelist_ip="{{ vmExternalIP }}"
         region="{{ region }}"
         region_zone="{{ zone }}"
         root_is_org="false"
