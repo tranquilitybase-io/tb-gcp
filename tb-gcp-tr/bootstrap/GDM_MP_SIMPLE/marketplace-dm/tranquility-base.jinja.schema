@@ -86,19 +86,6 @@ properties:
       type: GCE_DISK_SIZE
       gceDiskSize:
         diskTypeProperty: bootDiskType
-  enableTcp22:
-    type: boolean
-    default: True
-    x-googleProperty:
-      type: GCE_FIREWALL
-      gceFirewall:
-        networkProperty: network
-  tcp22SourceRanges:
-    type: string
-    x-googleProperty:
-      type: GCE_FIREWALL_RANGE
-      gceFirewallRange:
-        firewallProperty: enableTcp22
 
 outputs:
   deployment:

@@ -143,41 +143,31 @@ resources:
 
         cd /opt/tb/repo/tb-gcp-tr/landingZone/
         cat <<EOF > input.auto.tfvars
-        clusters_master_whitelist_ip = "{{ vmExternalIP }}"
-        region = "{{ region }}"
-        region_zone = "{{ zone }}"
-        root_id = "TO ADD"
-        root_is_org = "TO ADD"
-        billing_account_id = "TO ADD"
-        tb_discriminator = "TO ADD"
-        terraform_state_bucket_name = "{{ bucketName }}"
+        clusters_master_whitelist_ip="{{ vmExternalIP }}"
+        region="{{ region }}"
+        region_zone="{{ zone }}"
+        root_is_org="false"
+        tb_discriminator="tbase"
+        terraform_state_bucket_name="{{ bucketName }}"
         EOF
       tags:
         items:
           - {{ env["deployment"] }}-deployment
           - no-ip
+          - iap
     metadata:
       dependsOn:
       - {{ cloudStorageBucket }}
 
-  {% if properties["enableTcp22"] %}
-  - name: {{ env["deployment"] }}-tcp-22
+  - name: {{ env["deployment"] }}-iap
     type: compute.v1.firewall
     properties:
       network: {{ networks[0] }}
-      {% if properties.get("tcp22SourceRanges") %}
-      sourceRanges:
-        {% for source in properties["tcp22SourceRanges"].split(',') %}
-        - '{{ source | trim }}'
-        {% endfor %}
-      {% else %}
-      sourceRanges: ["0.0.0.0/0"]
-      {% endif %}
-      targetTags: ["{{ env["deployment"] }}-deployment"]
+      sourceRanges: ["35.235.240.0/20"]
+      targetTags: ["iap"]
       allowed:
         - IPProtocol: TCP
           ports: ["22"]
-  {% endif %}
 
 outputs:
   - name: deployment
