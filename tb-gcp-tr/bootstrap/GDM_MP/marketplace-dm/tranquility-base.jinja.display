@@ -99,5 +99,5 @@ runtime:
 annotations:
   autogenSpecType: SINGLE_VM
   vmImage0: >-
-    https://www.googleapis.com/compute/v1/projects/tbase-ci/global/images/bootstrap-server-dm4mp
+    https://www.googleapis.com/compute/v1/projects/tb-marketplace-dev/global/images/tranquilty-base-bootstrap-dm4mp
 metadata_version: v1
