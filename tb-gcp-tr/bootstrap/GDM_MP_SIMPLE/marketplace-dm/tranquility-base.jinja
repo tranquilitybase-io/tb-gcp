@@ -5,6 +5,7 @@
 {% set name = "%s-vm-tmpl" % env["name"] %}
 {% set instanceName = "%s-vm" % deployment %}
 {% set cloudStorageBucket = "%s-bucket" % deployment %}
+{% set natGateway = "%s-nat-gateway" % deployment %}
 {% set zone = properties["zone"] %}
 {% set region = properties["zone"][:-2] %}
 {% set bucketLocation = "eu" %}
@@ -14,9 +15,9 @@
 {% set _ = networks.append(path_utils.networkPath(network)) %}
 {% endfor %}
 {% set subnetworks = properties["subnetwork"] %}
-{% set externalIPs = properties["externalIP"] %}
 {% set bootDiskType = properties["bootDiskType"] %}
 {% set bootDiskSizeGb = properties["bootDiskSizeGb"] %}
+{% set externalIPs = ["NONE"] %}
 {% set hasExternalIP = externalIPs and externalIPs[0] != "NONE" %}
 {# Software status only works if the VM has an external IP. #}
 {% set enableStatusWaiter = hasExternalIP %}
@@ -32,6 +33,75 @@ resources:
         bucket-export-settings:
             create-bucket: true
             bucket-name: {{ bucketName }}
+
+  - name: {{ natGateway }}
+    type: ha-nat-gateway.py
+    properties:
+      projectId: {{ project }}
+      network: default
+      subnetwork: default
+      machineType: n1-standard-2
+      diskType: pd-ssd
+      diskSizeGb: 50
+      region: {{ region }}
+      zones:
+      - {{ zone }}
+      nat-gw-tag: natgw
+      nated-vm-tag: no-ip
+      startupScript: |
+        #!/bin/bash
+        echo 1 > /proc/sys/net/ipv4/ip_forward
+        iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+
+        gcloud components update -q
+        gcloud components install beta -q
+
+        cat <<EOF > /usr/local/sbin/health-check-server.py
+        #!/usr/bin/python
+        from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
+        import subprocess
+
+        PORT_NUMBER = 80
+        PING_HOST = "www.google.com"
+
+        def connectivityCheck():
+          try:
+            subprocess.check_call(["ping", "-c", "1", PING_HOST])
+            return True
+          except subprocess.CalledProcessError as e:
+            return False
+
+        #This class will handle any incoming request
+        class myHandler(BaseHTTPRequestHandler):
+          def do_GET(self):
+            if self.path == '/health-check':
+              if connectivityCheck():
+                self.send_response(200)
+              else:
+                self.send_response(503)
+            else:
+              self.send_response(404)
+
+
+        try:
+          server = HTTPServer(("", PORT_NUMBER), myHandler)
+          print "Started httpserver on port " , PORT_NUMBER
+          #Wait forever for incoming http requests
+          server.serve_forever()
+
+        except KeyboardInterrupt:
+          print "^C received, shutting down the web server"
+          server.socket.close()
+        EOF
+
+        nohup python /usr/local/sbin/health-check-server.py >/dev/null 2>&1 &
+
+        #register a runtime config variable for a waiter to complete
+        CONFIG_NAME=$(curl http://metadata.google.internal/computeMetadata/v1/instance/attributes/runtime-config -H "Metadata-Flavor: Google")
+        VARIABLE_NAME=$(curl http://metadata.google.internal/computeMetadata/v1/instance/attributes/runtime-variable -H "Metadata-Flavor: Google")
+
+        gcloud beta runtime-config configs variables set $VARIABLE_NAME 1 --config-name $CONFIG_NAME
+
 
   - name: {{ name }}
     type: vm_instance.py
@@ -51,15 +121,10 @@ resources:
         - {{ subnetwork or '' }}
       {% endfor %}
       {% endif %}
-      {% if externalIPs is defined and externalIPs %}
       externalIPs:
-      {% for externalIP in externalIPs %}
-        - {{ externalIP }}
-      {% endfor %}
-      {% endif %}
+        - NONE
       bootDiskType: {{ bootDiskType }}
       bootDiskSizeGb: {{ bootDiskSizeGb }}
-      canIpForward: {{ canIpForward }}
       serviceAccounts:
         - email: default
           scopes:
@@ -90,6 +155,7 @@ resources:
       tags:
         items:
           - {{ env["deployment"] }}-deployment
+          - no-ip
     metadata:
       dependsOn:
       - {{ cloudStorageBucket }}

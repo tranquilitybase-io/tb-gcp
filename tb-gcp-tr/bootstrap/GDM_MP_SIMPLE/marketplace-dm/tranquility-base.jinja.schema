@@ -11,6 +11,10 @@ imports:
     path: common/vm_instance.py
   - name: cloud-storage-bucket.py
     path: common/cloud-storage-bucket.py
+  - name: ha-nat-gateway.py
+    path: common/ha-nat-gateway.py
+  - name: single-nat-gateway.py
+    path: common/single-nat-gateway.py
 
 info:
   version: '1.0'
