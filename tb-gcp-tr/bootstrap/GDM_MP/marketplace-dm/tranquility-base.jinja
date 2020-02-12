@@ -145,6 +145,7 @@ resources:
         tb_discriminator="tbase"
         terraform_state_bucket_name="{{ bucketName }}"
         EOF
+        chmod +x /opt/tb/repo/tb-gcp-tr/landingZone/get_started.sh
       tags:
         items:
           - {{ env["deployment"] }}-deployment
