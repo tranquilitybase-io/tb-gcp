@@ -21,7 +21,7 @@
 {% set hasExternalIP = externalIPs and externalIPs[0] != "NONE" %}
 {# Software status only works if the VM has an external IP. #}
 {% set enableStatusWaiter = hasExternalIP %}
-{% set bucketName = "%s-tf-export" % project %}
+{% set bucketName = "%s-tf-export" % deployment %}
 
 resources:
   - name: {{ cloudStorageBucket }}
