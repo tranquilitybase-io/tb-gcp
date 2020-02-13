@@ -6,7 +6,9 @@
     "image_suffix": "",
     "image_name": "tb-tr-debian-9-{{user `image_suffix`}}-{{isotime}}",
     "image_family": "tb-tr-debian-9",
-    "tb_repos_root_path": "../../"
+    "tb_repos_root_path": "../../",
+    "public_project_id":  "gft-group-public",
+    "license_name": "tranquility-base"
   },
   "builders": [
     {
@@ -21,7 +23,8 @@
       "image_family": "{{user `image_family` | clean_resource_name}}",
       "disk_size": 16,
       "disk_type": "pd-ssd",
-      "ssh_username": "packer"
+      "ssh_username": "packer",
+      "licenses": "licenses projects/{{user `public_project_id`}}/global/licenses/{{user `license_name`}}"
     }
   ],
   "provisioners": [
