@@ -22,6 +22,7 @@ provider "google-beta" {
   region  = "${var.region}"
   zone    = "${var.zone}"
   project = "${var.shared_vpc_host_project}"
+  version = "~> 2.5"
   //project = "${google_project.activator.id}"
 }
 
