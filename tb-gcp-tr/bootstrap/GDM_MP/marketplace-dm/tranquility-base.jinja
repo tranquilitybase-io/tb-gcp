@@ -22,8 +22,24 @@
 {# Software status only works if the VM has an external IP. #}
 {% set enableStatusWaiter = hasExternalIP %}
 {% set bucketName = "%s-tf-export" % deployment %}
+{% set tbNetwork = "%s-bootstrap-network" % deployment %}
+{% set tbSubNetwork = "%s-bootstrap-sub-network" % deployment %}
 
 resources:
+  - name: {{ tbNetwork }}
+    type: network.py
+    properties:
+      project: {{ project }}
+      network-name: {{ tbNetwork }}
+
+  - name: {{ tbSubNetwork }}
+    type: sub-network.py
+    properties:
+      network-name: {{ tbNetwork }}
+      subnetworks:
+        - region: europe-west2
+          cidr: 192.168.0.0/28
+
   - name: {{ cloudStorageBucket }}
     type: cloud-storage-bucket.py
     properties:
