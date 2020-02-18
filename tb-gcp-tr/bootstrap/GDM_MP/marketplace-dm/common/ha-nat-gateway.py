@@ -11,6 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+import common
 
 COMPUTE_URL_BASE = 'https://www.googleapis.com/compute/v1/'
 
@@ -32,15 +33,15 @@ def ZonalComputeUrl(project, zone, collection, name):
 
 def _CheckZones(context):
   """Make sure that zones specified in deployment properties belong to the same region"""
-  region = context.properties['region']  
-  for zone in context.properties['zones']:
-    if not zone.startswith(region):
-      raise PropertyError('zone {} does not belong to  {} region'.format(zone, region))
+  region = context.properties['region']
+  zone = context.properties['zone']
+  if not zone.startswith(region):
+     raise PropertyError('zone {} does not belong to  {} region'.format(zone, region))
 
 def CheckParameters(context):
   """Check parameters of the deployment for semantics correctness """
   _CheckZones(context)
-    
+
 def GenerateConfig(context):
   """Generates deployment configuration """
 
@@ -57,13 +58,13 @@ def GenerateConfig(context):
 
   if (network_project_id == ''):
     network_project_id = project_id
-  
-  region = context.properties['region']
-  nat_gw_tag = context.properties['nat-gw-tag'] 
 
-  network = GlobalComputeUrl(network_project_id, 'networks', context.properties['network'])
-  subnetwork = RegionalComputeUrl(network_project_id, region, 'subnetworks', 
-    context.properties['subnetwork'])
+  region = context.properties['region']
+  nat_gw_tag = context.properties['nat-gw-tag']
+
+  network = common.MakeNetworkComputeLink(context, context.properties['network'])
+  subnetwork = common.MakeSubnetworkComputeLink(context, context.properties['subnetwork'])
+
   sourceImage =  GlobalComputeUrl('debian-cloud', 'images', 'family/debian-9')
 
   config = {'resources': []}
@@ -98,8 +99,8 @@ def GenerateConfig(context):
       }
   }
   config['resources'].append(fwRule)
-  
-  # Runtime config is used to coordinate waiters and make sure that NAT gateway VMs are up before trying 
+
+  # Runtime config is used to coordinate waiters and make sure that NAT gateway VMs are up before trying
   # to add routes pointing to these VMs
   rtConfig = {
       'name': rt_config_name,
@@ -110,9 +111,11 @@ def GenerateConfig(context):
   }
   config['resources'].append(rtConfig)
 
-  # Create a NAT gateway for each zone specified in zones property 
+  # Create a NAT gateway for each zone specified in zones property
   i = 1
-  for zone in context.properties['zones']:
+  # for zone in context.properties['zones']:
+  zones = [context.properties['zone']]
+  for zone in zones:
     nat_gateway_vm = {
         # the same zone can be specified multiple times, so adding a counter for uniquness
         'name': prefix  + '-nat-' +  str(i) + '-' + zone ,
@@ -133,7 +136,7 @@ def GenerateConfig(context):
             'subnetwork': subnetwork,
             'healthCheck': '$(ref.' + hc_name + '.selfLink)',
             'runtimeConfig': '$(ref.' + rt_config_name + '.name)',
-            'runtimeConfigName': rt_config_name 
+            'runtimeConfigName': rt_config_name
         }
     }
     config['resources'].append(nat_gateway_vm)

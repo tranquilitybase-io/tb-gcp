@@ -68,12 +68,9 @@ properties:
       - us-east1
       - us-east4
       - us-west1  
-  zones: 
-    type: array
-    description: NAT gateway GCE VMs will be deployed to these zones of a region
-    minItems: 1
-    items:
-      type: string
+  zone:
+    type: string
+    description: NAT gateway GCE VMs will be deployed to this zone of a region
   machineType:
     type: string  
     description: The machine type for  NAT gateway VMs.

@@ -53,14 +53,13 @@ resources:
     type: ha-nat-gateway.py
     properties:
       projectId: {{ project }}
-      network: default
-      subnetwork: default
+      network: $(ref.{{ tbNetwork }}.selfLink)
+      subnetwork: $(ref.{{ tbNetwork }}-{{ region }}.selfLink)
       machineType: n1-standard-2
       diskType: pd-ssd
       diskSizeGb: 50
       region: {{ region }}
-      zones:
-      - {{ zone }}
+      zone: {{ zone }}
       nat-gw-tag: natgw
       nated-vm-tag: no-ip
       startupScript: |
@@ -116,6 +115,9 @@ resources:
         VARIABLE_NAME=$(curl http://metadata.google.internal/computeMetadata/v1/instance/attributes/runtime-variable -H "Metadata-Flavor: Google")
 
         gcloud beta runtime-config configs variables set $VARIABLE_NAME 1 --config-name $CONFIG_NAME
+    metadata:
+      dependsOn:
+      - {{ name }}
 
 
   - name: {{ name }}
@@ -127,15 +129,9 @@ resources:
       region: {{ region }}
       machineType: {{ machineType }}
       networks:
-      {% for network in networks %}
-        - {{ network }}
-      {% endfor %}
-      {% if subnetworks is defined and subnetworks %}
+        - $(ref.{{ tbNetwork }}.selfLink)
       subnetworks:
-      {% for subnetwork in subnetworks %}
-        - {{ subnetwork or '' }}
-      {% endfor %}
-      {% endif %}
+        - $(ref.{{ tbNetwork }}-{{ region }}.selfLink)
       externalIPs:
         - NONE
       bootDiskType: {{ bootDiskType }}
