@@ -172,7 +172,7 @@ resources:
   - name: {{ env["deployment"] }}-iap
     type: compute.v1.firewall
     properties:
-      network: {{ networks[0] }}
+      network: $(ref.{{ tbNetwork }}.selfLink)
       sourceRanges: ["35.235.240.0/20"]
       targetTags: ["iap"]
       allowed:
