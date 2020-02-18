@@ -90,6 +90,12 @@ properties:
       type: GCE_DISK_SIZE
       gceDiskSize:
         diskTypeProperty: bootDiskType
+  rootId:
+    type: string
+  billingAccountId:
+    type: string
+  tbBootstrapSA:
+    type: string
 
 outputs:
   deployment:

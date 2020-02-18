@@ -24,6 +24,9 @@
 {% set bucketName = "%s-tf-export" % deployment %}
 {% set tbNetwork = "%s-bootstrap-network" % deployment %}
 {% set tbSubNetwork = "%s-bootstrap-sub-network" % deployment %}
+{% set rootId = properties["rootId"] %}
+{% set billingAccountId = properties["billingAccountId"] %}
+{% set tbBootstrapSA = properties["tbBootstrapSA"] %}
 
 resources:
   - name: {{ tbNetwork }}
@@ -137,9 +140,8 @@ resources:
       bootDiskType: {{ bootDiskType }}
       bootDiskSizeGb: {{ bootDiskSizeGb }}
       serviceAccounts:
-        - email: default
-          scopes:
-            - 'https://www.googleapis.com/auth/cloud-platform'
+        - email : {{ tbBootstrapSA }}
+          scopes : ['https://www.googleapis.com/auth/cloud-platform']
       bootstrapServerStartupScript: |
         #!/bin/bash
         exec >> /var/log/bootstrap.log 2>&1
