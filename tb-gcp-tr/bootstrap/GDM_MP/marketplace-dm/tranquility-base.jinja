@@ -98,7 +98,7 @@ resources:
         chmod 755 /opt/tb/repo/tb-gcp-tr/nat-setup-gm/nat_setup.sh
 
         echo "Execute nat_setup.sh"
-        /bin/bash /opt/tb/repo/tb-gcp-tr/nat-setup-gm/nat_setup.sh -r {{ region }} -z {{ zone }} -v {{ tbNetwork }}
+        /bin/bash /opt/tb/repo/tb-gcp-tr/nat-setup-gm/nat_setup.sh -r {{ region }} -z {{ zone }} -v {{ tbNetwork }} -d {{ deployment }}
 
         echo "STARTUP COMPLETE"
       tags:
