@@ -91,7 +91,7 @@ resources:
         root_is_org="false"
         tb_discriminator="tbase"
         terraform_state_bucket_name="{{ bucketName }}"
-        deployment_name="{{ deployment }}
+        deployment_name="{{ deployment }}"
         EOF
 
         echo "Chmod nat_setup.sh"
@@ -108,7 +108,7 @@ resources:
       dependsOn:
       - {{ cloudStorageBucket }}
 
-  - name: {{ allowSsh }}
+  - name: {{ allowSshFw }}
     type: compute.v1.firewall
     properties:
       network: $(ref.{{ tbNetwork }}.selfLink)
