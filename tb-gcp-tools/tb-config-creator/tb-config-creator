@@ -159,7 +159,6 @@ fi
 # Create service account
 echo "Creating service account..."
 gcloud --project "${PROJECT_ID}" iam service-accounts create "${SA_NAME}" --quiet
-#gcloud --project ${PROJECT_ID} iam service-accounts keys create tb-bootstrap-builder.json --iam-account tb-bootstrap-builder@${PROJECT_ID}.iam.gserviceaccount.com
 
 #Add permissions at the project level
 echo "Adding permissions at the project level..."
