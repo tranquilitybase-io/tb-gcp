@@ -72,10 +72,9 @@ vpc_name = "${VPC_NAME}"
 
 EOF
 
-terrform init
+terraform init
 
-# uncomment when whole script working
-# terraform apply -var-file input.tfvars -auto-approve
+terraform apply -var-file input.tfvars -auto-approve
 
 echo "Cleaning up..."
 echo

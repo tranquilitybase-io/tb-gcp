@@ -79,14 +79,13 @@ resources:
         #!/bin/bash
         exec >> /var/log/bootstrap.log 2>&1
 
-        export HOME=/root
+        echo "CHMOD nat_setup.sh"
+        chmod 755 /opt/tb/repo/tb-gcp-tr/nat-setup-gm/nat_setup.sh
 
-        cd /opt/tb/repo/tb-gcp-tr/nat-setup-gm
+        echo "EXECUTE nat_setup.sh"
+        /bin/bash /opt/tb/repo/tb-gcp-tr/nat-setup-gm/nat_setup.sh -r {{ region }} -z {{ zone }} -v {{ tbNetwork }}
 
-        chmod a+x /opt/tb/repo/tb-gcp-tr/nat-setup-gm/nat_setup.sh
-
-        sh nat_setup.sh -r {{ region }} -z {{ zone }} -v {{ tbNetwork }}
-
+        echo "STARTUP COMPLETE"
       tags:
         items:
           - {{ env["deployment"] }}-deployment
