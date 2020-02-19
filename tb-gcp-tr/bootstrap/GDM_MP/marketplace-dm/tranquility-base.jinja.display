@@ -37,6 +37,19 @@ input:
       title: Zone
     - name: machineType
       title: Machine type
+    - name: billingAccountId
+      title: Billing account that Tranquility Base will use
+      section: TRANQUILITY_BASE
+    - name: rootId
+      title: Folder ID
+      tooltip: >-
+        A folder created to store the projects that will be created by Tranquility Base</a>
+      section: TRANQUILITY_BASE
+    - name: tbBootstrapSA
+      title: Tranquility Base Bootstrap Service Account
+      tooltip: >-
+        A service account configured as per the documented instructions. This service account must be created before launching the solution.</a>
+      section: TRANQUILITY_BASE
     - name: bootDiskType
       title: Boot disk type
       section: BOOT_DISK
@@ -63,6 +76,8 @@ input:
       tooltip: Each instance requires a disk to boot from.
     - name: NETWORKING
       title: Networking
+    - name: TRANQUILITY_BASE
+      title: Tranquility Base required settings
 runtime:
   deployingMessage: Deployment can take several minutes to complete.
   applicationTable:

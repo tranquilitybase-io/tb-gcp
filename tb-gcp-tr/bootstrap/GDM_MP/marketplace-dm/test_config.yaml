@@ -6,3 +6,4 @@ resources:
   type: tranquility-base.jinja
   properties:
     zone: europe-west2-a
+    tbBootstrapSA: 'tb-tf-server-builder9@gft-group-public.iam.gserviceaccount.com'

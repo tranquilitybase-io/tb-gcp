@@ -15,6 +15,10 @@ imports:
     path: common/ha-nat-gateway.py
   - name: single-nat-gateway.py
     path: common/single-nat-gateway.py
+  - name: network.py
+    path: common/network.py
+  - name: sub-network.py
+    path: common/sub-network.py
 
 info:
   version: '1.0'
@@ -86,6 +90,12 @@ properties:
       type: GCE_DISK_SIZE
       gceDiskSize:
         diskTypeProperty: bootDiskType
+  rootId:
+    type: string
+  billingAccountId:
+    type: string
+  tbBootstrapSA:
+    type: string
 
 outputs:
   deployment:
