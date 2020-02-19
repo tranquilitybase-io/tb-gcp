@@ -79,24 +79,14 @@ resources:
         #!/bin/bash
         exec >> /var/log/bootstrap.log 2>&1
 
-        MAX_ATTEMPTS=10
-        DELAY_BETWEEN_ATTEMPTS=60
-
         export HOME=/root
 
-        cd /opt/tb/repo/tb-gcp-tr/landingZone/no-itop
+        cd /opt/tb/repo/tb-gcp-tr/nat-setup-gm
 
-        cat <<EOF > input.auto.tfvars
-        region="{{ region }}"
-        region_zone="{{ zone }}"
-        billing_account_id="{{ billingAccountId }}"
-        root_id="{{ rootId }}"
-        root_is_org="false"
-        tb_discriminator="tbase"
-        terraform_state_bucket_name="{{ bucketName }}"
-        EOF
+        chmod a+x /opt/tb/repo/tb-gcp-tr/nat-setup-gm/nat_setup.sh
 
-        chmod +x /opt/tb/repo/tb-gcp-tr/landingZone/get_started.sh
+        sh nat_setup.sh -r {{ region }} -z {{ zone }} -v {{ tbNetwork }}
+
       tags:
         items:
           - {{ env["deployment"] }}-deployment
@@ -104,7 +94,7 @@ resources:
       dependsOn:
       - {{ cloudStorageBucket }}
 
-  - name: ssh-firewall-rule
+  - name: allow-ssh
     type: compute.v1.firewall
     properties:
       network: $(ref.{{ tbNetwork }}.selfLink)

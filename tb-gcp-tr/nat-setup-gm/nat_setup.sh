@@ -74,7 +74,8 @@ EOF
 
 terrform init
 
-terraform apply -var-file input.tfvars -auto-approve
+# uncomment when whole script working
+# terraform apply -var-file input.tfvars -auto-approve
 
 echo "Cleaning up..."
 echo
