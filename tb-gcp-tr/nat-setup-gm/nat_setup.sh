@@ -7,12 +7,14 @@ function print_help {
 	echo "-r, --region <id>		(REQUIRED) Region"
 	echo "-z, --zone <id>		(REQUIRED) Zone"
 	echo "-v, --vpc_name <string>		(REQUIRED) Bootstrap VPC name"
+	echo "-d, --deployment <string>		(REQUIRED) deployment prefix"
 	echo
 }
 
 REGION=""
 ZONE=""
 VPC_NAME=""
+PREFIX=""
 
 while (( "$#" )); do
   case "$1" in
@@ -30,6 +32,10 @@ while (( "$#" )); do
       ;;
     -v|--vpc)
       VPC_NAME=$2
+      shift 2
+      ;;
+    -d|--deployment)
+      PREFIX=$2
       shift 2
       ;;
     --) # end argument parsing
@@ -57,6 +63,11 @@ fi
 echo $REGION
 echo $ZONE
 echo $VPC_NAME
+echo $PREFIX
+
+router_n=$PREFIX+"vpc-network-router"
+router_nat_n=$PREFIX+"vpc-network-nat-gateway"
+fw_n=$PREFIX+"allow-iap-ingress-ssh"
 
 cd /opt/tb/repo/tb-gcp-tr/nat-setup-gm
 
@@ -66,10 +77,10 @@ INSTANCE_NAME=$(curl "http://metadata.google.internal/computeMetadata/v1/instanc
 cat <<EOF > input.tfvars
 region = "${REGION}"
 project_id = "${PROJECT_ID}"
-router_name = "vpc-network-router"
-router_nat_name = "vpc-network-nat-gateway"
+router_name = "${router_n}"
+router_nat_name = "${router_nat_n}"
 vpc_name = "${VPC_NAME}"
-
+fw_name = "${fw_n}"
 EOF
 
 terrform init
@@ -83,5 +94,5 @@ gcloud compute firewall-rules delete allow-ssh -q
 
 echo
 echo "disabling external IP address"
-gcloud beta compute instances delete-access-config  $INSTANCE_NAME --access-config-name "External NAT" --zone $ZONE
+gcloud beta compute instances delete-access-config  $INSTANCE_NAME --access-config-name "Interface 0 External NAT" --zone $ZONE
 

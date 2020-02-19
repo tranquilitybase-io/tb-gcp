@@ -29,7 +29,7 @@ resource "google_compute_firewall" "fw_iap_ingress_ssh" {
     protocol = "tcp"
   }
   description   = "Allows known IAP IP ranges to SSH into VMs"
-  name          = "allow-iap-ingress-ssh"
+  name          = var.fw_name
   network       = var.vpc_name
   project       = var.project_id
   source_ranges = ["35.235.240.0/20"]
