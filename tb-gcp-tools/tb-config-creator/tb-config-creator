@@ -21,9 +21,9 @@ function print_help {
   echo
   echo "Usage:"
   echo "-p, --project_id <id>             (REQUIRED) Project ID where the bootstrap server will be installed (e.g. -p my-project-xxxx)"
-  echo "-s, --service-account <string>    (REQUIRED) Service account name to run the boostrap server (e.g. -s tb-tb-bootstrap)"
-  echo "-f, --parent-folder-id <id>       (REQUIRED) Parent folder ID where Landing zone will be deployed (e.g. -f 238741628734)"
-  echo "-b, --billing-account-id <string> (REQUIRED) Billing account ID tied to all Tranquility Base consumption (e.g. -b 11A2F5-73127B-50AE5B)"
+  echo "-s, --service-account <string>    (REQUIRED) Service account name to run the boostrap server (e.g. -s my-service-account)"
+  echo "-f, --parent-folder-id <id>       (REQUIRED) Parent folder ID where Landing zone will be deployed (e.g. -f 705953663545)"
+  echo "-b, --billing-account-id <string> (REQUIRED) Billing account ID tied to all Tranquility Base consumption (e.g. -b F9C122-73127B-50AE5B)"
   echo
 }
 
@@ -156,55 +156,56 @@ then
 fi
 
 
-# Create a service account
-echo "Creating a service account..."
+# Create service account
+echo "Creating service account..."
 gcloud --project "${PROJECT_ID}" iam service-accounts create "${SA_NAME}" --quiet
 #gcloud --project ${PROJECT_ID} iam service-accounts keys create tb-bootstrap-builder.json --iam-account tb-bootstrap-builder@${PROJECT_ID}.iam.gserviceaccount.com
 
 #Add permissions at the project level
-echo "Adding permissions at the project level"
-gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.instanceAdmin.v1
+echo "Adding permissions at the project level..."
+gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.instanceAdmin.v1 --format=none
 
 # Add permissions at the folder level
-echo "Adding permissions at the folder level"
-gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/resourcemanager.folderAdmin
-gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/resourcemanager.projectCreator
-gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/resourcemanager.projectDeleter
-gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/billing.projectManager
-gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.networkAdmin
-gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.xpnAdmin
-gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/owner
+echo "Adding permissions at the folder level..."
+gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/resourcemanager.folderAdmin --format=none
+gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/resourcemanager.projectCreator --format=none
+gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/resourcemanager.projectDeleter --format=none
+gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/billing.projectManager --format=none
+gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.networkAdmin --format=none
+gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.xpnAdmin --format=none
+gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/owner --format=none
 
 # Add permissions at the billing level
-echo "Adding permissions at the billing account level"
+echo "Adding permissions at the billing account level..."
 gcloud beta billing accounts get-iam-policy "${BILLING_ID}" > billing.yaml
 sa="\ \ - serviceAccount:${SA_EMAIL}"
 sed "/billing.admin/i ${sa}" billing.yaml > billing2.yaml
-gcloud beta billing accounts set-iam-policy "${BILLING_ID}" billing2.yaml
+gcloud beta billing accounts set-iam-policy "${BILLING_ID}" billing2.yaml --format=none
 rm billing.yaml billing2.yaml
 
 #Activate essential APIs
-echo "Activating essential APIs"
-gcloud --project "${PROJECT_ID}" services enable appengine.googleapis.com --quiet
-gcloud --project "${PROJECT_ID}" services enable bigquery-json.googleapis.com --quiet
-gcloud --project "${PROJECT_ID}" services enable bigquerystorage.googleapis.com --quiet
-gcloud --project "${PROJECT_ID}" services enable cloudbilling.googleapis.com --quiet
-gcloud --project "${PROJECT_ID}" services enable cloudkms.googleapis.com --quiet
-gcloud --project "${PROJECT_ID}" services enable cloudresourcemanager.googleapis.com --quiet
-gcloud --project "${PROJECT_ID}" services enable compute.googleapis.com --quiet
-gcloud --project "${PROJECT_ID}" services enable container.googleapis.com --quiet
-gcloud --project "${PROJECT_ID}" services enable containerregistry.googleapis.com --quiet
-gcloud --project "${PROJECT_ID}" services enable datastore.googleapis.com --quiet
-gcloud --project "${PROJECT_ID}" services enable iap.googleapis.com --quiet
-gcloud --project "${PROJECT_ID}" services enable iam.googleapis.com --quiet
-gcloud --project "${PROJECT_ID}" services enable iamcredentials.googleapis.com --quiet
-gcloud --project "${PROJECT_ID}" services enable logging.googleapis.com --quiet
-gcloud --project "${PROJECT_ID}" services enable oslogin.googleapis.com --quiet
-gcloud --project "${PROJECT_ID}" services enable pubsub.googleapis.com --quiet
-gcloud --project "${PROJECT_ID}" services enable serviceusage.googleapis.com --quiet
-gcloud --project "${PROJECT_ID}" services enable sourcerepo.googleapis.com --quiet
-gcloud --project "${PROJECT_ID}" services enable sqladmin.googleapis.com --quiet
-gcloud --project "${PROJECT_ID}" services enable storage-api.googleapis.com --quiet
+echo "Activating essential APIs..."
+gcloud --project "${PROJECT_ID}" services enable appengine.googleapis.com
+gcloud --project "${PROJECT_ID}" services enable bigquery-json.googleapis.com
+gcloud --project "${PROJECT_ID}" services enable bigquerystorage.googleapis.com
+gcloud --project "${PROJECT_ID}" services enable cloudbilling.googleapis.com
+gcloud --project "${PROJECT_ID}" services enable cloudkms.googleapis.com
+gcloud --project "${PROJECT_ID}" services enable cloudresourcemanager.googleapis.com
+gcloud --project "${PROJECT_ID}" services enable compute.googleapis.com
+gcloud --project "${PROJECT_ID}" services enable container.googleapis.com
+gcloud --project "${PROJECT_ID}" services enable containerregistry.googleapis.com
+gcloud --project "${PROJECT_ID}" services enable datastore.googleapis.com
+gcloud --project "${PROJECT_ID}" services enable iap.googleapis.com
+gcloud --project "${PROJECT_ID}" services enable iam.googleapis.com
+gcloud --project "${PROJECT_ID}" services enable iamcredentials.googleapis.com
+gcloud --project "${PROJECT_ID}" services enable logging.googleapis.com
+gcloud --project "${PROJECT_ID}" services enable oslogin.googleapis.com
+gcloud --project "${PROJECT_ID}" services enable pubsub.googleapis.com
+gcloud --project "${PROJECT_ID}" services enable serviceusage.googleapis.com
+gcloud --project "${PROJECT_ID}" services enable sourcerepo.googleapis.com
+gcloud --project "${PROJECT_ID}" services enable sqladmin.googleapis.com
+gcloud --project "${PROJECT_ID}" services enable storage-api.googleapis.com
+echo "Essential APIs acitvated."
 
 echo
 echo "The connfiguration has been completed successfully."
