@@ -1,7 +1,7 @@
 tb\_config\_creator
 =====================
 
-`tb_config_creator` generates the required configuration prior to deploy the Tranquility Base solution from Marketplace.
+`tb_config_creator` generates the required pre-configuration to deploy the Tranquility Base solution from Marketplace.
 
 Intended Use
 ------------
@@ -79,7 +79,7 @@ ACTIVE  ACCOUNT
 To set the active account, run:
     $ gcloud config set account `ACCOUNT`
 ```
-In this example, the output of this command shows that there are two accounts authenticated with gcloud, my-user1 and my-user2, being the latter the one currently active.
+In this example, the output of this command shows that there are two accounts authenticated with `gcloud` already, my-user1 and my-user2, being the latter the one currently active.
 
 If a new account must be authorized, then the following command has to be run:
 
@@ -92,7 +92,7 @@ command. Do you wish to proceed anyway?
 
 Do you want to continue (Y/n)?
 ```
-Given that there are two accounts authenticated already (as seen above) and even more we are testing from Cloud Shell, proper authentications are created already. We will respond **Y** to proceed: 
+Given that there are two accounts authenticated already (as seen above) and even more we are testing from Cloud Shell, proper authentications are created already. We will respond **y** to proceed: 
 ```
 Do you want to continue (Y/n)?  y
 
@@ -183,7 +183,7 @@ $
 If **Y** is pressed, it will automatically create the Service Account and activate the API's:
 
 ```
-Creating a service account...
+Creating service account...
 Created service account [my-service-account].
 Adding permissions at the project level...
 Updated IAM policy for project [my-project-xxxx].
