@@ -1,7 +1,7 @@
 #CREATE-CLOUD-NAT-ROUTER
 resource "google_compute_router" "router" {
   name    = var.router_name
-  network = var.bootstrap_network_name
+  network = var.vpc_name
   project = var.project_id
   region  = var.region
 }
