@@ -17,7 +17,7 @@
 {% set subnetworks = properties["subnetwork"] %}
 {% set bootDiskType = properties["bootDiskType"] %}
 {% set bootDiskSizeGb = properties["bootDiskSizeGb"] %}
-{% set externalIPs = ["NONE"] %}
+{% set externalIPs = properties["externalIP"] %}
 {% set hasExternalIP = externalIPs and externalIPs[0] != "NONE" %}
 {# Software status only works if the VM has an external IP. #}
 {% set enableStatusWaiter = hasExternalIP %}
@@ -85,22 +85,34 @@ resources:
         export HOME=/root
 
         cd /opt/tb/repo/tb-gcp-tr/landingZone/no-itop
+
         cat <<EOF > input.auto.tfvars
         region="{{ region }}"
         region_zone="{{ zone }}"
+        billing_account_id="{{ billingAccountId }}"
+        root_id="{{ rootId }}"
         root_is_org="false"
         tb_discriminator="tbase"
         terraform_state_bucket_name="{{ bucketName }}"
         EOF
+
         chmod +x /opt/tb/repo/tb-gcp-tr/landingZone/get_started.sh
       tags:
         items:
           - {{ env["deployment"] }}-deployment
-          - no-ip
-          - iap
     metadata:
       dependsOn:
       - {{ cloudStorageBucket }}
+
+  - name: ssh-firewall-rule
+    type: compute.v1.firewall
+    properties:
+      network: $(ref.{{ tbNetwork }}.selfLink)
+      sourceRanges: ["0.0.0.0/0"]
+      targetTags: [{{ env["deployment"] }}-deployment]
+      allowed:
+        - IPProtocol: TCP
+          ports: ["22"]
 
 outputs:
   - name: deployment
