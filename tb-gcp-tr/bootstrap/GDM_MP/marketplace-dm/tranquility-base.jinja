@@ -23,10 +23,11 @@
 {% set enableStatusWaiter = hasExternalIP %}
 {% set bucketName = "%s-tf-export" % deployment %}
 {% set tbNetwork = "%s-bootstrap-network" % deployment %}
-{% set tbSubNetwork = "%s-bootstrap-network" % deployment %}
+{% set tbSubNetwork = "%s-bootstrap-sub-network" % deployment %}
 {% set rootId = properties["rootId"] %}
 {% set billingAccountId = properties["billingAccountId"] %}
 {% set tbBootstrapSA = properties["tbBootstrapSA"] %}
+{% set allowSshFw = "%s-allow-ssh" % deployment %}
 
 resources:
   - name: {{ tbNetwork }}
@@ -106,7 +107,7 @@ resources:
       dependsOn:
       - {{ cloudStorageBucket }}
 
-  - name: allow-ssh
+  - name: {{ allowSsh }}
     type: compute.v1.firewall
     properties:
       network: $(ref.{{ tbNetwork }}.selfLink)
