@@ -83,7 +83,7 @@ vpc_name = "${VPC_NAME}"
 fw_name = "${fw_n}"
 EOF
 
-terrform init
+terraform init
 
 terraform apply -var-file input.tfvars -auto-approve
 

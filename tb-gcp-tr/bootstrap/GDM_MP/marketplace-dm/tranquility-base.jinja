@@ -17,13 +17,33 @@
 {% set subnetworks = properties["subnetwork"] %}
 {% set bootDiskType = properties["bootDiskType"] %}
 {% set bootDiskSizeGb = properties["bootDiskSizeGb"] %}
-{% set externalIPs = ["NONE"] %}
+{% set externalIPs = properties["externalIP"] %}
 {% set hasExternalIP = externalIPs and externalIPs[0] != "NONE" %}
 {# Software status only works if the VM has an external IP. #}
 {% set enableStatusWaiter = hasExternalIP %}
 {% set bucketName = "%s-tf-export" % deployment %}
+{% set tbNetwork = "%s-bootstrap-network" % deployment %}
+{% set tbSubNetwork = "%s-bootstrap-sub-network" % deployment %}
+{% set rootId = properties["rootId"] %}
+{% set billingAccountId = properties["billingAccountId"] %}
+{% set tbBootstrapSA = properties["tbBootstrapSA"] %}
+{% set allowSshFw = "%s-allow-ssh" % deployment %}
 
 resources:
+  - name: {{ tbNetwork }}
+    type: network.py
+    properties:
+      project: {{ project }}
+      network-name: {{ tbNetwork }}
+
+  - name: {{ tbSubNetwork }}
+    type: sub-network.py
+    properties:
+      network-name: {{ tbNetwork }}
+      subnetworks:
+        - region: {{ region }}
+          cidr: 192.168.0.0/28
+
   - name: {{ cloudStorageBucket }}
     type: cloud-storage-bucket.py
     properties:
@@ -32,75 +52,6 @@ resources:
         bucket-export-settings:
             create-bucket: true
             bucket-name: {{ bucketName }}
-
-  - name: {{ natGateway }}
-    type: ha-nat-gateway.py
-    properties:
-      projectId: {{ project }}
-      network: default
-      subnetwork: default
-      machineType: n1-standard-2
-      diskType: pd-ssd
-      diskSizeGb: 50
-      region: {{ region }}
-      zones:
-      - {{ zone }}
-      nat-gw-tag: natgw
-      nated-vm-tag: no-ip
-      startupScript: |
-        #!/bin/bash
-        echo 1 > /proc/sys/net/ipv4/ip_forward
-        iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
-
-        gcloud components update -q
-        gcloud components install beta -q
-
-        cat <<EOF > /usr/local/sbin/health-check-server.py
-        #!/usr/bin/python
-        from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
-        import subprocess
-
-        PORT_NUMBER = 80
-        PING_HOST = "www.google.com"
-
-        def connectivityCheck():
-          try:
-            subprocess.check_call(["ping", "-c", "1", PING_HOST])
-            return True
-          except subprocess.CalledProcessError as e:
-            return False
-
-        #This class will handle any incoming request
-        class myHandler(BaseHTTPRequestHandler):
-          def do_GET(self):
-            if self.path == '/health-check':
-              if connectivityCheck():
-                self.send_response(200)
-              else:
-                self.send_response(503)
-            else:
-              self.send_response(404)
-
-
-        try:
-          server = HTTPServer(("", PORT_NUMBER), myHandler)
-          print "Started httpserver on port " , PORT_NUMBER
-          #Wait forever for incoming http requests
-          server.serve_forever()
-
-        except KeyboardInterrupt:
-          print "^C received, shutting down the web server"
-          server.socket.close()
-        EOF
-
-        nohup python /usr/local/sbin/health-check-server.py >/dev/null 2>&1 &
-
-        #register a runtime config variable for a waiter to complete
-        CONFIG_NAME=$(curl http://metadata.google.internal/computeMetadata/v1/instance/attributes/runtime-config -H "Metadata-Flavor: Google")
-        VARIABLE_NAME=$(curl http://metadata.google.internal/computeMetadata/v1/instance/attributes/runtime-variable -H "Metadata-Flavor: Google")
-
-        gcloud beta runtime-config configs variables set $VARIABLE_NAME 1 --config-name $CONFIG_NAME
-
 
   - name: {{ name }}
     type: vm_instance.py
@@ -111,56 +62,58 @@ resources:
       region: {{ region }}
       machineType: {{ machineType }}
       networks:
-      {% for network in networks %}
-        - {{ network }}
-      {% endfor %}
-      {% if subnetworks is defined and subnetworks %}
+        - $(ref.{{ tbNetwork }}.selfLink)
       subnetworks:
-      {% for subnetwork in subnetworks %}
-        - {{ subnetwork or '' }}
+        - $(ref.{{ tbNetwork }}-{{ region }}.selfLink)
+      {% if externalIPs is defined and externalIPs %}
+      externalIPs:
+      {% for externalIP in externalIPs %}
+        - {{ externalIP }}
       {% endfor %}
       {% endif %}
-      externalIPs:
-        - NONE
       bootDiskType: {{ bootDiskType }}
       bootDiskSizeGb: {{ bootDiskSizeGb }}
       serviceAccounts:
-        - email: default
-          scopes:
-            - 'https://www.googleapis.com/auth/cloud-platform'
+        - email : {{ tbBootstrapSA }}
+          scopes : ['https://www.googleapis.com/auth/cloud-platform']
       bootstrapServerStartupScript: |
         #!/bin/bash
         exec >> /var/log/bootstrap.log 2>&1
 
-        MAX_ATTEMPTS=10
-        DELAY_BETWEEN_ATTEMPTS=60
-
-        export HOME=/root
-
+        echo "Create Landing Zone Terraform Variable File"
         cd /opt/tb/repo/tb-gcp-tr/landingZone/no-itop
+
         cat <<EOF > input.auto.tfvars
         region="{{ region }}"
         region_zone="{{ zone }}"
+        billing_account_id="{{ billingAccountId }}"
+        root_id="{{ rootId }}"
         root_is_org="false"
         tb_discriminator="tbase"
         terraform_state_bucket_name="{{ bucketName }}"
+        deployment_name="{{ deployment }}
         EOF
-        chmod +x /opt/tb/repo/tb-gcp-tr/landingZone/get_started.sh
+
+        echo "Chmod nat_setup.sh"
+        chmod 755 /opt/tb/repo/tb-gcp-tr/nat-setup-gm/nat_setup.sh
+
+        echo "Execute nat_setup.sh"
+        /bin/bash /opt/tb/repo/tb-gcp-tr/nat-setup-gm/nat_setup.sh -r {{ region }} -z {{ zone }} -v {{ tbNetwork }} -d {{ deployment }}
+
+        echo "STARTUP COMPLETE"
       tags:
         items:
           - {{ env["deployment"] }}-deployment
-          - no-ip
-          - iap
     metadata:
       dependsOn:
       - {{ cloudStorageBucket }}
 
-  - name: {{ env["deployment"] }}-iap
+  - name: {{ allowSsh }}
     type: compute.v1.firewall
     properties:
-      network: {{ networks[0] }}
-      sourceRanges: ["35.235.240.0/20"]
-      targetTags: ["iap"]
+      network: $(ref.{{ tbNetwork }}.selfLink)
+      sourceRanges: ["0.0.0.0/0"]
+      targetTags: [{{ env["deployment"] }}-deployment]
       allowed:
         - IPProtocol: TCP
           ports: ["22"]
