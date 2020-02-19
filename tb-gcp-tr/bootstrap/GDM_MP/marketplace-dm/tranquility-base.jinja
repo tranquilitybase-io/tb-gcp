@@ -23,7 +23,7 @@
 {% set enableStatusWaiter = hasExternalIP %}
 {% set bucketName = "%s-tf-export" % deployment %}
 {% set tbNetwork = "%s-bootstrap-network" % deployment %}
-{% set tbSubNetwork = "%s-bootstrap-sub-network" % deployment %}
+{% set tbSubNetwork = "%s-bootstrap-network" % deployment %}
 {% set rootId = properties["rootId"] %}
 {% set billingAccountId = properties["billingAccountId"] %}
 {% set tbBootstrapSA = properties["tbBootstrapSA"] %}
@@ -79,10 +79,23 @@ resources:
         #!/bin/bash
         exec >> /var/log/bootstrap.log 2>&1
 
-        echo "CHMOD nat_setup.sh"
+        echo "Create Landing Zone Terraform Variable File"
+        cd /opt/tb/repo/tb-gcp-tr/landingZone/no-itop
+
+        cat <<EOF > input.auto.tfvars
+        region="{{ region }}"
+        region_zone="{{ zone }}"
+        billing_account_id="{{ billingAccountId }}"
+        root_id="{{ rootId }}"
+        root_is_org="false"
+        tb_discriminator="tbase"
+        terraform_state_bucket_name="{{ bucketName }}"
+        EOF
+
+        echo "Chmod nat_setup.sh"
         chmod 755 /opt/tb/repo/tb-gcp-tr/nat-setup-gm/nat_setup.sh
 
-        echo "EXECUTE nat_setup.sh"
+        echo "Execute nat_setup.sh"
         /bin/bash /opt/tb/repo/tb-gcp-tr/nat-setup-gm/nat_setup.sh -r {{ region }} -z {{ zone }} -v {{ tbNetwork }}
 
         echo "STARTUP COMPLETE"
