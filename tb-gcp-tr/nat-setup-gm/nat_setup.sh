@@ -65,9 +65,9 @@ echo $ZONE
 echo $VPC_NAME
 echo $PREFIX
 
-router_n=$PREFIX+"vpc-network-router"
-router_nat_n=$PREFIX+"vpc-network-nat-gateway"
-fw_n=$PREFIX+"allow-iap-ingress-ssh"
+router_n="$PREFIX-vpc-network-router"
+router_nat_n="$PREFIX-vpc-network-nat-gateway"
+fw_n="$PREFIX-allow-iap-ingress-ssh"
 
 cd /opt/tb/repo/tb-gcp-tr/nat-setup-gm
 
@@ -94,5 +94,9 @@ gcloud compute firewall-rules delete allow-ssh -q
 
 echo
 echo "disabling external IP address"
-gcloud beta compute instances delete-access-config  $INSTANCE_NAME --access-config-name "Interface 0 External NAT" --zone $ZONE
+access_config_name=$(gcloud compute instances describe $INSTANCE_NAME --zone $ZONE --format yaml --flatten="networkInterfaces[].accessConfigs[].name" | sed -n '2p')
+
+echo "$access_config_name"
+gcloud beta compute instances delete-access-config "$INSTANCE_NAME" --access-config-name "${access-config-name}" --zone $ZONE
+
 
