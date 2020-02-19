@@ -20,3 +20,4 @@ override.tf.json
 # Backup files
 *.bak
 *.old
+!/bootstrap/GDM_MP/marketplace-dm/test_config_local.yaml
