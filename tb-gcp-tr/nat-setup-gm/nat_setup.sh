@@ -65,9 +65,9 @@ echo $ZONE
 echo $VPC_NAME
 echo $PREFIX
 
-router_n=$PREFIX+"vpc-network-router"
-router_nat_n=$PREFIX+"vpc-network-nat-gateway"
-fw_n=$PREFIX+"allow-iap-ingress-ssh"
+router_n="$PREFIX-vpc-network-router"
+router_nat_n="$PREFIX-vpc-network-nat-gateway"
+fw_n="$PREFIX-allow-iap-ingress-ssh"
 
 cd /opt/tb/repo/tb-gcp-tr/nat-setup-gm
 
