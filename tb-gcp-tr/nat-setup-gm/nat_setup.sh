@@ -103,7 +103,7 @@ white_list_ip=$(gcloud compute addresses list --filter name:"$nat_ip_name" --for
 
 cd /opt/tb/repo/tb-gcp-tr/landingZone/no-itop
 
-echo "clusters_master_whitelist_ip='${white_list_ip}'" >> input.auto.tfvars
+echo "clusters_master_whitelist_ip=\"${white_list_ip}\"" >> input.auto.tfvars
 
 source input.auto.tfvars
 
