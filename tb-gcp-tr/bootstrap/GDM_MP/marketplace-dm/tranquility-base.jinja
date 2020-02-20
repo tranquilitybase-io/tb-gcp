@@ -27,6 +27,7 @@
 {% set rootId = properties["rootId"] %}
 {% set billingAccountId = properties["billingAccountId"] %}
 {% set tbBootstrapSA = properties["tbBootstrapSA"] %}
+{% set tbDiscriminator = "%s-tbase" % deployment %}
 {% set allowIapFw = "%s-allow-iap" % deployment %}
 
 resources:
@@ -89,7 +90,7 @@ resources:
         billing_account_id="{{ billingAccountId }}"
         root_id="{{ rootId }}"
         root_is_org="false"
-        tb_discriminator="tbase"
+        tb_discriminator={{ tbDiscriminator }}
         terraform_state_bucket_name="{{ bucketName }}"
         deployment_name="{{ deployment }}"
         EOF
