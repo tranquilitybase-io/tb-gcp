@@ -27,7 +27,7 @@
 {% set rootId = properties["rootId"] %}
 {% set billingAccountId = properties["billingAccountId"] %}
 {% set tbBootstrapSA = properties["tbBootstrapSA"] %}
-{% set allowSshFw = "%s-allow-ssh" % deployment %}
+{% set allowIapFw = "%s-allow-iap" % deployment %}
 
 resources:
   - name: {{ tbNetwork }}
@@ -104,16 +104,17 @@ resources:
       tags:
         items:
           - {{ env["deployment"] }}-deployment
+            iap
     metadata:
       dependsOn:
       - {{ cloudStorageBucket }}
 
-  - name: {{ allowSshFw }}
+  - name: {{ allowIapFw }}
     type: compute.v1.firewall
     properties:
       network: $(ref.{{ tbNetwork }}.selfLink)
-      sourceRanges: ["0.0.0.0/0"]
-      targetTags: [{{ env["deployment"] }}-deployment]
+      sourceRanges: ["35.235.240.0/20"]
+      targetTags: ["iap"]
       allowed:
         - IPProtocol: TCP
           ports: ["22"]
