@@ -27,7 +27,8 @@
 {% set rootId = properties["rootId"] %}
 {% set billingAccountId = properties["billingAccountId"] %}
 {% set tbBootstrapSA = properties["tbBootstrapSA"] %}
-{% set allowSshFw = "%s-allow-ssh" % deployment %}
+{% set tbDiscriminator = "%s-tbase" % deployment %}
+{% set allowIapFw = "%s-allow-iap" % deployment %}
 
 resources:
   - name: {{ tbNetwork }}
@@ -89,9 +90,9 @@ resources:
         billing_account_id="{{ billingAccountId }}"
         root_id="{{ rootId }}"
         root_is_org="false"
-        tb_discriminator="tbase"
+        tb_discriminator={{ tbDiscriminator }}
         terraform_state_bucket_name="{{ bucketName }}"
-        deployment_name="{{ deployment }}
+        deployment_name="{{ deployment }}"
         EOF
 
         echo "Chmod nat_setup.sh"
@@ -104,16 +105,17 @@ resources:
       tags:
         items:
           - {{ env["deployment"] }}-deployment
+            iap
     metadata:
       dependsOn:
       - {{ cloudStorageBucket }}
 
-  - name: {{ allowSsh }}
+  - name: {{ allowIapFw }}
     type: compute.v1.firewall
     properties:
       network: $(ref.{{ tbNetwork }}.selfLink)
-      sourceRanges: ["0.0.0.0/0"]
-      targetTags: [{{ env["deployment"] }}-deployment]
+      sourceRanges: ["35.235.240.0/20"]
+      targetTags: ["iap"]
       allowed:
         - IPProtocol: TCP
           ports: ["22"]
