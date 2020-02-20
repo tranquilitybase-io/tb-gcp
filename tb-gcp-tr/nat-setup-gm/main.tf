@@ -22,15 +22,3 @@ resource "google_compute_router_nat" "nat_gw" {
   nat_ips                            = [google_compute_address.nat_gw_ip.self_link]
   source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
 }
-
-resource "google_compute_firewall" "fw_iap_ingress_ssh" {
-  allow {
-    ports    = ["22"]
-    protocol = "tcp"
-  }
-  description   = "Allows known IAP IP ranges to SSH into VMs"
-  name          = var.fw_name
-  network       = var.vpc_name
-  project       = var.project_id
-  source_ranges = ["35.235.240.0/20"]
-}

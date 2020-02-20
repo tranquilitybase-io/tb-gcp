@@ -53,7 +53,7 @@ while (( "$#" )); do
   esac
 done
 
-if [[ -z ${REGION} || -z ${ZONE} || -z ${VPC_NAME} ]]; then
+if [[ -z ${REGION} || -z ${ZONE} || -z ${VPC_NAME} || -z ${PREFIX} ]]; then
 	echo "ERROR: Invalid arguments."
 	echo
 	print_help
@@ -89,14 +89,26 @@ terraform apply -var-file input.tfvars -auto-approve
 
 echo "Cleaning up..."
 echo
-echo "Removing a temporary firewall rule"
-gcloud compute firewall-rules delete allow-ssh -q
-
-echo
 echo "disabling external IP address"
 access_config_name=$(gcloud compute instances describe $INSTANCE_NAME --zone $ZONE --format yaml --flatten="networkInterfaces[].accessConfigs[].name" | sed -n '2p')
 
 echo "$access_config_name"
 gcloud beta compute instances delete-access-config "$INSTANCE_NAME" --access-config-name "${access-config-name}" --zone $ZONE
+
+echo
+echo "Deploying Landing Zone"
+nat_ip_name="$PREFIX-vpc-network-nat-gateway-ip"
+
+white_list_ip=$(gcloud compute addresses list --filter name:"$nat_ip_name" --format="value(address)")
+
+cd /opt/tb/repo/tb-gcp-tr/landingZone/no-itop
+
+echo "clusters_master_whitelist_ip='${white_list_ip}'" >> input.auto.tfvars
+
+source input.auto.tfvars
+
+terraform init -backend-config="bucket=${terraform_state_bucket_name}" -backend-config="prefix=landingZone"
+
+terraform apply -var-file input.tfvars -auto-approve
 
 
