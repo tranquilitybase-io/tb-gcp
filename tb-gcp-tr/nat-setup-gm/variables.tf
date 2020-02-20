@@ -26,7 +26,3 @@ variable "vpc_name" {
   default     = "bootstrap"
   description = "bootstrap network name"
 }
-variable "fw_name" {
-  type        = string
-  description = "firewall rule name"
-}
