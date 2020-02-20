@@ -104,7 +104,7 @@ resources:
       tags:
         items:
           - {{ env["deployment"] }}-deployment
-            iap
+          - iap
     metadata:
       dependsOn:
       - {{ cloudStorageBucket }}
