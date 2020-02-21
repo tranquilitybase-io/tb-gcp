@@ -115,7 +115,7 @@ echo "clusters_master_whitelist_ip=\"${white_list_ip}\"" >> input.auto.tfvars
 
 source input.auto.tfvars
 
-rm -r .terraform/
+
 terraform init -backend-config="bucket=${terraform_state_bucket_name}" -backend-config="prefix=landingZone"
 
 apply_failures=0
@@ -132,6 +132,11 @@ while [ $apply_failures -lt $MAX_ATTEMPTS ]; do
   echo "Landing Zone deployment failed."
   apply_failures=$(($apply_failures + 1))
   echo "Retry #$apply_failures starting in $DELAY_BETWEEN_ATTEMPTS seconds."
+
+  #restablish state
+  rm -r .terraform/
+  gsutil -m rm gs://${terraform_state_bucket_name}/**
+  terraform init -backend-config="bucket=${terraform_state_bucket_name}" -backend-config="prefix=landingZone"
   sleep $DELAY_BETWEEN_ATTEMPTS
 done
 
