@@ -16,7 +16,7 @@
 exec >> /var/log/bootstrap.log 2>&1
 
 #set -e
-
+export HOME=/root
 function print_help {
 	echo "Usage: $0 <arguments>"
 	echo
