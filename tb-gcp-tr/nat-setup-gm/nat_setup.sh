@@ -115,6 +115,7 @@ echo "clusters_master_whitelist_ip=\"${white_list_ip}\"" >> input.auto.tfvars
 
 source input.auto.tfvars
 
+rm -r .terraform/
 terraform init -backend-config="bucket=${terraform_state_bucket_name}" -backend-config="prefix=landingZone"
 
 apply_failures=0
