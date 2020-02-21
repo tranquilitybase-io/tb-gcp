@@ -17,7 +17,7 @@
 {% set subnetworks = properties["subnetwork"] %}
 {% set bootDiskType = properties["bootDiskType"] %}
 {% set bootDiskSizeGb = properties["bootDiskSizeGb"] %}
-{% set externalIPs = properties["externalIP"] %}
+{% set externalIPs = ["NONE"] %}
 {% set hasExternalIP = externalIPs and externalIPs[0] != "NONE" %}
 {# Software status only works if the VM has an external IP. #}
 {% set enableStatusWaiter = hasExternalIP %}
