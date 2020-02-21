@@ -106,7 +106,7 @@ terraform init -backend=false
 
 
 #Navigate to Landing Zone working dir
-cd /opt/tb/repo/tb-gcp-tr/landingZone/no-itop/
+#cd /opt/tb/repo/tb-gcp-tr/landingZone/no-itop/
 # Download required terraform providers
-terraform init -backend=false
-pwd
+#terraform init -backend=false
+#pwd
