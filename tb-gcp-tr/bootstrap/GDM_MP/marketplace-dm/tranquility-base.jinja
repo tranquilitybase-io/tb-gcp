@@ -24,6 +24,11 @@
 {% set bucketName = "%s-tf-export" % deployment %}
 {% set tbNetwork = "%s-bootstrap-network" % deployment %}
 {% set tbSubNetwork = "%s-bootstrap-sub-network" % deployment %}
+{% set rootId = properties["rootId"] %}
+{% set billingAccountId = properties["billingAccountId"] %}
+{% set tbBootstrapSA = properties["tbBootstrapSA"] %}
+{% set tbDiscriminator = "%s" % deployment %}
+{% set allowIapFw = "%s-allow-iap" % deployment %}
 
 resources:
   - name: {{ tbNetwork }}
@@ -137,27 +142,26 @@ resources:
       bootDiskType: {{ bootDiskType }}
       bootDiskSizeGb: {{ bootDiskSizeGb }}
       serviceAccounts:
-        - email: default
-          scopes:
-            - 'https://www.googleapis.com/auth/cloud-platform'
+        - email : {{ tbBootstrapSA }}
+          scopes : ['https://www.googleapis.com/auth/cloud-platform']
       bootstrapServerStartupScript: |
         #!/bin/bash
         exec >> /var/log/bootstrap.log 2>&1
 
-        MAX_ATTEMPTS=10
-        DELAY_BETWEEN_ATTEMPTS=60
-
-        export HOME=/root
-
+        echo "Create Landing Zone Terraform Variable File"
         cd /opt/tb/repo/tb-gcp-tr/landingZone/no-itop
+
         cat <<EOF > input.auto.tfvars
         region="{{ region }}"
         region_zone="{{ zone }}"
+        billing_account_id="{{ billingAccountId }}"
+        root_id="{{ rootId }}"
         root_is_org="false"
-        tb_discriminator="tbase"
+        tb_discriminator="{{ tbDiscriminator }}"
         terraform_state_bucket_name="{{ bucketName }}"
         EOF
-        chmod +x /opt/tb/repo/tb-gcp-tr/landingZone/get_started.sh
+
+        echo "STARTUP COMPLETE"
       tags:
         items:
           - {{ env["deployment"] }}-deployment
@@ -167,10 +171,10 @@ resources:
       dependsOn:
       - {{ cloudStorageBucket }}
 
-  - name: {{ env["deployment"] }}-iap
+  - name: {{ allowIapFw }}
     type: compute.v1.firewall
     properties:
-      network: {{ networks[0] }}
+      network: $(ref.{{ tbNetwork }}.selfLink)
       sourceRanges: ["35.235.240.0/20"]
       targetTags: ["iap"]
       allowed:

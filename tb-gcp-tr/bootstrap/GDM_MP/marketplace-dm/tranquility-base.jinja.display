@@ -37,32 +37,31 @@ input:
       title: Zone
     - name: machineType
       title: Machine type
+    - name: billingAccountId
+      title: Billing account that Tranquility Base will use
+      section: TRANQUILITY_BASE
+    - name: rootId
+      title: Folder ID
+      tooltip: >-
+        A folder created to store the projects that will be created by Tranquility Base</a>
+      section: TRANQUILITY_BASE
+    - name: tbBootstrapSA
+      title: Tranquility Base Bootstrap Service Account
+      tooltip: >-
+        A service account configured as per the documented instructions. This service account must be created before launching the solution.</a>
+      section: TRANQUILITY_BASE
     - name: bootDiskType
       title: Boot disk type
       section: BOOT_DISK
     - name: bootDiskSizeGb
       title: Boot disk size in GB
       section: BOOT_DISK
-    - name: network
-      title: Network name
-      section: NETWORKING
-    - name: subnetwork
-      title: Subnetwork name
-      section: NETWORKING
-    - name: externalIP
-      title: External IP
-      tooltip: >-
-        An external IP address associated with this instance. Selecting "None"
-        will result in the instance having no external internet access. <a
-        href="https://cloud.google.com/compute/docs/configure-instance-ip-addresses">Learn
-        more</a>
-      section: NETWORKING
   sections:
     - name: BOOT_DISK
       title: Boot Disk
       tooltip: Each instance requires a disk to boot from.
-    - name: NETWORKING
-      title: Networking
+    - name: TRANQUILITY_BASE
+      title: Tranquility Base required settings
 runtime:
   deployingMessage: Deployment can take several minutes to complete.
   applicationTable:
@@ -80,22 +79,6 @@ runtime:
     type: TYPE_GCE_VM_SSH
     action: '{{ outputs().vmSelfLink }}'
   suggestedActions:
-    - heading: No external IP configured
-      description: >-
-        The VM instance has been configured with no external IP or internet
-        access. Connecting to it directly may not be possible. Consider using a
-        <a
-        href="https://cloud.google.com/compute/docs/instances/connecting-advanced#bastion_host">bastion
-        host</a> to access this VM.
-      showIf: '{{ !outputs().hasExternalIP }}'
-    - heading: Assign a static external IP address to your VM instance
-      description: >-
-        An ephemeral external IP address has been assigned to the VM instance.
-        If you require a static external IP address, you may promote the address
-        to static. <a
-        href="https://cloud.google.com/compute/docs/instances-and-network#promote_ephemeral_ip">Learn
-        more</a>
-      showIf: '{{ outputs().hasExternalIP }}'
 annotations:
   autogenSpecType: SINGLE_VM
   vmImage0: >-
