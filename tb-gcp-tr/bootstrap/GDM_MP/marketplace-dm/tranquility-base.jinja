@@ -42,7 +42,7 @@ resources:
     properties:
       network-name: {{ tbNetwork }}
       subnetworks:
-        - region: europe-west2
+        - region: {{ region }}
           cidr: 192.168.0.0/28
 
   - name: {{ cloudStorageBucket }}
@@ -101,7 +101,6 @@ resources:
             else:
               self.send_response(404)
 
-
         try:
           server = HTTPServer(("", PORT_NUMBER), myHandler)
           print "Started httpserver on port " , PORT_NUMBER
@@ -120,10 +119,6 @@ resources:
         VARIABLE_NAME=$(curl http://metadata.google.internal/computeMetadata/v1/instance/attributes/runtime-variable -H "Metadata-Flavor: Google")
 
         gcloud beta runtime-config configs variables set $VARIABLE_NAME 1 --config-name $CONFIG_NAME
-    metadata:
-      dependsOn:
-      - {{ name }}
-
 
   - name: {{ name }}
     type: vm_instance.py
@@ -159,7 +154,17 @@ resources:
         root_is_org="false"
         tb_discriminator="{{ tbDiscriminator }}"
         terraform_state_bucket_name="{{ bucketName }}"
+        clusters_master_whitelist_ip="$(ref.{{ deployment }}-nat-1-{{ zone }}-ip.address)"
         EOF
+
+        echo "Set Input Vars"
+        source input.auto.tfvars
+
+        echo "Terraform init"
+        terraform init -backend-config="bucket=${terraform_state_bucket_name}" -backend-config="prefix=landingZone"
+
+        echo "Terraform apply"
+        terraform apply -var-file input.tfvars -auto-approve
 
         echo "STARTUP COMPLETE"
       tags:
