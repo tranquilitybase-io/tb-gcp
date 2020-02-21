@@ -135,6 +135,9 @@ while [ $apply_failures -lt $MAX_ATTEMPTS ]; do
 
   #restablish state
   rm -r .terraform/
+  #Remove prior discriminator
+  sed -i "/tb_discriminator/d" ./input.auto.tfvars
+  echo "tb_discriminator=\"${tb_discriminator}${apply_failures}\"" >> input.auto.tfvars
   gsutil -m rm gs://${terraform_state_bucket_name}/**
   terraform init -backend-config="bucket=${terraform_state_bucket_name}" -backend-config="prefix=landingZone"
   sleep $DELAY_BETWEEN_ATTEMPTS
