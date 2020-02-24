@@ -20,9 +20,11 @@ function print_help {
   echo "please use 'gcloud auth login' and then run the script again."
   echo
   echo "Usage:"
-  echo "-f, --parent-folder-id <id>       (REQUIRED) Parent folder ID where the Tranquility Base folder will be created (e.g. -f 705953663545)"
-  echo "-b, --billing-account-id <string> (REQUIRED) Billing account ID tied to all Tranquility Base consumption (e.g. -b F9C122-73127B-50AE5B)"
+  echo "  -f, --parent-folder-id <id> (REQUIRED) Parent folder ID (or Organisation ID) where the Tranquility Base folder will be created"
+  echo "  -b, --billing-account-id <string> (REQUIRED) Billing account ID tied to all Tranquility Base consumption"
   echo
+  echo "Example:"
+  echo "  tb-config-creator -f 705953663545 -b F9C122-73127B-50AE5B"
 }
 
 FOLDER_ID=""
