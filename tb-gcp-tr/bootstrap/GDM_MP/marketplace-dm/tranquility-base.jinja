@@ -29,6 +29,7 @@
 {% set tbBootstrapSA = properties["tbBootstrapSA"] %}
 {% set tbDiscriminator = "%s" % deployment %}
 {% set allowIapFw = "%s-allow-iap" % deployment %}
+{% set allowInternalFw = "%s-allow-internal" % deployment %}
 
 resources:
   - name: {{ tbNetwork }}
@@ -67,6 +68,7 @@ resources:
       zone: {{ zone }}
       nat-gw-tag: natgw
       nated-vm-tag: no-ip
+      routePriority: 800
       startupScript: |
         #!/bin/bash
         echo 1 > /proc/sys/net/ipv4/ip_forward
@@ -185,6 +187,18 @@ resources:
       allowed:
         - IPProtocol: TCP
           ports: ["22"]
+
+  - name: {{ allowInternalFw }}
+    type: compute.v1.firewall
+    properties:
+      network: $(ref.{{ tbNetwork }}.selfLink)
+      sourceRanges: ["192.168.0.0/24"]
+      allowed:
+        - IPProtocol: TCP
+          ports: ["1-65535"]
+        - IPProtocol: UDP
+          ports: ["1-65535"]
+        - IPProtocol: ICMP
 
 outputs:
   - name: deployment
