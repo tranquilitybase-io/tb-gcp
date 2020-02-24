@@ -2,6 +2,7 @@
 
 {% set project = env["project"] %}
 {% set deployment = env["deployment"] %}
+{% set tbDiscriminator = "a%sb" %  env["project"][-6:] %}
 {% set name = "%s-bootstrap-vm-tmpl" % env["name"] %}
 {% set instanceName = "%s-bootstrap-vm" % deployment %}
 {% set cloudStorageBucket = "%s-tfstate-bucket" % deployment %}
@@ -27,7 +28,6 @@
 {% set rootId = properties["rootId"] %}
 {% set billingAccountId = properties["billingAccountId"] %}
 {% set tbBootstrapSA = properties["tbBootstrapSA"] %}
-{% set tbDiscriminator = "a%sb" %  env["project"][-6:] %}
 {% set allowIapFw = "%s-allow-iap" % deployment %}
 {% set allowInternalFw = "%s-allow-internal" % deployment %}
 
@@ -151,11 +151,14 @@ resources:
         export HOME=/root
         echo "Create Landing Zone Terraform Variable File"
         cd /opt/tb/repo/tb-gcp-tr/landingZone/no-itop
+
         cat <<EOF > input.auto.tfvars
         region="{{ region }}"
         region_zone="{{ zone }}"
+        billing_account_id="{{ billingAccountId }}"
+        root_id="{{ rootId }}"
         root_is_org="false"
-        tb_discriminator="tbase"
+        tb_discriminator="{{ tbDiscriminator }}"
         terraform_state_bucket_name="{{ bucketName }}"
         clusters_master_whitelist_ip="$(ref.{{ deployment }}-nat-1-{{ zone }}-ip.address)"
         EOF
