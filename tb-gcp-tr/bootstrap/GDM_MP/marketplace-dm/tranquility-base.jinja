@@ -27,7 +27,7 @@
 {% set rootId = properties["rootId"] %}
 {% set billingAccountId = properties["billingAccountId"] %}
 {% set tbBootstrapSA = properties["tbBootstrapSA"] %}
-{% set tbDiscriminator = "%s" % deployment %}
+{% set tbDiscriminator = "a%sb" %  env["project"][-6:] %}
 {% set allowIapFw = "%s-allow-iap" % deployment %}
 {% set allowInternalFw = "%s-allow-internal" % deployment %}
 
@@ -145,6 +145,7 @@ resources:
         #!/bin/bash
         exec >> /var/log/bootstrap.log 2>&1
         MAX_ATTEMPTS=10
+        MAX_ATTEMPTS_INIT=3
         DELAY_BETWEEN_ATTEMPTS=60
 
         export HOME=/root
@@ -166,16 +167,17 @@ resources:
         source input.auto.tfvars
 
         echo "Terraform init"
+        # delay to allow nat gateway to be created
         sleep $DELAY_BETWEEN_ATTEMPTS
         apply_failures=0
-        while [ $apply_failures -lt $MAX_ATTEMPTS ]; do
+        while [ $apply_failures -lt $MAX_ATTEMPTS_INIT ]; do
         terraform init -backend-config="bucket=${terraform_state_bucket_name}" -backend-config="prefix=landingZone"
         if [ $? -eq 0 ]; then
         echo "Terraform initialised successfully"
         break
         fi
-        if [ $((apply_failures +1)) -eq $MAX_ATTEMPTS ]; then
-        echo "Maximum of $MAX_ATTEMPTS reached. Moving on..."
+        if [ $((apply_failures +1)) -eq $MAX_ATTEMPTS_INIT ]; then
+        echo "Maximum of $MAX_ATTEMPTS_INIT reached. Moving on..."
         break
         fi
         echo "Terraform init failed."
