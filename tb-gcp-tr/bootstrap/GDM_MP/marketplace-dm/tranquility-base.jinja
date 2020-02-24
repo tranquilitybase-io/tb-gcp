@@ -166,7 +166,23 @@ resources:
         source input.auto.tfvars
 
         echo "Terraform init"
+        sleep $DELAY_BETWEEN_ATTEMPTS
+        apply_failures=0
+        while [ $apply_failures -lt $MAX_ATTEMPTS ]; do
         terraform init -backend-config="bucket=${terraform_state_bucket_name}" -backend-config="prefix=landingZone"
+        if [ $? -eq 0 ]; then
+        echo "Terraform initialised successfully"
+        break
+        fi
+        if [ $((apply_failures +1)) -eq $MAX_ATTEMPTS ]; then
+        echo "Maximum of $MAX_ATTEMPTS reached. Moving on..."
+        break
+        fi
+        echo "Terraform init failed."
+        apply_failures=$(($apply_failures + 1))
+        echo "Retry #$apply_failures starting in $DELAY_BETWEEN_ATTEMPTS seconds."
+        sleep $DELAY_BETWEEN_ATTEMPTS
+        done
 
         apply_failures=0
         while [ $apply_failures -lt $MAX_ATTEMPTS ]; do
