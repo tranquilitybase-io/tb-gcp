@@ -144,7 +144,10 @@ resources:
       bootstrapServerStartupScript: |
         #!/bin/bash
         exec >> /var/log/bootstrap.log 2>&1
+        MAX_ATTEMPTS=10
+        DELAY_BETWEEN_ATTEMPTS=60
 
+        export HOME=/root
         echo "Create Landing Zone Terraform Variable File"
         cd /opt/tb/repo/tb-gcp-tr/landingZone/no-itop
 
