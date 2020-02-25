@@ -216,7 +216,7 @@ def GenerateEmbeddableYaml(yaml_string):
   # inserted into arbitrary points of another YAML document. It does so by
   # printing the YAML string in a single line format. Consistent ordering of
   # the string is also guaranteed by using yaml.dump.
-  yaml_object = yaml.load(yaml_string)
+  yaml_object = yaml.safe_load(yaml_string)
   dumped_yaml = yaml.dump(yaml_object, default_flow_style=True)
   return dumped_yaml
 

@@ -266,7 +266,7 @@ $ git fetch origin
 
 2. Make sure the remote `master` branch is checked out:
 
-```
+``` bash
 $ git checkout origin/master
 ```
 
