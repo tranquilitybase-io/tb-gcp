@@ -26,9 +26,8 @@ def GenerateConfig(context):
             'name': '%s-%s' % (network_name, subnetwork['region']),
             'type': 'compute.v1.subnetwork',
             'properties': {
-                'name': '%s-%s' % (network_name, subnetwork['region']),
-                'description': 'Subnetwork of %s in %s' % (network_name,
-                                                           subnetwork['region']),
+                'name': '%s' % (network_name),
+                'description': 'Subnetwork of %s' % (network_name),
                 'ipCidrRange': subnetwork['cidr'],
                 'region': subnetwork['region'],
                 'network': '$(ref.%s.selfLink)' % network_name,
