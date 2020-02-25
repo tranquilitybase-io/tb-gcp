@@ -2,11 +2,12 @@
 
 {% set project = env["project"] %}
 {% set deployment = env["deployment"] %}
-{% set tbDiscriminator = "%s" %  env["project"][-6:] %}
+{% set tbBootstrapSA = "bootstrap-tb-sa@%s.iam.gserviceaccount.com" % project %}
+{% set tbDiscriminator = "tb%s" %  env["project"][-6:] %}
 {% set name = "%s-bootstrap-vm-tmpl" % env["name"] %}
-{% set instanceName = "%s-bootstrap-vm" % deployment %}
-{% set cloudStorageBucket = "%s-tfstate-bucket" % deployment %}
-{% set natGateway = "%s-nat-gateway" % deployment %}
+{% set instanceName = "%s-bootstrap-vm" % tbDiscriminator %}
+{% set cloudStorageBucket = "%s-tfstate-bucket" % tbDiscriminator %}
+{% set natGateway = "%s-nat-gateway" % tbDiscriminator %}
 {% set zone = properties["zone"] %}
 {% set region = properties["zone"][:-2] %}
 {% set bucketLocation = "eu" %}
@@ -22,14 +23,13 @@
 {% set hasExternalIP = externalIPs and externalIPs[0] != "NONE" %}
 {# Software status only works if the VM has an external IP. #}
 {% set enableStatusWaiter = hasExternalIP %}
-{% set bucketName = "%s-tf-export" % deployment %}
-{% set tbNetwork = "%s-bootstrap-network" % deployment %}
-{% set tbSubNetwork = "%s-bootstrap-sub-network" % deployment %}
+{% set bucketName = "%s-tf-export" % tbDiscriminator %}
+{% set tbNetwork = "%s-bootstrap-network" % tbDiscriminator %}
+{% set tbSubNetwork = "%s-bootstrap-sub-network" % tbDiscriminator %}
 {% set rootId = properties["rootId"] %}
 {% set billingAccountId = properties["billingAccountId"] %}
-{% set tbBootstrapSA = "tb-bootstrap-sa@%s.iam.gserviceaccount.com" % project %}
-{% set allowIapFw = "%s-allow-iap" % deployment %}
-{% set allowInternalFw = "%s-allow-internal" % deployment %}
+{% set allowIapFw = "%s-allow-iap" % tbDiscriminator %}
+{% set allowInternalFw = "%s-allow-internal" % tbDiscriminator %}
 
 resources:
   - name: {{ tbNetwork }}
@@ -61,6 +61,7 @@ resources:
       projectId: {{ project }}
       network: $(ref.{{ tbNetwork }}.selfLink)
       subnetwork: $(ref.{{ tbNetwork }}-{{ region }}.selfLink)
+      discriminator: {{ tbDiscriminator }}
       machineType: n1-standard-2
       diskType: pd-ssd
       diskSizeGb: 50
@@ -160,7 +161,7 @@ resources:
         root_is_org="false"
         tb_discriminator="{{ tbDiscriminator }}"
         terraform_state_bucket_name="{{ bucketName }}"
-        clusters_master_whitelist_ip="$(ref.{{ deployment }}-nat-1-{{ zone }}-ip.address)"
+        clusters_master_whitelist_ip="$(ref.{{ tbDiscriminator }}-ip.address)"
         EOF
 
         echo "Set Input Vars"

@@ -18,7 +18,7 @@
 def GenerateConfig(context):
   """Generates config."""
 
-  prefix = context.env['name']
+  prefix = context.properties['discriminator']
   zone = context.properties['zone']
 
   resources = []
@@ -148,7 +148,7 @@ def GenerateConfig(context):
   })
 
   #create a route that will allow to use the NAT gateway VM as a next hop
-  route_name = prefix + 'route'
+  route_name = prefix + '-route'
   resources.append({
     'name': route_name,
     'type': 'compute.v1.route',

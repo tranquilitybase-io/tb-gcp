@@ -47,7 +47,7 @@ def GenerateConfig(context):
 
   CheckParameters(context)
 
-  prefix = context.env['deployment']
+  prefix = context.properties['discriminator']
 
   hc_name = prefix + '-hc'
   fw_name = prefix + '-hc-fw'
@@ -122,6 +122,7 @@ def GenerateConfig(context):
         'type': 'single-nat-gateway.py',
         'properties': {
             'projectId': project_id,
+            'discriminator': context.properties['discriminator'],
             'region': region,
             'zone': zone,
             'machineType': context.properties['machineType'],

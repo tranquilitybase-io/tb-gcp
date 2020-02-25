@@ -259,7 +259,7 @@ This is an example upgrade process, which assumes that the installation process 
 
 1. Change into the local repository's directory and fetch the latest references from the remote GitHub repository:
 
-```
+``` bash
 $ cd $HOME/repositories/tb-gcp
 $ git fetch origin
 ```
