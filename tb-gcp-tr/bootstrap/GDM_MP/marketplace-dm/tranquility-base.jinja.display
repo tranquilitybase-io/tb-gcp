@@ -45,11 +45,6 @@ input:
       tooltip: >-
         A folder created to store the projects that will be created by Tranquility Base</a>
       section: TRANQUILITY_BASE
-    - name: tbBootstrapSA
-      title: Tranquility Base Bootstrap Service Account
-      tooltip: >-
-        A service account configured as per the documented instructions. This service account must be created before launching the solution.</a>
-      section: TRANQUILITY_BASE
     - name: bootDiskType
       title: Boot disk type
       section: BOOT_DISK

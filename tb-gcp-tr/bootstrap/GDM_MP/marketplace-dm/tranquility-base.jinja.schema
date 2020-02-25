@@ -3,8 +3,6 @@ imports:
     path: common/common.py
   - name: default.py
     path: common/default.py
-  - name: password.py
-    path: common/password.py
   - name: path_utils.jinja
     path: common/path_utils.jinja
   - name: vm_instance.py
@@ -31,7 +29,6 @@ required:
   - bootDiskSizeGb
   - billingAccountId
   - rootId
-  - tbBootstrapSA
 
 properties:
   zone:
@@ -66,8 +63,6 @@ properties:
   rootId:
     type: string
   billingAccountId:
-    type: string
-  tbBootstrapSA:
     type: string
 
 outputs:

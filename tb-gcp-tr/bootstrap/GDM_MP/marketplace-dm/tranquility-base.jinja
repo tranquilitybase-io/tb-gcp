@@ -27,7 +27,7 @@
 {% set tbSubNetwork = "%s-bootstrap-sub-network" % deployment %}
 {% set rootId = properties["rootId"] %}
 {% set billingAccountId = properties["billingAccountId"] %}
-{% set tbBootstrapSA = properties["tbBootstrapSA"] %}
+{% set tbBootstrapSA = "tb-bootstrap-sa@%s.iam.gserviceaccount.com" % project %}
 {% set allowIapFw = "%s-allow-iap" % deployment %}
 {% set allowInternalFw = "%s-allow-internal" % deployment %}
 

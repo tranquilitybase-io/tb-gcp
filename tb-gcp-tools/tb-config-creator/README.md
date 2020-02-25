@@ -16,8 +16,10 @@ This script was created to be executed by future deployers of Tranquility Base f
      - compute.xpnAdmin
      - owner
      - compute.networkAdmin  
+
    - at the project level
      - compute.admin
+
    - at the billing level
      - billing.admin
  2. Activation of the following APIs:
@@ -120,7 +122,6 @@ ACTIVE  ACCOUNT
 To set the active account, run:
     $ gcloud config set account `ACCOUNT`
 ```
-
 
 Example execution
 -----------------
