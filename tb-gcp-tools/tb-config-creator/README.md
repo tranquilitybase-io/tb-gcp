@@ -62,9 +62,7 @@ Usage
 ```
 Usage: /home/usr1/bin/tb_config_creator <arguments>
 
--p, --project_id <id>             (REQUIRED) Project ID where the bootstrap server will be installed (e.g. -p my-project-xxxx)
--s, --service-account <string>    (REQUIRED) Service account name to run the boostrap server (e.g. -s my-service-account)
--f, --parent-folder-id <id>       (REQUIRED) Parent folder ID where Landing zone will be deployed (e.g. -f 705953663545)
+-f, --parent-folder-id <id> (REQUIRED) Parent folder ID (or Organisation ID) where the Tranquility Base folder will be created (e.g. -f 705953663545)
 -b, --billing-account-id <string> (REQUIRED) Billing account ID tied to all Tranquility Base consumption (e.g. -b F9C122-73127B-50AE5B)
 ```
 Execute with elevated permissions
@@ -128,12 +126,14 @@ Example execution
 -----------------
 
 ```
-$ tb_projects_deleter.sh -p my-project-xxxx -s my-service-account -b F9C122-73127B-50AE5B -f 705953663545
+$ ./tb-config-creator -f 705953663545 -b F9C122-73127B-50AE5B
   Found project my-service-account.
   Found parent folder 705953663545.
-  Found billing account 01A2F5-73127B-50AE5BF9C122-73127B-50AE5B.
+  Found billing account F9C122-73127B-50AE5B.
   
-  You are about to create Service Account [my-service-account] and activate API's in project [my-project-xxxx].
+  You are about to create a Project to host the Tranquility Base bootstrap server.
+  The project name will be randomized and provided to you at the end of this configuration
+  In addition, a "super" Service Account will be created and several API's will be activated in that project:
   
   1. Permissions of the Service Account:
     - at the project level
@@ -183,10 +183,18 @@ $
 If **Y** is pressed, it will automatically create the Service Account and activate the API's:
 
 ```
+Creating project...
+
+Create in progress for [https://cloudresourcemanager.googleapis.com/v1/projects/bootstrap-tb-ab91ae].
+Waiting for [operations/cp.5499274151206614851] to finish...done.
+Enabling service [cloudapis.googleapis.com] on project [bootstrap-tb-ab91ae]...
+Operation "operations/acf.1bdd5536-29cd-46da-ac7a-48290cc4dec8" finished successfully.
+Linking project to billing account...
+Linked project to billing account [F9C122-73127B-50AE5B].
 Creating service account...
-Created service account [my-service-account].
+Created service account [bootstrap-tb-sa].
 Adding permissions at the project level...
-Updated IAM policy for project [my-project-xxxx].
+Updated IAM policy for project [bootstrap-tb-ab91ae].
 Adding permissions at the folder level...
 Updated IAM policy for folder [705953663545].
 Updated IAM policy for folder [705953663545].
@@ -198,10 +206,20 @@ Updated IAM policy for folder [705953663545].
 Adding permissions at the billing account level...
 Updated IAM policy for account [F9C122-73127B-50AE5B].
 Activating essential APIs...
+Operation "operations/acf.48ef9fa6-2aca-4397-8807-11d003538321" finished successfully.
+Operation "operations/acf.8f58d144-330f-4122-80e1-91534020044a" finished successfully.
+Operation "operations/acf.a4f16d57-0ee9-471c-bb96-be440bdf75fb" finished successfully.
+Operation "operations/acf.27d88272-921f-446f-8800-3ef50caf3dbc" finished successfully.
+Operation "operations/acf.8a2848f4-5cf9-485e-8e0b-8a6a964840dc" finished successfully.
+Operation "operations/acf.dfa2d987-4950-45bb-8d72-05872de3a8fb" finished successfully.
+Operation "operations/acf.01c8250f-38a0-4425-a912-651f5bf284d9" finished successfully.
+Operation "operations/acf.c88e4dad-8f1f-461a-a8f3-5bb8a6a84fff" finished successfully.
+Operation "operations/acf.7065af63-0afd-4cf3-8b38-21fd467e09e4" finished successfully.
 Essential APIs acitvated.
 
-The connfiguration has been completed successfully.
-You can now deploy the Tranquility Base solution using [my-service-account@my-project-xxxx.iam.gserviceaccount.com] in project [my-project-xxxx].$
+Configuration completed!
+You can now deploy Tranquility Base from Marketplace in project [bootstrap-tb-ab91ae].
+$
 ```
 
 Installation
