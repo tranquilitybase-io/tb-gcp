@@ -54,20 +54,6 @@ properties:
     type: string
     description: The region where NAT gateway VMs will be reployed to
     default: "us-central1"
-    enum:
-      - asia-east1
-      - asia-northeast1
-      - asia-south1
-      - asia-southeast1
-      - australia-southeast1
-      - europe-west1
-      - europe-west2
-      - europe-west3
-      - southamerica-east1
-      - us-central1
-      - us-east1
-      - us-east4
-      - us-west1  
   zone:
     type: string
     description: NAT gateway GCE VMs will be deployed to this zone of a region

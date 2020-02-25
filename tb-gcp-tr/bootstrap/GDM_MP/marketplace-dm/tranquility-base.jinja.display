@@ -40,6 +40,8 @@ input:
     - name: billingAccountId
       title: Billing account that Tranquility Base will use
       section: TRANQUILITY_BASE
+      tooltip: >-
+        The billing account id will be in the form XXXXX-XXXXX-XXXXX</a>
     - name: rootId
       title: Folder ID
       tooltip: >-
