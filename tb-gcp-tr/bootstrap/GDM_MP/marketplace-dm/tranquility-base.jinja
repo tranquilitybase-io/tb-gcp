@@ -2,7 +2,7 @@
 
 {% set project = env["project"] %}
 {% set deployment = env["deployment"] %}
-{% set tbDiscriminator = "a%sb" %  env["project"][-6:] %}
+{% set tbDiscriminator = "%s" %  env["project"][-6:] %}
 {% set name = "%s-bootstrap-vm-tmpl" % env["name"] %}
 {% set instanceName = "%s-bootstrap-vm" % deployment %}
 {% set cloudStorageBucket = "%s-tfstate-bucket" % deployment %}
