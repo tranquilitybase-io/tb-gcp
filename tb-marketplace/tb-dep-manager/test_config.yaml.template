@@ -1,0 +1,12 @@
+imports:
+- path: tranquility-base.jinja
+
+resources:
+- name: tranquility-base
+  type: tranquility-base.jinja
+  properties:
+    zone: TBA
+    rootId = TBA (numerical value of a folder id)
+    billingAccountId = TBA in format XXXXX-XXXXX-XXXXX
+
+

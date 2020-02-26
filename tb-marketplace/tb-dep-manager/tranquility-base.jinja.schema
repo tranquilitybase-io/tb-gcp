@@ -1,0 +1,83 @@
+imports:
+  - name: common.py
+    path: common/common.py
+  - name: default.py
+    path: common/default.py
+  - name: path_utils.jinja
+    path: common/path_utils.jinja
+  - name: vm_instance.py
+    path: common/vm_instance.py
+  - name: cloud-storage-bucket.py
+    path: common/cloud-storage-bucket.py
+  - name: ha-nat-gateway.py
+    path: common/ha-nat-gateway.py
+  - name: single-nat-gateway.py
+    path: common/single-nat-gateway.py
+  - name: network.py
+    path: common/network.py
+  - name: sub-network.py
+    path: common/sub-network.py
+
+info:
+  version: '1.0'
+  title: Tranquility Base Template
+
+required:
+  - zone
+  - machineType
+  - bootDiskType
+  - bootDiskSizeGb
+  - billingAccountId
+  - rootId
+
+properties:
+  zone:
+    type: string
+    default: europe-west2-a
+    x-googleProperty:
+      type: GCE_ZONE
+  machineType:
+    type: string
+    default: n1-standard-4
+    x-googleProperty:
+      type: GCE_MACHINE_TYPE
+      zoneProperty: zone
+      gceMachineType:
+        minCpu: 4
+        minRamGb: 14.9990234375
+  bootDiskType:
+    type: string
+    default: pd-ssd
+    x-googleProperty:
+      type: GCE_DISK_TYPE
+      zoneProperty: zone
+  bootDiskSizeGb:
+    type: integer
+    default: 16
+    minimum: 16
+    maximum: 10000
+    x-googleProperty:
+      type: GCE_DISK_SIZE
+      gceDiskSize:
+        diskTypeProperty: bootDiskType
+  rootId:
+    type: string
+  billingAccountId:
+    type: string
+    pattern: ^[A-F0-9]{6}\-[A-F0-9]{6}\-[A-F0-9]{6}$
+
+outputs:
+  deployment:
+    type: string
+  project:
+    type: string
+  vmId:
+    type: string
+  vmExternalIP:
+    type: string
+  vmInternalIP:
+    type: string
+  vmName:
+    type: string
+  vmSelfLink:
+    type: string

@@ -72,6 +72,8 @@ apt-get -y update
 apt-get -y install unzip
 apt-get -y install zip
 apt-get -y install nodejs
+apt-get -y install git
+apt-get -y install kubectl
 curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 apt-get -y install build-essential nodejs
 npm install -g @angular/cli
@@ -98,8 +100,7 @@ sudo npm install
 sudo npm run build --prod
 
 #Navigate to Landing Zone working dir
-cd /opt/tb/repo/tb-gcp-tr/landingZone/
-
+cd /opt/tb/repo/tb-gcp-tr/landingZone/no-itop/
 # Download required terraform providers
 terraform init -backend=false
 pwd

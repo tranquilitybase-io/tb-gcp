@@ -18,20 +18,29 @@
 def GenerateConfig(context):
   """Generates config."""
 
-  prefix = context.env['name']
+  prefix = context.properties['discriminator']
   zone = context.properties['zone']
 
   resources = []
-  template_name = prefix + '-igtemplatew'
-  runtime_var_name = prefix + '/0'
-  rt_config_name = prefix + '-config'
 
+  #reserve a static IP address
+  ip_name = prefix + '-ip'
+  resources.append({
+    'name': ip_name,
+    'type': 'compute.v1.address',
+    'properties': {
+      'region': context.properties['region']
+    }
+  })  
+
+  # create an instance template that points to a reserved static IP address
+  template_name = prefix + '-it'
+  runtime_var_name = prefix + '/0'  
 
   resources.append({
     'name': template_name,
-    'type': 'gcp-types/compute-v1:instanceTemplates',
+    'type': 'compute.v1.instanceTemplate',
     'properties': {
-    'project': context.properties['project'],
       'properties': {
         'disks': [{
           'deviceName': 'boot',
@@ -60,7 +69,7 @@ def GenerateConfig(context):
             },
             {
             'key': 'runtime-config',
-            'value': rt_config_name
+            'value': context.properties['runtimeConfigName']
             },
           ]
         },
@@ -70,49 +79,50 @@ def GenerateConfig(context):
             # The following scope allows an instance to create runtime variable resources.
             'https://www.googleapis.com/auth/cloudruntimeconfig'
           ]
-        }],
+        }], 
         'canIpForward': True,
         'networkInterfaces': [{
-          'subnetwork': context.properties['network'],
+          'network': context.properties['network'],
+          'subnetwork': context.properties['subnetwork'],
         'accessConfigs': [{
           'name': 'External-IP',
           'type': 'ONE_TO_ONE_NAT',
-          'natIP': '$(ref.static-ip-address.address)'
+          'natIP': '$(ref.' + ip_name + '.address)' }] 
         }]
-       }]
       }
     }
   })
 
-  igm_name = prefix + '-igm2'
+  # create an instance greoup manager of size 1  with autohealing enabled
+  # it will make sure that the NAT gateway VM is always up
+  igm_name = prefix + '-igm'
   resources.append({
     'name': igm_name,
-    'type': 'gcp-types/compute-v1:instanceGroupManagers',
+    'type': 'compute.beta.instanceGroupManager',
     'properties': {
-      'project': context.properties['project'],
       'baseInstanceName': prefix + '-vm',
       'instanceTemplate': '$(ref.' + template_name + '.selfLink)',
       'targetSize': 1,
       'zone': zone,
       'autoHealingPolicies': [{
         'initialDelaySec': 120,
-        'healthCheck': context.properties['hc_name']
+        'healthCheck': context.properties['healthCheck']
       }]
     }
   })
 
-
-  waiter_name = prefix + '-waiter2'
+  # Wait until a GCE VM is created by the instance group manager. 
+  waiter_name = prefix + '-waiter'
   resources.append({
     'name': waiter_name,
-    'type': 'gcp-types/runtimeconfig-v1beta1:projects.configs.waiters',
+    'type': 'runtimeconfig.v1beta1.waiter',
     'properties': {
       'parent': context.properties['runtimeConfig'],
       'waiter': waiter_name,
-      'timeout': '140s',
+      'timeout': '120s',
       'success': {
         'cardinality': {
-          'path': igm_name,
+          'path': prefix,
           'number': 1
         }
       }
@@ -120,15 +130,16 @@ def GenerateConfig(context):
     'metadata': {
       'dependsOn': [igm_name]
     }
-  })
+  })  
 
-  get_mig_instances = prefix + '-get-mig-instances'
+  # Find a name of the GCE VM created by the instance group manager
+  get_mig_instances = prefix + '-get-mig-instances' 
   resources.append({
     'name': get_mig_instances,
     'action': 'gcp-types/compute-v1:compute.instanceGroupManagers.listManagedInstances',
     'properties': {
       'instanceGroupManager': igm_name,
-      'project': context.properties['project'],
+      'project': context.properties['projectId'],
       'zone': zone,
     },
     'metadata': {
@@ -136,19 +147,18 @@ def GenerateConfig(context):
     }
   })
 
-
-  route_name = prefix + 'routes5'
+  #create a route that will allow to use the NAT gateway VM as a next hop
+  route_name = prefix + '-route'
   resources.append({
     'name': route_name,
-    'type': 'gcp-types/compute-v1:routes',
+    'type': 'compute.v1.route',
     'properties': {
-      'project': context.properties['project'],
-      'network': '$(ref.bootstrap-network3.selfLink)',
+      'network': context.properties['network'],
       'tags': [context.properties['nated-vm-tag']],
       'destRange': '0.0.0.0/0',
-      'priority': 800,
+      'priority': context.properties['routePriority'],
       'nextHopInstance': '$(ref.' + get_mig_instances + '.managedInstances[0].instance)'
     }
-  })
+  }) 
 
   return {'resources': resources}

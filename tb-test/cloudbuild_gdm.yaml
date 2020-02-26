@@ -1,0 +1,23 @@
+#      args: ['deployment-manager', 'create', 'deployment-bootstrap-server', '--project=$PROJECT_ID', 'tb-gcp-tr/bootstrap/GDM/config.yaml']
+steps:
+  - id: GDM - create two vms
+    name: 'gcr.io/cloud-builders/gcloud'
+    args: ['deployment-manager', 'create', 'deployment-two-vms', '--project=$PROJECT_ID', 'tb-test/gdmtest/two-vms.yaml']
+
+  - id: GDM - describe deployment
+    name: 'gcr.io/cloud-builders/gcloud'
+    waitFor:
+      - GDM - create two vms
+    args: ['deployment-manager', 'describe', 'deployment-two-vms', '--project=$PROJECT_ID']
+
+  - id: GDM - delete deployment
+    name: 'gcr.io/cloud-builders/gcloud'
+    waitFor:
+      - 'GDM - describe deployment'
+    args: ['deployment-manager', 'delete', 'deployment-two-vms']
+
+substitutions:
+#  _REGION: europe-west2
+#  _REGION_ZONE: europe-west2-a
+#  _FOLDER_ID: "943956663445"
+
