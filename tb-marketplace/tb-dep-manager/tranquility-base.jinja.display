@@ -1,0 +1,80 @@
+description:
+  author:
+    title: GFT Group
+  descriptionHtml: >-
+    Tranquility Base is the open-source multi-cloud Landing Zone that allows teams to fully automate the creation of secure
+    cloud environments following best practice architecture, governance and security design. Developed using Terraform,
+    teams can fully automate the deployment of application  architectures via Infrastructure as Code and achieve very
+    high levels of productivity.<br><br>
+    The following are pre-requisites to deploy this solution:
+    <ol>
+     <li>An organisation resource must be available</li>
+     <li>User must be owner to the folder (or organisation) where Tranquility Base will be deployed</li>
+     <li>Initial configuration must be created. In order to do so, open Cloud Shell and execute the following instructions:
+         <ul>
+           <li>$ wget https://raw.githubusercontent.com/tranquilitybase-io/tb-gcp/dm4mp/tb-gcp-tools/tb-config-creator/tb-config-creator</li>
+           <li>$ chmod +x tb-config-creator</li>
+           <li>$ ./tb-config-creator</li>
+         </ul>
+    </ol>
+    </font>
+  logo: '@media/tranquility-base_store.png'
+  tagline: Multi-cloud open source solution to
+  title: Tranquility Base
+  url: 'https://www.tranquilitybase.io/'
+  version: default-version
+  support:
+    - title: Support
+  icon: '@media/tranquility-base_small.png'
+  documentations: []
+  softwareGroups: []
+input:
+  properties:
+    - name: zone
+      title: Zone
+    - name: machineType
+      title: Machine type
+    - name: rootId
+      title: Folder ID
+      tooltip: >-
+        The numeric ID of the folder (or organisation) that will be parent to the Tranquility Base resource hierarchy.
+      section: TRANQUILITY_BASE
+    - name: billingAccountId
+      title: Billing account that Tranquility Base will use
+      section: TRANQUILITY_BASE
+      tooltip: >-
+        The billing account that will track all costs incurred by Tranquility Base usage. It must be in the form XXXXXX-XXXXXX-XXXXXX.
+    - name: bootDiskType
+      title: Boot disk type
+      section: BOOT_DISK
+    - name: bootDiskSizeGb
+      title: Boot disk size in GB
+      section: BOOT_DISK
+  sections:
+    - name: BOOT_DISK
+      title: Boot Disk
+      tooltip: Each instance requires a disk to boot from.
+    - name: TRANQUILITY_BASE
+      title: Tranquility Base required settings
+runtime:
+  deployingMessage: Deployment can take several minutes to complete.
+  applicationTable:
+    rows:
+      - label: Instance
+        value: >-
+          <a href="{{ consoleUrl(outputs().vmSelfLink) }}">{{ outputs().vmName
+          }}</a>
+      - label: Instance zone
+        value: '{{ properties().zone }}'
+      - label: Instance machine type
+        value: '{{ properties().machineType }}'
+  primaryButton:
+    label: SSH
+    type: TYPE_GCE_VM_SSH
+    action: '{{ outputs().vmSelfLink }}'
+  suggestedActions:
+annotations:
+  autogenSpecType: SINGLE_VM
+  vmImage0: >-
+    https://www.googleapis.com/compute/v1/projects/tb-marketplace-dev/global/images/tranquility-base-bootstrap-dm4mp
+metadata_version: v1

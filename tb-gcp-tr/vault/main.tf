@@ -36,6 +36,7 @@ provider "kubernetes" {
 
   cluster_ca_certificate = base64decode(var.vault-gke-sec-cluster_ca_cert)
   token                  = data.google_client_config.current.access_token
+  version = "~> 1.10.0"
 }
 
 resource "null_resource" "apis_dependency" {

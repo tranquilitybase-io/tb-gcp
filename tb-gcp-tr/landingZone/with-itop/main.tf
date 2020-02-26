@@ -39,6 +39,7 @@ provider "google-beta" {
 
 provider "kubernetes" {
   alias = "k8s"
+  version = "~> 1.10.0"
 }
 
 terraform {
@@ -267,6 +268,7 @@ provider "kubernetes" {
   load_config_file       = false
   cluster_ca_certificate = base64decode(module.gke-operations.cluster_ca_certificate)
   token                  = data.google_client_config.current.access_token
+  version = "~> 1.10.0"
 }
 
 # Deploy gke-operations cluster helm pre-requisite resources
@@ -287,6 +289,7 @@ provider "helm" {
     token                  = data.google_client_config.current.access_token
   }
   service_account = module.gke_operations_helm_pre_req.tiller_svc_accnt_name
+  version = "~> 0.10.4"
 }
 
 # Deploys itop on GKE Operations cluster
