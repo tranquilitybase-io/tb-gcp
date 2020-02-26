@@ -61,7 +61,7 @@ properties:
       gceDiskSize:
         diskTypeProperty: bootDiskType
   rootId:
-    type: number
+    type: string
   billingAccountId:
     type: string
     pattern: ^[A-F0-9]{5}\-[A-F0-9]{5}\-[A-F0-9]{5}$
