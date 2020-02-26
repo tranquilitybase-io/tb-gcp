@@ -1,7 +1,7 @@
-tb\_projects\_deleter
+tb-projects-deleter
 =====================
 
-`tb_projects_deleter` finds and deletes bootstrap and landing zone projects under the base folder.
+`tb-projects-deleter` finds and deletes bootstrap and landing zone projects under the base folder.
 
 Intended Use
 ------------
