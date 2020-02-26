@@ -1,0 +1,83 @@
+description:
+  author:
+    title: GFT Group
+    descriptionHtml: >-
+      We are a technology driven IT consultancy passionate about landing
+      business agility for our clients through excellence in engineering and
+      transformation.
+    shortDescription: >-
+      We are a technology driven IT consultancy passionate about landing
+      business agility for our clients through excellence in engineering and
+      transformation.
+  descriptionHtml: >-
+    Tranquility Base is open-source software for deploying applications onto a
+    cloud Datacentre-as-Code infrastructureto create your first cloud
+    deployment, making the environment ready for application migration.
+
+    Best practice knowledge is baked into the code, to enable you to confidently
+    move your migrations at pace whilst keeping full compliance and control.
+
+
+    Application patterns, gained from many successful projects, are coded into
+    the platform allowing development teams to select repeatable deployments
+    from a self-service portal.
+  logo: '@media/tranquility-base_store.png'
+  tagline: Multi-cloud open source solution to
+  title: Tranquility Base
+  url: 'https://www.tranquilitybase.io/'
+  version: default-version
+  support:
+    - title: Support
+  icon: '@media/tranquility-base_small.png'
+  documentations: []
+  softwareGroups: []
+input:
+  properties:
+    - name: zone
+      title: Zone
+    - name: machineType
+      title: Machine type
+    - name: billingAccountId
+      title: Billing account that Tranquility Base will use
+      section: TRANQUILITY_BASE
+      tooltip: >-
+        The billing account id will be in the form XXXXX-XXXXX-XXXXX
+    - name: rootId
+      title: Folder ID
+      tooltip: >-
+        A folder created to store the projects that will be created by Tranquility Base
+      section: TRANQUILITY_BASE
+    - name: bootDiskType
+      title: Boot disk type
+      section: BOOT_DISK
+    - name: bootDiskSizeGb
+      title: Boot disk size in GB
+      section: BOOT_DISK
+  sections:
+    - name: BOOT_DISK
+      title: Boot Disk
+      tooltip: Each instance requires a disk to boot from.
+    - name: TRANQUILITY_BASE
+      title: Tranquility Base required settings
+runtime:
+  deployingMessage: Deployment can take several minutes to complete.
+  applicationTable:
+    rows:
+      - label: Instance
+        value: >-
+          <a href="{{ consoleUrl(outputs().vmSelfLink) }}">{{ outputs().vmName
+          }}</a>
+      - label: Instance zone
+        value: '{{ properties().zone }}'
+      - label: Instance machine type
+        value: '{{ properties().machineType }}'
+  primaryButton:
+    label: SSH
+    type: TYPE_GCE_VM_SSH
+    action: '{{ outputs().vmSelfLink }}'
+  suggestedActions:
+annotations:
+  autogenSpecType: SINGLE_VM
+  vmImage0: >-
+    https://www.googleapis.com/compute/v1/projects/tb-marketplace-dev/global/images/tranquility-base-bootstrap-not-only-europewest2
+metadata_version: v1
