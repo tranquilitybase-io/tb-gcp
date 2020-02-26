@@ -26,13 +26,9 @@ From the [partner marketplace editor for the Tranquility Base solution](https://
     
 ## Deployment testing from gcloud
 * Run the 'tb-config-creator' (in tb-gcp-tools) to create a **project** and a **service account** that the scripts rely on are created beforehand
-
 * Make a note of the project created
-
 * run 'gcloud init' to set the currently used project to be this project
-
 * Create a file test_config_with_mp_params.yaml from the test_config.yaml.templace file that includes the parameters that would be entered in the marketplace
-
 * **NB Ensure that this file is NOT checked in as it will contain the billing account id** 
 * To deploy
 ``` google cloud
