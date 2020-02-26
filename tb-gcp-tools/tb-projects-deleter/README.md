@@ -12,7 +12,7 @@ Usage
 -----
 
 ```
-Usage: /home/usr1/bin/tb_projects_deleter <arguments>
+Usage: /home/usr1/bin/tb-projects-deleter <arguments>
 
 -b, --bootstrap-random-id <id>          (REQUIRED) Bootstrap project's random ID (e.g. -b c556112f)
 -f, --parent-folder-id <id>             (REQUIRED) Landing zone's parent folder ID (e.g. -f 238741628734)
@@ -23,7 +23,7 @@ Example execution
 -----------------
 
 ```
-$ tb_projects_deleter -f 238741628734 -b 14c2aec8 -l usr1-tb01
+$ tb-projects-deleter -f 238741628734 -b 14c2aec8 -l usr1-tb01
 Found project bootstrap-usr1-tb01-14c2aec8.
 Found 'Tranquility Base - usr1-tb01' (875058758784) folder.
 Found 'Applications' (762389942404) folder.
@@ -129,7 +129,7 @@ $ git clone git@github.com:tranquilitybase-io/tb-gcp.git
 
 ```
 $ mkdir -p $HOME/bin
-$ ln -s $HOME/repositories/tb-gcp/tb-gcp-tools/tb_projects_deleter/tb_projects_deleter $HOME/bin/tb_projects_deleter
+$ ln -s $HOME/repositories/tb-gcp/tb-gcp-tools/tb-projects-deleter/tb-projects-deleter $HOME/bin/tb-projects-deleter
 $ echo 'export PATH="$PATH:$HOME/bin"' >> $HOME/bashrc
 ```
 
@@ -144,7 +144,7 @@ Upgrade
 
 This is an example upgrade process, which assumes that the installation process described on the previous section was followed.
 
-*NOTE:* This process upgrades all tools and code available on this repository, not just `tb_projects_deleter`.
+*NOTE:* This process upgrades all tools and code available on this repository, not just `tb-projects-deleter`.
 
 1. Change into the local repository's directory and fetch the latest references from the remote GitHub repository:
 
@@ -159,4 +159,4 @@ $ git fetch origin
 $ git checkout origin/master
 ```
 
-*NOTE:* Because `$HOME/bin/tb_projects_deleter` is a symbolic link to the checked out file, no further steps are required to conclude the upgrade.
+*NOTE:* Because `$HOME/bin/tb-projects-deleter` is a symbolic link to the checked out file, no further steps are required to conclude the upgrade.
