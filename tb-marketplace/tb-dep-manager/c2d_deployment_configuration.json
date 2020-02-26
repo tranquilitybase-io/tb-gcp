@@ -1,7 +1,7 @@
 {
   "defaultDeploymentType": "SINGLE_VM",
-  "imageName": "bootstrap-server-dm4mp",
-  "projectId": "tbase-ci",
+  "imageName": "tranquility-base-bootstrap-master",
+  "projectId": "tb-marketplace-dev",
   "templateName": "nonexistent_template",
   "useSolutionPackage": true
 }
