@@ -64,7 +64,7 @@ properties:
     type: string
   billingAccountId:
     type: string
-    pattern: ^[A-F0-9]{5}\-[A-F0-9]{5}\-[A-F0-9]{5}$
+    pattern: ^[A-F0-9]{6}\-[A-F0-9]{6}\-[A-F0-9]{6}$
 
 outputs:
   deployment:
