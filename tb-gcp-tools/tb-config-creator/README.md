@@ -127,7 +127,7 @@ Example execution
 -----------------
 
 ```
-$ ./tb-config-creator -f 705953663545 -b F9C122-73127B-50AE5B
+./tb-config-creator -f 705953663545 -b F9C122-73127B-50AE5B
   Found project my-service-account.
   Found parent folder 705953663545.
   Found billing account F9C122-73127B-50AE5B.
@@ -220,7 +220,7 @@ Essential APIs acitvated.
 
 Configuration completed!
 You can now deploy Tranquility Base from Marketplace in project [bootstrap-tb-ab91ae].
-$
+
 ```
 
 Installation
@@ -230,24 +230,24 @@ This is an example installation process, different approaches are possible to ac
 
 1. Clone the repository:
 
-```
-$ mkdir $HOME/repositories
-$ cd $HOME/repositories
-$ git clone https://github.com/tranquilitybase-io/tb-gcp
+``` bash
+mkdir $HOME/repositories
+cd $HOME/repositories
+git clone https://github.com/tranquilitybase-io/tb-gcp
 ```
 
 2. Create a local `$HOME/bin` directory link the script to it and include the directory on the shell's **PATH** environment variable.
 
-```
-$ mkdir -p $HOME/bin
-$ ln -s $HOME/repositories/tb-gcp/tb-gcp-tools/tb_config_creator/tb_config_creator $HOME/bin/tb_config_creator
-$ echo 'export PATH="$PATH:$HOME/bin"' >> $HOME/bashrc
+``` bash
+mkdir -p $HOME/bin
+ln -s $HOME/repositories/tb-gcp/tb-gcp-tools/tb_config_creator/tb_config_creator $HOME/bin/tb_config_creator
+echo 'export PATH="$PATH:$HOME/bin"' >> $HOME/bashrc
 ```
 
 3. Start a new shell with the new configuration:
 
-```
-$ bash
+``` bash
+bash
 ```
 
 Upgrade
@@ -260,14 +260,14 @@ This is an example upgrade process, which assumes that the installation process 
 1. Change into the local repository's directory and fetch the latest references from the remote GitHub repository:
 
 ``` bash
-$ cd $HOME/repositories/tb-gcp
-$ git fetch origin
+cd $HOME/repositories/tb-gcp
+git fetch origin
 ```
 
 2. Make sure the remote `master` branch is checked out:
 
 ``` bash
-$ git checkout origin/master
+git checkout origin/master
 ```
 
 *NOTE:* Because `$HOME/bin/tb_config_creator` is a symbolic link to the checked out file, no further steps are required to conclude the upgrade.
