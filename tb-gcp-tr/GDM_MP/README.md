@@ -34,7 +34,6 @@ From the [partner marketplace editor for the Tranquility Base solution](https://
 * Create a file test_config_with_mp_params.yaml from the test_config.yaml.templace file that includes the parameters that would be entered in the marketplace
 
 * **NB Ensure that this file is NOT checked in as it will contain the billing account id** 
-
 * To deploy
 ``` google cloud
 gcloud deployment-manager deployments create deployment-tbase --config=tb-gcp-tr\bootstrap\GDM_MP\marketplace-dm\test_config_with_mp_params.yaml
