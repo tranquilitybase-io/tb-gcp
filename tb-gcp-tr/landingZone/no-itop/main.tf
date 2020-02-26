@@ -296,6 +296,7 @@ module "k8s-ssp_context" {
   source = "../../k8s-context"
 
   cluster_name    = var.cluster_ssp_name
+  region = var.region
   cluster_project = module.shared_projects.shared_ssp_id
   dependency_var  = module.gke-ssp.node_id
 }
@@ -420,6 +421,8 @@ resource "google_app_engine_application" "enable-datastore" {
 module "bastion-security" {
   source = "../../bastion"
 
+  region = var.region
+  region_zone = var.region_zone
   tb_bastion_id = module.shared_projects.tb_bastion_id
   shared_networking_id = module.shared_projects.shared_networking_id
   nat_static_ip = module.shared-vpc.nat_static_ip
