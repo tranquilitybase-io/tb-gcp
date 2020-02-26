@@ -13,18 +13,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 function print_help {
-  #echo "Usage: $0 <arguments>"
   echo "Welcome to Tranquility Base! This tool performs the required configuration for Marketplace deployment."
   echo
   echo "You will need gcloud authentication with elevated permissions to continue. If you haven't done this yet"
   echo "please use 'gcloud auth login' and then run the script again."
   echo
-  echo "Usage:"
+  echo "Usage: $0 <arguments>"
   echo "  -f, --parent-folder-id <id> (REQUIRED) Parent folder ID (or Organisation ID) where the Tranquility Base folder will be created"
   echo "  -b, --billing-account-id <string> (REQUIRED) Billing account ID tied to all Tranquility Base consumption"
   echo
   echo "Example:"
-  echo "  tb-config-creator -f 705953663545 -b F9C122-73127B-50AE5B"
+  echo "  $ ./tb-config-creator -f 705953663545 -b F9C122-73127B-50AE5B"
 }
 
 FOLDER_ID=""

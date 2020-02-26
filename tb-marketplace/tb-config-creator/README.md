@@ -1,7 +1,7 @@
-tb\_config\_creator
+tb-config-creator
 =====================
 
-`tb_config_creator` generates the required pre-configuration to deploy the Tranquility Base solution from Marketplace.
+`tb-config-creator` generates the required pre-configuration to deploy the Tranquility Base solution from Marketplace.
 
 Intended Use
 ------------
@@ -62,7 +62,7 @@ Usage
 -----
 
 ```
-Usage: /home/usr1/bin/tb_config_creator <arguments>
+$ ./tb-config-creator <arguments>
 
 -f, --parent-folder-id <id> (REQUIRED) Parent folder ID (or Organisation ID) where the Tranquility Base folder will be created (e.g. -f 705953663545)
 -b, --billing-account-id <string> (REQUIRED) Billing account ID tied to all Tranquility Base consumption (e.g. -b F9C122-73127B-50AE5B)
@@ -240,7 +240,7 @@ git clone https://github.com/tranquilitybase-io/tb-gcp
 
 ``` bash
 mkdir -p $HOME/bin
-ln -s $HOME/repositories/tb-gcp/tb-gcp-tools/tb_config_creator/tb_config_creator $HOME/bin/tb_config_creator
+ln -s $HOME/repositories/tb-gcp/tb-marketplace/tb-config-creator/tb-config-creator $HOME/bin/tb-config-creator
 echo 'export PATH="$PATH:$HOME/bin"' >> $HOME/bashrc
 ```
 
@@ -255,7 +255,7 @@ Upgrade
 
 This is an example upgrade process, which assumes that the installation process described on the previous section was followed.
 
-*NOTE:* This process upgrades all tools and code available on this repository, not just `tb_config_creator`.
+*NOTE:* This process upgrades all tools and code available on this repository, not just `tb-config-creator`.
 
 1. Change into the local repository's directory and fetch the latest references from the remote GitHub repository:
 
@@ -270,4 +270,4 @@ git fetch origin
 git checkout origin/master
 ```
 
-*NOTE:* Because `$HOME/bin/tb_config_creator` is a symbolic link to the checked out file, no further steps are required to conclude the upgrade.
+*NOTE:* Because `$HOME/bin/tb-config-creator` is a symbolic link to the checked out file, no further steps are required to conclude the upgrade.
