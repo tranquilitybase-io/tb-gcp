@@ -1,6 +1,6 @@
 {
   "defaultDeploymentType": "SINGLE_VM",
-  "imageName": "bootstrap-server-dm4mp",
+  "imageName": "bootstrap-server-not-only-europewest2",
   "projectId": "tbase-ci",
   "templateName": "nonexistent_template",
   "useSolutionPackage": true
