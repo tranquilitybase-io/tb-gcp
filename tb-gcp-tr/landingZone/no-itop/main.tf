@@ -88,6 +88,7 @@ module "shared-vpc" {
   source = "../../shared-vpc"
 
   host_project_id          = module.shared_projects.shared_networking_id
+  region                   = var.region
   shared_vpc_name          = var.shared_vpc_name
   standard_network_subnets = var.standard_network_subnets
   enable_flow_logs         = var.enable_flow_logs
