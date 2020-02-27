@@ -34,7 +34,6 @@ variable "standard_network_subnets" {
 }
 
 variable "region" {
-  default     = "europe-west2"
   type        = string
   description = "region name"
 }
