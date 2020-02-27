@@ -33,6 +33,10 @@ variable "cluster_opt_name" {
   description = "The cluster name"
 }
 
+variable "shared_networking_id" {
+  description = "shared networking project ID"
+}
+
 variable "cluster_opt_pool_name" {
   description = "The cluster pool name"
 }
@@ -76,3 +80,8 @@ variable "gke_service_network_name" {
   default     = "gke-services-snet"
   description = "Name for the gke service network"
 }
+
+variable "shared_operations_id" {
+  description = "Shared Operations project ID"
+}
+

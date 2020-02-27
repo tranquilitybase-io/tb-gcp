@@ -9,7 +9,7 @@ provider "google-beta" {
   alias   = "shared-vpc"
   region  = var.region
   zone    = var.region_zone
-  project = module.shared_projects.shared_networking_id
+  project = var.shared_networking_id
   version = "~> 2.5"
 }
 
@@ -37,11 +37,11 @@ module "gke-operations" {
   }
 
   region               = var.region
-  sharedvpc_project_id = module.shared_projects.shared_networking_id
+  sharedvpc_project_id = var.shared_networking_id
   sharedvpc_network    = var.shared_vpc_name
 
   cluster_enable_private_nodes = var.cluster_opt_enable_private_nodes
-  cluster_project_id           = module.shared_projects.shared_operations_id
+  cluster_project_id           = var.shared_operations_id
   cluster_subnetwork           = var.cluster_opt_subnetwork
   cluster_service_account      = var.cluster_opt_service_account
   cluster_name                 = var.cluster_opt_name
@@ -68,4 +68,13 @@ module "gke-operations" {
   shared_vpc_dependency    = module.shared-vpc.gke_subnetwork_ids
   gke_pod_network_name     = var.gke_pod_network_name
   gke_service_network_name = var.gke_service_network_name
+}
+
+provider "kubernetes" {
+  alias                  = "gke-operations"
+  host                   = "https://${module.gke-operations.cluster_endpoint}"
+  load_config_file       = false
+  cluster_ca_certificate = base64decode(module.gke-operations.cluster_ca_certificate)
+  token                  = data.google_client_config.current.access_token
+  version = "~> 1.10.0"
 }
