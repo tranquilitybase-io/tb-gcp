@@ -46,15 +46,6 @@ resources:
         - region: {{ region }}
           cidr: 192.168.0.0/28
 
-  - name: {{ cloudStorageBucket }}
-    type: cloud-storage-bucket.py
-    properties:
-        project: {{ project }}
-        bucket-location: {{ bucketLocation }}
-        bucket-export-settings:
-            create-bucket: true
-            bucket-name: {{ bucketName }}
-
   - name: {{ natGateway }}
     type: ha-nat-gateway.py
     properties:
