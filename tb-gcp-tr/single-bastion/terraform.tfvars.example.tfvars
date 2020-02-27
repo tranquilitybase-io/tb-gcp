@@ -13,7 +13,7 @@
 # limitations under the License.
 
 credentials_file = "../infra-services-123456.json"
-region= "europe-west2"
+region= "us-west2"
 
 bastion_project_id = "dev-proj-123456"
 sharedvpc_project_id = "shared-vpc-123456"
