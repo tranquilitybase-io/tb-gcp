@@ -164,6 +164,9 @@ resources:
         clusters_master_whitelist_ip="$(ref.{{ tbDiscriminator }}-ip.address)"
         EOF
 
+        # Create TF state bucket
+        gsutil mb gs://{{ bucketName }}/
+
         echo "Set Input Vars"
         source input.auto.tfvars
 
