@@ -12,11 +12,11 @@ The following pre-requisities must be fulfilled to deploy Tranquility Base from 
 You have to create an initial configuration before deploying Tranquility Base. 
 Follow the following instructions to do so:
 
-#### 1.Open Cloud Shell 
+### 1.Open Cloud Shell 
 From the GCP console open the Cloud Shell:
 ![Open Cloud shell](./img/open-cs.png)
 
-#### 2.Download script 
+### 2.Download script 
 Download the configurator script hosted in Github by running the following command:
 ```
 $ wget https://raw.githubusercontent.com/tranquilitybase-io/tb-gcp/master/tb-marketplace/tb-config-creator/tb-config-creator
@@ -24,21 +24,21 @@ $ wget https://raw.githubusercontent.com/tranquilitybase-io/tb-gcp/master/tb-mar
 
 ![Open Cloud shell](./img/download.png)
 
-#### 3.Grant permissions
+### 3.Grant permissions
 Grant the script with execution permissions by running the following command:
 ```
 $ chmod +x tb-config-creator
 ```
 ![Open Cloud shell](./img/permissions.png)
 
-#### 4.Print help
+### 4.Print help
 Execute the script without any parameter to display the help message. This message informs about two things:
 1. The need to run the script with elevated permissions
 2. The parameters required to run the script (Folder ID and Billing Account are required)
 
 ![Open Cloud shell](./img/help.png)
 
-#### 5.Execute script
+### 5.Execute script
 Then run the script with proper Folder ID and Billing Account. The script verifies that both are valid entries 
 (it will fail if you have no permissions into them both) and then it lists the configuration that is about to be created.
 
@@ -46,7 +46,7 @@ You'll be prompted to continue the configuration:
 
 ![Open Cloud shell](./img/run.png)
 
-#### 6.Confirm execution 
+### 6.Confirm execution 
 At confirmation, the steps of the configuration are triggered sequentially. 
 
 At the end of the process the script outputs the name of the project created (in this example`bootstrap-tb-4f9fea`). 
