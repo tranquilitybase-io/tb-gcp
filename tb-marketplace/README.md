@@ -1,7 +1,7 @@
 # Google Marketplace Deployment Manager Scripts
 
 ## Overview
-The scripts in the folder GDM_MP are those required to deploy the bootstrap server from the Google marketplace.
+The scripts in the folder `tb-dep-manager` are those required to deploy the bootstrap server from the Google marketplace.
 
 ## Deployment on Google Marketplace
 
@@ -21,18 +21,18 @@ From the [partner marketplace editor for the Tranquility Base solution](https://
 
 * Click 'Preview & test solution' to try out the deployed package from the Marketplace.
 
-* **NB The script 'tb-config-creator' (in tb-gcp-tools) needs to be run before these deployment manager scripts**
+* **NB** The script `tb-config-creator` (in folder `tb-config-creator`) needs to be run before these deployment manager scripts**
     * This is to ensure that a **project** and a **service account** that the scripts rely on are created beforehand
     
 ## Deployment testing from gcloud
-* Run the 'tb-config-creator' (in tb-gcp-tools) to create a **project** and a **service account** that the scripts rely on are created beforehand
+* Run the `tb-config-creator` (in folder `tb-config-creator`) to create a **project** and a **service account** that the scripts rely on are created beforehand
 * Make a note of the project created
-* run 'gcloud init' to set the currently used project to be this project
-* Create a file test_config_with_mp_params.yaml from the test_config.yaml.templace file that includes the parameters that would be entered in the marketplace
+* run `gcloud init` to set the currently used project to be this project
+* Create a file `test_config_with_mp_params.yaml` from the `test_config.yaml.template` file that includes the parameters that would be entered in the marketplace
 * **NB Ensure that this file is NOT checked in as it will contain the billing account id** 
-* To deploy
+* To deploy:
 ``` google cloud
-gcloud deployment-manager deployments create deployment-tbase --config=tb-gcp-tr\bootstrap\GDM_MP\marketplace-dm\test_config_with_mp_params.yaml
+gcloud deployment-manager deployments create deployment-tbase --config=tb-marketplace\tb-dep-manager\test_config_with_mp_params.yaml
 ```
 
 To delete deployment

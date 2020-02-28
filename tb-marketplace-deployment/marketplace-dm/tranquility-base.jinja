@@ -46,6 +46,15 @@ resources:
         - region: {{ region }}
           cidr: 192.168.0.0/28
 
+  - name: {{ cloudStorageBucket }}
+    type: cloud-storage-bucket.py
+    properties:
+        project: {{ project }}
+        bucket-location: {{ bucketLocation }}
+        bucket-export-settings:
+            create-bucket: true
+            bucket-name: {{ bucketName }}
+
   - name: {{ natGateway }}
     type: ha-nat-gateway.py
     properties:
@@ -118,7 +127,7 @@ resources:
     type: vm_instance.py
     properties:
       instanceName: {{ instanceName }}
-      sourceImage: https://www.googleapis.com/compute/v1/projects/tb-marketplace-dev/global/images/tranquility-base-bootstrap-master
+      sourceImage: https://www.googleapis.com/compute/v1/projects/tb-marketplace-dev/global/images/tranquility-base-bootstrap-not-only-europewest2
       zone: {{ zone }}
       region: {{ region }}
       machineType: {{ machineType }}
@@ -155,9 +164,6 @@ resources:
         clusters_master_whitelist_ip="$(ref.{{ tbDiscriminator }}-ip.address)"
         EOF
 
-        # Create TF state bucket
-        gsutil mb gs://{{ bucketName }}/
-
         echo "Set Input Vars"
         source input.auto.tfvars
 
@@ -176,23 +182,6 @@ resources:
         break
         fi
         echo "Terraform init failed."
-        apply_failures=$(($apply_failures + 1))
-        echo "Retry #$apply_failures starting in $DELAY_BETWEEN_ATTEMPTS seconds."
-        sleep $DELAY_BETWEEN_ATTEMPTS
-        done
-
-        apply_failures=0
-        while [ $apply_failures -lt $MAX_ATTEMPTS ]; do
-        terraform apply -var-file input.tfvars -auto-approve
-        if [ $? -eq 0 ]; then
-        echo "Landing Zone successfully deployed."
-        break
-        fi
-        if [ $((apply_failures +1)) -eq $MAX_ATTEMPTS ]; then
-        echo "Maximum of $MAX_ATTEMPTS reached. Moving on..."
-        break
-        fi
-        echo "Landing Zone deployment failed."
         apply_failures=$(($apply_failures + 1))
         echo "Retry #$apply_failures starting in $DELAY_BETWEEN_ATTEMPTS seconds."
         sleep $DELAY_BETWEEN_ATTEMPTS

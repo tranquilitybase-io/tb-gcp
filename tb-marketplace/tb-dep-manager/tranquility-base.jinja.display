@@ -1,28 +1,25 @@
 description:
   author:
     title: GFT Group
-    descriptionHtml: >-
-      We are a technology driven IT consultancy passionate about landing
-      business agility for our clients through excellence in engineering and
-      transformation.
-    shortDescription: >-
-      We are a technology driven IT consultancy passionate about landing
-      business agility for our clients through excellence in engineering and
-      transformation.
   descriptionHtml: >-
-    Tranquility Base is open-source software for deploying applications onto a
-    cloud Datacentre-as-Code infrastructureto create your first cloud
-    deployment, making the environment ready for application migration.
-
-    Best practice knowledge is baked into the code, to enable you to confidently
-    move your migrations at pace whilst keeping full compliance and control.
-
-
-    Application patterns, gained from many successful projects, are coded into
-    the platform allowing development teams to select repeatable deployments
-    from a self-service portal.
+    Tranquility Base is the open-source multi-cloud Landing Zone that allows teams to fully automate the creation of secure
+    cloud environments following best practice architecture, governance and security design. Developed using Terraform,
+    teams can fully automate the deployment of application  architectures via Infrastructure as Code and achieve very
+    high levels of productivity.<br><br>
+    The following are pre-requisites to deploy this solution:
+    <ol>
+     <li>Organisation resource must be available</li>
+     <li>User must be owner of the folder (or organisation) where Tranquility Base will be deployed</li>
+     <li>Initial configuration must be created. In order to do so, open Cloud Shell and execute the following instructions:
+         <ul>
+           <li>$ wget https://raw.githubusercontent.com/tranquilitybase-io/tb-gcp/master/tb-marketplace/tb-config-creator/tb-config-creator</li>
+           <li>$ chmod +x tb-config-creator</li>
+           <li>$ ./tb-config-creator</li>
+         </ul>
+    </ol>
+    </font>
   logo: '@media/tranquility-base_store.png'
-  tagline: Multi-cloud open source solution to
+  tagline: The open-source multi-cloud Landing Zone
   title: Tranquility Base
   url: 'https://www.tranquilitybase.io/'
   version: default-version
@@ -37,16 +34,16 @@ input:
       title: Zone
     - name: machineType
       title: Machine type
+    - name: rootId
+      title: Folder ID
+      tooltip: >-
+        The numeric ID of the folder (or organisation) that will be parent to the Tranquility Base resource hierarchy.
+      section: TRANQUILITY_BASE
     - name: billingAccountId
       title: Billing account that Tranquility Base will use
       section: TRANQUILITY_BASE
       tooltip: >-
-        The billing account id will be in the form XXXXX-XXXXX-XXXXX
-    - name: rootId
-      title: Folder ID
-      tooltip: >-
-        A folder created to store the projects that will be created by Tranquility Base
-      section: TRANQUILITY_BASE
+        The billing account that will track all costs incurred by Tranquility Base usage. It must be in the form XXXXXX-XXXXXX-XXXXXX.
     - name: bootDiskType
       title: Boot disk type
       section: BOOT_DISK
@@ -79,5 +76,5 @@ runtime:
 annotations:
   autogenSpecType: SINGLE_VM
   vmImage0: >-
-    https://www.googleapis.com/compute/v1/projects/tb-marketplace-dev/global/images/tranquility-base-bootstrap-not-only-europewest2
+    https://www.googleapis.com/compute/v1/projects/tb-marketplace-dev/global/images/tranquility-base-bootstrap-master
 metadata_version: v1
