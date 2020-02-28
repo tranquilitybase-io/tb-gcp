@@ -15,13 +15,11 @@
 #PROVIDER
 variable "region" {
   type        = string
-  default     = "europe-west2"
   description = "Region name."
 }
 
 variable "region_zone" {
   type        = string
-  default     = "europe-west2-a"
   description = "Zone name in the region provided."
 }
 
