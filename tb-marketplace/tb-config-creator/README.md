@@ -64,12 +64,13 @@ Usage
 ```
 $ ./tb-config-creator <arguments>
 
--f, --parent-folder-id <id> (REQUIRED) Parent folder ID (or Organisation ID) where the Tranquility Base folder will be created (e.g. -f 705953663545)
+-f, --parent-folder-id <id> (REQUIRED) Parent folder ID (or Organisation ID) where the Tranquility Base will be deployed (e.g. -f 705953663545)
 -b, --billing-account-id <string> (REQUIRED) Billing account ID tied to all Tranquility Base consumption (e.g. -b F9C122-73127B-50AE5B)
 ```
 Execute with elevated permissions
 ----------------- 
-The configuration must be created by a Google account with elevated permissions. In order to find out which account/s are currently authenticated with `gcloud`, the following command can be run:
+The configuration must be created by a Google account with owner role at the Folder level (or Organisation) under which the Tranquility Base
+resource hierarchy will be deployed. In order to find out which account/s are currently authenticated with `gcloud`, the following command can be run:
 ```
 $ gcloud auth list
   Credentialed Accounts
