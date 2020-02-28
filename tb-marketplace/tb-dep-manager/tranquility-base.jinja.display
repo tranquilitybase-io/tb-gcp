@@ -1,7 +1,23 @@
 description:
   author:
     title: GFT Group
+  descriptionHtml: >-
+    Tranquility Base is the open-source multi-cloud Landing Zone that allows
+    teams to fully automate the creation of secure cloud environments following
+    best practice architecture, governance and security design. Developed using
+    Terraform, teams can fully automate the deployment of application
+    architectures via Infrastructure as Code and achieve very high levels of
+    productivity.
+
+    <br><br>
+
+    <b>Please read the <a
+    href="https://github.com/tranquilitybase-io/tb-gcp/blob/master/tb-marketplace/tb-gcp-dep-guide.md">Getting
+    started</a> prior to launch the solution.</b>
+  logo: '@media/tranquility-base_store.png'
+  tagline: The open-source multi-cloud Landing Zone
   title: Tranquility Base
+  url: 'https://www.tranquilitybase.io/'
   version: latest
   documentations:
     - title: Getting started
@@ -11,6 +27,14 @@ description:
       destinations:
         - DESTINATION_SOLUTION_DETAILS
         - DESTINATION_POST_DEPLOY
+  support:
+    - title: Support
+      descriptionHtml: >-
+        Please contact the <a
+        href="https://www.tranquilitybase.io/contact/">Tranquility Base team</a>
+        for technical support.
+      showSupportId: false
+  icon: '@media/tranquility-base_small.png'
   softwareGroups:
     - type: SOFTWARE_GROUP_OS
       software:
@@ -25,13 +49,15 @@ input:
     - name: rootId
       title: Folder ID
       tooltip: >-
-        The numeric ID of the folder (or organisation) that will be parent to the Tranquility Base resource hierarchy.
+        The numeric ID of the folder (or organisation) that will be parent to
+        the Tranquility Base resource hierarchy.
       section: TRANQUILITY_BASE
     - name: billingAccountId
       title: Billing Account
       section: TRANQUILITY_BASE
       tooltip: >-
-        The billing account that will track all costs incurred by Tranquility Base usage. It must be in the form XXXXXX-XXXXXX-XXXXXX.
+        The billing account that will track all costs incurred by Tranquility
+        Base usage. It must be in the form XXXXXX-XXXXXX-XXXXXX.
     - name: bootDiskType
       title: Boot disk type
       section: BOOT_DISK
@@ -60,7 +86,7 @@ runtime:
     label: SSH
     type: TYPE_GCE_VM_SSH
     action: '{{ outputs().vmSelfLink }}'
-  suggestedActions:
+  suggestedActions: null
 annotations:
   autogenSpecType: SINGLE_VM
   vmImage0: >-
