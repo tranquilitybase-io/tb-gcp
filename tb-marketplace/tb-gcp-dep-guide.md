@@ -3,10 +3,12 @@
 ## Before deploying
 The following pre-requisities must be fulfilled to deploy Tranquility Base from Marketplace:
 - An Organisation is available
+
 - You must hold the owner role on the Folder (or Organisation) where the Tranquility Base resource
  hierarchy will be created
-- An initial configuration must exist (see [Initial configuration](#Initial configuration))
-## Initial configuration
+ 
+- An initial configuration must exist (see below)
+## Create initial configuration
 You have to create an initial configuration before deploying Tranquility Base. 
 Follow the following instructions to do so:
 
