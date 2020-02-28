@@ -85,3 +85,17 @@ The screen shows the progress of the deployment. This shouldn't take longer than
 
 ![Open Cloud shell](./img/deploying.png)
 
+###5.Deployed
+When the deployment finishes The screen shows the progress of the deployment. This shouldn't take longer than a couple of minutes.
+
+![Open Cloud shell](./img/deployed.png)
+
+##Verify the deployment
+Open the project selection screen and verify that the Tranquility Base folder has been created under the folder of your 
+choice ("Modern Applications" in our case). Under the Tranquility Base folder, two folders will have been created: Applications
+ and Shared Services. Under Shared Services there are a number of basic shared projects created. Applications folder will
+ show empty by now.
+
+![Open Cloud shell](./img/landingzone.png)
+
+Well done, you have deployed Tranquility Base in your Organisation!
