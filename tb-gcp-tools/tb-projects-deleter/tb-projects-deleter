@@ -76,13 +76,13 @@ if [[ -z ${BS_RND_ID} || -z ${LZ_DISCRIMINATOR} || -z ${PARENT_FOLDER_ID} ]]; th
 fi
 
 # More constants
-BOOTSTRAP_PROJ_PREFIX="bootstrap-${LZ_DISCRIMINATOR}-"
+BOOTSTRAP_PROJ_PREFIX="bootstrap-tb-"
 
 # Collect bootstrap project name
 bootstrap_project=$(gcloud projects list --format='value(projectId)' --filter="projectId=${BOOTSTRAP_PROJ_PREFIX}${BS_RND_ID}")
 if [[ -z "${bootstrap_project}" ]]; then
 	echo "ERROR: Was not able to find the bootstrap project."
-	exit 1
+	#exit 1
 else
 	echo "Found project ${bootstrap_project}."
 fi
