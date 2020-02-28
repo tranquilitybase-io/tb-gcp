@@ -15,13 +15,11 @@
 #FOLDER STRUCTURE CREATION
 variable "region" {
   type        = string
-  default     = "europe-west2"
   description = "region name."
 }
 
 variable "region_zone" {
   type        = string
-  default     = "europe-west2-a"
   description = "zone name in the region provided."
 }
 
