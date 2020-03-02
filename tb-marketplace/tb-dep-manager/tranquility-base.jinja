@@ -11,14 +11,14 @@
 {% set zone = properties["zone"] %}
 {% set region = properties["zone"][:-2] %}
 {% set bucketLocation = "eu" %}
-{% set machineType = properties["machineType"] %}
 {% set networks = [] %}
 {% for network in properties["network"] %}
 {% set _ = networks.append(path_utils.networkPath(network)) %}
 {% endfor %}
 {% set subnetworks = properties["subnetwork"] %}
-{% set bootDiskType = properties["bootDiskType"] %}
-{% set bootDiskSizeGb = properties["bootDiskSizeGb"] %}
+{% set machineType = "g1-small" %}
+{% set bootDiskType = "pd-standard" %}
+{% set bootDiskSizeGb = "16" %}
 {% set externalIPs = ["NONE"] %}
 {% set hasExternalIP = externalIPs and externalIPs[0] != "NONE" %}
 {# Software status only works if the VM has an external IP. #}
@@ -54,8 +54,8 @@ resources:
       subnetwork: $(ref.{{ tbNetwork }}-{{ region }}.selfLink)
       discriminator: {{ tbDiscriminator }}
       machineType: n1-standard-2
-      diskType: pd-ssd
-      diskSizeGb: 50
+      diskType: pd-standard
+      diskSizeGb: 16
       region: {{ region }}
       zone: {{ zone }}
       nat-gw-tag: natgw
