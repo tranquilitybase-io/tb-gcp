@@ -32,22 +32,28 @@ $ chmod +x tb-config-creator
 ```
 ![Open Cloud shell](./img/permissions.png)
 
-### 4.Print help
-Execute the script without any parameter to display the help message. This message informs about two things:
+### 4.Execute script
+####Print help
+If you execute the script without any parameter, a help message will be displayed. This message informs about two things:
 1. The need to run the script with elevated permissions
 2. The parameters required to run the script (Folder ID and Billing Account are required)
 
+
 ![Open Cloud shell](./img/help.png)
 
-### 5.Execute script
-Then run the script with proper Folder ID and Billing Account. The script verifies that both are valid entries 
+#### Run configuration
+Then run the script with proper Folder ID and Billing Account. E.g.,
+```
+$ ./tb-config-creator -f 705953663545 -b F9C122-73127B-50AE5B
+```
+The script verifies that both are valid entries 
 (it will fail if you have no permissions into them both) and then it lists the configuration that is about to be created.
 
 You'll be prompted to continue the configuration:
 
 ![Open Cloud shell](./img/run.png)
 
-### 6.Confirm execution 
+#### Confirm execution 
 At confirmation, the steps of the configuration are triggered sequentially. 
 
 At the end of the process the script outputs the name of the project created (in this example'bootstrap-tb-d4aa93'). 
