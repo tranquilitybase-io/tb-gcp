@@ -6,7 +6,7 @@ The following pre-requisities must be fulfilled to deploy Tranquility Base from 
 
 - You must hold the owner role on the Folder (or Organisation) where the Tranquility Base resource
  hierarchy will be created
- 
+
 - An initial configuration must exist (see below)
 
 ## Create initial configuration
