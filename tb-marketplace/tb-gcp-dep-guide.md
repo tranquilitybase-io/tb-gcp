@@ -2,7 +2,7 @@
 
 ## Before deploying
 The following pre-requisities must be fulfilled to deploy Tranquility Base from Marketplace:
-- An Organisation is available
+- An Organisation must be available
 
 - You must hold the owner role on the Folder (or Organisation) where the Tranquility Base resource
  hierarchy will be created
@@ -49,7 +49,7 @@ You'll be prompted to continue the configuration:
 ### 6.Confirm execution 
 At confirmation, the steps of the configuration are triggered sequentially. 
 
-At the end of the process the script outputs the name of the project created (in this example`bootstrap-tb-4f9fea`). 
+At the end of the process the script outputs the name of the project created (in this example'bootstrap-tb-d4aa93'). 
 
 Configuration is completed and the deployment in Marketplace can be done now!
 
@@ -72,8 +72,6 @@ Type Tranquility Base in the search box to retrieve our solution.
 ### 3.Launch solution
 Just go and click Launch!
 
-(**Temporary screenshot to be updated once TB is live**)
-
 ![Open Cloud shell](./img/launch.png)
 
 ### 4.Deploy solution
@@ -88,7 +86,10 @@ The screen shows the progress of the deployment. This shouldn't take longer than
 ![Open Cloud shell](./img/deploying.png)
 
 ### 6.Deployed
-When the deployment finishes The screen shows the progress of the deployment. This shouldn't take longer than a couple of minutes.
+Upon completion, the section next steps informs of how you can:
+- open an SSH connection into the the Tranquility Base bootstrap server (called 'tbd6d79d-bootstrap-vm' in the example) 
+that has just been deployed. The basic Landing Zone is being deployed from this server using Terraform code
+- connect into the Eagle Console to choose some Landing Zone deployment options
 
 ![Open Cloud shell](./img/deployed.png)
 
@@ -101,3 +102,4 @@ choice ("Modern Applications" in our case). Under the Tranquility Base folder, t
 ![Open Cloud shell](./img/landingzone.png)
 
 Well done, you have deployed Tranquility Base in your Organisation!
+
