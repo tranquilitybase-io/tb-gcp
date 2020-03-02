@@ -8,6 +8,7 @@ The following pre-requisities must be fulfilled to deploy Tranquility Base from 
  hierarchy will be created
  
 - An initial configuration must exist (see below)
+
 ## Create initial configuration
 You have to create an initial configuration before deploying Tranquility Base. 
 Follow the following instructions to do so:
@@ -89,6 +90,7 @@ The screen shows the progress of the deployment. This shouldn't take longer than
 Upon completion, the section next steps informs of how you can:
 - open an SSH connection into the the Tranquility Base bootstrap server (called 'tbd6d79d-bootstrap-vm' in the example) 
 that has just been deployed. The basic Landing Zone is being deployed from this server using Terraform code
+
 - connect into the Eagle Console to choose some Landing Zone deployment options
 
 ![Open Cloud shell](./img/deployed.png)
@@ -102,4 +104,3 @@ choice ("Modern Applications" in our case). Under the Tranquility Base folder, t
 ![Open Cloud shell](./img/landingzone.png)
 
 Well done, you have deployed Tranquility Base in your Organisation!
-
