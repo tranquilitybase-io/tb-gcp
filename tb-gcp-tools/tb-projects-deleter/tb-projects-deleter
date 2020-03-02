@@ -16,8 +16,9 @@
 function print_help {
 	echo "Usage: $0 <arguments>"
 	echo
-	echo "-b, --bootstrap-random-id <id>		(REQUIRED) Bootstrap project's random ID (e.g. -b c556112f)"
+	echo "-r, --bootstrap-random-id <id>		(REQUIRED) Bootstrap project's random ID (e.g. -r c556112f)"
 	echo "-f, --parent-folder-id <id>		(REQUIRED) Landing zone's parent folder ID (e.g. -f 238741628734)"
+	echo "-b, --billing-account-id <string>	(REQUIRED) Tranquility Base related Billing Account (e.g. -b AB1234-CD1234-EF1234-GH12IJ)"
 	echo "-l, --lz-discriminator <string>		(REQUIRED) Landing zone's folder discriminator (e.g. -l usr1)"
 	echo
 }
@@ -33,11 +34,11 @@ SHARED_NET_PROJ_PREFIX="shared-networking-"
 BS_RND_ID=""
 LZ_DISCRIMINATOR=""
 PARENT_FOLDER_ID=""
-SP_RND_ID=""
+BILLING_ID=""
 
 while (( "$#" )); do
   case "$1" in
-    -b|--bootstrap-random-id)
+    -r|--bootstrap-random-id)
       BS_RND_ID=$2
       shift 2
       ;;
@@ -45,13 +46,17 @@ while (( "$#" )); do
       PARENT_FOLDER_ID=$2
       shift 2
       ;;
-    -h|--help)
-      print_help
-      exit 0
+    -b|--billing-account-id)
+      BILLING_ID=$2
+      shift 2
       ;;
     -l|--lz-discriminator)
       LZ_DISCRIMINATOR=$2
       shift 2
+      ;;
+    -h|--help)
+      print_help
+      exit 0
       ;;
     --) # end argument parsing
       shift
@@ -68,7 +73,7 @@ while (( "$#" )); do
   esac
 done
 
-if [[ -z ${BS_RND_ID} || -z ${LZ_DISCRIMINATOR} || -z ${PARENT_FOLDER_ID} ]]; then
+if [[ -z ${BS_RND_ID} || -z ${LZ_DISCRIMINATOR} || -z ${PARENT_FOLDER_ID} || -z ${BILLING_ID} ]]; then
 	echo "ERROR: Invalid arguments."
 	echo
 	print_help
@@ -77,9 +82,11 @@ fi
 
 # More constants
 BOOTSTRAP_PROJ_PREFIX="bootstrap-tb-"
+BOOTSTRAP_PROJ_ID=${BOOTSTRAP_PROJ_PREFIX}${BS_RND_ID}
+BOOTSTRAP_SA_EMAIL="${BOOTSTRAP_PROJ_PREFIX}sa@${BOOTSTRAP_PROJ_ID}.iam.gserviceaccount.com"
 
 # Collect bootstrap project name
-bootstrap_project=$(gcloud projects list --format='value(projectId)' --filter="projectId=${BOOTSTRAP_PROJ_PREFIX}${BS_RND_ID}")
+bootstrap_project=$(gcloud projects list --format='value(projectId)' --filter="projectId=${BOOTSTRAP_PROJ_ID}")
 if [[ -z "${bootstrap_project}" ]]; then
 	echo "ERROR: Was not able to find the bootstrap project."
 	#exit 1
@@ -91,7 +98,7 @@ fi
 tb_folder_id=$(gcloud resource-manager folders list --format='value(name)' --folder ${PARENT_FOLDER_ID} --filter="displayName~'^${TB_FOLDER_PREFIX}${LZ_DISCRIMINATOR}$'")
 if [[ -z "${tb_folder_id}" ]]; then
 	echo "ERROR: Was not able to find the ${TB_FOLDER_PREFIX}${LZ_DISCRIMINATOR} folder."
-	exit 1
+	#exit 1
 else
 	echo "Found '${TB_FOLDER_PREFIX}${LZ_DISCRIMINATOR}' (${tb_folder_id}) folder."
 fi
@@ -100,7 +107,7 @@ fi
 applications_folder_id=$(gcloud resource-manager folders list --format='value(name)' --folder ${tb_folder_id} --filter="displayName:'${APPLICATIONS_FOLDER_NAME}'")
 if [[ -z "${applications_folder_id}" ]]; then
 	echo "ERROR: Was not able to find the ${APPLICATIONS_FOLDER_NAME} folder."
-	exit 1
+	#exit 1
 else
 	echo "Found '${APPLICATIONS_FOLDER_NAME}' (${applications_folder_id}) folder."
 fi
@@ -108,7 +115,7 @@ fi
 shared_svcs_folder_id=$(gcloud resource-manager folders list --format='value(name)' --folder ${tb_folder_id} --filter="displayName:'${SHARED_SVCS_FOLDER_NAME}'")
 if [[ -z "${shared_svcs_folder_id}" ]]; then
 	echo "ERROR: Was not able to find the ${SHARED_SVCS_FOLDER_NAME} folder."
-	exit 1
+	#exit 1
 else
 	echo "Found '${SHARED_SVCS_FOLDER_NAME}' (${shared_svcs_folder_id}) folder."
 fi
@@ -117,7 +124,7 @@ fi
 shared_net_project=$(gcloud projects list --format='value(projectId)' --filter="projectId~'${SHARED_NET_PROJ_PREFIX}' AND parent.id=${shared_svcs_folder_id} AND parent.type:folder")
 if [[ -z "${shared_net_project}" ]]; then
 	echo "ERROR: Was not able to find the shared services project."
-	exit 1
+	#exit 1
 else
 	echo "Found ${shared_net_project} project."
 fi
@@ -134,9 +141,18 @@ fi
 other_shared_svcs_projects=$(gcloud projects list --format='value(projectId)' --filter="projectId!~'${SHARED_NET_PROJ_PREFIX}' AND parent.id=${shared_svcs_folder_id} AND parent.type:folder" | tr '\n' ' ')
 if [[ -z "${other_shared_svcs_projects}" ]]; then
 	echo "ERROR: Didn't find any other shared services projects."
-	exit 1
+	#exit 1
 else
 	echo "Found ${other_shared_svcs_projects} project(s)."
+fi
+
+# Check billing account
+tb_billing_id=$(gcloud beta billing accounts describe "${BILLING_ID}")
+if [[ -z "${tb_billing_id}" ]]; then
+  echo "ERROR: Was not able to find the ${BILLING_ID} billing account."
+  #exit 1
+else
+  echo "Found billing account ${BILLING_ID}."
 fi
 
 
@@ -195,6 +211,13 @@ echo "Deleting bootstrap project..."
 echo
 gcloud projects delete ${bootstrap_project} --quiet
 echo
+
+# Remove the bootstrap-sa as billing account admin
+echo "Removing bootstrap service account [${BOOTSTRAP_SA_EMAIL}] as billing account admin..."
+gcloud beta billing accounts get-iam-policy ${BILLING_ID} > billing.yaml
+sed "/${BOOTSTRAP_SA_EMAIL}/d" billing.yaml > billing2.yaml
+gcloud beta billing accounts set-iam-policy ${BILLING_ID} billing2.yaml --format=none
+rm billing.yaml billing2.yaml
 
 exit 0
 
