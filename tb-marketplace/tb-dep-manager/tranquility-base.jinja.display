@@ -44,8 +44,6 @@ input:
   properties:
     - name: zone
       title: Zone
-    - name: machineType
-      title: Machine type
     - name: rootId
       title: Folder ID
       tooltip: >-
@@ -54,20 +52,11 @@ input:
       section: TRANQUILITY_BASE
     - name: billingAccountId
       title: Billing Account
-      section: TRANQUILITY_BASE
       tooltip: >-
         The billing account that will track all costs incurred by Tranquility
         Base usage. It must be in the form XXXXXX-XXXXXX-XXXXXX.
-    - name: bootDiskType
-      title: Boot disk type
-      section: BOOT_DISK
-    - name: bootDiskSizeGb
-      title: Boot disk size in GB
-      section: BOOT_DISK
+      section: TRANQUILITY_BASE
   sections:
-    - name: BOOT_DISK
-      title: Boot Disk
-      tooltip: Each instance requires a disk to boot from.
     - name: TRANQUILITY_BASE
       title: Tranquility Base required settings
 runtime:

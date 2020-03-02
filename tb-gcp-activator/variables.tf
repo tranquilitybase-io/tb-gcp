@@ -19,12 +19,10 @@ variable "project_id" {
 
 variable "region" {
   description = "Zone for GCE resources"
-  default = "europe-west2"
 }
 
 variable "zone" {
   description = "Zone for activator resources"
-  default = "europe-west2-a"
 }
 
 variable "activator_folder_id" {
