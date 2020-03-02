@@ -16,7 +16,7 @@
 {% set _ = networks.append(path_utils.networkPath(network)) %}
 {% endfor %}
 {% set subnetworks = properties["subnetwork"] %}
-{% set machineType = "n1-standard-2" %}
+{% set machineType = "g1-small" %}
 {% set bootDiskType = "pd-standard" %}
 {% set bootDiskSizeGb = "16" %}
 {% set externalIPs = ["NONE"] %}
@@ -54,8 +54,8 @@ resources:
       subnetwork: $(ref.{{ tbNetwork }}-{{ region }}.selfLink)
       discriminator: {{ tbDiscriminator }}
       machineType: n1-standard-2
-      diskType: pd-ssd
-      diskSizeGb: 50
+      diskType: pd-standard
+      diskSizeGb: 16
       region: {{ region }}
       zone: {{ zone }}
       nat-gw-tag: natgw
