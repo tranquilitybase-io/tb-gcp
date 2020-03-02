@@ -82,22 +82,24 @@ Just go and click Launch!
 ![Open Cloud shell](./img/launch.png)
 
 ### 4.Deploy solution
+#### Before...
 Now adjust the Deployment name and Zone to your preferences and fill in the fields Folder ID and Billing Account prior 
 to click Deploy.
 
 ![Open Cloud shell](./img/deploy.png)
 
-### 5.Deploying
+#### During...
 The screen shows the progress of the deployment. This shouldn't take longer than a couple of minutes.
 
 ![Open Cloud shell](./img/deploying.png)
 
-### 6.Deployed
-Upon completion, the section next steps informs of how you can:
+#### After...
+Upon deployment completion, the section next steps informs of how you can:
 - open an SSH connection into the the Tranquility Base bootstrap server (called 'tbd6d79d-bootstrap-vm' in the example) 
-that has just been deployed. The basic Landing Zone is being deployed from this server using Terraform code
+that has just been deployed. (The basic Landing Zone is being deployed from this server using Terraform code and it may 
+take up to **15 mins** to finish.)
 
-- connect into the Eagle Console to choose some Landing Zone deployment options
+- connect into the Eagle Console to choose some deployment options and complete the Landing Zone deployment
 
 ![Open Cloud shell](./img/deployed.png)
 
