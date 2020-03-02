@@ -22,9 +22,6 @@ info:
 
 required:
   - zone
-  - machineType
-  - bootDiskType
-  - bootDiskSizeGb
   - billingAccountId
   - rootId
 
@@ -34,30 +31,6 @@ properties:
     default: europe-west2-a
     x-googleProperty:
       type: GCE_ZONE
-  machineType:
-    type: string
-    default: n1-standard-4
-    x-googleProperty:
-      type: GCE_MACHINE_TYPE
-      zoneProperty: zone
-      gceMachineType:
-        minCpu: 4
-        minRamGb: 14.9990234375
-  bootDiskType:
-    type: string
-    default: pd-ssd
-    x-googleProperty:
-      type: GCE_DISK_TYPE
-      zoneProperty: zone
-  bootDiskSizeGb:
-    type: integer
-    default: 16
-    minimum: 16
-    maximum: 10000
-    x-googleProperty:
-      type: GCE_DISK_SIZE
-      gceDiskSize:
-        diskTypeProperty: bootDiskType
   rootId:
     type: string
   billingAccountId:
