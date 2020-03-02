@@ -1,5 +1,5 @@
 {
-  "defaultDeploymentType": "SINGLE_VM",
+  "defaultDeploymentType": "MULTI_VM",
   "imageName": "tranquility-base-bootstrap-master",
   "projectId": "tb-marketplace-dev",
   "templateName": "nonexistent_template",
