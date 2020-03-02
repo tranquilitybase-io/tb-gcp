@@ -15,8 +15,8 @@
 function print_help {
   echo "Welcome to Tranquility Base! This tool performs the required configuration for Marketplace deployment."
   echo
-  echo "You will need gcloud authentication with elevated permissions to continue. If you haven't done this yet"
-  echo "please use 'gcloud auth login' and then run the script again."
+  echo "You will need gcloud authentication as owner role at the Folder level (or Organisation) where Tranquility Base will be deployed."
+  echo "If you need to grant gcloud with these permissions please use 'gcloud auth login' and then run the script again."
   echo
   echo "Usage: $0 <arguments>"
   echo "  -f, --parent-folder-id <id> (REQUIRED) Parent folder ID (or Organisation ID) where the Tranquility Base folder will be created"
@@ -133,10 +133,10 @@ then
 fi
 
 # Generate a random alphanumeric
-BASE="bootstrap-tb-"
+PREFIX="bootstrap-tb-"
 RND="$(date | md5sum |  awk '{print substr($0,0,7)}')"
-PROJECT_ID="${BASE}${RND}"
-SA_NAME="${BASE}sa"
+PROJECT_ID="${PREFIX}${RND}"
+SA_NAME="${PREFIX}sa"
 SA_EMAIL="${SA_NAME}@${PROJECT_ID}.iam.gserviceaccount.com"
 
 echo "Creating project..."

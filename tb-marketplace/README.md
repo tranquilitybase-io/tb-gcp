@@ -1,4 +1,4 @@
-# Google Marketplace Deployment Manager Scripts
+# Google Marketplace Deployment Manager scripts
 
 ## Overview
 The scripts in the folder `tb-dep-manager` are those required to deploy the bootstrap server from the Google marketplace.
