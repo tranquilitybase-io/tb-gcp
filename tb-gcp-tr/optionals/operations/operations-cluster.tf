@@ -27,6 +27,23 @@ terraform {
   }
 }
 
+provider "kubernetes" {
+  alias                  = "gke-operations"
+  host                   = "https://${module.gke-operations.cluster_endpoint}"
+  load_config_file       = false
+  cluster_ca_certificate = base64decode(module.gke-operations.cluster_ca_certificate)
+  token                  = data.terraform_remote_state.landingzone.outputs.access_token
+  version = "~> 1.10.0"
+}
+
+data "terraform_remote_state" "landingzone" {
+  backend = "gcs"
+  config = {
+    bucket  = var.terraform_state_bucket
+    prefix  = "landingZone"
+  }
+}
+
 module "gke-operations" {
   source = "../../kubernetes-cluster-creation"
 
@@ -37,11 +54,11 @@ module "gke-operations" {
   }
 
   region               = var.region
-  sharedvpc_project_id = var.shared_networking_id
+  sharedvpc_project_id = data.terraform_remote_state.landingzone.outputs.shared_networking_id
   sharedvpc_network    = var.shared_vpc_name
 
   cluster_enable_private_nodes = var.cluster_opt_enable_private_nodes
-  cluster_project_id           = var.shared_operations_id
+  cluster_project_id           = data.terraform_remote_state.landingzone.outputs.shared_operations_id
   cluster_subnetwork           = var.cluster_opt_subnetwork
   cluster_service_account      = var.cluster_opt_service_account
   cluster_name                 = var.cluster_opt_name
@@ -55,26 +72,17 @@ module "gke-operations" {
       "display_name" = "initial-admin-ip"
     },
     {
-      "cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
+      "cidr_block" = join("", [data.terraform_remote_state.landingzone.outputs.nat-static-ip, "/32"])
     },
     ),
   ],
   )
   cluster_min_master_version = var.cluster_opt_min_master_version
 
-  apis_dependency          = module.apis_activation.all_apis_enabled
+  apis_dependency          = data.terraform_remote_state.landingzone.outputs.all_apis_enabled
   istio_status             = var.istio_status
   istio_permissive_mtls    = "true"
-  shared_vpc_dependency    = module.shared-vpc.gke_subnetwork_ids
+  shared_vpc_dependency    = data.terraform_remote_state.landingzone.outputs.gke_subnetwork_ids
   gke_pod_network_name     = var.gke_pod_network_name
   gke_service_network_name = var.gke_service_network_name
-}
-
-provider "kubernetes" {
-  alias                  = "gke-operations"
-  host                   = "https://${module.gke-operations.cluster_endpoint}"
-  load_config_file       = false
-  cluster_ca_certificate = base64decode(module.gke-operations.cluster_ca_certificate)
-  token                  = data.google_client_config.current.access_token
-  version = "~> 1.10.0"
 }

@@ -41,3 +41,24 @@ output "nat-static-ip" {
   value = module.shared-vpc.nat_static_ip
 }
 
+# The following outputs will be used to deploy the optional resources
+
+output "shared_networking_id" {
+  value = module.shared_projects.shared_networking_id
+}
+
+output "shared_operations_id" {
+  value = module.shared_projects.shared_operations_id
+}
+
+output "all_apis_enabled" {
+  value = module.apis_activation.all_apis_enabled
+}
+
+output "gke_subnetwork_ids" {
+  value = module.shared-vpc.gke_subnetwork_ids
+}
+
+output "access_token" {
+  value = data.google_client_config.current.access_token
+}

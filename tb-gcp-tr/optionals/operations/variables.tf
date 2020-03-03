@@ -85,3 +85,7 @@ variable "shared_operations_id" {
   description = "Shared Operations project ID"
 }
 
+variable "terraform_state_bucket" {
+  description = "Landing Zone terraform state bucket name"
+}
+
