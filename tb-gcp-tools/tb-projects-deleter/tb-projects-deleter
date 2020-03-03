@@ -16,10 +16,10 @@
 function print_help {
 	echo "Usage: $0 <arguments>"
 	echo
-	echo "-r, --bootstrap-random-id <id>		(REQUIRED) Bootstrap project's random ID (e.g. -r c556112f)"
-	echo "-f, --parent-folder-id <id>		(REQUIRED) Landing zone's parent folder ID (e.g. -f 238741628734)"
+	echo "-r, --bootstrap-random-id <id>	(REQUIRED) Bootstrap project's random ID (e.g. -r c5512f)"
+	echo "-f, --parent-folder-id <id>	(REQUIRED) Landing zone's parent folder ID (e.g. -f 238741628734)"
 	echo "-b, --billing-account-id <string>	(REQUIRED) Tranquility Base related Billing Account (e.g. -b AB1234-CD1234-EF1234-GH12IJ)"
-	echo "-l, --lz-discriminator <string>		(REQUIRED) Landing zone's folder discriminator (e.g. -l usr1)"
+	echo "-s, --shared-serv-random-id <string>	(REQUIRED) Shared service projects random ID (e.g. -s bac7b828)"
 	echo
 }
 
@@ -50,8 +50,8 @@ while (( "$#" )); do
       BILLING_ID=$2
       shift 2
       ;;
-    -l|--lz-discriminator)
-      LZ_DISCRIMINATOR=$2
+    -s|--shared-serv-random-id)
+      SS_RND_ID=$2
       shift 2
       ;;
     -h|--help)
@@ -73,7 +73,7 @@ while (( "$#" )); do
   esac
 done
 
-if [[ -z ${BS_RND_ID} || -z ${LZ_DISCRIMINATOR} || -z ${PARENT_FOLDER_ID} || -z ${BILLING_ID} ]]; then
+if [[ -z ${BS_RND_ID} || -z ${SS_RND_ID} || -z ${PARENT_FOLDER_ID} || -z ${BILLING_ID} ]]; then
 	echo "ERROR: Invalid arguments."
 	echo
 	print_help
@@ -81,9 +81,12 @@ if [[ -z ${BS_RND_ID} || -z ${LZ_DISCRIMINATOR} || -z ${PARENT_FOLDER_ID} || -z 
 fi
 
 # More constants
+LZ_DISCRIMINATOR="tb${BS_RND_ID}"
 BOOTSTRAP_PROJ_PREFIX="bootstrap-tb-"
 BOOTSTRAP_PROJ_ID=${BOOTSTRAP_PROJ_PREFIX}${BS_RND_ID}
 BOOTSTRAP_SA_EMAIL="${BOOTSTRAP_PROJ_PREFIX}sa@${BOOTSTRAP_PROJ_ID}.iam.gserviceaccount.com"
+ACTIVATOR_SA_EMAIL="activator-dev-sa@shared-ssp-${SS_RND_ID}.iam.gserviceaccount.com"
+# activator-dev-sa@shared-ssp-bac7b828.iam.gserviceaccount.com
 
 # Collect bootstrap project name
 bootstrap_project=$(gcloud projects list --format='value(projectId)' --filter="projectId=${BOOTSTRAP_PROJ_ID}")
@@ -212,12 +215,31 @@ echo
 gcloud projects delete ${bootstrap_project} --quiet
 echo
 
+# Remove bootstrap-sa IAM policy bindings for folder
+echo "Removing bootstrap service account [${BOOTSTRAP_SA_EMAIL}] IAM policy bindings for folder [${PARENT_FOLDER_ID}]..."
+gcloud resource-manager folders remove-iam-policy-binding "${PARENT_FOLDER_ID}" --member=serviceAccount:"${BOOTSTRAP_SA_EMAIL}" --role=roles/resourcemanager.folderAdmin --format=none
+gcloud resource-manager folders remove-iam-policy-binding "${PARENT_FOLDER_ID}" --member=serviceAccount:"${BOOTSTRAP_SA_EMAIL}" --role=roles/resourcemanager.projectCreator --format=none
+gcloud resource-manager folders remove-iam-policy-binding "${PARENT_FOLDER_ID}" --member=serviceAccount:"${BOOTSTRAP_SA_EMAIL}" --role=roles/resourcemanager.projectDeleter --format=none
+gcloud resource-manager folders remove-iam-policy-binding "${PARENT_FOLDER_ID}" --member=serviceAccount:"${BOOTSTRAP_SA_EMAIL}" --role=roles/billing.projectManager --format=none
+gcloud resource-manager folders remove-iam-policy-binding "${PARENT_FOLDER_ID}" --member=serviceAccount:"${BOOTSTRAP_SA_EMAIL}" --role=roles/compute.networkAdmin --format=none
+gcloud resource-manager folders remove-iam-policy-binding "${PARENT_FOLDER_ID}" --member=serviceAccount:"${BOOTSTRAP_SA_EMAIL}" --role=roles/compute.xpnAdmin --format=none
+gcloud resource-manager folders remove-iam-policy-binding "${PARENT_FOLDER_ID}" --member=serviceAccount:"${BOOTSTRAP_SA_EMAIL}" --role=roles/owner --format=none
+
 # Remove the bootstrap-sa as billing account admin
 echo "Removing bootstrap service account [${BOOTSTRAP_SA_EMAIL}] as billing account admin..."
 gcloud beta billing accounts get-iam-policy ${BILLING_ID} > billing.yaml
+# Remove the line containing the name of the service account
 sed "/${BOOTSTRAP_SA_EMAIL}/d" billing.yaml > billing2.yaml
 gcloud beta billing accounts set-iam-policy ${BILLING_ID} billing2.yaml --format=none
 rm billing.yaml billing2.yaml
+
+# Remove the activator-dev-sa as billing account admin
+echo "Removing activator service account [${ACTIVATOR_SA_EMAIL}] as billing account admin..."
+gcloud beta billing accounts get-iam-policy ${BILLING_ID} > billing.yaml
+# Remove the line containing the name of the service account
+sed "/${ACTIVATOR_SA_EMAIL}/d" billing.yaml > billing3.yaml
+gcloud beta billing accounts set-iam-policy ${BILLING_ID} billing2.yaml --format=none
+rm billing.yaml billing3.yaml
 
 exit 0
 
