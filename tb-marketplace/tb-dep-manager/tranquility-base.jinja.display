@@ -18,7 +18,7 @@ description:
   tagline: The open-source multi-cloud Landing Zone
   title: Tranquility Base
   url: 'https://www.tranquilitybase.io/'
-  version: latest
+  version: Release 0
   documentations:
     - title: Getting started
       url: >-
@@ -77,5 +77,5 @@ runtime:
 annotations:
   autogenSpecType: SINGLE_VM
   vmImage0: >-
-    https://www.googleapis.com/compute/v1/projects/tb-marketplace-dev/global/images/tranquility-base-bootstrap-master
+    https://www.googleapis.com/compute/v1/projects/gft-group-public/global/images/tranquility-base-bootstrap-master
 metadata_version: v1
