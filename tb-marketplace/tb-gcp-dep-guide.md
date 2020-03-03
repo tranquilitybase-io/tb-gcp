@@ -33,7 +33,7 @@ $ chmod +x tb-config-creator
 ![Open Cloud shell](./img/permissions.png)
 
 ### 4.Execute script
-####Print help
+#### Print help
 If you execute the script without any parameter, a help message will be displayed. This message informs about two things:
 1. The need to run the script with elevated permissions
 2. The parameters required to run the script (Folder ID and Billing Account are required)

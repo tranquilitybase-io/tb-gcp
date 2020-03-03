@@ -29,17 +29,15 @@ description:
         - DESTINATION_POST_DEPLOY
   support:
     - title: Support
-      descriptionHtml: >-
-        Please contact the <a
-        href="https://www.tranquilitybase.io/contact/">Tranquility Base team</a>
-        for technical support.
+      descriptionHtml: Please contact the Tranquility Base team for technical support.
       showSupportId: false
+      url: 'https://www.tranquilitybase.io/contact/'
   icon: '@media/tranquility-base_small.png'
   softwareGroups:
     - type: SOFTWARE_GROUP_OS
       software:
         - title: Debian 9
-          version: 64-bit PC (amd64)
+          version: 64-bit
 input:
   properties:
     - name: zone
