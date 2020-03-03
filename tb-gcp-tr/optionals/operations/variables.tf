@@ -1,16 +1,4 @@
 #FOLDER STRUCTURE CREATION
-variable "region" {
-  type        = string
-  default     = "europe-west2"
-  description = "region name."
-}
-
-variable "region_zone" {
-  type        = string
-  default     = "europe-west2-a"
-  description = "zone name in the region provided."
-}
-
 variable "shared_vpc_name" {
   type        = string
   default     = "shared-network"
@@ -81,11 +69,7 @@ variable "gke_service_network_name" {
   description = "Name for the gke service network"
 }
 
-variable "shared_operations_id" {
-  description = "Shared Operations project ID"
-}
-
 variable "terraform_state_bucket" {
-  description = "Landing Zone terraform state bucket name"
+  type = string
+  description = "Name of the terraform state bucket"
 }
-

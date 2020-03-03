@@ -62,3 +62,12 @@ output "gke_subnetwork_ids" {
 output "access_token" {
   value = data.google_client_config.current.access_token
 }
+
+output "region" {
+  value = var.region
+}
+
+output "region_zone" {
+  value = var.region_zone
+}
+

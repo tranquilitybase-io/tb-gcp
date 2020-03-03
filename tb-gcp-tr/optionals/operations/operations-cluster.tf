@@ -1,15 +1,23 @@
+data "terraform_remote_state" "landingzone" {
+  backend = "gcs"
+  config = {
+    bucket  = var.terraform_state_bucket
+    prefix  = "landingZone"
+  }
+}
+
 provider "google" {
   alias  = "vault"
-  region = var.region
-  zone   = var.region_zone
+  region = data.terraform_remote_state.landingzone.outputs.region
+  zone   = data.terraform_remote_state.landingzone.outputs.region_zone
   version = "~> 2.5"
 }
 
 provider "google-beta" {
   alias   = "shared-vpc"
-  region  = var.region
-  zone    = var.region_zone
-  project = var.shared_networking_id
+  region  = data.terraform_remote_state.landingzone.outputs.region
+  zone    = data.terraform_remote_state.landingzone.outputs.region_zone
+  project = data.terraform_remote_state.landingzone.outputs.shared_networking_id
   version = "~> 2.5"
 }
 
@@ -19,29 +27,7 @@ provider "kubernetes" {
 }
 
 terraform {
-  backend "gcs" {
-    # The bucket name below is overloaded at every run with
-    # `-backend-config="bucket=${terraform_state_bucket_name}"` parameter
-    # templated into the `bootstrap.sh` script
-    bucket = "terraformdevstate"
-  }
-}
-
-provider "kubernetes" {
-  alias                  = "gke-operations"
-  host                   = "https://${module.gke-operations.cluster_endpoint}"
-  load_config_file       = false
-  cluster_ca_certificate = base64decode(module.gke-operations.cluster_ca_certificate)
-  token                  = data.terraform_remote_state.landingzone.outputs.access_token
-  version = "~> 1.10.0"
-}
-
-data "terraform_remote_state" "landingzone" {
-  backend = "gcs"
-  config = {
-    bucket  = var.terraform_state_bucket
-    prefix  = "landingZone"
-  }
+  backend "gcs" {}
 }
 
 module "gke-operations" {
@@ -53,7 +39,7 @@ module "gke-operations" {
     kubernetes             = kubernetes.gke-operations
   }
 
-  region               = var.region
+  region               = data.terraform_remote_state.landingzone.outputs.region
   sharedvpc_project_id = data.terraform_remote_state.landingzone.outputs.shared_networking_id
   sharedvpc_network    = var.shared_vpc_name
 
@@ -85,4 +71,13 @@ module "gke-operations" {
   shared_vpc_dependency    = data.terraform_remote_state.landingzone.outputs.gke_subnetwork_ids
   gke_pod_network_name     = var.gke_pod_network_name
   gke_service_network_name = var.gke_service_network_name
+}
+
+provider "kubernetes" {
+  alias                  = "gke-operations"
+  host                   = "https://${module.gke-operations.cluster_endpoint}"
+  load_config_file       = false
+  cluster_ca_certificate = base64decode(module.gke-operations.cluster_ca_certificate)
+  token                  = data.terraform_remote_state.landingzone.outputs.access_token
+  version = "~> 1.10.0"
 }
