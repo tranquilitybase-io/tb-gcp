@@ -19,7 +19,7 @@ service_project_ids = ["infra-services-11111"]
 standard_network_subnets = { 
     transit = "10.0.0.0/24"
     operations = "10.0.1.0/24"
-    security =  "10.0.2.0/24"
+    secrets =  "10.0.2.0/24"
 }
 
 create_nat_gateway = true

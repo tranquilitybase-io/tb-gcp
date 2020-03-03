@@ -17,9 +17,9 @@ output "shared_networking_id" {
   value       = google_project.shared_networking.project_id
 }
 
-output "shared_security_id" {
-  description = "identifier for the shared_security project."
-  value       = google_project.shared_security.project_id
+output "shared_secrets_id" {
+  description = "identifier for the shared_secrets project."
+  value       = google_project.shared_secrets.project_id
 }
 
 output "shared_operations_id" {
