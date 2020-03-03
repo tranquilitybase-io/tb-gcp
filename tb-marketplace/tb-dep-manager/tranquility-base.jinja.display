@@ -18,7 +18,7 @@ description:
   tagline: The open-source multi-cloud Landing Zone
   title: Tranquility Base
   url: 'https://www.tranquilitybase.io/'
-  version: latest
+  version: Release 0
   documentations:
     - title: Getting started
       url: >-
