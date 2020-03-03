@@ -1,7 +1,7 @@
 {
   "defaultDeploymentType": "MULTI_VM",
   "imageName": "tranquility-base-bootstrap-master",
-  "projectId": "tb-marketplace-dev",
+  "projectId": "gft-group-public",
   "templateName": "nonexistent_template",
   "useSolutionPackage": true
 }
