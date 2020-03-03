@@ -238,7 +238,7 @@ echo "Removing activator service account [${ACTIVATOR_SA_EMAIL}] as billing acco
 gcloud beta billing accounts get-iam-policy ${BILLING_ID} > billing.yaml
 # Remove the line containing the name of the service account
 sed "/${ACTIVATOR_SA_EMAIL}/d" billing.yaml > billing3.yaml
-gcloud beta billing accounts set-iam-policy ${BILLING_ID} billing2.yaml --format=none
+gcloud beta billing accounts set-iam-policy ${BILLING_ID} billing3.yaml --format=none
 rm billing.yaml billing3.yaml
 
 exit 0
