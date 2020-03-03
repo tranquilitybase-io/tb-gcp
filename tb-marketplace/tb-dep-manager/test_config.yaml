@@ -5,4 +5,6 @@ resources:
 - name: tranquility-base
   type: tranquility-base.jinja
   properties:
-    zone: europe-west2-a
+    zone: europe-west2-a (valid GCE zone)
+    rootId: TBA (numerical value of a folder id)
+    billingAccountId: TBA (billing account id in format XXXXXX-XXXXXX-XXXXXX)
