@@ -31,6 +31,7 @@
 {% set billingAccountId = properties["billingAccountId"] %}
 {% set allowIapFw = "%s-allow-iap" % tbDiscriminator %}
 {% set allowInternalFw = "%s-allow-internal" % tbDiscriminator %}
+{% set tbSourceImage = "https://www.googleapis.com/compute/v1/projects/tb-marketplace-dev/global/images/tranquility-base-bootstrap-issue-171" %}
 
 resources:
   - name: {{ tbNetwork }}
@@ -126,7 +127,7 @@ resources:
     type: vm_instance.py
     properties:
       instanceName: {{ instanceName }}
-      sourceImage: https://www.googleapis.com/compute/v1/projects/gft-group-public/global/images/tranquility-base-bootstrap-master
+      sourceImage: {{ tbSourceImage }}
       zone: {{ zone }}
       region: {{ region }}
       machineType: {{ machineType }}
