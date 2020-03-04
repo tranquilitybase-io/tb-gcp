@@ -180,7 +180,7 @@ function deploy_landing_zone {
 
   apply_failures=0
   while [ $apply_failures -lt $MAX_ATTEMPTS ]; do
-#  terraform apply -var-file input.tfvars -auto-approve
+  terraform apply -var-file input.tfvars -auto-approve
   if [ $? -eq 0 ]; then
   echo "Landing Zone successfully deployed."
   break
