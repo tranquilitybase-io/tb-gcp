@@ -29,9 +29,9 @@ output "sec-gke-endpoint" {
 }
 
 # iTop deployment
-output "itop_db_user_password" {
-  value = module.itop.database_instance_connection_password
-}
+//output "itop_db_user_password" {
+//  value = module.itop.database_instance_connection_password
+//}
 
 output "vault-root-token" {
   value = module.vault.root_token
@@ -69,5 +69,9 @@ output "region" {
 
 output "region_zone" {
   value = var.region_zone
+}
+
+output "shared_vpc_name" {
+  value = var.shared_vpc_name
 }
 

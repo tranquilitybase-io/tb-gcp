@@ -41,7 +41,7 @@ module "gke-operations" {
 
   region               = data.terraform_remote_state.landingzone.outputs.region
   sharedvpc_project_id = data.terraform_remote_state.landingzone.outputs.shared_networking_id
-  sharedvpc_network    = var.shared_vpc_name
+  sharedvpc_network    = data.terraform_remote_state.landingzone.outputs.shared_vpc_name
 
   cluster_enable_private_nodes = var.cluster_opt_enable_private_nodes
   cluster_project_id           = data.terraform_remote_state.landingzone.outputs.shared_operations_id

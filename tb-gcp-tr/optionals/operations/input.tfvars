@@ -11,7 +11,6 @@ cluster_opt_master_authorized_cidrs = [
   }
 ]
 
-shared_vpc_name = "shared-network"
 istio_status        = "false"
 gke_pod_network_name     = "gke-pods-snet"
 gke_service_network_name = "gke-services-snet"

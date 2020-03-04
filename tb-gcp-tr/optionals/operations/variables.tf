@@ -1,9 +1,9 @@
 #FOLDER STRUCTURE CREATION
-variable "shared_vpc_name" {
-  type        = string
-  default     = "shared-network"
-  description = "Name for the shared vpc network"
-}
+//variable "shared_vpc_name" {
+//  type        = string
+//  default     = "shared-network"
+//  description = "Name for the shared vpc network"
+//}
 
 variable "cluster_opt_enable_private_nodes" {
   type = string
