@@ -121,7 +121,7 @@ function deploy_landing_zone {
   MAX_ATTEMPTS_INIT=3
   DELAY_BETWEEN_ATTEMPTS=60
 
-#  export HOME=/root
+  export HOME=/root
 
   # The deployment will be done using the boostrap SA
   echo "Setting [${SA_EMAIL}] as active account"
@@ -191,12 +191,10 @@ function print_help() {
 function init() {
   echo "Welcome to Tranquility Base! This tool performs the required configuration for Marketplace deployment."
   echo
-  echo "Before we proceed any further, please make sure you're authenticated to gcloud as owner at the Folder level"
-  echo "(or Organisation) where Tranquility Base will be deployed. If not, exit (CTRL+C) and execute 'gcloud auth login'"
-  echo "to do so."
-  echo
   echo "Chose between one of these two options:"
-  echo " [1] Upgrade the Service Account in use by this VM and activate several APIs"
+  echo " [1] Upgrade the Service Account in use by this VM and activate several APIs in the project. (You"
+  echo "     will need authentication to gcloud as owner of the Folder, or Organisation, where Tranquility"
+  echo "     Base will be deployed. If not, exit this configuration and execute 'gcloud auth login' to do so)"
   echo " [2] Deploy Landing Zone (if you have already run step [1])"
 
   read varname
