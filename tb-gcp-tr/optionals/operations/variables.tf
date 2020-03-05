@@ -21,10 +21,6 @@ variable "cluster_opt_name" {
   description = "The cluster name"
 }
 
-variable "shared_networking_id" {
-  description = "shared networking project ID"
-}
-
 variable "cluster_opt_pool_name" {
   description = "The cluster pool name"
 }
@@ -38,11 +34,6 @@ variable "cluster_opt_master_authorized_cidrs" {
     cidr_block   = string
     display_name = string
   }))
-}
-
-variable "clusters_master_whitelist_ip" {
-  description = "IP to add to the GKE clusters' master authorized networks"
-  type        = string
 }
 
 variable "cluster_opt_min_master_version" {

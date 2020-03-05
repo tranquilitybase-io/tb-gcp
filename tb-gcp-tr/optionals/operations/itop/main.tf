@@ -13,6 +13,17 @@ data "terraform_remote_state" "operations_cluster" {
     prefix  = "operationsCluster"
   }
 }
+
+provider "google" {
+  region = data.terraform_remote_state.landingzone.outputs.region
+  zone   = data.terraform_remote_state.landingzone.outputs.region_zone
+  version = "~> 2.5"
+}
+
+terraform {
+  backend "gcs" {}
+}
+
 provider "kubernetes" {
   alias                  = "gke-operations"
   host                   = "https://${data.terraform_remote_state.operations_cluster.outputs.cluster_endpoint}"

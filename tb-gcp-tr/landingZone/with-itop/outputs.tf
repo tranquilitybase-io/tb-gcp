@@ -75,3 +75,7 @@ output "shared_vpc_name" {
   value = var.shared_vpc_name
 }
 
+output "clusters_master_whitelist_ip" {
+  value = var.clusters_master_whitelist_ip
+}
+

@@ -7,7 +7,6 @@ data "terraform_remote_state" "landingzone" {
 }
 
 provider "google" {
-  alias  = "vault"
   region = data.terraform_remote_state.landingzone.outputs.region
   zone   = data.terraform_remote_state.landingzone.outputs.region_zone
   version = "~> 2.5"
@@ -58,7 +57,7 @@ module "gke-operations" {
       "display_name" = "initial-admin-ip"
     },
     {
-      "cidr_block" = join("", [data.terraform_remote_state.landingzone.outputs.nat-static-ip, "/32"])
+      "cidr_block" = join("", [data.terraform_remote_state.landingzone.outputs.clusters_master_whitelist_ip, "/32"])
     },
     ),
   ],
