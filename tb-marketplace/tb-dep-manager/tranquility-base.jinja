@@ -3,6 +3,7 @@
 {% set project = env["project"] %}
 {% set deployment = env["deployment"] %}
 {% set tbBootstrapSA = "bootstrap-tb-sa@%s.iam.gserviceaccount.com" % project %}
+{% set tbBootstrapServiceAccountId = "bootstrap-tb-sa" %}
 {% set tbDiscriminator = "tb%s" %  env["project"][-6:] %}
 {% set name = "%s-bootstrap-vm-tmpl" % env["name"] %}
 {% set instanceName = "%s-bootstrap-vm" % tbDiscriminator %}
@@ -48,12 +49,12 @@ resources:
         - region: {{ region }}
           cidr: 192.168.0.0/28
 
-  - name {{ tbServiceAccount }}
+  - name: {{ tbServiceAccount }}
     type: iam.v1.serviceAccount
     properties:
-        accountId: {{ tbBootstrapSA }}
+        accountId: {{ tbBootstrapServiceAccountId }}
         displayName: {{ tbServiceAccount }}
-        project: {{ project }}
+        projectId: {{ project }}
 
   - name: {{ natGateway }}
     type: ha-nat-gateway.py
