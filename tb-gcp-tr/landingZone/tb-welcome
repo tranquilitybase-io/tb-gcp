@@ -16,44 +16,19 @@
 function create_configuration {
   echo "Welcome to Tranquility Base! This tool performs the required configuration for Marketplace deployment."
   echo
-
-  cd /opt/tb/repo/tb-gcp-tr/landingZone/no-itop
-  source input.auto.tfvars
-  #Retrieve project ID
-  PROJECT_ID=$(curl -s "http://metadata.google.internal/computeMetadata/v1/project/project-id" -H "Metadata-Flavor: Google")
-  SA_NAME="bootstrap-tb-sa"
-  SA_EMAIL=${SA_NAME}@${PROJECT_ID}.iam.gserviceaccount.com
-  CONFIG_FILE=".tbconfig"
-  FOLDER_ID=${root_id}
-  BILLING_ID=${billing_account_id}
-
-
-  # Check parent folder ID
-#  FOLDER_ID=$(gcloud resource-manager folders list --format='value(name)' --folder "${root_id}")
-#  if [[ -z "${FOLDER_ID}" ]]; then
-#    echo "ERROR: Was not able to find the ${FOLDER_ID} folder. Check value in file input.auto.tfvars."
-#    exit 1
-#  fi
-
-  # Check billing account
-#  BILLING_ID=$(gcloud beta billing accounts describe "${billing_account_id}")
-#  if [[ -z "${BILLING_ID}" ]]; then
-#    echo "ERROR: Was not able to find the ${BILLING_ID} billing account. Check value in file input.auto.tfvars."
-#    exit 1
-#  fi
-
   echo "You are about to upgrade the Service Account [${SA_EMAIL}] in use by this VM and activate several API's:"
   echo
   echo "1. Permissions of the Service Account:"
-  echo "  - at the project level ${PROJECT_ID}"
+  echo "  - at the project level [${PROJECT_ID}]"
   echo "    - compute.admin"
+  echo "    - storage.admin"
   echo "  - at the folder level [${FOLDER_ID}]"
   echo "    - resourcemanager.folderAdmin"
   echo "    - resourcemanager.projectCreator"
   echo "    - resourcemanager.projectDeleter"
   echo "    - compute.networkAdmin"
   echo "    - compute.xpnAdmin"
-  echo "    - owner"
+#  echo "    - owner"
   echo "  - at the billing account level [${BILLING_ID}]"
   echo "    - billing.admin"
   echo "2.Activation of the following API's:"
@@ -92,6 +67,7 @@ function create_configuration {
   #Add permissions at the project level
   echo "Adding permissions at the project level... "
   gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.instanceAdmin.v1 --format=none
+#  gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/storage.admin --format=none
 
   # Add permissions at the folder level
   echo "Adding permissions at the folder level..."
@@ -110,9 +86,6 @@ function create_configuration {
   sed "/billing.admin/i ${sa}" billing.yaml > billing2.yaml
   gcloud beta billing accounts set-iam-policy "${BILLING_ID}" billing2.yaml --format=none
   rm billing.yaml billing2.yaml
-
-  # Keep record of the service account created
-  echo ${SA_NAME} > ${CONFIG_FILE}
 
   #Activate essential APIs
   echo "Activating essential APIs..."
@@ -137,62 +110,62 @@ function create_configuration {
   gcloud --project "${PROJECT_ID}" services enable sqladmin.googleapis.com
   gcloud --project "${PROJECT_ID}" services enable storage-api.googleapis.com
   echo "Essential APIs acitvated."
-
   echo
   echo "Configuration completed!"
   echo "You can now deploy Tranquility Base from Marketplace in project [${PROJECT_ID}]."
   echo
 }
 
-
-
-
 function deploy_landing_zone {
   MAX_ATTEMPTS=10
   MAX_ATTEMPTS_INIT=3
   DELAY_BETWEEN_ATTEMPTS=60
 
-  export HOME=/root
-  cd /opt/tb/repo/tb-gcp-tr/landingZone/no-itop
-  source input.auto.tfvars
+#  export HOME=/root
+
+  # The deployment will be done using the boostrap SA
+  echo "Setting [${SA_EMAIL}] as active account"
+  gcloud config set account ${SA_EMAIL}
 
   # Create TF state bucket
   echo "Creating Terraform bucket state [${terraform_state_bucket_name}]"
   gsutil mb gs://${terraform_state_bucket_name}/
 
-  echo "Terraform init"
+  echo "Terraform initialising..."
   apply_failures=0
   while [ $apply_failures -lt $MAX_ATTEMPTS_INIT ]; do
-  terraform init -backend-config="bucket=${terraform_state_bucket_name}" -backend-config="prefix=landingZone"
-  if [ $? -eq 0 ]; then
-  echo "Terraform initialised successfully"
-  break
-  fi
-  if [ $((apply_failures +1)) -eq $MAX_ATTEMPTS_INIT ]; then
-  echo "Maximum of $MAX_ATTEMPTS_INIT reached. Moving on..."
-  break
-  fi
-  echo "Terraform init failed."
-  apply_failures=$(($apply_failures + 1))
-  echo "Retry #$apply_failures starting in $DELAY_BETWEEN_ATTEMPTS seconds."
-  sleep $DELAY_BETWEEN_ATTEMPTS
+    terraform init -backend-config="bucket=${terraform_state_bucket_name}" -backend-config="prefix=landingZone"
+    if [ $? -eq 0 ]; then
+      echo "Terraform initialised successfully"
+      break
+    fi
+    if [ $((apply_failures +1)) -eq $MAX_ATTEMPTS_INIT ]; then
+      echo "Maximum of $MAX_ATTEMPTS_INIT reached. Aborting..."
+      exit 1;
+#      break
+    fi
+    echo "Terraform init failed."
+    apply_failures=$(($apply_failures + 1))
+    echo "Retry #$apply_failures starting in $DELAY_BETWEEN_ATTEMPTS seconds."
+    sleep $DELAY_BETWEEN_ATTEMPTS
   done
 
+  echo "Terraform applying..."
   apply_failures=0
   while [ $apply_failures -lt $MAX_ATTEMPTS ]; do
-  terraform apply -var-file input.tfvars -auto-approve
-  if [ $? -eq 0 ]; then
-  echo "Landing Zone successfully deployed."
-  break
-  fi
-  if [ $((apply_failures +1)) -eq $MAX_ATTEMPTS ]; then
-  echo "Maximum of $MAX_ATTEMPTS reached. Moving on..."
-  break
-  fi
-  echo "Landing Zone deployment failed."
-  apply_failures=$(($apply_failures + 1))
-  echo "Retry #$apply_failures starting in $DELAY_BETWEEN_ATTEMPTS seconds."
-  sleep $DELAY_BETWEEN_ATTEMPTS
+    terraform apply -var-file input.tfvars -auto-approve
+    if [ $? -eq 0 ]; then
+      echo "Landing Zone successfully deployed."
+      break
+    fi
+    if [ $((apply_failures +1)) -eq $MAX_ATTEMPTS ]; then
+      echo "Maximum of $MAX_ATTEMPTS reached. Aborting..."
+      exit 1;
+    fi
+    echo "Landing Zone deployment failed."
+    apply_failures=$(($apply_failures + 1))
+    echo "Retry #$apply_failures starting in $DELAY_BETWEEN_ATTEMPTS seconds."
+    sleep $DELAY_BETWEEN_ATTEMPTS
   done
 
   # Commit current TB terraform code to GCR
@@ -216,32 +189,41 @@ function print_help() {
 }
 
 function init() {
+  echo "Welcome to Tranquility Base! This tool performs the required configuration for Marketplace deployment."
   echo
   echo "Before we proceed any further, please make sure you're authenticated to gcloud as owner at the Folder level"
   echo "(or Organisation) where Tranquility Base will be deployed. If not, exit (CTRL+C) and execute 'gcloud auth login'"
   echo "to do so."
   echo
-  echo "In order to deploy the Landing Zone, we will need to: "
-  echo
-  echo "1: Upgrade the Service account in use by this VM and activate APIs at the project level"
-  echo "2: If you have already gone through this configuration, then you can deploy the Landing Zone by running: 'get_started.sh deploy' "
-  echo
-  echo "Press 1 to create the required configuration or Press 2 to deploy the Landing Zone: "
+  echo "Chose between one of these two options:"
+  echo " [1] Upgrade the Service Account in use by this VM and activate several APIs"
+  echo " [2] Deploy Landing Zone (if you have already run step [1])"
 
   read varname
 
   if [ "$varname" == "1" ]
   then
-     create_configuration
+    create_configuration
   elif [ "$varname" == "2" ]
   then
-     deploy_landing_zone
+    deploy_landing_zone
   else
-     echo "Invalid arguments"
-     echo "Aborting..."
-     exit 0
+    echo "Invalid arguments"
+    echo "Aborting..."
+    exit 0
   fi
 }
+
+#Retrieve terraform vars
+cd /opt/tb/repo/tb-gcp-tr/landingZone/no-itop
+source input.auto.tfvars
+#Retrieve project ID
+PROJECT_ID=$(curl -s "http://metadata.google.internal/computeMetadata/v1/project/project-id" -H "Metadata-Flavor: Google")
+#Initialise variables
+SA_NAME="bootstrap-tb-sa"
+SA_EMAIL=${SA_NAME}@${PROJECT_ID}.iam.gserviceaccount.com
+FOLDER_ID=${root_id}
+BILLING_ID=${billing_account_id}
 
 argument=$1
 
@@ -254,11 +236,6 @@ then
 elif [ "$argument" == "config" ]
 then
   create_configuration
-elif [ "$argument" == "-help" ]
-then
-  print_help
 else
   print_help
 fi
-
-
