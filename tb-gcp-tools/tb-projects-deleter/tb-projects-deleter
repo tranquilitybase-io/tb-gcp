@@ -33,7 +33,7 @@ SHARED_NET_PROJ_PREFIX="shared-networking-"
 
 BS_RND_ID=""
 LZ_DISCRIMINATOR=""
-PARENT_FOLDER_ID=""
+FOLDER_ID=""
 BILLING_ID=""
 
 while (( "$#" )); do
@@ -43,7 +43,7 @@ while (( "$#" )); do
       shift 2
       ;;
     -f|--parent-folder-id)
-      PARENT_FOLDER_ID=$2
+      FOLDER_ID=$2
       shift 2
       ;;
     -b|--billing-account-id)
@@ -73,7 +73,7 @@ while (( "$#" )); do
   esac
 done
 
-if [[ -z ${BS_RND_ID} || -z ${SS_RND_ID} || -z ${PARENT_FOLDER_ID} || -z ${BILLING_ID} ]]; then
+if [[ -z ${BS_RND_ID} || -z ${SS_RND_ID} || -z ${FOLDER_ID} || -z ${BILLING_ID} ]]; then
 	echo "ERROR: Invalid arguments."
 	echo
 	print_help
@@ -82,23 +82,24 @@ fi
 
 # More constants
 LZ_DISCRIMINATOR="tb${BS_RND_ID}"
-BOOTSTRAP_PROJ_PREFIX="bootstrap-tb-"
-BOOTSTRAP_PROJ_ID=${BOOTSTRAP_PROJ_PREFIX}${BS_RND_ID}
-BOOTSTRAP_SA_EMAIL="${BOOTSTRAP_PROJ_PREFIX}sa@${BOOTSTRAP_PROJ_ID}.iam.gserviceaccount.com"
+PREFIX="bootstrap-tb-"
+
+=${PREFIX}${BS_RND_ID}
+SA_EMAIL="${PREFIX}sa@${PROJECT_ID}.iam.gserviceaccount.com"
 ACTIVATOR_SA_EMAIL="activator-dev-sa@shared-ssp-${SS_RND_ID}.iam.gserviceaccount.com"
 # activator-dev-sa@shared-ssp-bac7b828.iam.gserviceaccount.com
 
 # Collect bootstrap project name
-bootstrap_project=$(gcloud projects list --format='value(projectId)' --filter="projectId=${BOOTSTRAP_PROJ_ID}")
+bootstrap_project=$(gcloud projects list --format='value(projectId)' --filter="projectId=${PROJECT_ID}")
 if [[ -z "${bootstrap_project}" ]]; then
 	echo "ERROR: Was not able to find the bootstrap project."
 	#exit 1
 else
-	echo "Found project ${bootstrap_project}."
+	echo "Found project ${PROJECT_ID}."
 fi
 
 # Collect TB folder ID and name
-tb_folder_id=$(gcloud resource-manager folders list --format='value(name)' --folder ${PARENT_FOLDER_ID} --filter="displayName~'^${TB_FOLDER_PREFIX}${LZ_DISCRIMINATOR}$'")
+tb_folder_id=$(gcloud resource-manager folders list --format='value(name)' --folder ${FOLDER_ID} --filter="displayName~'^${TB_FOLDER_PREFIX}${LZ_DISCRIMINATOR}$'")
 if [[ -z "${tb_folder_id}" ]]; then
 	echo "ERROR: Was not able to find the ${TB_FOLDER_PREFIX}${LZ_DISCRIMINATOR} folder."
 	#exit 1
@@ -209,27 +210,21 @@ for folder in ${shared_svcs_folder_id} ${applications_folder_id} ${tb_folder_id}
 	gcloud resource-manager folders delete ${folder}
 done
 
-# Delete bootstrap project
-echo "Deleting bootstrap project..."
-echo
-gcloud projects delete ${bootstrap_project} --quiet
-echo
-
 # Remove bootstrap-sa IAM policy bindings for folder
-echo "Removing bootstrap service account [${BOOTSTRAP_SA_EMAIL}] IAM policy bindings for folder [${PARENT_FOLDER_ID}]..."
-gcloud resource-manager folders remove-iam-policy-binding "${PARENT_FOLDER_ID}" --member=serviceAccount:"${BOOTSTRAP_SA_EMAIL}" --role=roles/resourcemanager.folderAdmin --format=none
-gcloud resource-manager folders remove-iam-policy-binding "${PARENT_FOLDER_ID}" --member=serviceAccount:"${BOOTSTRAP_SA_EMAIL}" --role=roles/resourcemanager.projectCreator --format=none
-gcloud resource-manager folders remove-iam-policy-binding "${PARENT_FOLDER_ID}" --member=serviceAccount:"${BOOTSTRAP_SA_EMAIL}" --role=roles/resourcemanager.projectDeleter --format=none
-gcloud resource-manager folders remove-iam-policy-binding "${PARENT_FOLDER_ID}" --member=serviceAccount:"${BOOTSTRAP_SA_EMAIL}" --role=roles/billing.projectManager --format=none
-gcloud resource-manager folders remove-iam-policy-binding "${PARENT_FOLDER_ID}" --member=serviceAccount:"${BOOTSTRAP_SA_EMAIL}" --role=roles/compute.networkAdmin --format=none
-gcloud resource-manager folders remove-iam-policy-binding "${PARENT_FOLDER_ID}" --member=serviceAccount:"${BOOTSTRAP_SA_EMAIL}" --role=roles/compute.xpnAdmin --format=none
-gcloud resource-manager folders remove-iam-policy-binding "${PARENT_FOLDER_ID}" --member=serviceAccount:"${BOOTSTRAP_SA_EMAIL}" --role=roles/owner --format=none
+echo "Removing bootstrap service account [${SA_EMAIL}] IAM policy bindings for folder [${FOLDER_ID}]..."
+gcloud resource-manager folders remove-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/resourcemanager.folderAdmin --format=none
+gcloud resource-manager folders remove-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/resourcemanager.projectCreator --format=none
+gcloud resource-manager folders remove-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/resourcemanager.projectDeleter --format=none
+gcloud resource-manager folders remove-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/billing.projectManager --format=none
+gcloud resource-manager folders remove-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.networkAdmin --format=none
+gcloud resource-manager folders remove-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.xpnAdmin --format=none
+gcloud resource-manager folders remove-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/owner --format=none
 
 # Remove the bootstrap-sa as billing account admin
-echo "Removing bootstrap service account [${BOOTSTRAP_SA_EMAIL}] as billing account admin..."
+echo "Removing bootstrap service account [${SA_EMAIL}] as billing account admin..."
 gcloud beta billing accounts get-iam-policy ${BILLING_ID} > billing.yaml
 # Remove the line containing the name of the service account
-sed "/${BOOTSTRAP_SA_EMAIL}/d" billing.yaml > billing2.yaml
+sed "/${SA_EMAIL}/d" billing.yaml > billing2.yaml
 gcloud beta billing accounts set-iam-policy ${BILLING_ID} billing2.yaml --format=none
 rm billing.yaml billing2.yaml
 
@@ -240,6 +235,29 @@ gcloud beta billing accounts get-iam-policy ${BILLING_ID} > billing.yaml
 sed "/${ACTIVATOR_SA_EMAIL}/d" billing.yaml > billing3.yaml
 gcloud beta billing accounts set-iam-policy ${BILLING_ID} billing3.yaml --format=none
 rm billing.yaml billing3.yaml
+
+# Revoke bootstrap SA project and folder roles. Just in case the project is not deleted this allows
+# to re-use the same service account name and work around known issue:
+# https://cloud.google.com/iam/docs/understanding-service-accounts#deleting_and_recreating_service_accounts
+#remove permissions at the project level
+echo "Removing bootstrap service account [${SA_EMAIL}] bindings at the project level... "
+gcloud projects remove-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.instanceAdmin.v1 --format=none
+gcloud projects remove-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/storage.admin --format=none
+# remove permissions at the folder level
+echo "Removing bootstrap service account [${SA_EMAIL}] bindings at the folder level... "
+gcloud resource-manager folders remove-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/resourcemanager.folderAdmin --format=none
+gcloud resource-manager folders remove-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/resourcemanager.projectCreator --format=none
+gcloud resource-manager folders remove-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/resourcemanager.projectDeleter --format=none
+gcloud resource-manager folders remove-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/billing.projectManager --format=none
+gcloud resource-manager folders remove-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.networkAdmin --format=none
+gcloud resource-manager folders remove-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.xpnAdmin --format=none
+gcloud resource-manager folders remove-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/owner --format=none
+
+# Delete bootstrap project
+echo "Deleting bootstrap project..."
+echo
+gcloud projects delete ${PROJECT_ID} --quiet
+echo
 
 exit 0
 
