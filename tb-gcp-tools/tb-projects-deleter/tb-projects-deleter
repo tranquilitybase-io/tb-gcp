@@ -223,7 +223,6 @@ gcloud resource-manager folders remove-iam-policy-binding "${PARENT_FOLDER_ID}" 
 gcloud resource-manager folders remove-iam-policy-binding "${PARENT_FOLDER_ID}" --member=serviceAccount:"${BOOTSTRAP_SA_EMAIL}" --role=roles/billing.projectManager --format=none
 gcloud resource-manager folders remove-iam-policy-binding "${PARENT_FOLDER_ID}" --member=serviceAccount:"${BOOTSTRAP_SA_EMAIL}" --role=roles/compute.networkAdmin --format=none
 gcloud resource-manager folders remove-iam-policy-binding "${PARENT_FOLDER_ID}" --member=serviceAccount:"${BOOTSTRAP_SA_EMAIL}" --role=roles/compute.xpnAdmin --format=none
-gcloud resource-manager folders remove-iam-policy-binding "${PARENT_FOLDER_ID}" --member=serviceAccount:"${BOOTSTRAP_SA_EMAIL}" --role=roles/owner --format=none
 
 # Remove the bootstrap-sa as billing account admin
 echo "Removing bootstrap service account [${BOOTSTRAP_SA_EMAIL}] as billing account admin..."
