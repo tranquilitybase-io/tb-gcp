@@ -56,13 +56,13 @@ You'll be prompted to continue the configuration:
 #### Confirm execution 
 At confirmation, the steps of the configuration are triggered sequentially. 
 
-At the end of the process the script outputs the name of the project created (in this example'bootstrap-tb-d4aa93'). 
+At the end of the process the script outputs the name of the project created (in this example'bootstrap-tb-011f7b'). 
 
 Configuration is completed and the deployment in Marketplace can be done now!
 
 ![Open Cloud shell](./img/result.png)
 ## Deployment on Google Marketplace
-Follow the following steps now to deploy Tranquility Base.
+Follow the following steps now to deploy Tranquility Base from Marketplace.
 
 ### 1.Change project
 Use the drop-down tool to find and select the project created in the configuration earlier.
@@ -95,7 +95,7 @@ The screen shows the progress of the deployment. This shouldn't take longer than
 
 #### After...
 Upon deployment completion, the section next steps informs of how you can:
-- open an SSH connection into the the Tranquility Base bootstrap server (called 'tbd6d79d-bootstrap-vm' in the example) 
+- open an SSH connection into the the Tranquility Base bootstrap server (called 'tb011f7b-bootstrap-vm' in the example) 
 that has just been deployed. (The basic Landing Zone is being deployed from this server using Terraform code and it may 
 take up to **15 mins** to finish.)
 

@@ -92,13 +92,13 @@ echo
 echo "1. Permissions of the Service Account:"
 echo "  - at the project level"
 echo "    - compute.admin"
+echo "    - storage.admin"
 echo "  - at the folder level"
 echo "    - resourcemanager.folderAdmin"
 echo "    - resourcemanager.projectCreator"
 echo "    - resourcemanager.projectDeleter"
 echo "    - compute.networkAdmin"
 echo "    - compute.xpnAdmin"
-echo "    - owner"
 echo "  - at the billing account level"
 echo "    - billing.admin"
 echo "2.Activation of the following API's:"
@@ -152,6 +152,7 @@ gcloud --project "${PROJECT_ID}" iam service-accounts create "${SA_NAME}" --quie
 #Add permissions at the project level
 echo "Adding permissions at the project level... "
 gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.instanceAdmin.v1 --format=none
+gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/storage.admin --format=none
 
 # Add permissions at the folder level
 echo "Adding permissions at the folder level..."
@@ -161,7 +162,6 @@ gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=s
 gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/billing.projectManager --format=none
 gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.networkAdmin --format=none
 gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.xpnAdmin --format=none
-gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/owner --format=none
 
 # Add permissions at the billing level
 echo "Adding permissions at the billing account level..."
@@ -193,7 +193,7 @@ gcloud --project "${PROJECT_ID}" services enable serviceusage.googleapis.com
 gcloud --project "${PROJECT_ID}" services enable sourcerepo.googleapis.com
 gcloud --project "${PROJECT_ID}" services enable sqladmin.googleapis.com
 gcloud --project "${PROJECT_ID}" services enable storage-api.googleapis.com
-echo "Essential APIs acitvated."
+echo "Essential APIs activated."
 
 echo
 echo "Configuration completed!"
