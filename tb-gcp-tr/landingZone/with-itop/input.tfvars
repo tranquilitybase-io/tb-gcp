@@ -56,36 +56,36 @@ istio_status        = "false"
 ssp_repository_name = "SSP-activator-tf"
 
 #KUBERNETES SECURITY CLUSTER
-cluster_sec_subnetwork           = "shared-security-snet"
-cluster_sec_service_account      = "kubernetes-sec"
-cluster_sec_name                 = "gke-sec"
-cluster_sec_pool_name            = "gke-sec-node-pool"
-cluster_sec_enable_private_nodes = "true"
-cluster_sec_master_cidr          = "172.16.0.16/28"
-cluster_sec_master_authorized_cidrs = [
-  {
-    cidr_block   = "10.0.0.0/8"
-    display_name = "mgmt-1"
-  }
-]
+//cluster_sec_subnetwork           = "shared-security-snet"
+//cluster_sec_service_account      = "kubernetes-sec"
+//cluster_sec_name                 = "gke-sec"
+//cluster_sec_pool_name            = "gke-sec-node-pool"
+//cluster_sec_enable_private_nodes = "true"
+//cluster_sec_master_cidr          = "172.16.0.16/28"
+//cluster_sec_master_authorized_cidrs = [
+//  {
+//    cidr_block   = "10.0.0.0/8"
+//    display_name = "mgmt-1"
+//  }
+//]
 #cluster_sec_min_master_version = "latest"
-vault-lb-name     = "sec-vault-lb"
-sec-vault-keyring = "vault"
-location          = "EU"
+//vault-lb-name     = "sec-vault-lb"
+//sec-vault-keyring = "vault"
+//location          = "EU"
 
 #KUBERNETES OPERATIONS CLUSTER
-cluster_opt_subnetwork           = "shared-operations-snet"
-cluster_opt_service_account      = "kubernetes-opt"
-cluster_opt_name                 = "gke-opt"
-cluster_opt_pool_name            = "gke-opt-node-pool"
-cluster_opt_enable_private_nodes = "true"
-cluster_opt_master_cidr          = "172.16.0.32/28"
-cluster_opt_master_authorized_cidrs = [
-  {
-    cidr_block   = "10.0.0.0/8"
-    display_name = "mgmt-1"
-  }
-]
+//cluster_opt_subnetwork           = "shared-operations-snet"
+//cluster_opt_service_account      = "kubernetes-opt"
+//cluster_opt_name                 = "gke-opt"
+//cluster_opt_pool_name            = "gke-opt-node-pool"
+//cluster_opt_enable_private_nodes = "true"
+//cluster_opt_master_cidr          = "172.16.0.32/28"
+//cluster_opt_master_authorized_cidrs = [
+//  {
+//    cidr_block   = "10.0.0.0/8"
+//    display_name = "mgmt-1"
+//  }
+//]
 #cluster_opt_min_master_version = "latest"
 
 #SSP Deployment
@@ -96,7 +96,7 @@ ssp_iam_service_account_roles = ["roles/resourcemanager.folderAdmin", "roles/res
 "roles/compute.networkAdmin", "roles/datastore.owner", "roles/browser", "roles/resourcemanager.projectIamAdmin"]
 
 # Vault deployment
-sec-vault-crypto-key-name = "vault-init"
-sec-lb-name               = "vault-lb"
-cert-common-name          = "tb.vault-ca.local"
-tls-organization          = "TB Vault"
+//sec-vault-crypto-key-name = "vault-init"
+//sec-lb-name               = "vault-lb"
+//cert-common-name          = "tb.vault-ca.local"
+//tls-organization          = "TB Vault"

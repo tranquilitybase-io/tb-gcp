@@ -164,68 +164,68 @@ variable "cluster_ssp_service_account" {
   description = "Service account to associate to the nodes in the cluster"
 }
 
-variable "cluster_sec_service_account" {
-  description = "Service account to associate to the nodes in the cluster"
-}
-
-variable "cluster_sec_oauth_scope" {
-  description = "API scope to be given to Security Cluster, for vault leave default value"
-  default     = ["cloud-platform"]
-}
-
-variable "cluster_sec_service_account_roles" {
-  type        = list(string)
-  default     = ["roles/cloudkms.cryptoKeyEncrypterDecrypter"]
-  description = "Service account to associate to the nodes in the cluster"
-}
-
-variable "cluster_opt_service_account" {
-  description = "Service account to associate to the nodes in the cluster"
-}
+//variable "cluster_sec_service_account" {
+//  description = "Service account to associate to the nodes in the cluster"
+//}
+//
+//variable "cluster_sec_oauth_scope" {
+//  description = "API scope to be given to Security Cluster, for vault leave default value"
+//  default     = ["cloud-platform"]
+//}
+//
+//variable "cluster_sec_service_account_roles" {
+//  type        = list(string)
+//  default     = ["roles/cloudkms.cryptoKeyEncrypterDecrypter"]
+//  description = "Service account to associate to the nodes in the cluster"
+//}
+//
+//variable "cluster_opt_service_account" {
+//  description = "Service account to associate to the nodes in the cluster"
+//}
 
 variable "cluster_ssp_subnetwork" {
   description = "The subnetwork to host the cluster in"
 }
 
-variable "cluster_sec_subnetwork" {
-  description = "The subnetwork to host the cluster in"
-}
-
-variable "cluster_opt_subnetwork" {
-  description = "The subnetwork to host the cluster in"
-}
+//variable "cluster_sec_subnetwork" {
+//  description = "The subnetwork to host the cluster in"
+//}
+//
+//variable "cluster_opt_subnetwork" {
+//  description = "The subnetwork to host the cluster in"
+//}
 
 variable "cluster_ssp_name" {
   description = "The cluster name"
 }
 
-variable "cluster_sec_name" {
-  description = "The cluster name"
-}
-
-variable "cluster_opt_name" {
-  description = "The cluster name"
-}
+//variable "cluster_sec_name" {
+//  description = "The cluster name"
+//}
+//
+//variable "cluster_opt_name" {
+//  description = "The cluster name"
+//}
 
 variable "cluster_ssp_pool_name" {
   description = "The cluster pool name"
 }
 
-variable "cluster_sec_pool_name" {
-  description = "The cluster pool name"
-}
-
-variable "cluster_opt_pool_name" {
-  description = "The cluster pool name"
-}
-
-variable "cluster_opt_enable_private_nodes" {
-  type = string
-}
-
-variable "cluster_sec_enable_private_nodes" {
-  type = string
-}
+//variable "cluster_sec_pool_name" {
+//  description = "The cluster pool name"
+//}
+//
+//variable "cluster_opt_pool_name" {
+//  description = "The cluster pool name"
+//}
+//
+//variable "cluster_opt_enable_private_nodes" {
+//  type = string
+//}
+//
+//variable "cluster_sec_enable_private_nodes" {
+//  type = string
+//}
 
 variable "cluster_ssp_enable_private_nodes" {
   type = string
@@ -239,9 +239,9 @@ variable "cluster_sec_master_cidr" {
   type = string
 }
 
-variable "cluster_opt_master_cidr" {
-  type = string
-}
+//variable "cluster_opt_master_cidr" {
+//  type = string
+//}
 
 variable "cluster_ssp_master_authorized_cidrs" {
   type = list(object({
@@ -250,31 +250,31 @@ variable "cluster_ssp_master_authorized_cidrs" {
   }))
 }
 
-variable "cluster_sec_master_authorized_cidrs" {
-  type = list(object({
-    cidr_block   = string
-    display_name = string
-  }))
-}
-
-variable "cluster_opt_master_authorized_cidrs" {
-  type = list(object({
-    cidr_block   = string
-    display_name = string
-  }))
-}
-
-variable "cluster_opt_min_master_version" {
-  default     = "latest"
-  description = "Master node minimal version"
-  type        = string
-}
-
-variable "cluster_sec_min_master_version" {
-  default     = "latest"
-  description = "Master node minimal version"
-  type        = string
-}
+//variable "cluster_sec_master_authorized_cidrs" {
+//  type = list(object({
+//    cidr_block   = string
+//    display_name = string
+//  }))
+//}
+//
+//variable "cluster_opt_master_authorized_cidrs" {
+//  type = list(object({
+//    cidr_block   = string
+//    display_name = string
+//  }))
+//}
+//
+//variable "cluster_opt_min_master_version" {
+//  default     = "latest"
+//  description = "Master node minimal version"
+//  type        = string
+//}
+//
+//variable "cluster_sec_min_master_version" {
+//  default     = "latest"
+//  description = "Master node minimal version"
+//  type        = string
+//}
 
 variable "cluster_ssp_min_master_version" {
   default     = "latest"
@@ -311,42 +311,42 @@ variable "ssp_iam_service_account_roles" {
 }
 
 # Vault deployment
-variable "vault-lb-name" {
-  type = string
-}
-
-variable "sec-vault-keyring" {
-  type = string
-}
-
-variable "location" {
-  type    = string
-  default = "EU"
-}
-
-variable "sec-vault-crypto-key-name" {
-  type = string
-}
-
-variable "sec-lb-name" {
-  type = string
-}
+//variable "vault-lb-name" {
+//  type = string
+//}
+//
+//variable "sec-vault-keyring" {
+//  type = string
+//}
+//
+//variable "location" {
+//  type    = string
+//  default = "EU"
+//}
+//
+//variable "sec-vault-crypto-key-name" {
+//  type = string
+//}
+//
+//variable "sec-lb-name" {
+//  type = string
+//}
 
 #iTop deployment
-variable "itop_database_user_name" {
-  description = "iTop's database user account name"
-  default     = "itop"
-  type        = string
-}
+//variable "itop_database_user_name" {
+//  description = "iTop's database user account name"
+//  default     = "itop"
+//  type        = string
+//}
 
 #TLS Certs
-variable "cert-common-name" {
-  type = string
-}
+//variable "cert-common-name" {
+//  type = string
+//}
 
-variable "tls-organization" {
-  type = string
-}
+//variable "tls-organization" {
+//  type = string
+//}
 
 variable "terraform_state_bucket_name" {
   type = string

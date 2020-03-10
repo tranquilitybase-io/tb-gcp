@@ -149,74 +149,74 @@ resource "google_sourcerepo_repository" "SSP" {
   depends_on = [module.apis_activation]
 }
 
-module "gke-security" {
-  source = "../../kubernetes-cluster-creation"
+//module "gke-security" {
+//  source = "../../kubernetes-cluster-creation"
+//
+//  providers = {
+//    google                 = google.vault
+//    google-beta.shared-vpc = google-beta.shared-vpc
+//  }
+//
+//  region               = var.region
+//  sharedvpc_project_id = module.shared_projects.shared_networking_id
+//  sharedvpc_network    = var.shared_vpc_name
+//
+//  cluster_enable_private_nodes  = var.cluster_sec_enable_private_nodes
+//  cluster_project_id            = module.shared_projects.shared_security_id
+//  cluster_subnetwork            = var.cluster_sec_subnetwork
+//  cluster_service_account       = var.cluster_sec_service_account
+//  cluster_service_account_roles = var.cluster_sec_service_account_roles
+//  cluster_name                  = var.cluster_sec_name
+//  cluster_pool_name             = var.cluster_sec_pool_name
+//  cluster_master_cidr           = var.cluster_sec_master_cidr
+//  cluster_master_authorized_cidrs = concat(
+//  var.cluster_sec_master_authorized_cidrs,
+//  [
+//    merge(
+//    {
+//      "display_name" = "initial-admin-ip"
+//    },
+//    {
+//      "cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
+//    },
+//    ),
+//  ],
+//  )
+//  cluster_min_master_version = var.cluster_sec_min_master_version
+//  istio_status               = var.istio_status
+//  cluster_oauth_scopes       = var.cluster_sec_oauth_scope
+//
+//  apis_dependency          = module.apis_activation.all_apis_enabled
+//  shared_vpc_dependency    = module.shared-vpc.gke_subnetwork_ids
+//  gke_pod_network_name     = var.gke_pod_network_name
+//  gke_service_network_name = var.gke_service_network_name
+//}
 
-  providers = {
-    google                 = google.vault
-    google-beta.shared-vpc = google-beta.shared-vpc
-  }
-
-  region               = var.region
-  sharedvpc_project_id = module.shared_projects.shared_networking_id
-  sharedvpc_network    = var.shared_vpc_name
-
-  cluster_enable_private_nodes  = var.cluster_sec_enable_private_nodes
-  cluster_project_id            = module.shared_projects.shared_security_id
-  cluster_subnetwork            = var.cluster_sec_subnetwork
-  cluster_service_account       = var.cluster_sec_service_account
-  cluster_service_account_roles = var.cluster_sec_service_account_roles
-  cluster_name                  = var.cluster_sec_name
-  cluster_pool_name             = var.cluster_sec_pool_name
-  cluster_master_cidr           = var.cluster_sec_master_cidr
-  cluster_master_authorized_cidrs = concat(
-  var.cluster_sec_master_authorized_cidrs,
-  [
-    merge(
-    {
-      "display_name" = "initial-admin-ip"
-    },
-    {
-      "cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
-    },
-    ),
-  ],
-  )
-  cluster_min_master_version = var.cluster_sec_min_master_version
-  istio_status               = var.istio_status
-  cluster_oauth_scopes       = var.cluster_sec_oauth_scope
-
-  apis_dependency          = module.apis_activation.all_apis_enabled
-  shared_vpc_dependency    = module.shared-vpc.gke_subnetwork_ids
-  gke_pod_network_name     = var.gke_pod_network_name
-  gke_service_network_name = var.gke_service_network_name
-}
-
-module "vault" {
-  source = "../../vault"
-
-  vault_cluster_project             = module.shared_projects.shared_security_id
-  vault-gcs-location                = var.location
-  vault-region                      = var.region
-  vault_keyring_name                = var.sec-vault-keyring
-  vault_crypto_key_name             = var.sec-vault-crypto-key-name
-  vault-lb                          = var.sec-lb-name
-  vault-sa                          = module.gke-security.cluster_sa
-  vault-gke-sec-endpoint            = module.gke-security.cluster_endpoint
-  vault-gke-sec-master-auth-ca-cert = module.gke-security.cluster_endpoint
-  vault-gke-sec-username            = module.gke-security.cluster_master_auth_username
-  vault-gke-sec-password            = module.gke-security.cluster_master_auth_password
-  vault-gke-sec-client-ca           = module.gke-security.cluster_master_auth_0_client_certificate
-  vault-gke-sec-client-key          = module.gke-security.cluster_master_auth_0_client_key
-  vault-gke-sec-cluster_ca_cert     = module.gke-security.cluster_master_auth_0_cluster_ca_certificate
-  vault-gke-sec-name                = var.cluster_sec_name
-
-  vault-cert-common-name  = var.cert-common-name
-  vault-cert-organization = var.tls-organization
-
-  apis_dependency = module.apis_activation.all_apis_enabled
-  #  shared_vpc_dependency = "${module.shared-vpc.gke_subnetwork_ids}"
-}
+//module "vault" {
+//  source = "../../vault"
+//
+//  vault_cluster_project             = module.shared_projects.shared_security_id
+//  vault-gcs-location                = var.location
+//  vault-region                      = var.region
+//  vault_keyring_name                = var.sec-vault-keyring
+//  vault_crypto_key_name             = var.sec-vault-crypto-key-name
+//  vault-lb                          = var.sec-lb-name
+//  vault-sa                          = module.gke-security.cluster_sa
+//  vault-gke-sec-endpoint            = module.gke-security.cluster_endpoint
+//  vault-gke-sec-master-auth-ca-cert = module.gke-security.cluster_endpoint
+//  vault-gke-sec-username            = module.gke-security.cluster_master_auth_username
+//  vault-gke-sec-password            = module.gke-security.cluster_master_auth_password
+//  vault-gke-sec-client-ca           = module.gke-security.cluster_master_auth_0_client_certificate
+//  vault-gke-sec-client-key          = module.gke-security.cluster_master_auth_0_client_key
+//  vault-gke-sec-cluster_ca_cert     = module.gke-security.cluster_master_auth_0_cluster_ca_certificate
+//  vault-gke-sec-name                = var.cluster_sec_name
+//
+//  vault-cert-common-name  = var.cert-common-name
+//  vault-cert-organization = var.tls-organization
+//
+//  apis_dependency = module.apis_activation.all_apis_enabled
+//  #  shared_vpc_dependency = "${module.shared-vpc.gke_subnetwork_ids}"
+//}
 
 //module "gke-operations" {
 //  source = "../../kubernetes-cluster-creation"

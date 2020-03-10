@@ -51,6 +51,10 @@ output "shared_operations_id" {
   value = module.shared_projects.shared_operations_id
 }
 
+output "shared_security_id" {
+  value = module.shared_projects.shared_security_id
+}
+
 output "all_apis_enabled" {
   value = module.apis_activation.all_apis_enabled
 }
