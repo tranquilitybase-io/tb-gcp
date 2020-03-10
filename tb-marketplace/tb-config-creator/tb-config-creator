@@ -92,13 +92,13 @@ echo
 echo "1. Permissions of the Service Account:"
 echo "  - at the project level"
 echo "    - compute.admin"
+echo "    - storage.admin"
 echo "  - at the folder level"
 echo "    - resourcemanager.folderAdmin"
 echo "    - resourcemanager.projectCreator"
 echo "    - resourcemanager.projectDeleter"
 echo "    - compute.networkAdmin"
 echo "    - compute.xpnAdmin"
-echo "    - owner"
 echo "  - at the billing account level"
 echo "    - billing.admin"
 echo "2.Activation of the following API's:"
@@ -193,7 +193,7 @@ gcloud --project "${PROJECT_ID}" services enable serviceusage.googleapis.com
 gcloud --project "${PROJECT_ID}" services enable sourcerepo.googleapis.com
 gcloud --project "${PROJECT_ID}" services enable sqladmin.googleapis.com
 gcloud --project "${PROJECT_ID}" services enable storage-api.googleapis.com
-echo "Essential APIs acitvated."
+echo "Essential APIs activated."
 
 echo
 echo "Configuration completed!"
