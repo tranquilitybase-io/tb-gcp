@@ -62,7 +62,7 @@ Configuration is completed and the deployment in Marketplace can be done now!
 
 ![Open Cloud shell](./img/result.png)
 ## Deployment on Google Marketplace
-Follow the following steps now to deploy Tranquility Base.
+Follow the following steps now to deploy Tranquility Base from Marketplace.
 
 ### 1.Change project
 Use the drop-down tool to find and select the project created in the configuration earlier.
