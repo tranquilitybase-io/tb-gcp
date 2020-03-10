@@ -103,8 +103,24 @@ You can undo this operation for a limited period by running the command below.
 
 See https://cloud.google.com/resource-manager/docs/creating-managing-projects for information on shutting down projects.
 
-Deleting folders...
+Removing bootstrap service account [bootstrap-tb-sa@bootstrap-tb-b32208.iam.gserviceaccount.com] as billing account admin...
+Updated IAM policy for account [AB1234-CD1234-EF1234].
+Removing activator service account [activator-dev-sa@shared-ssp-d30792a7.iam.gserviceaccount.com] as billing account admin...
+Updated IAM policy for account [AB1234-CD1234-EF1234].
+Removing bootstrap service account [bootstrap-tb-sa@bootstrap-tb-b32208.iam.gserviceaccount.com] bindings at the project level...
+Updated IAM policy for project [bootstrap-tb-b32208].
+Updated IAM policy for project [bootstrap-tb-b32208].
+Removing bootstrap service account [bootstrap-tb-sa@bootstrap-tb-b32208.iam.gserviceaccount.com] IAM policy bindings for folder [238741628734]...
+Updated IAM policy for folder [238741628734].
+Updated IAM policy for folder [238741628734].
+Updated IAM policy for folder [238741628734].
+Updated IAM policy for folder [238741628734].
+Updated IAM policy for folder [238741628734].
+Updated IAM policy for folder [238741628734].
+Removing activator service account [activator-dev-sa@shared-ssp-d30792a7.iam.gserviceaccount.com] as billing account admin...
+Updated IAM policy for account [AB1234-CD1234-EF1234].
 
+Deleting folders...
 Deleted [<Folder
  createTime: u'2020-03-03T10:30:32.734Z'
  displayName: u'Shared Services'
@@ -123,19 +139,14 @@ Deleted [<Folder
  lifecycleState: LifecycleStateValueValuesEnum(DELETE_REQUESTED, 2)
  name: u'folders/698227606755'
  parent: u'folders/238741628734'>].
-Deleting bootstrap project...
 
+Deleting bootstrap project...
 Deleted [https://cloudresourcemanager.googleapis.com/v1/projects/bootstrap-tb-b32208].
 
 You can undo this operation for a limited period by running the command below.
     $ gcloud projects undelete bootstrap-tb-b32208
 
 See https://cloud.google.com/resource-manager/docs/creating-managing-projects for information on shutting down projects.
-
-Removing bootstrap service account [bootstrap-tb-sa@bootstrap-tb-b32208.iam.gserviceaccount.com] as billing account admin...
-Updated IAM policy for account [AB1234-CD1234-EF1234].
-Removing activator service account [activator-dev-sa@shared-ssp-d30792a7.iam.gserviceaccount.com] as billing account admin...
-Updated IAM policy for account [AB1234-CD1234-EF1234].
 $
 ```
 
