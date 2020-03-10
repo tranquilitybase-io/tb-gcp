@@ -6,11 +6,11 @@ data "terraform_remote_state" "landingzone" {
   }
 }
 
-data "terraform_remote_state" "operations_cluster" {
+data "terraform_remote_state" "security_cluster" {
   backend = "gcs"
   config = {
     bucket  = var.terraform_state_bucket
-    prefix  = "operationsCluster"
+    prefix  = "securityCluster"
   }
 }
 
@@ -29,18 +29,18 @@ module "vault" {
 
   vault_cluster_project             = data.terraform_remote_state.landingzone.outputs.shared_security_id
   vault-gcs-location                = var.location
-  vault-region                      = var.region
+  vault-region                      = data.terraform_remote_state.landingzone.outputs.region
   vault_keyring_name                = var.sec-vault-keyring
   vault_crypto_key_name             = var.sec-vault-crypto-key-name
   vault-lb                          = var.sec-lb-name
-  vault-sa                          = data.terraform_remote_state.operations_cluster.outputs.cluster_sa
-  vault-gke-sec-endpoint            = data.terraform_remote_state.operations_cluster.outputs.cluster_endpoint
-  vault-gke-sec-master-auth-ca-cert = data.terraform_remote_state.operations_cluster.outputs.cluster_endpoint
-  vault-gke-sec-username            = data.terraform_remote_state.operations_cluster.outputs.cluster_master_auth_username
-  vault-gke-sec-password            = data.terraform_remote_state.operations_cluster.outputs.cluster_master_auth_password
-  vault-gke-sec-client-ca           = data.terraform_remote_state.operations_cluster.outputs.cluster_master_auth_0_client_certificate
-  vault-gke-sec-client-key          = data.terraform_remote_state.operations_cluster.outputs.cluster_master_auth_0_client_key
-  vault-gke-sec-cluster_ca_cert     = data.terraform_remote_state.operations_cluster.outputs.cluster_master_auth_0_cluster_ca_certificate
+  vault-sa                          = data.terraform_remote_state.security_cluster.outputs.cluster_sa
+  vault-gke-sec-endpoint            = data.terraform_remote_state.security_cluster.outputs.sec-gke-endpoint
+  vault-gke-sec-master-auth-ca-cert = data.terraform_remote_state.security_cluster.outputs.sec-gke-endpoint
+  vault-gke-sec-username            = data.terraform_remote_state.security_cluster.outputs.cluster_master_auth_username
+  vault-gke-sec-password            = data.terraform_remote_state.security_cluster.outputs.cluster_master_auth_password
+  vault-gke-sec-client-ca           = data.terraform_remote_state.security_cluster.outputs.cluster_master_auth_0_client_certificate
+  vault-gke-sec-client-key          = data.terraform_remote_state.security_cluster.outputs.cluster_master_auth_0_client_key
+  vault-gke-sec-cluster_ca_cert     = data.terraform_remote_state.security_cluster.outputs.cluster_master_auth_0_cluster_ca_certificate
   vault-gke-sec-name                = var.cluster_sec_name
 
   vault-cert-common-name  = var.cert-common-name

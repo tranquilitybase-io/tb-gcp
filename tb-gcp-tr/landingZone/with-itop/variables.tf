@@ -235,10 +235,10 @@ variable "cluster_ssp_master_cidr" {
   type = string
 }
 
-variable "cluster_sec_master_cidr" {
-  type = string
-}
-
+//variable "cluster_sec_master_cidr" {
+//  type = string
+//}
+//
 //variable "cluster_opt_master_cidr" {
 //  type = string
 //}

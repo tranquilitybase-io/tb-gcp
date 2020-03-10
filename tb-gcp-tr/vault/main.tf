@@ -156,7 +156,7 @@ resource "tls_self_signed_cert" "vault-ca" {
   ]
 
   provisioner "local-exec" {
-    command = "echo '${self.cert_pem}' > ../../vault/tls/ca.pem && chmod 0600 ../../vault/tls/ca.pem"
+    command = "echo '${self.cert_pem}' > ../../../vault/tls/ca.pem && chmod 0600 ../../../vault/tls/ca.pem"
   }
 }
 
@@ -166,7 +166,7 @@ resource "tls_private_key" "vault" {
   rsa_bits  = "2048"
 
   provisioner "local-exec" {
-    command = "echo '${self.private_key_pem}' > ../../vault/tls/vault.key && chmod 0600 ../../vault/tls/vault.key"
+    command = "echo '${self.private_key_pem}' > ../../../vault/tls/vault.key && chmod 0600 ../../../vault/tls/vault.key"
   }
 }
 
@@ -210,7 +210,7 @@ resource "tls_locally_signed_cert" "vault" {
   ]
 
   provisioner "local-exec" {
-    command = "echo '${self.cert_pem}' > ../../vault/tls/vault.pem && echo '${tls_self_signed_cert.vault-ca.cert_pem}' >> ../../vault/tls/vault.pem && chmod 0600 ../../vault/tls/vault.pem"
+    command = "echo '${self.cert_pem}' > ../../../vault/tls/vault.pem && echo '${tls_self_signed_cert.vault-ca.cert_pem}' >> ../../../vault/tls/vault.pem && chmod 0600 ../../../vault/tls/vault.pem"
   }
 }
 
