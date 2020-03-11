@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+exec >> /var/log/bootstrap.log 2>&1
 cd /opt/tb/repo/tb-gcp-tr/landingZone/no-itop
 #Retrieve terraform vars
 source input.auto.tfvars
@@ -29,13 +30,6 @@ SA_NAME="bootstrap-tb-sa"
 SA_EMAIL=${SA_NAME}@${PROJECT_ID}.iam.gserviceaccount.com
 FOLDER_ID=${root_id}
 BILLING_ID=${billing_account_id}
-
-# The deployment will be done using the boostrap SA
-echo "Setting [${SA_EMAIL}] as active account"
-gcloud config set account ${SA_EMAIL}
-
-# Create TF state bucket
-gsutil mb "gs://${terraform_state_bucket_name}/"
 
 echo "Terraform init"
 # delay to allow nat gateway to be created
