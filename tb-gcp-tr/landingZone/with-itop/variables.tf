@@ -292,6 +292,11 @@ variable "application_yaml_path" {
   type        = string
 }
 
+variable "eagle_console_yaml_path" {
+  description = "Path to the yaml file describing the eagle console resources"
+  type        = string
+}
+
 variable "ssp_repository_name" {
   type        = string
   description = "Repository name used to store activator code"

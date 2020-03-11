@@ -352,6 +352,14 @@ module "SharedServices_ssp" {
   dependency_var    = module.SharedServices_configuration_file.id
 }
 
+module "eagle_console_ssp" {
+  source = "../../../tb-common-tr/start_service"
+
+  k8s_template_file = var.eagle_console_yaml_path
+  cluster_context   = module.k8s-ssp_context.context_name
+  dependency_var    = module.SharedServices_configuration_file.id
+}
+
 module "self-service-app" {
   source = "../../gae-self-service-portal"
 
