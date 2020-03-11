@@ -29,7 +29,9 @@ PROJECT_ID=$(curl -s "http://metadata.google.internal/computeMetadata/v1/project
 SA_NAME="bootstrap-tb-sa"
 SA_EMAIL=${SA_NAME}@${PROJECT_ID}.iam.gserviceaccount.com
 FOLDER_ID=${root_id}
+echo "Folder is ${FOLDER_ID}"
 BILLING_ID=${billing_account_id}
+echo "Billing Id is ${BILLING_ID}"
 
 echo "Terraform init"
 # delay to allow nat gateway to be created
@@ -63,7 +65,7 @@ echo "Maximum of $MAX_ATTEMPTS reached. Moving on..."
 break
 fi
 echo "Landing Zone deployment failed."
-apply_failures=$(($apply_failures + 1))
+apply_failures=$((apply_failures + 1))
 echo "Retry #$apply_failures starting in $DELAY_BETWEEN_ATTEMPTS seconds."
 sleep $DELAY_BETWEEN_ATTEMPTS
 done
