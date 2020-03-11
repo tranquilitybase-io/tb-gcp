@@ -158,17 +158,6 @@ resources:
         # Create TF state bucket
         gsutil mb gs://{{ bucketName }}/
 
-        # Commit current TB terraform code to GCR
-        cd /tmp
-        gcloud source repos create tb-terraform-code
-        gcloud source repos clone tb-terraform-code
-        cd /tmp/tb-terraform-code
-        rsync -a /opt/tb/repo/ .
-        git init
-        git add .
-        git commit -m "Landing zone terraform script"
-        git push -u origin master
-
         echo "STARTUP COMPLETE"
       tags:
         items:
