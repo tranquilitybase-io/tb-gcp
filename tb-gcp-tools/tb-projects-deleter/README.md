@@ -31,7 +31,7 @@ Found 'Applications' (806674588542) folder.
 Found 'Shared Services' (276539436569) folder.
 Found shared-networking-d30792a7 project.
 Didn't find any application projects.
-Found shared-security-d30792a7 shared-telemetry-d30792a7 shared-operations-d30792a7 shared-ssp-d30792a7 shared-billing-d30792a7 tb-bastion-d30792a7  project(s).
+Found shared-secrets-d30792a7 shared-telemetry-d30792a7 shared-operations-d30792a7 shared-ssp-d30792a7 shared-billing-d30792a7 tb-bastion-d30792a7  project(s).
 Found billing account AB1234-CD1234-EF1234.
 SHOULD THE ABOVE FOLDERS AND PROJECTS BE DELETED? (press Y to continue or any other key to abort) Y
 ```
