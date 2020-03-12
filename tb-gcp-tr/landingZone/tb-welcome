@@ -36,6 +36,10 @@ echo "Folder is ${FOLDER_ID}"
 BILLING_ID=${billing_account_id}
 echo "Billing Id is ${BILLING_ID}"
 
+# The deployment will be done using the bootstrap SA
+echo "Setting [${SA_EMAIL}] as active account"
+sudo gcloud config set account ${SA_EMAIL}
+
 echo "Terraform init"
 # delay to allow nat gateway to be created
 sleep $DELAY_BETWEEN_ATTEMPTS
