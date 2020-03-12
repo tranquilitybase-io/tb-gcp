@@ -69,7 +69,7 @@ module "shared_projects" {
   shared_networking_project_name = var.shared_networking_project_name
   shared_security_project_name   = var.shared_security_project_name
   shared_telemetry_project_name  = var.shared_telemetry_project_name
-  shared_operations_project_name = var.shared_operations_project_name
+  shared_itsm_project_name = var.shared_itsm_project_name
   shared_billing_project_name    = var.shared_billing_project_name
   tb_bastion_project_name = var.tb_bastion_project_name
 }
@@ -81,7 +81,7 @@ module "apis_activation" {
   bastion_project_id              = module.shared_projects.tb_bastion_id
   host_project_id         = module.shared_projects.shared_networking_id
   service_projects_number = var.service_projects_number
-  service_project_ids     = [module.shared_projects.shared_security_id, module.shared_projects.shared_operations_id, module.shared_projects.shared_ssp_id]
+  service_project_ids     = [module.shared_projects.shared_security_id, module.shared_projects.shared_itsm_id, module.shared_projects.shared_ssp_id]
 }
 
 module "shared-vpc" {
@@ -100,7 +100,7 @@ module "shared-vpc" {
   create_nat_gateway       = var.create_nat_gateway
   router_nat_name          = var.router_nat_name
   service_projects_number  = var.service_projects_number
-  service_project_ids      = [module.shared_projects.shared_security_id, module.shared_projects.shared_operations_id, module.shared_projects.shared_ssp_id]
+  service_project_ids      = [module.shared_projects.shared_security_id, module.shared_projects.shared_itsm_id, module.shared_projects.shared_ssp_id]
 }
 
 module "gke-ssp" {
@@ -219,13 +219,13 @@ module "vault" {
   #  shared_vpc_dependency = "${module.shared-vpc.gke_subnetwork_ids}"
 }
 
-module "gke-operations" {
+module "gke-itsm" {
   source = "../../kubernetes-cluster-creation"
 
   providers = {
     google                 = google
     google-beta.shared-vpc = google-beta.shared-vpc
-    kubernetes             = kubernetes.gke-operations
+    kubernetes             = kubernetes.gke-itsm
   }
 
   region               = var.region
@@ -233,7 +233,7 @@ module "gke-operations" {
   sharedvpc_network    = var.shared_vpc_name
 
   cluster_enable_private_nodes = var.cluster_opt_enable_private_nodes
-  cluster_project_id           = module.shared_projects.shared_operations_id
+  cluster_project_id           = module.shared_projects.shared_itsm_id
   cluster_subnetwork           = var.cluster_opt_subnetwork
   cluster_service_account      = var.cluster_opt_service_account
   cluster_name                 = var.cluster_opt_name
@@ -262,34 +262,34 @@ module "gke-operations" {
   gke_service_network_name = var.gke_service_network_name
 }
 
-# Kubernetes provider for the gke-operations cluster
+# Kubernetes provider for the gke-itsm cluster
 provider "kubernetes" {
-  alias                  = "gke-operations"
-  host                   = "https://${module.gke-operations.cluster_endpoint}"
+  alias                  = "gke-itsm"
+  host                   = "https://${module.gke-itsm.cluster_endpoint}"
   load_config_file       = false
-  cluster_ca_certificate = base64decode(module.gke-operations.cluster_ca_certificate)
+  cluster_ca_certificate = base64decode(module.gke-itsm.cluster_ca_certificate)
   token                  = data.google_client_config.current.access_token
   version = "~> 1.10.0"
 }
 
-# Deploy gke-operations cluster helm pre-requisite resources
-module "gke_operations_helm_pre_req" {
+# Deploy gke-itsm cluster helm pre-requisite resources
+module "gke_itsm_helm_pre_req" {
   source = "../../helm-pre-requisites"
   providers = {
-    kubernetes = kubernetes.gke-operations
+    kubernetes = kubernetes.gke-itsm
   }
 }
 
 # Set GKE Operations cluster Helm provider
 provider "helm" {
-  alias = "gke-operations"
+  alias = "gke-itsm"
   kubernetes {
-    host                   = "https://${module.gke-operations.cluster_endpoint}"
+    host                   = "https://${module.gke-itsm.cluster_endpoint}"
     load_config_file       = false
-    cluster_ca_certificate = base64decode(module.gke-operations.cluster_ca_certificate)
+    cluster_ca_certificate = base64decode(module.gke-itsm.cluster_ca_certificate)
     token                  = data.google_client_config.current.access_token
   }
-  service_account = module.gke_operations_helm_pre_req.tiller_svc_accnt_name
+  service_account = module.gke_itsm_helm_pre_req.tiller_svc_accnt_name
   version = "~> 0.10.4"
 }
 

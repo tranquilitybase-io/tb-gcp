@@ -64,10 +64,10 @@ variable "shared_telemetry_project_name" {
   description = "Shared telemetry project name."
 }
 
-variable "shared_operations_project_name" {
+variable "shared_itsm_project_name" {
   type        = string
-  default     = "shared-operations"
-  description = "Shared operations project name."
+  default     = "shared-itsm"
+  description = "Shared itsm project name."
 }
 
 variable "shared_billing_project_name" {

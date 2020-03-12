@@ -31,7 +31,7 @@ Found 'Applications' (806674588542) folder.
 Found 'Shared Services' (276539436569) folder.
 Found shared-networking-d30792a7 project.
 Didn't find any application projects.
-Found shared-security-d30792a7 shared-telemetry-d30792a7 shared-operations-d30792a7 shared-ssp-d30792a7 shared-billing-d30792a7 tb-bastion-d30792a7  project(s).
+Found shared-security-d30792a7 shared-telemetry-d30792a7 shared-itsm-d30792a7 shared-ssp-d30792a7 shared-billing-d30792a7 tb-bastion-d30792a7  project(s).
 Found billing account AB1234-CD1234-EF1234.
 SHOULD THE ABOVE FOLDERS AND PROJECTS BE DELETED? (press Y to continue or any other key to abort) Y
 ```
@@ -69,10 +69,10 @@ You can undo this operation for a limited period by running the command below.
     $ gcloud projects undelete shared-telemetry-d30792a7
 
 See https://cloud.google.com/resource-manager/docs/creating-managing-projects for information on shutting down projects.
-Deleted [https://cloudresourcemanager.googleapis.com/v1/projects/shared-operations-d30792a7].
+Deleted [https://cloudresourcemanager.googleapis.com/v1/projects/shared-itsm-d30792a7].
 
 You can undo this operation for a limited period by running the command below.
-    $ gcloud projects undelete shared-operations-d30792a7
+    $ gcloud projects undelete shared-itsm-d30792a7
 
 See https://cloud.google.com/resource-manager/docs/creating-managing-projects for information on shutting down projects.
 Deleted [https://cloudresourcemanager.googleapis.com/v1/projects/shared-ssp-d30792a7].
