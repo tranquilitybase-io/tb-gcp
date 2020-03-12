@@ -58,7 +58,7 @@ ssp_repository_name = "SSP-activator-tf"
 #KUBERNETES SECRETS CLUSTER
 cluster_sec_subnetwork           = "shared-secrets-snet"
 cluster_sec_service_account      = "kubernetes-sec"
-cluster_sec_name                 = "gke-sec-test"
+cluster_sec_name                 = "gke-sec"
 cluster_sec_pool_name            = "gke-sec-node-pool"
 cluster_sec_enable_private_nodes = "true"
 cluster_sec_master_cidr          = "172.16.0.16/28"
