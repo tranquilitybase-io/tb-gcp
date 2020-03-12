@@ -97,9 +97,10 @@ The screen shows the progress of the deployment. This shouldn't take longer than
 Upon deployment completion, the section next steps informs of how you can:
 - open an SSH connection into the the Tranquility Base bootstrap server (called 'tb011f7b-bootstrap-vm' in the example) 
 that has just been deployed. 
-- Run the following command to deploy the Landing Zone. Logs will be output to /var/log/bootstrap.log
+- Run the following commands to deploy the Landing Zone
+    - `sudo chmod +x /opt/tb/repo/tb-gcp-tr/landingZone/tb-welcome`
     - `sudo /opt/tb/repo/tb-gcp-tr/landingZone/tb-welcome`
-        
+
 - connect into the Eagle Console to choose some deployment options and complete the Landing Zone deployment
 
 ![Open Cloud shell](./img/deployed.png)
