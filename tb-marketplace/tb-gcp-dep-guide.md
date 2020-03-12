@@ -6,7 +6,7 @@ The following pre-requisities must be fulfilled to deploy Tranquility Base from 
 
 - You must hold the owner role on the Folder (or Organisation) where the Tranquility Base resource
  hierarchy will be created
- 
+  
 - You must hold the billing admin role on the Billing Account that will be associated with the Tranquility Base consumption
 
 - An initial configuration must exist (see below)
@@ -98,7 +98,8 @@ The screen shows the progress of the deployment. This shouldn't take longer than
 #### After...
 Upon deployment completion, the section next steps informs of how you can:
 - open an SSH connection into the the Tranquility Base bootstrap server (called 'tb011f7b-bootstrap-vm' in the example) 
-that has just been deployed. 
+that has just been deployed.
+
 - Run the following commands to deploy the Landing Zone
     - `sudo su`
     - `cd /opt/tb/repo/tb-gcp-tr/landingZone`
