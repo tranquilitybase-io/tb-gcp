@@ -118,7 +118,7 @@ resources:
     type: vm_instance.py
     properties:
       instanceName: {{ instanceName }}
-      sourceImage: https://www.googleapis.com/compute/v1/projects/gft-group-public/global/images/tranquility-base-bootstrap-master
+      sourceImage: https://www.googleapis.com/compute/v1/projects/tb-marketplace-dev/global/images/tranquility-base-bootstrap-issue-180
       zone: {{ zone }}
       region: {{ region }}
       machineType: {{ machineType }}
@@ -154,9 +154,6 @@ resources:
         terraform_state_bucket_name="{{ bucketName }}"
         clusters_master_whitelist_ip="$(ref.{{ tbDiscriminator }}-ip.address)"
         EOF
-
-        # Create TF state bucket
-        gsutil mb gs://{{ bucketName }}/
 
         echo "STARTUP COMPLETE"
       tags:

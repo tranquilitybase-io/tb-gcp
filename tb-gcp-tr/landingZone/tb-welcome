@@ -18,6 +18,9 @@ cd /opt/tb/repo/tb-gcp-tr/landingZone/no-itop
 #Retrieve terraform vars
 source input.auto.tfvars
 
+# Create TF state bucket
+sudo gsutil mb "gs://${terraform_state_bucket_name}/"
+
 MAX_ATTEMPTS=10
 MAX_ATTEMPTS_INIT=3
 DELAY_BETWEEN_ATTEMPTS=60
@@ -72,8 +75,8 @@ done
 
 # Commit current TB terraform code to GCR
 cd /tmp
-gcloud source repos create tb-terraform-code
-gcloud source repos clone tb-terraform-code
+sudo gcloud source repos create tb-terraform-code
+sudo gcloud source repos clone tb-terraform-code
 cd /tmp/tb-terraform-code
 rsync -a /opt/tb/repo/ .
 git init

@@ -77,5 +77,5 @@ runtime:
 annotations:
   autogenSpecType: SINGLE_VM
   vmImage0: >-
-    https://www.googleapis.com/compute/v1/projects/gft-group-public/global/images/tranquility-base-bootstrap-master
+    https://www.googleapis.com/compute/v1/projects/tb-marketplace-dev/global/images/tranquility-base-issue-180
 metadata_version: v1
