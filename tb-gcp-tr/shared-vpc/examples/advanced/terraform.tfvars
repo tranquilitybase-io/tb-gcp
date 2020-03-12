@@ -22,7 +22,7 @@ standard_network_subnets = [
         CIDR = "10.0.1.0/24"
     },
     {
-        Name = "security"
+        Name = "secrets"
         CIDR = "10.0.2.0/24"
     },
     {

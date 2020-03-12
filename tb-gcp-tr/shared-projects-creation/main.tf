@@ -24,9 +24,9 @@ resource "google_project" "shared_networking" {
   auto_create_network = false
 }
 
-resource "google_project" "shared_security" {
-  name                = "${var.shared_security_project_name}-${random_id.project.hex}"
-  project_id          = "${var.shared_security_project_name}-${random_id.project.hex}"
+resource "google_project" "shared_secrets" {
+  name                = "${var.shared_secrets_project_name}-${random_id.project.hex}"
+  project_id          = "${var.shared_secrets_project_name}-${random_id.project.hex}"
   folder_id           = var.root_id
   billing_account     = var.billing_account_id
   auto_create_network = false
