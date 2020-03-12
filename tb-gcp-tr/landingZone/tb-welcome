@@ -12,8 +12,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-exec >> /var/log/bootstrap.log 2>&1
+log_file="/var/log/bootstrap.log"
+exec &> >(tee -a "$log_file")
+echo "Time start:"`date
 cd /opt/tb/repo/tb-gcp-tr/landingZone/no-itop
 #Retrieve terraform vars
 source input.auto.tfvars
@@ -87,5 +88,5 @@ git init
 git add .
 git commit -m "Landing zone terraform script"
 git push -u origin master
-
+echo "Time end:"`date
 

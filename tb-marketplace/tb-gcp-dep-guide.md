@@ -35,7 +35,7 @@ $ chmod +x tb-config-creator
 ### 4.Execute script
 #### Print help
 If you execute the script without any parameter, a help message will be displayed. This message informs about two things:
-1. The need to run the script with elevatd permissions
+1. The need to run the script with elevated permissions
 2. The parameters required to run the script (Folder ID and Billing Account are required)
 
 
@@ -49,7 +49,7 @@ $ ./tb-config-creator -f 705953663545 -b F9C122-73127B-50AE5B
 The script verifies that both are valid entries 
 (it will fail if you have no permissions into them both) and then it lists the configuration that is about to be created.
 
-You'll be prompted to continue the configuratioen:
+You'll be prompted to continue the configuration:
 
 ![Open Cloud shell](./img/run.png)
 
@@ -98,8 +98,9 @@ Upon deployment completion, the section next steps informs of how you can:
 - open an SSH connection into the the Tranquility Base bootstrap server (called 'tb011f7b-bootstrap-vm' in the example) 
 that has just been deployed. 
 - Run the following commands to deploy the Landing Zone
-    - `sudo chmod +x /opt/tb/repo/tb-gcp-tr/landingZone/tb-welcome`
-    - `sudo /opt/tb/repo/tb-gcp-tr/landingZone/tb-welcome`
+    - `sudo su`
+    - `cd /opt/tb/repo/tb-gcp-tr/landingZone`
+    - `./tb-welcome`
 
 - connect into the Eagle Console to choose some deployment options and complete the Landing Zone deployment
 
