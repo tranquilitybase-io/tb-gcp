@@ -6,6 +6,8 @@ The following pre-requisities must be fulfilled to deploy Tranquility Base from 
 
 - You must hold the owner role on the Folder (or Organisation) where the Tranquility Base resource
  hierarchy will be created
+  
+- You must hold the billing admin role on the Billing Account that will be associated with the Tranquility Base consumption
 
 - An initial configuration must exist (see below)
 
@@ -20,7 +22,7 @@ From the GCP console open the Cloud Shell:
 ### 2.Download script 
 Download the configurator script hosted in Github by running the following command:
 ```
-$ wget https://raw.githubusercontent.com/tranquilitybase-io/tb-gcp/master/tb-marketplace/tb-config-creator/tb-config-creator
+wget https://raw.githubusercontent.com/tranquilitybase-io/tb-gcp/master/tb-marketplace/tb-config-creator/tb-config-creator
 ```
 
 ![Open Cloud shell](./img/download.png)
@@ -96,8 +98,12 @@ The screen shows the progress of the deployment. This shouldn't take longer than
 #### After...
 Upon deployment completion, the section next steps informs of how you can:
 - open an SSH connection into the the Tranquility Base bootstrap server (called 'tb011f7b-bootstrap-vm' in the example) 
-that has just been deployed. (The basic Landing Zone is being deployed from this server using Terraform code and it may 
-take up to **15 mins** to finish.)
+that has just been deployed.
+
+- Run the following commands to deploy the Landing Zone
+    - `sudo su`
+    - `cd /opt/tb/repo/tb-gcp-tr/landingZone`
+    - `./tb-welcome`
 
 - connect into the Eagle Console to choose some deployment options and complete the Landing Zone deployment
 

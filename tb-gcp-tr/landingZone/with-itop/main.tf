@@ -67,7 +67,7 @@ module "shared_projects" {
   root_id                        = module.folder_structure.shared_services_id
   billing_account_id             = var.billing_account_id
   shared_networking_project_name = var.shared_networking_project_name
-  shared_security_project_name   = var.shared_security_project_name
+  shared_secrets_project_name   = var.shared_secrets_project_name
   shared_telemetry_project_name  = var.shared_telemetry_project_name
   shared_itsm_project_name = var.shared_itsm_project_name
   shared_billing_project_name    = var.shared_billing_project_name
@@ -81,7 +81,7 @@ module "apis_activation" {
   bastion_project_id              = module.shared_projects.tb_bastion_id
   host_project_id         = module.shared_projects.shared_networking_id
   service_projects_number = var.service_projects_number
-  service_project_ids     = [module.shared_projects.shared_security_id, module.shared_projects.shared_itsm_id, module.shared_projects.shared_ssp_id]
+  service_project_ids     = [module.shared_projects.shared_secrets_id, module.shared_projects.shared_itsm_id, module.shared_projects.shared_ssp_id]
 }
 
 module "shared-vpc" {
@@ -100,7 +100,7 @@ module "shared-vpc" {
   create_nat_gateway       = var.create_nat_gateway
   router_nat_name          = var.router_nat_name
   service_projects_number  = var.service_projects_number
-  service_project_ids      = [module.shared_projects.shared_security_id, module.shared_projects.shared_itsm_id, module.shared_projects.shared_ssp_id]
+  service_project_ids      = [module.shared_projects.shared_secrets_id, module.shared_projects.shared_itsm_id, module.shared_projects.shared_ssp_id]
 }
 
 module "gke-ssp" {
@@ -150,7 +150,7 @@ resource "google_sourcerepo_repository" "SSP" {
   depends_on = [module.apis_activation]
 }
 
-module "gke-security" {
+module "gke-secrets" {
   source = "../../kubernetes-cluster-creation"
 
   providers = {
@@ -163,7 +163,7 @@ module "gke-security" {
   sharedvpc_network    = var.shared_vpc_name
 
   cluster_enable_private_nodes  = var.cluster_sec_enable_private_nodes
-  cluster_project_id            = module.shared_projects.shared_security_id
+  cluster_project_id            = module.shared_projects.shared_secrets_id
   cluster_subnetwork            = var.cluster_sec_subnetwork
   cluster_service_account       = var.cluster_sec_service_account
   cluster_service_account_roles = var.cluster_sec_service_account_roles
@@ -196,20 +196,20 @@ module "gke-security" {
 module "vault" {
   source = "../../vault"
 
-  vault_cluster_project             = module.shared_projects.shared_security_id
+  vault_cluster_project             = module.shared_projects.shared_secrets_id
   vault-gcs-location                = var.location
   vault-region                      = var.region
   vault_keyring_name                = var.sec-vault-keyring
   vault_crypto_key_name             = var.sec-vault-crypto-key-name
   vault-lb                          = var.sec-lb-name
-  vault-sa                          = module.gke-security.cluster_sa
-  vault-gke-sec-endpoint            = module.gke-security.cluster_endpoint
-  vault-gke-sec-master-auth-ca-cert = module.gke-security.cluster_endpoint
-  vault-gke-sec-username            = module.gke-security.cluster_master_auth_username
-  vault-gke-sec-password            = module.gke-security.cluster_master_auth_password
-  vault-gke-sec-client-ca           = module.gke-security.cluster_master_auth_0_client_certificate
-  vault-gke-sec-client-key          = module.gke-security.cluster_master_auth_0_client_key
-  vault-gke-sec-cluster_ca_cert     = module.gke-security.cluster_master_auth_0_cluster_ca_certificate
+  vault-sa                          = module.gke-secrets.cluster_sa
+  vault-gke-sec-endpoint            = module.gke-secrets.cluster_endpoint
+  vault-gke-sec-master-auth-ca-cert = module.gke-secrets.cluster_endpoint
+  vault-gke-sec-username            = module.gke-secrets.cluster_master_auth_username
+  vault-gke-sec-password            = module.gke-secrets.cluster_master_auth_password
+  vault-gke-sec-client-ca           = module.gke-secrets.cluster_master_auth_0_client_certificate
+  vault-gke-sec-client-key          = module.gke-secrets.cluster_master_auth_0_client_key
+  vault-gke-sec-cluster_ca_cert     = module.gke-secrets.cluster_master_auth_0_cluster_ca_certificate
   vault-gke-sec-name                = var.cluster_sec_name
 
   vault-cert-common-name  = var.cert-common-name

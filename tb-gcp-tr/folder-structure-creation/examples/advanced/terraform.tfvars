@@ -20,7 +20,7 @@ root_is_org = "false"
 
 shared_services_projects = [
     "shared-itsm",
-    "shared-security",
+    "shared-secrets",
     "shared-billing",
     "shared-telemetry"
 ]
