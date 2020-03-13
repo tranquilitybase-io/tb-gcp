@@ -155,6 +155,7 @@ echo "Adding permissions at the project level... "
 gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.instanceAdmin.v1 --format=none
 gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/storage.admin --format=none
 gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/source.admin --format=none
+gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/logging.admin --format=none
 
 # Add permissions at the folder level
 echo "Adding permissions at the folder level..."
