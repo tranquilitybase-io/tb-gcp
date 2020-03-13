@@ -20,7 +20,7 @@ metadata:
     app: eagleconsole
 spec:
   ports:
-    - port: 30001
+    - port: 80
       targetPort: 80
       name: http
     - port: 443
@@ -92,26 +92,18 @@ spec:
   gateways:
     - mygateway
   http:
-    - match:
-        - uri:
-            prefix: /
-      route:
+    - route:
         - destination:
             host: eagleconsole
             port:
-              number: 30001
-      corsPolicy:
-        allowOrigin:
-          - "*"
-        allowMethods:
-          - POST
-          - GET
-          - OPTIONS
-          - PUT
-          - PATCH
-          - DELETE
-        allowHeaders:
-          - content-type
+              number: 80
+        corsPolicy:
+          allowOrigin:
+            - "*"
+          allowMethods:
+            - "*"
+          allowHeaders:
+            - "*"
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
