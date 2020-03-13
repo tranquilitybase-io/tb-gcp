@@ -16,7 +16,7 @@
 shared_networking_project_name = "shared-networking"
 shared_secrets_project_name   = "shared-secrets"
 shared_telemetry_project_name  = "shared-telemetry"
-shared_operations_project_name = "shared-operations"
+shared_itsm_project_name = "shared-itsm"
 shared_billing_project_name    = "shared-billing"
 tb_bastion_project_name = "tb-bastion"
 
@@ -31,7 +31,7 @@ standard_network_subnets = [{
 cidr = "10.0.0.0/24" }]
 enable_flow_logs = "false"
 gke_network_subnets = [{ name = "shared-ssp-snet", cidr = "10.0.1.0/24", pod_cidr = "10.1.0.0/17", service_cidr = "10.1.128.0/20" },
-  { name = "shared-operations-snet", cidr = "10.0.2.0/24", pod_cidr = "10.2.0.0/17", service_cidr = "10.2.128.0/20" },
+  { name = "shared-itsm-snet", cidr = "10.0.2.0/24", pod_cidr = "10.2.0.0/17", service_cidr = "10.2.128.0/20" },
   { name = "shared-secrets-snet", cidr = "10.0.3.0/24", pod_cidr = "10.3.0.0/17", service_cidr = "10.3.128.0/20" },
   { name = "activator-project-snet", cidr = "10.0.4.0/24", pod_cidr = "10.4.0.0/17", service_cidr = "10.4.128.0/20" },
 { name = "workspace-project-snet", cidr = "10.0.5.0/24", pod_cidr = "10.5.0.0/17", service_cidr = "10.5.128.0/20" }]
@@ -74,7 +74,7 @@ sec-vault-keyring = "vault"
 location          = "EU"
 
 #KUBERNETES OPERATIONS CLUSTER
-cluster_opt_subnetwork           = "shared-operations-snet"
+cluster_opt_subnetwork           = "shared-itsm-snet"
 cluster_opt_service_account      = "kubernetes-opt"
 cluster_opt_name                 = "gke-opt"
 cluster_opt_pool_name            = "gke-opt-node-pool"

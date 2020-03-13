@@ -33,9 +33,9 @@ resource "google_project" "shared_secrets" {
   depends_on          = [google_project.shared_networking]
 }
 
-resource "google_project" "shared_operations" {
-  name                = "${var.shared_operations_project_name}-${random_id.project.hex}"
-  project_id          = "${var.shared_operations_project_name}-${random_id.project.hex}"
+resource "google_project" "shared_itsm" {
+  name                = "${var.shared_itsm_project_name}-${random_id.project.hex}"
+  project_id          = "${var.shared_itsm_project_name}-${random_id.project.hex}"
   folder_id           = var.root_id
   billing_account     = var.billing_account_id
   auto_create_network = false
