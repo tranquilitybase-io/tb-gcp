@@ -14,7 +14,7 @@
 
 # CREATE GCP BUCKET TO STORE THE WEBSITE CONTENT
 
-resource "google_storage_bucket" "ssp-ui-static-files" {
+resource "google_storage_bucket" "ec-ui-static-files" {
   name          = "${var.bucket_name}-${var.project_id}"
   location      = var.bucket_location
   project       = var.project_id
@@ -32,25 +32,25 @@ resource "google_storage_bucket" "ssp-ui-static-files" {
 }
 
 # PUSH CONTENT TO THE BUCKET
-resource "null_resource" "sync-ssp-ui-buckets" {
+resource "null_resource" "sync-ec-ui-buckets" {
   count = var.source_bucket == "" ? 0 : 1
   provisioner "local-exec" {
-    command = "gsutil rsync -r gs://${var.source_bucket} gs://${google_storage_bucket.ssp-ui-static-files.name}"
+    command = "gsutil rsync -r gs://${var.source_bucket} gs://${google_storage_bucket.ec-ui-static-files.name}"
   }
 
   provisioner "local-exec" {
-    command = "gsutil rm -r gs://${google_storage_bucket.ssp-ui-static-files.name}/*"
+    command = "gsutil rm -r gs://${google_storage_bucket.ec-ui-static-files.name}/*"
     when    = destroy
   }
 
   depends_on = [
-    google_storage_bucket.ssp-ui-static-files
+    google_storage_bucket.ec-ui-static-files
   ]
 }
 
-resource "null_resource" "ssp_gke_cluster_endpoint_retrieved" {
+resource "null_resource" "ec_gke_cluster_endpoint_retrieved" {
   triggers = {
-    ssp_gke_cluster = var.ssp_gke_dependency
+    ec_gke_cluster = var.ec_gke_dependency
   }
 }
 
@@ -58,30 +58,30 @@ resource "null_resource" "copy-endpoint-meta" {
   provisioner "local-exec" {
     command = "cp ${var.endpoint_file} ${var.ui-source-local}/dist/tb-self-service-portal/assets/"
   }
-  depends_on = [null_resource.ssp_gke_cluster_endpoint_retrieved]
+  depends_on = [null_resource.ec_gke_cluster_endpoint_retrieved]
 }
 
-data "archive_file" "archive-ssp-ui" {
+data "archive_file" "archive-ec-ui" {
   type        = "zip"
   source_dir  = "${var.ui-source-local}/dist/"
-  output_path = "${var.ui-source-local}/${var.ssp-ui-zip}"
+  output_path = "${var.ui-source-local}/${var.ec-ui-zip}"
 
   depends_on = [null_resource.copy-endpoint-meta]
 }
 
-resource "google_storage_bucket_object" "ssp-ui-upload" {
-  name   = var.ssp-ui-zip
-  source = "${var.ui-source-local}/${var.ssp-ui-zip}"
-  bucket = google_storage_bucket.ssp-ui-static-files.name
+resource "google_storage_bucket_object" "ec-ui-upload" {
+  name   = var.ec-ui-zip
+  source = "${var.ui-source-local}/${var.ec-ui-zip}"
+  bucket = google_storage_bucket.ec-ui-static-files.name
   depends_on = [
     null_resource.copy-endpoint-meta,
-    google_storage_bucket.ssp-ui-static-files,
-    data.archive_file.archive-ssp-ui,
+    google_storage_bucket.ec-ui-static-files,
+    data.archive_file.archive-ec-ui,
   ]
 }
 
 # CREATE GAE STANDARD APPLICATION TO HOST SSP UI
-resource "google_app_engine_standard_app_version" "ssp-ui-deploy" {
+resource "google_app_engine_standard_app_version" "ec-ui-deploy" {
   version_id      = var.gae-version
   service         = var.gae-service
   runtime         = var.gae-runtime
@@ -106,9 +106,9 @@ resource "google_app_engine_standard_app_version" "ssp-ui-deploy" {
   }
   deployment {
     zip {
-      source_url = "https://storage.googleapis.com/${google_storage_bucket.ssp-ui-static-files.name}/${var.ssp-ui-zip}"
+      source_url = "https://storage.googleapis.com/${google_storage_bucket.ec-ui-static-files.name}/${var.ec-ui-zip}"
     }
   }
-  depends_on = [google_storage_bucket_object.ssp-ui-upload]
+  depends_on = [google_storage_bucket_object.ec-ui-upload]
 }
 

@@ -13,7 +13,7 @@
 # limitations under the License.
 
 output "self_link" {
-  value = google_storage_bucket.ssp-ui-static-files.self_link
+  value = google_storage_bucket.ec-ui-static-files.self_link
 }
 
 output "bucket_name" {

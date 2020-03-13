@@ -77,11 +77,11 @@ module "shared_projects" {
 module "apis_activation" {
   source = "../../apis-activation"
 
-  ssp_project_id          = module.shared_projects.shared_ssp_id
+  ec_project_id          = module.shared_projects.shared_ec_id
   bastion_project_id              = module.shared_projects.tb_bastion_id
   host_project_id         = module.shared_projects.shared_networking_id
   service_projects_number = var.service_projects_number
-  service_project_ids     = [module.shared_projects.shared_secrets_id, module.shared_projects.shared_itsm_id, module.shared_projects.shared_ssp_id]
+  service_project_ids     = [module.shared_projects.shared_secrets_id, module.shared_projects.shared_itsm_id, module.shared_projects.shared_ec_id]
 }
 
 module "shared-vpc" {
@@ -100,10 +100,10 @@ module "shared-vpc" {
   create_nat_gateway       = var.create_nat_gateway
   router_nat_name          = var.router_nat_name
   service_projects_number  = var.service_projects_number
-  service_project_ids      = [module.shared_projects.shared_secrets_id, module.shared_projects.shared_itsm_id, module.shared_projects.shared_ssp_id]
+  service_project_ids      = [module.shared_projects.shared_secrets_id, module.shared_projects.shared_itsm_id, module.shared_projects.shared_ec_id]
 }
 
-module "gke-ssp" {
+module "gke-ec" {
   source = "../../kubernetes-cluster-creation"
 
   providers = {
@@ -115,15 +115,15 @@ module "gke-ssp" {
   sharedvpc_project_id = module.shared_projects.shared_networking_id
   sharedvpc_network    = var.shared_vpc_name
 
-  cluster_enable_private_nodes = var.cluster_ssp_enable_private_nodes
-  cluster_project_id           = module.shared_projects.shared_ssp_id
-  cluster_subnetwork           = var.cluster_ssp_subnetwork
-  cluster_service_account      = var.cluster_ssp_service_account
-  cluster_name                 = var.cluster_ssp_name
-  cluster_pool_name            = var.cluster_ssp_pool_name
-  cluster_master_cidr          = var.cluster_ssp_master_cidr
+  cluster_enable_private_nodes = var.cluster_ec_enable_private_nodes
+  cluster_project_id           = module.shared_projects.shared_ec_id
+  cluster_subnetwork           = var.cluster_ec_subnetwork
+  cluster_service_account      = var.cluster_ec_service_account
+  cluster_name                 = var.cluster_ec_name
+  cluster_pool_name            = var.cluster_ec_pool_name
+  cluster_master_cidr          = var.cluster_ec_master_cidr
   cluster_master_authorized_cidrs = concat(
-  var.cluster_ssp_master_authorized_cidrs,
+  var.cluster_ec_master_authorized_cidrs,
   [
     merge(
     {

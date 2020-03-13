@@ -71,8 +71,8 @@ variable "ui-dist-dir" {
   default     = "tb-self-service-portal"
 }
 
-variable "ssp-ui-zip" {
-  default = "ssp-ui.zip"
+variable "ec-ui-zip" {
+  default = "ec-ui.zip"
 }
 
 variable "gae-version" {
@@ -84,7 +84,7 @@ variable "ui-source-local" {
   default = "/opt/tb/repo/tb-self-service-portal-ui"
 }
 
-variable "ssp_gke_dependency" {
+variable "ec_gke_dependency" {
   description = "Flag to control whether SSP GKE cluster has been created"
 }
 

@@ -85,8 +85,8 @@ LZ_DISCRIMINATOR="tb${BS_RND_ID}"
 PREFIX="bootstrap-tb-"
 PROJECT_ID=${PREFIX}${BS_RND_ID}
 SA_EMAIL="${PREFIX}sa@${PROJECT_ID}.iam.gserviceaccount.com"
-ACTIVATOR_SA_EMAIL="activator-dev-sa@shared-ssp-${SS_RND_ID}.iam.gserviceaccount.com"
-# activator-dev-sa@shared-ssp-bac7b828.iam.gserviceaccount.com
+ACTIVATOR_SA_EMAIL="activator-dev-sa@shared-ec-${SS_RND_ID}.iam.gserviceaccount.com"
+# activator-dev-sa@shared-ec-bac7b828.iam.gserviceaccount.com
 
 # Collect bootstrap project name
 bootstrap_project=$(gcloud projects list --format='value(projectId)' --filter="projectId=${PROJECT_ID}")
