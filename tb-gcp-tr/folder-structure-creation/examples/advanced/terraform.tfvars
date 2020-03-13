@@ -19,7 +19,7 @@ root_id = "0123456789"
 root_is_org = "false"
 
 shared_services_projects = [
-    "shared-operations",
+    "shared-itsm",
     "shared-secrets",
     "shared-billing",
     "shared-telemetry"
