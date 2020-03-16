@@ -222,7 +222,7 @@ echo "Removing bootstrap service account [${SA_EMAIL}] bindings at the project l
 gcloud projects remove-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.instanceAdmin.v1 --format=none
 gcloud projects remove-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/storage.admin --format=none
 gcloud projects remove-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/source.admin --format=none
-# gcloud projects remove-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/logging.admin --format=none
+gcloud projects remove-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/logging.logWriter --format=none
 
 # remove permissions at the folder level
 echo "Removing bootstrap service account [${SA_EMAIL}] bindings at the folder level... "
