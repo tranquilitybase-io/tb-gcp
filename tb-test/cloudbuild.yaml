@@ -15,7 +15,7 @@ steps:
       - image_zone=$_IMAGE_ZONE
       - -var
       - tb_repos_root_path=.
-      - tb-gcp-deploy/pack/packer-no-itop.json
+      - tb-gcp-deploy/pack/packer.json
 
   - id: Label image
     name: 'gcr.io/cloud-builders/gcloud'
