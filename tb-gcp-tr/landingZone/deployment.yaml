@@ -11,61 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-apiVersion: v1
-kind: Service
-metadata:
-  name: eagleconsole
-  labels:
-    app: eagleconsole
-spec:
-  ports:
-    - port: 80
-      targetPort: 80
-      name: http
-    - port: 443
-      targetPort: 80
-      name: https
-  selector:
-    app: eagleconsole
----
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
-  name: eagleconsole-v1
-spec:
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: eagleconsole
-        version: v1
-    spec:
-      containers:
-        - name: eagleconsole
-          image: gcr.io/tranquility-base-images/tb-eagle-console-ui:alpha
-          resources:
-            requests:
-              cpu: "100m"
-          imagePullPolicy: IfNotPresent #Always
-          ports:
-            - containerPort: 80
-          volumeMounts:
-            - name: config-volume
-              mountPath: /app/ssp-config.yaml
-              subPath: ssp-config.yaml
-            - name: google-cloud-key
-              mountPath: /var/secrets/google
-          env:
-            - name: GOOGLE_APPLICATION_CREDENTIALS
-              value: /var/secrets/google/ssp-service-account-config.json
-      volumes:
-        - name: config-volume
-          configMap:
-            name: ssp-config
-        - name: google-cloud-key
-          secret:
-            secretName: ssp-service-account
----
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -96,23 +42,23 @@ spec:
         version: v1
     spec:
       containers:
-      - name: selfservice
-        image: gcr.io/tranquility-base-images/self-service-portal:v32
-        resources:
-          requests:
-            cpu: "100m"
-        imagePullPolicy: IfNotPresent #Always
-        ports:
-          - containerPort: 5000
-        volumeMounts:
-        - name: config-volume
-          mountPath: /app/ssp-config.yaml
-          subPath: ssp-config.yaml
-        - name: google-cloud-key
-          mountPath: /var/secrets/google
-        env:
-          - name: GOOGLE_APPLICATION_CREDENTIALS
-            value: /var/secrets/google/ssp-service-account-config.json
+        - name: selfservice
+          image: gcr.io/tranquility-base-images/self-service-portal:v32
+          resources:
+            requests:
+              cpu: "100m"
+          imagePullPolicy: IfNotPresent #Always
+          ports:
+            - containerPort: 5000
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/ssp-config.yaml
+              subPath: ssp-config.yaml
+            - name: google-cloud-key
+              mountPath: /var/secrets/google
+          env:
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /var/secrets/google/ssp-service-account-config.json
       volumes:
         - name: config-volume
           configMap:
@@ -129,17 +75,17 @@ spec:
   selector:
     istio: ingressgateway # use istio default controller
   servers:
-  - port:
-      number: 80
-      name: http
-      protocol: HTTP
-    hosts:
-    - "*"
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - "*"
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: routes
+  name: selfservice
 spec:
   hosts:
     - "*"
@@ -156,7 +102,7 @@ spec:
       route:
         - destination:
             host: selfservice
-            port: 
+            port:
               number: 80
       corsPolicy:
         allowOrigin:
@@ -170,11 +116,6 @@ spec:
           - DELETE
         allowHeaders:
           - content-type
-    - route:
-        - destination:
-            host: eagleconsole
-            port:
-              number: 80
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
@@ -231,14 +172,11 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
-  name: destinationrules
+  name: selfservice
   annotations:
     cloud.google.com/load-balancer-type: "Internal"
 spec:
-  hosts:
-    - selfservice
-    - eagleconsole
+  host: selfservice
   trafficPolicy:
     loadBalancer:
       simple: LEAST_CONN
-      
