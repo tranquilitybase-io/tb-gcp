@@ -92,18 +92,27 @@ spec:
   gateways:
     - mygateway
   http:
-    - route:
+    - match:
+        - uri:
+            prefix: /
+      route:
         - destination:
             host: eagleconsole
             port:
               number: 80
-        corsPolicy:
-          allowOrigin:
-            - "*"
-          allowMethods:
-            - "*"
-          allowHeaders:
-            - "*"
+      corsPolicy:
+        allowOrigin:
+          - "*"
+        allowMethods:
+          - POST
+          - GET
+          - OPTIONS
+          - PUT
+          - PATCH
+          - DELETE
+        allowHeaders:
+          - "*"
+
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
@@ -168,4 +177,3 @@ spec:
   trafficPolicy:
     loadBalancer:
       simple: LEAST_CONN
-
