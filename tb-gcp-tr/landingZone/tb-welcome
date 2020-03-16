@@ -14,7 +14,6 @@
 # limitations under the License.
 exec >  >(tee -ia "/var/log/bootstrap.log")
 exec 2> >(tee -ia "/var/log/bootstrap.log" >&2)
-# exec 1> >(logger -s -t $(basename $0)) 2>&1
 
 date=$(date '+%Y-%m-%d %H:%M:%S')
 echo "Time start: ${date}"
