@@ -7,7 +7,7 @@
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
-      "prefix": "tb-ssp",
+      "prefix": "tb-ec",
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"

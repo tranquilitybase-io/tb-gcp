@@ -21,7 +21,7 @@ import { DeploymentsService } from 'src/app/dashboard/services/deployments.servi
 import { DeploymentsIDBs } from 'src/app/models/deploymentsIDB.model';
 
 @Component({
-  selector: 'tb-ssp-active-deployments-form',
+  selector: 'tb-ec-active-deployments-form',
   templateUrl: './active-deployments-form.component.html',
   styleUrls: ['./active-deployments-form.component.scss']
 })

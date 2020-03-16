@@ -299,7 +299,7 @@ module "k8s-ec_context" {
   cluster_name    = var.cluster_ec_name
   region = var.region
   cluster_project = module.shared_projects.shared_ssp_id
-  dependency_var  = module.gke-ssp.node_id
+  dependency_var  = module.gke-ec.node_id
 }
 
 resource "null_resource" "kubernetes_service_account_key_secret" {
@@ -308,11 +308,11 @@ resource "null_resource" "kubernetes_service_account_key_secret" {
   }
 
   provisioner "local-exec" {
-    command = "kubectl --context=${module.k8s-ssp_context.context_name} create secret generic ssp-service-account --from-file=${local_file.ssp_service_account_key.filename}"
+    command = "kubectl --context=${module.k8s-ssp_context.context_name} create secret generic ec-service-account --from-file=${local_file.ssp_service_account_key.filename}"
   }
 
   provisioner "local-exec" {
-    command = "kubectl --context=${module.k8s-ssp_context.context_name} delete secret ssp-service-account"
+    command = "kubectl --context=${module.k8s-ssp_context.context_name} delete secret ec-service-account"
     when    = destroy
   }
 }
@@ -381,12 +381,12 @@ resource "google_storage_bucket_object" "backend-endpoint" {
   ]
 }
 
-// add bucket to store terraform ssp activator state
+// add bucket to store terraform ec activator state
 resource "random_id" "activator_bucket_name" {
   byte_length = 4
 }
 
-resource "google_storage_bucket_iam_binding" "ssp-terraform-state-storage-admin" {
+resource "google_storage_bucket_iam_binding" "ec-terraform-state-storage-admin" {
   bucket = var.terraform_state_bucket_name
   role   = "roles/storage.admin"
 

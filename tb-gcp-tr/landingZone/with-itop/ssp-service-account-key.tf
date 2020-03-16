@@ -53,6 +53,6 @@ resource "google_service_account_key" "mykey" {
 
 resource "local_file" "ssp_service_account_key" {
   content  = base64decode(google_service_account_key.mykey.private_key)
-  filename = "/tmp/tb-gcp-tr/bootstrap/ssp-service-account-config.json"
+  filename = "/tmp/tb-gcp-tr/bootstrap/ec-service-account-config.json"
 }
 

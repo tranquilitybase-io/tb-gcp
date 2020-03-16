@@ -18,7 +18,7 @@ import { DeploymentsService } from 'src/app/dashboard/services/deployments.servi
 import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'tb-ssp-deployment-notes-modal',
+  selector: 'tb-ec-deployment-notes-modal',
   template: `
     <form [formGroup]="deploymentNotesForm">
       <div class="modal-header">

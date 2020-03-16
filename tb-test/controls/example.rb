@@ -8,7 +8,7 @@ control "gcp-single-region-1.0" do                                              
   impact 1.0                                                                          # The criticality, if this control fails.
   title "Ensure instance group exists."                            # A human-readable title
   desc "An optional description..."
-  describe google_compute_instance_group(project: gcp_project_id, zone: 'europe-west2-a', name: 'gke-gke-ssp-gke-ssp-node-pool-f7d86e1e-grp') do
+  describe google_compute_instance_group(project: gcp_project_id, zone: 'europe-west2-a', name: 'gke-gke-ec-gke-ec-node-pool-f7d86e1e-grp') do
 	it { should exist }
   end
 end

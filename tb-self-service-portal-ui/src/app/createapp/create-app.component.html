@@ -14,7 +14,7 @@ limitations under the License.
 -->
 
 <section class="container">
-    <tb-ssp-deployment-status [deploymentStatus]="deploymentStatus" [appName]="createdApp.name"></tb-ssp-deployment-status>
+    <tb-ec-deployment-status [deploymentStatus]="deploymentStatus" [appName]="createdApp.name"></tb-ec-deployment-status>
     <section *ngIf="deploymentStatus === DeploymentStatus.Idle">
       <header class="row create-app-navigation-header">
           <h1>Create a new application</h1>

@@ -23,12 +23,12 @@ def get_logger():
     :return: logging.Logger object
     """
 
-    logger = logging.getLogger('tb-ssp-gcp')
+    logger = logging.getLogger('tb-ec-gcp')
     logger.setLevel(logging.DEBUG)
 
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(funcName)s - %(levelname)s - %(message)s')
 
-    fh = logging.FileHandler(os.path.join(os.sep, 'var', 'log', 'tb-ssp-gcp.log'))
+    fh = logging.FileHandler(os.path.join(os.sep, 'var', 'log', 'tb-ec-gcp.log'))
     fh.setLevel(logging.DEBUG)
     fh.setFormatter(formatter)
 

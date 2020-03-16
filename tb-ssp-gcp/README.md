@@ -23,9 +23,9 @@ Make sure you're in the `tb-gcp` directory. Run following commands to create doc
 
 ```bash
 gcloud auth configure-docker
-docker build --no-cache -f tb-ssp-gcp/Dockerfile -t <name of your repository>:<version number> .
+docker build --no-cache -f tb-ec-gcp/Dockerfile -t <name of your repository>:<version number> .
 eg.
-docker build --no-cache -f tb-ssp-gcp/Dockerfile -t self-service-portal:v33 .
+docker build --no-cache -f tb-ec-gcp/Dockerfile -t self-service-portal:v33 .
 ```
 
 ### Tag image

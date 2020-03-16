@@ -52,10 +52,10 @@ variable "shared_billing_project_name" {
   description = "Shared billing project name."
 }
 
-variable "shared_ssp_project_name" {
+variable "shared_ec_project_name" {
   type        = string
-  default     = "shared-ssp"
-  description = "Shared ssp project name."
+  default     = "shared-ec"
+  description = "Shared ec project name."
 }
 
 variable "tb_bastion_project_name" {

@@ -30,7 +30,7 @@ standard_network_subnets = [{
   name = "shared-network-snet"
 cidr = "10.0.0.0/24" }]
 enable_flow_logs = "false"
-gke_network_subnets = [{ name = "shared-ssp-snet", cidr = "10.0.1.0/24", pod_cidr = "10.1.0.0/17", service_cidr = "10.1.128.0/20" },
+gke_network_subnets = [{ name = "shared-ec-snet", cidr = "10.0.1.0/24", pod_cidr = "10.1.0.0/17", service_cidr = "10.1.128.0/20" },
   { name = "shared-itsm-snet", cidr = "10.0.2.0/24", pod_cidr = "10.2.0.0/17", service_cidr = "10.2.128.0/20" },
   { name = "shared-secrets-snet", cidr = "10.0.3.0/24", pod_cidr = "10.3.0.0/17", service_cidr = "10.3.128.0/20" },
   { name = "activator-project-snet", cidr = "10.0.4.0/24", pod_cidr = "10.4.0.0/17", service_cidr = "10.4.128.0/20" },
@@ -39,10 +39,10 @@ gke_pod_network_name     = "gke-pods-snet"
 gke_service_network_name = "gke-services-snet"
 
 #KUBERNETES SSP CLUSTER
-cluster_ssp_subnetwork           = "shared-ssp-snet"
-cluster_ssp_service_account      = "kubernetes-ssp"
-cluster_ssp_name                 = "gke-ssp"
-cluster_ssp_pool_name            = "gke-ssp-node-pool"
+cluster_ssp_subnetwork           = "shared-ec-snet"
+cluster_ssp_service_account      = "kubernetes-ec"
+cluster_ssp_name                 = "gke-ec"
+cluster_ssp_pool_name            = "gke-ec-node-pool"
 cluster_ssp_enable_private_nodes = "true"
 cluster_ssp_master_cidr          = "172.16.0.0/28"
 cluster_ssp_master_authorized_cidrs = [

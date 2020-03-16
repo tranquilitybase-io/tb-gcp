@@ -33,14 +33,14 @@ FROM python:3.7
 RUN mkdir -p /opt/tb/repo
 COPY --from=tbcode /opt/tb/repo /opt/tb/repo/
 
-RUN mkdir -p /opt/ssp \
-    && mkdir -p /opt/ssp/bash \
+RUN mkdir -p /opt/ec \
+    && mkdir -p /opt/ec/bash \
     && mkdir -p /root/.ssh
 
-COPY tb-ssp-gcp/main.py /opt/ssp/
-COPY tb-ssp-gcp/requirements.txt /opt/ssp/
-COPY tb-ssp-gcp/modules /opt/ssp/modules/
-RUN ls -l /opt/ssp
+COPY tb-ec-gcp/main.py /opt/ec/
+COPY tb-ec-gcp/requirements.txt /opt/ec/
+COPY tb-ec-gcp/modules /opt/ec/modules/
+RUN ls -l /opt/ec
 
 # START install gcloud
 RUN curl https://dl.google.com/dl/cloudsdk/release/google-cloud-sdk.tar.gz > /tmp/google-cloud-sdk.tar.gz
@@ -51,7 +51,7 @@ ENV PATH $PATH:/usr/local/gcloud/google-cloud-sdk/bin
 RUN gcloud components install beta kubectl --quiet
 # END install gcloud
 
-RUN pip install -r /opt/ssp/requirements.txt
+RUN pip install -r /opt/ec/requirements.txt
 
 RUN  apt-get update -y && \
      apt-get upgrade -y && \
@@ -66,16 +66,16 @@ RUN apt-get install -y p7zip \
 RUN apt-get install -y git
 RUN apt-get install -y dos2unix
 
-COPY tb-ssp-gcp/git_bash_scripts /opt/ssp/bash/
-COPY tb-ssp-gcp/tf_create_subnets /opt/ssp/tf_create_subnets/
+COPY tb-ec-gcp/git_bash_scripts /opt/ec/bash/
+COPY tb-ec-gcp/tf_create_subnets /opt/ec/tf_create_subnets/
 
-RUN chmod +x /opt/ssp/bash/commit_changes.sh && \
-    chmod +x /opt/ssp/bash/git_init.sh && \
-    chmod +x /opt/ssp/bash/pull_changes.sh
+RUN chmod +x /opt/ec/bash/commit_changes.sh && \
+    chmod +x /opt/ec/bash/git_init.sh && \
+    chmod +x /opt/ec/bash/pull_changes.sh
 
-RUN dos2unix /opt/ssp/bash/commit_changes.sh && \
-    dos2unix /opt/ssp/bash/git_init.sh && \
-    dos2unix /opt/ssp/bash/pull_changes.sh
+RUN dos2unix /opt/ec/bash/commit_changes.sh && \
+    dos2unix /opt/ec/bash/git_init.sh && \
+    dos2unix /opt/ec/bash/pull_changes.sh
 
 ADD https://releases.hashicorp.com/terraform/0.12.17/terraform_0.12.17_linux_amd64.zip bin/
 RUN unzip -d bin/ bin/terraform_0.12.17_linux_amd64.zip
@@ -83,12 +83,12 @@ ENV PATH=$PATH:/
 
 # Enable Terraform logging
 ENV TF_LOG=ERROR
-ENV TF_LOG_PATH=/var/log/tb-ssp-gcp-deployment.log
+ENV TF_LOG_PATH=/var/log/tb-ec-gcp-deployment.log
 
 EXPOSE 5000
 
 ARG service_version
 ENV SERVICE_VERSION ${service_version:-v1}
 
-WORKDIR /opt/ssp
+WORKDIR /opt/ec
 CMD python -u main.py

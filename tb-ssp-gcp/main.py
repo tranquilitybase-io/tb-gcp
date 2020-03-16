@@ -113,7 +113,7 @@ def update_activator_input_subnets(backend_prefix, config, terraform_activator_p
     :param formatted_app_name: application name
     :return:
     """
-    terraform_subnets_path = '/opt/ssp/tf_create_subnets/'
+    terraform_subnets_path = '/opt/ec/tf_create_subnets/'
     allocated_subnet_cirds = subnet_pool_handler.retrieve_free_subnet_cidrs('10.0.11.0/24', '10.0.255.0/24', config,
                                                                             formatted_app_name)
 
@@ -131,7 +131,7 @@ def read_config_map():
     :return: dict of config
     """
     try:
-        with open("/app/ssp-config.yaml", 'r') as stream:
+        with open("/app/ec-config.yaml", 'r') as stream:
             try:
                 return yaml.safe_load(stream)
             except yaml.YAMLError as exc:

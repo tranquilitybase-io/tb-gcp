@@ -14,6 +14,6 @@
 # limitations under the License.
 
 exec >> /var/log/commit_changes.log 2>&1
-git -C /opt/ssp/terraform-code-store add .
-git -C /opt/ssp/terraform-code-store commit -m 'Push activator'
-git -C /opt/ssp/terraform-code-store push --all origin
+git -C /opt/ec/terraform-code-store add .
+git -C /opt/ec/terraform-code-store commit -m 'Push activator'
+git -C /opt/ec/terraform-code-store push --all origin
