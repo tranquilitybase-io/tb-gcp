@@ -80,7 +80,7 @@ def run_terraform():
 
     terraform_source_path = '/opt/tb/repo/tb-gcp-activator/'  # this should be the param to python script
     activator_terraform_code_store = config['activator_terraform_code_store']
-    gcloud.clone_code_store(config['ssp_project_name'], activator_terraform_code_store)
+    gcloud.clone_code_store(config['ec_project_name'], activator_terraform_code_store)
 
     update_activator_input_subnets(backend_prefix, config, terraform_source_path, backend_prefix)
 

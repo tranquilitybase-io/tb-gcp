@@ -135,7 +135,7 @@ module "gke-ec" {
     ),
   ],
   )
-  cluster_min_master_version = var.cluster_ssp_min_master_version
+  cluster_min_master_version = var.cluster_ec_min_master_version
 
   apis_dependency          = module.apis_activation.all_apis_enabled
   shared_vpc_dependency    = module.shared-vpc.gke_subnetwork_ids
@@ -145,8 +145,8 @@ module "gke-ec" {
 }
 
 resource "google_sourcerepo_repository" "SSP" {
-  name       = var.ssp_repository_name
-  project    = module.shared_projects.shared_ssp_id
+  name       = var.ec_repository_name
+  project    = module.shared_projects.shared_ec_id
   depends_on = [module.apis_activation]
 }
 
@@ -313,25 +313,25 @@ module "itop" {
 }
 
 
-module "k8s-ssp_context" {
+module "k8s-ec_context" {
   source = "../../k8s-context"
 
-  cluster_name    = var.cluster_ssp_name
-  cluster_project = module.shared_projects.shared_ssp_id
+  cluster_name    = var.cluster_ec_name
+  cluster_project = module.shared_projects.shared_ec_id
   dependency_var  = module.gke-ec.node_id
 }
 
 resource "null_resource" "kubernetes_service_account_key_secret" {
   triggers = {
-    content = module.k8s-ssp_context.k8s-context_id
+    content = module.k8s-ec_context.k8s-context_id
   }
 
   provisioner "local-exec" {
-    command = "kubectl --context=${module.k8s-ssp_context.context_name} create secret generic ec-service-account --from-file=${local_file.ssp_service_account_key.filename}"
+    command = "kubectl --context=${module.k8s-ec_context.context_name} create secret generic ec-service-account --from-file=${local_file.ec_service_account_key.filename}"
   }
 
   provisioner "local-exec" {
-    command = "kubectl --context=${module.k8s-ssp_context.context_name} delete secret ec-service-account"
+    command = "kubectl --context=${module.k8s-ec_context.context_name} delete secret ec-service-account"
     when    = destroy
   }
 }
@@ -339,25 +339,25 @@ resource "null_resource" "kubernetes_service_account_key_secret" {
 module "SharedServices_configuration_file" {
   source = "../../../tb-common-tr/start_service"
 
-  k8s_template_file = local_file.ssp_config_map.filename
-  cluster_context   = module.k8s-ssp_context.context_name
+  k8s_template_file = local_file.ec_config_map.filename
+  cluster_context   = module.k8s-ec_context.context_name
   dependency_var    = null_resource.kubernetes_service_account_key_secret.id
 }
 
-module "SharedServices_ssp" {
+module "SharedServices_ec" {
   source = "../../../tb-common-tr/start_service"
 
   k8s_template_file = var.application_yaml_path
-  cluster_context   = module.k8s-ssp_context.context_name
+  cluster_context   = module.k8s-ec_context.context_name
   dependency_var    = module.SharedServices_configuration_file.id
 }
 
 module "self-service-app" {
   source = "../../gae-self-service-portal"
 
-  project_id         = module.shared_projects.shared_ssp_id
-  source_bucket      = var.ssp_ui_source_bucket
-  ssp_gke_dependency = null_resource.get_endpoint.id
+  project_id         = module.shared_projects.shared_ec_id
+  source_bucket      = var.ec_ui_source_bucket
+  ec_gke_dependency = null_resource.get_endpoint.id
   endpoint_file      = var.endpoint_file
 }
 
@@ -370,7 +370,7 @@ resource "null_resource" "get_endpoint" {
       echo -n 'http://' > ${var.endpoint_file}
       for i in $(seq -s " " 1 35); do
         sleep $i
-        ENDPOINT=$(kubectl --context=${module.k8s-ssp_context.context_name} get svc istio-ingressgateway -n istio-system -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+        ENDPOINT=$(kubectl --context=${module.k8s-ec_context.context_name} get svc istio-ingressgateway -n istio-system -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
         if [ -n "$ENDPOINT" ]; then
           echo "$ENDPOINT" >> ${var.endpoint_file}
           exit 0
@@ -382,9 +382,9 @@ resource "null_resource" "get_endpoint" {
       EOF
   }
 
-  #   command = "echo -n 'http://' > ${var.endpoint_file} && kubectl --context=${module.k8s-ssp_context.context_name} get svc istio-ingressgateway -n istio-system -o jsonpath='{.status.loadBalancer.ingress[0].ip}' >> ${var.endpoint_file}"
+  #   command = "echo -n 'http://' > ${var.endpoint_file} && kubectl --context=${module.k8s-ec_context.context_name} get svc istio-ingressgateway -n istio-system -o jsonpath='{.status.loadBalancer.ingress[0].ip}' >> ${var.endpoint_file}"
 
-  depends_on = [module.SharedServices_ssp]
+  depends_on = [module.SharedServices_ec]
 }
 
 resource "google_storage_bucket_object" "backend-endpoint" {
@@ -416,13 +416,13 @@ resource "google_storage_bucket_iam_binding" "ec-terraform-state-storage-admin" 
 
 resource "google_sourcerepo_repository" "activator-terraform-code-store" {
   name       = "terraform-code-store"
-  project    = module.shared_projects.shared_ssp_id
+  project    = module.shared_projects.shared_ec_id
   depends_on = [module.apis_activation]
 }
 
 resource "google_sourcerepo_repository_iam_binding" "terraform-code-store-admin-binding" {
   repository = google_sourcerepo_repository.activator-terraform-code-store.name
-  project    = module.shared_projects.shared_ssp_id
+  project    = module.shared_projects.shared_ec_id
   role       = "roles/source.admin"
 
   members = [
@@ -433,7 +433,7 @@ resource "google_sourcerepo_repository_iam_binding" "terraform-code-store-admin-
 
 // used only to enable datastore
 resource "google_app_engine_application" "enable-datastore" {
-  project     = module.shared_projects.shared_ssp_id
+  project     = module.shared_projects.shared_ec_id
   location_id = var.region
   depends_on  = [google_sourcerepo_repository_iam_binding.terraform-code-store-admin-binding]
 }

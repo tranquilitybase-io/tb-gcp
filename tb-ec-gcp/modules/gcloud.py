@@ -26,10 +26,10 @@ def run_once(f):
 
 
 @run_once
-def clone_code_store(ssp_project_id, activator_terraform_code_store):
+def clone_code_store(ec_project_id, activator_terraform_code_store):
     subprocess.call(
         ["gcloud", "auth", "activate-service-account", "--key-file", os.environ['GOOGLE_APPLICATION_CREDENTIALS']])
-    subprocess.call(["gcloud", "config", "set", "project", ssp_project_id])
+    subprocess.call(["gcloud", "config", "set", "project", ec_project_id])
     subprocess.call(
         ["gcloud", "source", "repos", "clone", "terraform-code-store", "/opt/ec/" + activator_terraform_code_store,
-         "--project", ssp_project_id])
+         "--project", ec_project_id])

@@ -43,7 +43,7 @@ def list_logs(client):
     return list(query.fetch())
 
 
-def add_gcp_log(user, app_name, app_id, tf_data, env_data, ssp_project_name):
+def add_gcp_log(user, app_name, app_id, tf_data, env_data, ec_project_name):
     """
     Logs an activity to the datastore terraform event logs. Useful for auditing.
 
@@ -54,11 +54,11 @@ def add_gcp_log(user, app_name, app_id, tf_data, env_data, ssp_project_name):
     :param app_id: application id to log
     :param tf_data: terraform data to log
     :param env_data: environment data to log
-    :param ssp_project_name: project name of the SSP project, where these logs are saved to
+    :param ec_project_name: project name of the SSP project, where these logs are saved to
     :return: None
     """
 
-    client = datastore.Client(project=ssp_project_name)
+    client = datastore.Client(project=ec_project_name)
 
     with client.transaction():
         key = client.key('TerraformEventLog')
