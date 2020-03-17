@@ -1,4 +1,4 @@
-cluster_sec_subnetwork           = "shared-security-snet"
+cluster_sec_subnetwork           = "shared-secrets-snet"
 cluster_sec_service_account      = "kubernetes-sec"
 cluster_sec_name                 = "gke-sec"
 cluster_sec_pool_name            = "gke-sec-node-pool"

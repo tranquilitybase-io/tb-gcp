@@ -14,9 +14,9 @@
 
 #SHARED PROJECTS CREATION
 shared_networking_project_name = "shared-networking"
-shared_security_project_name   = "shared-security"
+shared_secrets_project_name   = "shared-secrets"
 shared_telemetry_project_name  = "shared-telemetry"
-shared_operations_project_name = "shared-operations"
+shared_itsm_project_name = "shared-itsm"
 shared_billing_project_name    = "shared-billing"
 tb_bastion_project_name = "tb-bastion"
 
@@ -31,8 +31,8 @@ standard_network_subnets = [{
 cidr = "10.0.0.0/24" }]
 enable_flow_logs = "false"
 gke_network_subnets = [{ name = "shared-ssp-snet", cidr = "10.0.1.0/24", pod_cidr = "10.1.0.0/17", service_cidr = "10.1.128.0/20" },
-  { name = "shared-operations-snet", cidr = "10.0.2.0/24", pod_cidr = "10.2.0.0/17", service_cidr = "10.2.128.0/20" },
-  { name = "shared-security-snet", cidr = "10.0.3.0/24", pod_cidr = "10.3.0.0/17", service_cidr = "10.3.128.0/20" },
+  { name = "shared-itsm-snet", cidr = "10.0.2.0/24", pod_cidr = "10.2.0.0/17", service_cidr = "10.2.128.0/20" },
+  { name = "shared-secrets-snet", cidr = "10.0.3.0/24", pod_cidr = "10.3.0.0/17", service_cidr = "10.3.128.0/20" },
   { name = "activator-project-snet", cidr = "10.0.4.0/24", pod_cidr = "10.4.0.0/17", service_cidr = "10.4.128.0/20" },
 { name = "workspace-project-snet", cidr = "10.0.5.0/24", pod_cidr = "10.5.0.0/17", service_cidr = "10.5.128.0/20" }]
 gke_pod_network_name     = "gke-pods-snet"
@@ -55,8 +55,8 @@ cluster_ssp_master_authorized_cidrs = [
 istio_status        = "false"
 ssp_repository_name = "SSP-activator-tf"
 
-#KUBERNETES SECURITY CLUSTER
-//cluster_sec_subnetwork           = "shared-security-snet"
+#KUBERNETES SECRETS CLUSTER
+//cluster_sec_subnetwork           = "shared-secrets-snet"
 //cluster_sec_service_account      = "kubernetes-sec"
 //cluster_sec_name                 = "gke-sec"
 //cluster_sec_pool_name            = "gke-sec-node-pool"
@@ -73,20 +73,20 @@ ssp_repository_name = "SSP-activator-tf"
 //sec-vault-keyring = "vault"
 //location          = "EU"
 
-#KUBERNETES OPERATIONS CLUSTER
-//cluster_opt_subnetwork           = "shared-operations-snet"
-//cluster_opt_service_account      = "kubernetes-opt"
-//cluster_opt_name                 = "gke-opt"
-//cluster_opt_pool_name            = "gke-opt-node-pool"
-//cluster_opt_enable_private_nodes = "true"
-//cluster_opt_master_cidr          = "172.16.0.32/28"
-//cluster_opt_master_authorized_cidrs = [
+#KUBERNETES ITSM CLUSTER
+//cluster_itsm_subnetwork           = "shared-itsm-snet"
+//cluster_itsm_service_account      = "kubernetes-opt"
+//cluster_itsm_name                 = "gke-opt"
+//cluster_itsm_pool_name            = "gke-opt-node-pool"
+//cluster_itsm_enable_private_nodes = "true"
+//cluster_itsm_master_cidr          = "172.16.0.32/28"
+//cluster_itsm_master_authorized_cidrs = [
 //  {
 //    cidr_block   = "10.0.0.0/8"
 //    display_name = "mgmt-1"
 //  }
 //]
-#cluster_opt_min_master_version = "latest"
+#cluster_itsm_min_master_version = "latest"
 
 #SSP Deployment
 application_yaml_path = "../deployment.yaml"

@@ -28,10 +28,10 @@ variable "shared_networking_project_name" {
   description = "Shared networking project name."
 }
 
-variable "shared_security_project_name" {
+variable "shared_secrets_project_name" {
   type        = string
-  default     = "shared-security"
-  description = "Shared security project name."
+  default     = "shared-secrets"
+  description = "Shared secrets project name."
 }
 
 variable "shared_telemetry_project_name" {
@@ -40,10 +40,10 @@ variable "shared_telemetry_project_name" {
   description = "Shared telemetry project name."
 }
 
-variable "shared_operations_project_name" {
+variable "shared_itsm_project_name" {
   type        = string
-  default     = "shared-operations"
-  description = "Shared operations project name."
+  default     = "shared-itsm"
+  description = "Shared itsm project name."
 }
 
 variable "shared_billing_project_name" {

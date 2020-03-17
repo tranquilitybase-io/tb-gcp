@@ -37,3 +37,7 @@ variable "cert-common-name" {
 variable "tls-organization" {
   type = string
 }
+
+variable "vault-lb-name" {
+  type = string
+}

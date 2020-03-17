@@ -54,10 +54,10 @@ variable "shared_networking_project_name" {
   description = "Shared networking project name."
 }
 
-variable "shared_security_project_name" {
+variable "shared_secrets_project_name" {
   type        = string
-  default     = "shared-security"
-  description = "Shared security project name."
+  default     = "shared-secrets"
+  description = "Shared secrets project name."
 }
 
 variable "shared_telemetry_project_name" {
@@ -66,10 +66,10 @@ variable "shared_telemetry_project_name" {
   description = "Shared telemetry project name."
 }
 
-variable "shared_operations_project_name" {
+variable "shared_itsm_project_name" {
   type        = string
-  default     = "shared-operations"
-  description = "Shared operations project name."
+  default     = "shared-itsm"
+  description = "Shared itsm project name."
 }
 
 variable "shared_billing_project_name" {
@@ -179,7 +179,7 @@ variable "cluster_sec_service_account_roles" {
   description = "Service account to associate to the nodes in the cluster"
 }
 
-variable "cluster_opt_service_account" {
+variable "cluster_itsm_service_account" {
   description = "Service account to associate to the nodes in the cluster"
 }
 
@@ -191,7 +191,7 @@ variable "cluster_sec_subnetwork" {
   description = "The subnetwork to host the cluster in"
 }
 
-variable "cluster_opt_subnetwork" {
+variable "cluster_itsm_subnetwork" {
   description = "The subnetwork to host the cluster in"
 }
 
@@ -203,7 +203,7 @@ variable "cluster_sec_name" {
   description = "The cluster name"
 }
 
-variable "cluster_opt_name" {
+variable "cluster_itsm_name" {
   description = "The cluster name"
 }
 
@@ -215,11 +215,11 @@ variable "cluster_sec_pool_name" {
   description = "The cluster pool name"
 }
 
-variable "cluster_opt_pool_name" {
+variable "cluster_itsm_pool_name" {
   description = "The cluster pool name"
 }
 
-variable "cluster_opt_enable_private_nodes" {
+variable "cluster_itsm_enable_private_nodes" {
   type = string
 }
 
@@ -239,7 +239,7 @@ variable "cluster_sec_master_cidr" {
   type = string
 }
 
-variable "cluster_opt_master_cidr" {
+variable "cluster_itsm_master_cidr" {
   type = string
 }
 
@@ -257,14 +257,14 @@ variable "cluster_sec_master_authorized_cidrs" {
   }))
 }
 
-variable "cluster_opt_master_authorized_cidrs" {
+variable "cluster_itsm_master_authorized_cidrs" {
   type = list(object({
     cidr_block   = string
     display_name = string
   }))
 }
 
-variable "cluster_opt_min_master_version" {
+variable "cluster_itsm_min_master_version" {
   default     = "latest"
   description = "Master node minimal version"
   type        = string

@@ -8,7 +8,7 @@ variable "itop_database_user_name" {
   type        = string
 }
 
-variable "cluster_opt_name" {
+variable "cluster_itsm_name" {
   description = "The cluster name"
 }
 

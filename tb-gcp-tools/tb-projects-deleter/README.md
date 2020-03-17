@@ -30,14 +30,14 @@ Found 'Applications' (762389942404) folder.
 Found 'Shared Services' (347553333271) folder.
 Found shared-networking-2d81f6a5 project.
 Didn't find any application projects.
-Found shared-ssp-2d81f6a5 shared-operations-2d81f6a5 shared-security-2d81f6a5  project(s).
+Found shared-ssp-2d81f6a5 shared-itsm-2d81f6a5 shared-secrets-2d81f6a5  project(s).
 SHOULD THE ABOVE FOLDERS AND PROJECTS BE DELETED? (press Y to continue or any other key to abort) Y
 ```
 
 Notice that the script will interrupt execution and ask for confirmation before deleting the identified folders and projects. The script will abort if the user presses any key either then a CAPITAL **Y** as shown below:
 
 ```
-Found shared-security-ad9ae118 shared-ssp-ad9ae118 shared-operations-ad9ae118  project(s).
+Found shared-secrets-ad9ae118 shared-ssp-ad9ae118 shared-itsm-ad9ae118  project(s).
 SHOULD THE ABOVE FOLDERS AND PROJECTS BE DELETED? (press Y to continue or any other key to abort) y
 Aborting...
 $
@@ -46,7 +46,7 @@ $
 If **Y** is pressed, it will automatically delete the identified folders and projects and the Shared VPC as shown below:
 
 ```
-Found shared-ssp-2d81f6a5 shared-operations-2d81f6a5 shared-security-2d81f6a5  project(s).
+Found shared-ssp-2d81f6a5 shared-itsm-2d81f6a5 shared-secrets-2d81f6a5  project(s).
 SHOULD THE ABOVE FOLDERS AND PROJECTS BE DELETED? (press Y to continue or any other key to abort) Y
 
 Deleting Liens...
@@ -62,16 +62,16 @@ Deleted [https://cloudresourcemanager.googleapis.com/v1/projects/shared-ssp-2d81
 You can undo this operation for a limited period by running '
         commands below. See https://cloud.google.com/resource-manager/docs/creating-managing-projects for information on shutting down projects
          $ gcloud projects undelete shared-ssp-2d81f6a5
-Deleted [https://cloudresourcemanager.googleapis.com/v1/projects/shared-operations-2d81f6a5].
+Deleted [https://cloudresourcemanager.googleapis.com/v1/projects/shared-itsm-2d81f6a5].
 
 You can undo this operation for a limited period by running '
         commands below. See https://cloud.google.com/resource-manager/docs/creating-managing-projects for information on shutting down projects
-         $ gcloud projects undelete shared-operations-2d81f6a5
-Deleted [https://cloudresourcemanager.googleapis.com/v1/projects/shared-security-2d81f6a5].
+         $ gcloud projects undelete shared-itsm-2d81f6a5
+Deleted [https://cloudresourcemanager.googleapis.com/v1/projects/shared-secrets-2d81f6a5].
 
 You can undo this operation for a limited period by running '
         commands below. See https://cloud.google.com/resource-manager/docs/creating-managing-projects for information on shutting down projects
-         $ gcloud projects undelete shared-security-2d81f6a5
+         $ gcloud projects undelete shared-secrets-2d81f6a5
 
 Deleting shared networking project...
 

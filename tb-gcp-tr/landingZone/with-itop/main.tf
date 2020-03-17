@@ -67,9 +67,9 @@ module "shared_projects" {
   root_id                        = module.folder_structure.shared_services_id
   billing_account_id             = var.billing_account_id
   shared_networking_project_name = var.shared_networking_project_name
-  shared_security_project_name   = var.shared_security_project_name
+  shared_secrets_project_name   = var.shared_secrets_project_name
   shared_telemetry_project_name  = var.shared_telemetry_project_name
-  shared_operations_project_name = var.shared_operations_project_name
+  shared_itsm_project_name = var.shared_itsm_project_name
   shared_billing_project_name    = var.shared_billing_project_name
   tb_bastion_project_name = var.tb_bastion_project_name
 }
@@ -81,7 +81,7 @@ module "apis_activation" {
   bastion_project_id              = module.shared_projects.tb_bastion_id
   host_project_id         = module.shared_projects.shared_networking_id
   service_projects_number = var.service_projects_number
-  service_project_ids     = [module.shared_projects.shared_security_id, module.shared_projects.shared_operations_id, module.shared_projects.shared_ssp_id]
+  service_project_ids     = [module.shared_projects.shared_secrets_id, module.shared_projects.shared_itsm_id, module.shared_projects.shared_ssp_id]
 }
 
 module "shared-vpc" {
@@ -99,7 +99,7 @@ module "shared-vpc" {
   create_nat_gateway       = var.create_nat_gateway
   router_nat_name          = var.router_nat_name
   service_projects_number  = var.service_projects_number
-  service_project_ids      = [module.shared_projects.shared_security_id, module.shared_projects.shared_operations_id, module.shared_projects.shared_ssp_id]
+  service_project_ids      = [module.shared_projects.shared_secrets_id, module.shared_projects.shared_itsm_id, module.shared_projects.shared_ssp_id]
 }
 
 module "gke-ssp" {
@@ -149,7 +149,7 @@ resource "google_sourcerepo_repository" "SSP" {
   depends_on = [module.apis_activation]
 }
 
-//module "gke-security" {
+//module "gke-secrets" {
 //  source = "../../kubernetes-cluster-creation"
 //
 //  providers = {
@@ -162,7 +162,7 @@ resource "google_sourcerepo_repository" "SSP" {
 //  sharedvpc_network    = var.shared_vpc_name
 //
 //  cluster_enable_private_nodes  = var.cluster_sec_enable_private_nodes
-//  cluster_project_id            = module.shared_projects.shared_security_id
+//  cluster_project_id            = module.shared_projects.shared_secrets_id
 //  cluster_subnetwork            = var.cluster_sec_subnetwork
 //  cluster_service_account       = var.cluster_sec_service_account
 //  cluster_service_account_roles = var.cluster_sec_service_account_roles
@@ -195,20 +195,20 @@ resource "google_sourcerepo_repository" "SSP" {
 //module "vault" {
 //  source = "../../vault"
 //
-//  vault_cluster_project             = module.shared_projects.shared_security_id
+//  vault_cluster_project             = module.shared_projects.shared_secrets_id
 //  vault-gcs-location                = var.location
 //  vault-region                      = var.region
 //  vault_keyring_name                = var.sec-vault-keyring
 //  vault_crypto_key_name             = var.sec-vault-crypto-key-name
 //  vault-lb                          = var.sec-lb-name
-//  vault-sa                          = module.gke-security.cluster_sa
-//  vault-gke-sec-endpoint            = module.gke-security.cluster_endpoint
-//  vault-gke-sec-master-auth-ca-cert = module.gke-security.cluster_endpoint
-//  vault-gke-sec-username            = module.gke-security.cluster_master_auth_username
-//  vault-gke-sec-password            = module.gke-security.cluster_master_auth_password
-//  vault-gke-sec-client-ca           = module.gke-security.cluster_master_auth_0_client_certificate
-//  vault-gke-sec-client-key          = module.gke-security.cluster_master_auth_0_client_key
-//  vault-gke-sec-cluster_ca_cert     = module.gke-security.cluster_master_auth_0_cluster_ca_certificate
+//  vault-sa                          = module.gke-secrets.cluster_sa
+//  vault-gke-sec-endpoint            = module.gke-secrets.cluster_endpoint
+//  vault-gke-sec-master-auth-ca-cert = module.gke-secrets.cluster_endpoint
+//  vault-gke-sec-username            = module.gke-secrets.cluster_master_auth_username
+//  vault-gke-sec-password            = module.gke-secrets.cluster_master_auth_password
+//  vault-gke-sec-client-ca           = module.gke-secrets.cluster_master_auth_0_client_certificate
+//  vault-gke-sec-client-key          = module.gke-secrets.cluster_master_auth_0_client_key
+//  vault-gke-sec-cluster_ca_cert     = module.gke-secrets.cluster_master_auth_0_cluster_ca_certificate
 //  vault-gke-sec-name                = var.cluster_sec_name
 //
 //  vault-cert-common-name  = var.cert-common-name
@@ -218,28 +218,28 @@ resource "google_sourcerepo_repository" "SSP" {
 //  #  shared_vpc_dependency = "${module.shared-vpc.gke_subnetwork_ids}"
 //}
 
-//module "gke-operations" {
+//module "gke-itsm" {
 //  source = "../../kubernetes-cluster-creation"
 //
 //  providers = {
 //    google                 = google
 //    google-beta.shared-vpc = google-beta.shared-vpc
-//    kubernetes             = kubernetes.gke-operations
+//    kubernetes             = kubernetes.gke-itsm
 //  }
 //
 //  region               = var.region
 //  sharedvpc_project_id = module.shared_projects.shared_networking_id
 //  sharedvpc_network    = var.shared_vpc_name
 //
-//  cluster_enable_private_nodes = var.cluster_opt_enable_private_nodes
-//  cluster_project_id           = module.shared_projects.shared_operations_id
-//  cluster_subnetwork           = var.cluster_opt_subnetwork
-//  cluster_service_account      = var.cluster_opt_service_account
-//  cluster_name                 = var.cluster_opt_name
-//  cluster_pool_name            = var.cluster_opt_pool_name
-//  cluster_master_cidr          = var.cluster_opt_master_cidr
+//  cluster_enable_private_nodes = var.cluster_itsm_enable_private_nodes
+//  cluster_project_id           = module.shared_projects.shared_itsm_id
+//  cluster_subnetwork           = var.cluster_itsm_subnetwork
+//  cluster_service_account      = var.cluster_itsm_service_account
+//  cluster_name                 = var.cluster_itsm_name
+//  cluster_pool_name            = var.cluster_itsm_pool_name
+//  cluster_master_cidr          = var.cluster_itsm_master_cidr
 //  cluster_master_authorized_cidrs = concat(
-//  var.cluster_opt_master_authorized_cidrs,
+//  var.cluster_itsm_master_authorized_cidrs,
 //  [
 //    merge(
 //    {
@@ -251,7 +251,7 @@ resource "google_sourcerepo_repository" "SSP" {
 //    ),
 //  ],
 //  )
-//  cluster_min_master_version = var.cluster_opt_min_master_version
+//  cluster_min_master_version = var.cluster_itsm_min_master_version
 //
 //  apis_dependency          = module.apis_activation.all_apis_enabled
 //  istio_status             = var.istio_status
@@ -261,54 +261,54 @@ resource "google_sourcerepo_repository" "SSP" {
 //  gke_service_network_name = var.gke_service_network_name
 //}
 
-# Kubernetes provider for the gke-operations cluster
+# Kubernetes provider for the gke-itsm cluster
 //provider "kubernetes" {
-//  alias                  = "gke-operations"
-//  host                   = "https://${module.gke-operations.cluster_endpoint}"
+//  alias                  = "gke-itsm"
+//  host                   = "https://${module.gke-itsm.cluster_endpoint}"
 //  load_config_file       = false
-//  cluster_ca_certificate = base64decode(module.gke-operations.cluster_ca_certificate)
+//  cluster_ca_certificate = base64decode(module.gke-itsm.cluster_ca_certificate)
 //  token                  = data.google_client_config.current.access_token
 //  version = "~> 1.10.0"
 //}
 
-# Deploy gke-operations cluster helm pre-requisite resources
-//module "gke_operations_helm_pre_req" {
+# Deploy gke-itsm cluster helm pre-requisite resources
+//module "gke_itsm_helm_pre_req" {
 //  source = "../../helm-pre-requisites"
 //  providers = {
-//    kubernetes = kubernetes.gke-operations
+//    kubernetes = kubernetes.gke-itsm
 //  }
 //}
 
-# Set GKE Operations cluster Helm provider
+# Set GKE Itsm cluster Helm provider
 //provider "helm" {
-//  alias = "gke-operations"
+//  alias = "gke-itsm"
 //  kubernetes {
-//    host                   = "https://${module.gke-operations.cluster_endpoint}"
+//    host                   = "https://${module.gke-itsm.cluster_endpoint}"
 //    load_config_file       = false
-//    cluster_ca_certificate = base64decode(module.gke-operations.cluster_ca_certificate)
+//    cluster_ca_certificate = base64decode(module.gke-itsm.cluster_ca_certificate)
 //    token                  = data.google_client_config.current.access_token
 //  }
-//  service_account = module.gke_operations_helm_pre_req.tiller_svc_accnt_name
+//  service_account = module.gke_itsm_helm_pre_req.tiller_svc_accnt_name
 //  version = "~> 0.10.4"
 //}
 
-# Deploys itop on GKE Operations cluster
+# Deploys itop on GKE Itsm cluster
 
 //module "itop" {
 //  source = "../../itop"
 //  providers = {
-//    kubernetes = kubernetes.gke-operations
-//    helm       = helm.gke-operations
+//    kubernetes = kubernetes.gke-itsm
+//    helm       = helm.gke-itsm
 //  }
 //
-//  host_project_id       = module.shared_projects.shared_operations_id
+//  host_project_id       = module.shared_projects.shared_itsm_id
 //  itop_chart_local_path = "../../itop/helm"
 //  region                = var.region
 //  region_zone           = var.region_zone
 //  database_user_name    = var.itop_database_user_name
 //  k8_cluster_name       = var.cluster_sec_name
 //
-//  dependency_vars = module.gke-operations.node_id
+//  dependency_vars = module.gke-itsm.node_id
 //}
 
 
@@ -437,7 +437,7 @@ resource "google_app_engine_application" "enable-datastore" {
   depends_on  = [google_sourcerepo_repository_iam_binding.terraform-code-store-admin-binding]
 }
 
-module "bastion-security" {
+module "bastion-secrets" {
   source = "../../bastion"
 
   tb_bastion_id = module.shared_projects.tb_bastion_id
