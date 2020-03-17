@@ -75,9 +75,9 @@ ssp_repository_name = "SSP-activator-tf"
 
 #KUBERNETES ITSM CLUSTER
 //cluster_itsm_subnetwork           = "shared-itsm-snet"
-//cluster_itsm_service_account      = "kubernetes-opt"
-//cluster_itsm_name                 = "gke-opt"
-//cluster_itsm_pool_name            = "gke-opt-node-pool"
+//cluster_itsm_service_account      = "kubernetes-itsm"
+//cluster_itsm_name                 = "gke-itsm"
+//cluster_itsm_pool_name            = "gke-itsm-node-pool"
 //cluster_itsm_enable_private_nodes = "true"
 //cluster_itsm_master_cidr          = "172.16.0.32/28"
 //cluster_itsm_master_authorized_cidrs = [

@@ -2,58 +2,59 @@ description:
   author:
     title: GFT Group
   descriptionHtml: >-
-    Tranquility Base is the open-source multi-cloud Landing Zone that allows teams to fully automate the creation of secure
-    cloud environments following best practice architecture, governance and security design. Developed using Terraform,
-    teams can fully automate the deployment of application  architectures via Infrastructure as Code and achieve very
-    high levels of productivity.<br><br>
-    The following are pre-requisites to deploy this solution:
-    <ol>
-     <li>An organisation resource must be available</li>
-     <li>User must be owner to the folder (or organisation) where Tranquility Base will be deployed</li>
-     <li>Initial configuration must be created. In order to do so, open Cloud Shell and execute the following instructions:
-         <ul>
-           <li>$ wget https://raw.githubusercontent.com/tranquilitybase-io/tb-gcp/dm4mp/tb-gcp-tools/tb-config-creator/tb-config-creator</li>
-           <li>$ chmod +x tb-config-creator</li>
-           <li>$ ./tb-config-creator</li>
-         </ul>
-    </ol>
-    </font>
+    Tranquility Base is the open-source multi-cloud Landing Zone that allows
+    teams to fully automate the creation of secure cloud environments following
+    best practice architecture, governance and security design. Developed using
+    Terraform, teams can fully automate the deployment of application
+    architectures via Infrastructure as Code and achieve very high levels of
+    productivity.
+
+    <br><br>
+
+    <b>Please read the <a
+    href="https://github.com/tranquilitybase-io/tb-gcp/blob/master/tb-marketplace/tb-gcp-dep-guide.md">Getting
+    started</a> prior to launch the solution.</b>
   logo: '@media/tranquility-base_store.png'
-  tagline: Multi-cloud open source solution to
+  tagline: The open-source multi-cloud Landing Zone
   title: Tranquility Base
   url: 'https://www.tranquilitybase.io/'
-  version: default-version
+  version: Release 0
+  documentations:
+    - title: Getting started
+      url: >-
+        https://github.com/tranquilitybase-io/tb-gcp/blob/master/tb-marketplace/tb-gcp-dep-guide.md
+      description: Getting started with Tranquility Base on Google Cloud.
+      destinations:
+        - DESTINATION_SOLUTION_DETAILS
+        - DESTINATION_POST_DEPLOY
   support:
     - title: Support
+      descriptionHtml: Please contact the Tranquility Base team for technical support.
+      showSupportId: false
+      url: 'https://www.tranquilitybase.io/contact/'
   icon: '@media/tranquility-base_small.png'
-  documentations: []
-  softwareGroups: []
+  softwareGroups:
+    - type: SOFTWARE_GROUP_OS
+      software:
+        - title: Debian 9
+          version: 64-bit
 input:
   properties:
     - name: zone
       title: Zone
-    - name: machineType
-      title: Machine type
     - name: rootId
       title: Folder ID
       tooltip: >-
-        The numeric ID of the folder (or organisation) that will be parent to the Tranquility Base resource hierarchy.
+        The numeric ID of the folder (or organisation) that will be parent to
+        the Tranquility Base resource hierarchy.
       section: TRANQUILITY_BASE
     - name: billingAccountId
-      title: Billing account that Tranquility Base will use
-      section: TRANQUILITY_BASE
+      title: Billing Account
       tooltip: >-
-        The billing account that will track all costs incurred by Tranquility Base usage. It must be in the form XXXXXX-XXXXXX-XXXXXX.
-    - name: bootDiskType
-      title: Boot disk type
-      section: BOOT_DISK
-    - name: bootDiskSizeGb
-      title: Boot disk size in GB
-      section: BOOT_DISK
+        The billing account that will track all costs incurred by Tranquility
+        Base usage. It must be in the form XXXXXX-XXXXXX-XXXXXX.
+      section: TRANQUILITY_BASE
   sections:
-    - name: BOOT_DISK
-      title: Boot Disk
-      tooltip: Each instance requires a disk to boot from.
     - name: TRANQUILITY_BASE
       title: Tranquility Base required settings
 runtime:
@@ -72,9 +73,9 @@ runtime:
     label: SSH
     type: TYPE_GCE_VM_SSH
     action: '{{ outputs().vmSelfLink }}'
-  suggestedActions:
+  suggestedActions: null
 annotations:
   autogenSpecType: SINGLE_VM
   vmImage0: >-
-    https://www.googleapis.com/compute/v1/projects/tb-marketplace-dev/global/images/tranquility-base-bootstrap-dm4mp
+    https://www.googleapis.com/compute/v1/projects/gft-group-public/global/images/tranquility-base-bootstrap-master
 metadata_version: v1

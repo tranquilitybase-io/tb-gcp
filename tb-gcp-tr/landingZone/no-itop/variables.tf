@@ -15,13 +15,11 @@
 #FOLDER STRUCTURE CREATION
 variable "region" {
   type        = string
-  default     = "europe-west2"
   description = "region name."
 }
 
 variable "region_zone" {
   type        = string
-  default     = "europe-west2-a"
   description = "zone name in the region provided."
 }
 
@@ -169,7 +167,7 @@ variable "cluster_sec_service_account" {
 }
 
 variable "cluster_sec_oauth_scope" {
-  description = "API scope to be given to Security Cluster, for vault leave default value"
+  description = "API scope to be given to Secrets Cluster, for vault leave default value"
   default     = ["cloud-platform"]
 }
 

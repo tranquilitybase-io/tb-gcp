@@ -5,4 +5,6 @@ resources:
 - name: tranquility-base
   type: tranquility-base.jinja
   properties:
-    zone: europe-west2-a
+    zone: 'europe-west2-a'
+    rootId: '1234567890'
+    billingAccountId: 'F9C122-73127B-50AE5B'

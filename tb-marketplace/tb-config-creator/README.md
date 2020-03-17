@@ -14,14 +14,15 @@ This script was created to be executed by future deployers of Tranquility Base f
      - resourcemanager.projectDeleter
      - billing.projectManager
      - compute.xpnAdmin
-     - owner
      - compute.networkAdmin  
 
    - at the project level
      - compute.admin
+     - storage.admin
 
    - at the billing level
      - billing.admin
+
  2. Activation of the following APIs:
    - appengine.googleapis.com
    - bigquery-json.googleapis.com
@@ -64,12 +65,13 @@ Usage
 ```
 $ ./tb-config-creator <arguments>
 
--f, --parent-folder-id <id> (REQUIRED) Parent folder ID (or Organisation ID) where the Tranquility Base folder will be created (e.g. -f 705953663545)
+-f, --parent-folder-id <id> (REQUIRED) Parent folder ID (or Organisation ID) where the Tranquility Base will be deployed (e.g. -f 705953663545)
 -b, --billing-account-id <string> (REQUIRED) Billing account ID tied to all Tranquility Base consumption (e.g. -b F9C122-73127B-50AE5B)
 ```
 Execute with elevated permissions
 ----------------- 
-The configuration must be created by a Google account with elevated permissions. In order to find out which account/s are currently authenticated with `gcloud`, the following command can be run:
+The configuration must be created by a Google account with owner role at the Folder level (or Organisation) under which the Tranquility Base
+resource hierarchy will be deployed. In order to find out which account/s are currently authenticated with `gcloud`, the following command can be run:
 ```
 $ gcloud auth list
   Credentialed Accounts
@@ -139,13 +141,13 @@ Example execution
   1. Permissions of the Service Account:
     - at the project level
       - compute.admin
+      - storage.admin
     - at the folder level
       - resourcemanager.folderAdmin
       - resourcemanager.projectCreator
       - resourcemanager.projectDeleter
       - compute.networkAdmin
       - compute.xpnAdmin
-      - owner
     - at the billing account level
       - billing.admin
   2.Activation of the following API's:
@@ -196,8 +198,8 @@ Creating service account...
 Created service account [bootstrap-tb-sa].
 Adding permissions at the project level...
 Updated IAM policy for project [bootstrap-tb-ab91ae].
+Updated IAM policy for project [bootstrap-tb-ab91ae].
 Adding permissions at the folder level...
-Updated IAM policy for folder [705953663545].
 Updated IAM policy for folder [705953663545].
 Updated IAM policy for folder [705953663545].
 Updated IAM policy for folder [705953663545].
@@ -216,7 +218,7 @@ Operation "operations/acf.dfa2d987-4950-45bb-8d72-05872de3a8fb" finished success
 Operation "operations/acf.01c8250f-38a0-4425-a912-651f5bf284d9" finished successfully.
 Operation "operations/acf.c88e4dad-8f1f-461a-a8f3-5bb8a6a84fff" finished successfully.
 Operation "operations/acf.7065af63-0afd-4cf3-8b38-21fd467e09e4" finished successfully.
-Essential APIs acitvated.
+Essential APIs activated.
 
 Configuration completed!
 You can now deploy Tranquility Base from Marketplace in project [bootstrap-tb-ab91ae].

@@ -21,7 +21,6 @@ variable "dependency_var" {
 variable "region" {
   type        = string
   description = "The region to host the cluster in"
-  default     = "europe-west2"
 }
 
 variable "cluster_project" {

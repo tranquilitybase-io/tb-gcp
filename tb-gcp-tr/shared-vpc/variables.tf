@@ -34,7 +34,6 @@ variable "standard_network_subnets" {
 }
 
 variable "region" {
-  default     = "europe-west2"
   type        = string
   description = "region name"
 }
@@ -104,13 +103,3 @@ variable "service_projects_number" {
   description = "Number of service projects attached to shared vpc host"
 }
 
-/*
-
-variable "region_zone" {
-   default = "europe-west2-a"
-   type    = "string"
-   default = "zone name in the region provided."
-}
-
-
-*/

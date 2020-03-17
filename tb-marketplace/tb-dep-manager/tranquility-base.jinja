@@ -46,15 +46,6 @@ resources:
         - region: {{ region }}
           cidr: 192.168.0.0/28
 
-  - name: {{ cloudStorageBucket }}
-    type: cloud-storage-bucket.py
-    properties:
-        project: {{ project }}
-        bucket-location: {{ bucketLocation }}
-        bucket-export-settings:
-            create-bucket: true
-            bucket-name: {{ bucketName }}
-
   - name: {{ natGateway }}
     type: ha-nat-gateway.py
     properties:
@@ -163,57 +154,6 @@ resources:
         terraform_state_bucket_name="{{ bucketName }}"
         clusters_master_whitelist_ip="$(ref.{{ tbDiscriminator }}-ip.address)"
         EOF
-
-        echo "Set Input Vars"
-        source input.auto.tfvars
-
-        echo "Terraform init"
-        # delay to allow nat gateway to be created
-        sleep $DELAY_BETWEEN_ATTEMPTS
-        apply_failures=0
-        while [ $apply_failures -lt $MAX_ATTEMPTS_INIT ]; do
-        terraform init -backend-config="bucket=${terraform_state_bucket_name}" -backend-config="prefix=landingZone"
-        if [ $? -eq 0 ]; then
-        echo "Terraform initialised successfully"
-        break
-        fi
-        if [ $((apply_failures +1)) -eq $MAX_ATTEMPTS_INIT ]; then
-        echo "Maximum of $MAX_ATTEMPTS_INIT reached. Moving on..."
-        break
-        fi
-        echo "Terraform init failed."
-        apply_failures=$(($apply_failures + 1))
-        echo "Retry #$apply_failures starting in $DELAY_BETWEEN_ATTEMPTS seconds."
-        sleep $DELAY_BETWEEN_ATTEMPTS
-        done
-
-        apply_failures=0
-        while [ $apply_failures -lt $MAX_ATTEMPTS ]; do
-        terraform apply -var-file input.tfvars -auto-approve
-        if [ $? -eq 0 ]; then
-        echo "Landing Zone successfully deployed."
-        break
-        fi
-        if [ $((apply_failures +1)) -eq $MAX_ATTEMPTS ]; then
-        echo "Maximum of $MAX_ATTEMPTS reached. Moving on..."
-        break
-        fi
-        echo "Landing Zone deployment failed."
-        apply_failures=$(($apply_failures + 1))
-        echo "Retry #$apply_failures starting in $DELAY_BETWEEN_ATTEMPTS seconds."
-        sleep $DELAY_BETWEEN_ATTEMPTS
-        done
-
-        # Commit current TB terraform code to GCR
-        cd /tmp
-        gcloud source repos create tb-terraform-code
-        gcloud source repos clone tb-terraform-code
-        cd /tmp/tb-terraform-code
-        rsync -a /opt/tb/repo/ .
-        git init
-        git add .
-        git commit -m "Landing zone terraform script"
-        git push -u origin master
 
         echo "STARTUP COMPLETE"
       tags:
