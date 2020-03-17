@@ -22,18 +22,18 @@ from modules.app_config import DEFAULT_SHELL
 
 def commit_terraform(terraform_path, backend_prefix, user_email, activator_terraform_code_store):
     Popen([DEFAULT_SHELL, "/opt/ec/bash/pull_changes.sh", ], stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-          universal_newlines=True).communicate()
-    popen("mkdir -p " "/opt/ec/" + activator_terraform_code_store + "/" + backend_prefix)
-    popen("cp -a " + terraform_path + "*" + " /opt/ec/" + activator_terraform_code_store + "/" + backend_prefix)
+          universal_newlines=True, shell=False).communicate()
+    popen("mkdir -p " "/opt/ec/" + activator_terraform_code_store + "/" + backend_prefix, shell=False)
+    popen("cp -a " + terraform_path + "*" + " /opt/ec/" + activator_terraform_code_store + "/" + backend_prefix, shell=False)
     Popen([DEFAULT_SHELL, "/opt/ec/bash/git_init.sh", user_email, ], stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-          universal_newlines=True).communicate()
+          universal_newlines=True, shell=False).communicate()
     Popen([DEFAULT_SHELL, "/opt/ec/bash/commit_changes.sh", ], stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-          universal_newlines=True).communicate()
+          universal_newlines=True, shell=False).communicate()
 
 
 def create_hash(user, app_name):
-    sha_1 = hashlib.sha1()
+    sha = hashlib.sha256
     encoded_data = (app_name + user).encode('utf-8')
-    sha_1.update(encoded_data)
+    sha.update(encoded_data)
 
-    return sha_1.hexdigest()
+    return sha.hexdigest()
