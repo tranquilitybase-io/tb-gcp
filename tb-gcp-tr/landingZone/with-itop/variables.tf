@@ -297,6 +297,11 @@ variable "eagle_console_yaml_path" {
   type        = string
 }
 
+variable "houston_service_yaml_path" {
+  description = "Houston Service Yaml path"
+  type        = string
+}
+
 variable "ssp_repository_name" {
   type        = string
   description = "Repository name used to store activator code"
