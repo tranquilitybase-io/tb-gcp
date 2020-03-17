@@ -85,10 +85,10 @@ variable "ui-source-local" {
 }
 
 variable "ec_gke_dependency" {
-  description = "Flag to control whether SSP GKE cluster has been created"
+  description = "Flag to control whether EC GKE cluster has been created"
 }
 
 variable "endpoint_file" {
-  description = "JSON file containing IP address of SSP GKE load balancer"
+  description = "JSON file containing IP address of EC GKE load balancer"
 }
 

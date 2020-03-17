@@ -26,7 +26,7 @@ COPY tb-gcp-activator /opt/tb/repo/tb-gcp-activator/
 RUN rm -rf **/.git  rm -rf **/.gitignore **/.idea
 # RUN rm -R tb-gcp
 
-# Build SSP derivelable image
+# Build EC derivelable image
 # --------------------------
 FROM python:3.7
 

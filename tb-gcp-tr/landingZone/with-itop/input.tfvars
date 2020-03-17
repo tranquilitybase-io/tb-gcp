@@ -38,7 +38,7 @@ gke_network_subnets = [{ name = "shared-ec-snet", cidr = "10.0.1.0/24", pod_cidr
 gke_pod_network_name     = "gke-pods-snet"
 gke_service_network_name = "gke-services-snet"
 
-#KUBERNETES SSP CLUSTER
+#KUBERNETES EC CLUSTER
 cluster_ec_subnetwork           = "shared-ec-snet"
 cluster_ec_service_account      = "kubernetes-ec"
 cluster_ec_name                 = "gke-ec"
@@ -53,7 +53,7 @@ cluster_ec_master_authorized_cidrs = [
 ]
 #cluster_ec_min_master_version = "latest"
 istio_status        = "false"
-ec_repository_name = "SSP-activator-tf"
+ec_repository_name = "EC-activator-tf"
 
 #KUBERNETES SECRETS CLUSTER
 cluster_sec_subnetwork           = "shared-secrets-snet"
@@ -88,7 +88,7 @@ cluster_opt_master_authorized_cidrs = [
 ]
 #cluster_opt_min_master_version = "latest"
 
-#SSP Deployment
+#EC Deployment
 application_yaml_path = "../deployment.yaml"
 ec_ui_source_bucket  = "tranquility-base-ui"
 ec_iam_service_account_roles = ["roles/resourcemanager.folderAdmin", "roles/resourcemanager.projectCreator",

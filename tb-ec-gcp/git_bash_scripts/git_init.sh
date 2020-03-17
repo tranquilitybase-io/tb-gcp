@@ -17,4 +17,4 @@ exec >> /var/log/git_init.log 2>&1
 user_email="$1"
 git config --global user.email "$user_email"
 # git user name hardcoded
-git config --global user.name "GCP-SSP-Backend"
+git config --global user.name "GCP-EC-Backend"

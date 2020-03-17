@@ -144,7 +144,7 @@ module "gke-ec" {
   gke_service_network_name = var.gke_service_network_name
 }
 
-resource "google_sourcerepo_repository" "SSP" {
+resource "google_sourcerepo_repository" "EC" {
   name       = var.ec_repository_name
   project    = module.shared_projects.shared_ec_id
   depends_on = [module.apis_activation]

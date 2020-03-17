@@ -126,7 +126,7 @@ def update_activator_input_subnets(backend_prefix, config, terraform_activator_p
 
 def read_config_map():
     """
-    Returns the SSP configuration as a dictionary
+    Returns the EC configuration as a dictionary
 
     :return: dict of config
     """
@@ -135,10 +135,10 @@ def read_config_map():
             try:
                 return yaml.safe_load(stream)
             except yaml.YAMLError as exc:
-                logger.exception("Failed to parse SSP YAML after successfully opening")
+                logger.exception("Failed to parse EC YAML after successfully opening")
                 raise
     except Exception:
-        logger.exception("Failed to load SSP YAML file")
+        logger.exception("Failed to load EC YAML file")
         raise
 
 

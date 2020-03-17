@@ -286,7 +286,7 @@ variable "istio_status" {
   #  description = "the default behaviour is to not installed"
 }
 
-# SSP Deployment
+# EC Deployment
 variable "application_yaml_path" {
   description = "Path to the yaml file describing the application resources"
   type        = string

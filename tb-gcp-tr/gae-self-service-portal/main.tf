@@ -80,7 +80,7 @@ resource "google_storage_bucket_object" "ec-ui-upload" {
   ]
 }
 
-# CREATE GAE STANDARD APPLICATION TO HOST SSP UI
+# CREATE GAE STANDARD APPLICATION TO HOST EC UI
 resource "google_app_engine_standard_app_version" "ec-ui-deploy" {
   version_id      = var.gae-version
   service         = var.gae-service
