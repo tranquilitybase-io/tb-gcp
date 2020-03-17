@@ -2,9 +2,9 @@
 
 Project is used for building an activator infrastructure:
 It contains 3 HTTP entrypoints: 
- - /isalive [GET] - healthcheck
- - /build [POST] - create an activator infrastructure
- - /destroy [POST] - destroy an activator infrastructure
+ - /isalive \[GET] - healthcheck
+ - /build \[POST] - create an activator infrastructure
+ - /destroy \[POST] - destroy an activator infrastructure
  
 Main flow: 
  - clone activator terraform script
