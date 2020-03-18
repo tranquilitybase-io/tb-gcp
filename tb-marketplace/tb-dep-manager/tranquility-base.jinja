@@ -151,8 +151,14 @@ resources:
         root_id="{{ rootId }}"
         root_is_org="false"
         tb_discriminator="{{ tbDiscriminator }}"
-        terraform_state_bucket_name="{{ bucketName }}"
+        terraform_state_bucket="{{ bucketName }}"
         clusters_master_whitelist_ip="$(ref.{{ tbDiscriminator }}-ip.address)"
+        EOF
+        
+        #generate var file with bucket name in it
+        cd /opt/tb/repo/tb-gcp-tr/landingZone/with-itop
+        cat <<EOF > input.auto.tfvars
+        terraform_state_bucket="{{ bucketName }}"
         EOF
 
         echo "STARTUP COMPLETE"

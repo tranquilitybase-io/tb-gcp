@@ -346,7 +346,7 @@ variable "ssp_iam_service_account_roles" {
 //  type = string
 //}
 
-variable "terraform_state_bucket_name" {
+variable "terraform_state_bucket" {
   type = string
 }
 

@@ -22,7 +22,7 @@ cd /opt/tb/repo/tb-gcp-tr/landingZone/no-itop
 source input.auto.tfvars
 
 # Create TF state bucket
-sudo gsutil mb "gs://${terraform_state_bucket_name}/"
+sudo gsutil mb "gs://${terraform_state_bucket}/"
 
 MAX_ATTEMPTS=10
 MAX_ATTEMPTS_INIT=3
@@ -48,7 +48,7 @@ echo "Terraform init"
 sleep $DELAY_BETWEEN_ATTEMPTS
 apply_failures=0
 while [ $apply_failures -lt $MAX_ATTEMPTS_INIT ]; do
-terraform init -backend-config="bucket=${terraform_state_bucket_name}" -backend-config="prefix=landingZone"
+terraform init -backend-config="bucket=${terraform_state_bucket}" -backend-config="prefix=landingZone"
 if [ $? -eq 0 ]; then
 echo "Terraform initialised successfully"
 break

@@ -29,7 +29,7 @@ data:
     activator_folder_id: ${module.folder_structure.activators_id}
     billing_account: ${var.billing_account_id}
     region: ${var.region}
-    terraform_state_bucket: ${var.terraform_state_bucket_name}
+    terraform_state_bucket: ${var.terraform_state_bucket}
     env_data: input.tfvars
     ssp_project_name: ${module.shared_projects.shared_ssp_name}
     activator_terraform_code_store: ${google_sourcerepo_repository.activator-terraform-code-store.name}

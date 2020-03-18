@@ -39,11 +39,11 @@ root_id = "${root_id}"
 root_is_org = "${root_is_org}"
 billing_account_id = "${billing_account_id}"
 tb_discriminator = "${tb_discriminator}"
-terraform_state_bucket_name = "${terraform_state_bucket_name}"
+terraform_state_bucket = "${terraform_state_bucket}"
 
 EOF
 
-terraform init -backend-config="bucket=${terraform_state_bucket_name}" -backend-config="prefix=landingZone"
+terraform init -backend-config="bucket=${terraform_state_bucket}" -backend-config="prefix=landingZone"
 
 apply_failures=0
 while [ $apply_failures -lt $MAX_ATTEMPTS ]; do

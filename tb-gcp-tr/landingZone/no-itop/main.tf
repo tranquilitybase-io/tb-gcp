@@ -45,7 +45,7 @@ provider "kubernetes" {
 terraform {
   backend "gcs" {
     # The bucket name below is overloaded at every run with
-    # `-backend-config="bucket=${terraform_state_bucket_name}"` parameter
+    # `-backend-config="bucket=${terraform_state_bucket}"` parameter
     # templated into the `bootstrap.sh` script 
     bucket = "terraformdevstate"
   }
@@ -387,7 +387,7 @@ resource "random_id" "activator_bucket_name" {
 }
 
 resource "google_storage_bucket_iam_binding" "ssp-terraform-state-storage-admin" {
-  bucket = var.terraform_state_bucket_name
+  bucket = var.terraform_state_bucket
   role   = "roles/storage.admin"
 
   members = [

@@ -346,7 +346,7 @@ variable "tls-organization" {
   type = string
 }
 
-variable "terraform_state_bucket_name" {
+variable "terraform_state_bucket" {
   type = string
 }
 
