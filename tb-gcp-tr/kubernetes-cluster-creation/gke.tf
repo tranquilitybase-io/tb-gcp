@@ -15,7 +15,7 @@
 resource "google_container_cluster" "gke" {
   project  = var.cluster_project_id
   name     = var.cluster_name
-  region   = var.region
+  location = var.region
   provider = google-beta.shared-vpc
 
   # We can't create a cluster with no node pool defined, but we want to only use
@@ -91,7 +91,7 @@ resource "google_container_cluster" "gke" {
 resource "google_container_node_pool" "gke_node_pool" {
   project = var.cluster_project_id
   name    = var.cluster_pool_name
-  region  = var.region
+  location= var.region
 
   node_count = 1
   cluster    = google_container_cluster.gke.name
