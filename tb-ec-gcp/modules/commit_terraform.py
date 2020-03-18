@@ -17,20 +17,23 @@ from python_terraform import *
 from subprocess import Popen
 from os import popen
 
+from modules.app_config import DEFAULT_SHELL
+
 
 def commit_terraform(terraform_path, backend_prefix, user_email, activator_terraform_code_store):
-    Popen(["/opt/ec/bash/pull_changes.sh", ], stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-          universal_newlines=True, shell=False).communicate()
-    popen("mkdir -p " "/opt/ec/" + activator_terraform_code_store + "/" + backend_prefix, shell=False)
-    popen("cp -a " + terraform_path + "*" + " /opt/ec/" + activator_terraform_code_store + "/" + backend_prefix, shell=False)
-    Popen(["/opt/ec/bash/git_init.sh", user_email, ], stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-          universal_newlines=True, shell=False).communicate()
-    Popen(["/opt/ec/bash/commit_changes.sh", ], stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-          universal_newlines=True, shell=False).communicate()
+    Popen([DEFAULT_SHELL, "/opt/ec/bash/pull_changes.sh", ], stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+          universal_newlines=True).communicate()
+    popen("mkdir -p " "/opt/ec/" + activator_terraform_code_store + "/" + backend_prefix)
+    popen("cp -a " + terraform_path + "*" + " /opt/ec/" + activator_terraform_code_store + "/" + backend_prefix)
+    Popen([DEFAULT_SHELL, "/opt/ec/bash/git_init.sh", user_email, ], stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+          universal_newlines=True).communicate()
+    Popen([DEFAULT_SHELL, "/opt/ec/bash/commit_changes.sh", ], stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+          universal_newlines=True).communicate()
 
 
 def create_hash(user, app_name):
-    sha_1 = hashlib.sha256
+    sha_1 = hashlib.sha1()
     encoded_data = (app_name + user).encode('utf-8')
     sha_1.update(encoded_data)
+
     return sha_1.hexdigest()
