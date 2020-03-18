@@ -233,6 +233,10 @@ gcloud resource-manager folders remove-iam-policy-binding "${FOLDER_ID}" --membe
 gcloud resource-manager folders remove-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.networkAdmin --format=none
 gcloud resource-manager folders remove-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.xpnAdmin --format=none
 
+# remove project binding off the billing account
+echo "Remmoving project binding off billing account..."
+gcloud alpha billing projects unlink "${PROJECT_ID}" --format=none
+echo "Project binding removed"
 
 # Delete TB (sub-)folders
 echo
