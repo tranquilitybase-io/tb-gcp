@@ -157,7 +157,7 @@ resources:
 
         #generate var file with bucket name in it
         cd /opt/tb/repo/tb-gcp-tr/options
-        cat <<EOF > input.auto.tfvars
+        cat <<EOF > options.tfvars
         terraform_state_bucket="{{ bucketName }}"
         EOF
 
