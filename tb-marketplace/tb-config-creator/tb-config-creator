@@ -111,9 +111,6 @@ echo "  - cloudresourcemanager.googleapis.com"
 echo "  - compute.googleapis.com"
 echo "  - container.googleapis.com"
 echo "  - containerregistry.googleapis.com"
-echo "  - iap.googleapis.com"
-echo "  - iam.googleapis.com"
-echo "  - iamcredentials.googleapis.com"
 echo "  - logging.googleapis.com"
 echo "  - oslogin.googleapis.com"
 echo "  - serviceusage.googleapis.com"
@@ -180,9 +177,6 @@ gcloud --project "${PROJECT_ID}" services enable cloudresourcemanager.googleapis
 gcloud --project "${PROJECT_ID}" services enable compute.googleapis.com
 gcloud --project "${PROJECT_ID}" services enable container.googleapis.com
 gcloud --project "${PROJECT_ID}" services enable containerregistry.googleapis.com
-gcloud --project "${PROJECT_ID}" services enable iap.googleapis.com
-gcloud --project "${PROJECT_ID}" services enable iam.googleapis.com
-gcloud --project "${PROJECT_ID}" services enable iamcredentials.googleapis.com
 gcloud --project "${PROJECT_ID}" services enable logging.googleapis.com
 gcloud --project "${PROJECT_ID}" services enable oslogin.googleapis.com
 gcloud --project "${PROJECT_ID}" services enable serviceusage.googleapis.com
