@@ -32,5 +32,4 @@ def create_hash(user, app_name):
     sha_1 = hashlib.sha256
     encoded_data = (app_name + user).encode('utf-8')
     sha_1.update(encoded_data)
-
     return sha_1.hexdigest()
