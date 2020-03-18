@@ -10,7 +10,7 @@ data "terraform_remote_state" "itsm_cluster" {
   backend = "gcs"
   config = {
     bucket  = var.terraform_state_bucket
-    prefix  = "itsm"
+    prefix  = "options/itsm"
   }
 }
 
@@ -23,7 +23,7 @@ provider "google" {
 terraform {
   backend "gcs"  {
     bucket  = var.terraform_state_bucket
-    prefix  = "itsm/itop"
+    prefix  = "options/itsm/itop"
   }
 }
 
@@ -58,14 +58,14 @@ provider "helm" {
 }
 
 module "itop" {
-  source = "../../../itop"
+  source = "./itop-module"
   providers = {
     kubernetes = kubernetes.gke-itsm
     helm       = helm.gke-itsm
   }
 
   host_project_id       = data.terraform_remote_state.landingzone.outputs.shared_itsm_id
-  itop_chart_local_path = "../../../itop/helm"
+  itop_chart_local_path = "./itop-module/helm"
   region                = data.terraform_remote_state.landingzone.outputs.region
   region_zone           = data.terraform_remote_state.landingzone.outputs.region_zone
   database_user_name    = var.itop_database_user_name

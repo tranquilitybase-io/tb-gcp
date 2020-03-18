@@ -10,7 +10,7 @@ data "terraform_remote_state" "secrets_cluster" {
   backend = "gcs"
   config = {
     bucket  = var.terraform_state_bucket
-    prefix  = "secrets"
+    prefix  = "options/secrets"
   }
 }
 
@@ -23,7 +23,7 @@ provider "google" {
 terraform {
   backend "gcs"  {
     bucket  = var.terraform_state_bucket
-    prefix  = "secrets/vault"
+    prefix  = "options/secrets/vault"
   }
 }
 

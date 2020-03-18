@@ -15,7 +15,7 @@
 # Setup of folders in empty/new org
 
 module "itop-on-gke" {
-  source                 = "../../"
+  source                 = "..\/.."
   host_project_id        = var.host_project_id
   region                 = var.region
   region_zone            = var.region_zone
