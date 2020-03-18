@@ -28,6 +28,7 @@ def commit_terraform(terraform_path, backend_prefix, user_email, activator_terra
     Popen(["/opt/ec/bash/commit_changes.sh", ], stdout=subprocess.PIPE, stderr=subprocess.PIPE,
           universal_newlines=True, shell=False).communicate()
 
+
 def create_hash(user, app_name):
     sha_1 = hashlib.sha256
     encoded_data = (app_name + user).encode('utf-8')
