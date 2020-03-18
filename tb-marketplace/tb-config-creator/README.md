@@ -25,21 +25,17 @@ This script was created to be executed by future deployers of Tranquility Base f
 
  2. Activation of the following APIs:
    - appengine.googleapis.com
-   - bigquery-json.googleapis.com
-   - bigquerystorage.googleapis.com
    - cloudbilling.googleapis.com
    - cloudkms.googleapis.com
    - cloudresourcemanager.googleapis.com 
    - compute.googleapis.com
    - container.googleapis.com
    - containerregistry.googleapis.com
-   - datastore.googleapis.com
    - iap.googleapis.com
    - iam.googleapis.com
    - iamcredentials.googleapis.com
    - logging.googleapis.com
    - oslogin.googleapis.com
-   - pubsub.googleapis.com
    - serviceusage.googleapis.com
    - sourcerepo.googleapis.com
    - sqladmin.googleapis.com
@@ -152,21 +148,17 @@ Example execution
       - billing.admin
   2.Activation of the following API's:
     - appengine.googleapis.com
-    - bigquery-json.googleapis.com
-    - bigquerystorage.googleapis.com
     - cloudbilling.googleapis.com
     - cloudkms.googleapis.com
     - cloudresourcemanager.googleapis.com
     - compute.googleapis.com
     - container.googleapis.com
     - containerregistry.googleapis.com
-    - datastore.googleapis.com
     - iap.googleapis.com
     - iam.googleapis.com
     - iamcredentials.googleapis.com
     - logging.googleapis.com
     - oslogin.googleapis.com
-    - pubsub.googleapis.com
     - serviceusage.googleapis.com
     - sourcerepo.googleapis.com
     - sqladmin.googleapis.com
