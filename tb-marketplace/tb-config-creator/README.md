@@ -32,7 +32,6 @@ This script was created to be executed by future deployers of Tranquility Base f
    - container.googleapis.com
    - containerregistry.googleapis.com
    - logging.googleapis.com
-   - oslogin.googleapis.com
    - serviceusage.googleapis.com
    - sourcerepo.googleapis.com
    - storage-api.googleapis.com
@@ -151,7 +150,6 @@ Example execution
     - container.googleapis.com
     - containerregistry.googleapis.com
     - logging.googleapis.com
-    - oslogin.googleapis.com
     - serviceusage.googleapis.com
     - sourcerepo.googleapis.com
     - storage-api.googleapis.com
