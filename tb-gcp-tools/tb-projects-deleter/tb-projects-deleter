@@ -30,6 +30,7 @@ SHARED_SVCS_FOLDER_NAME="Shared Services"
 
 APPLICATION_PROJ_PREFIXES=(activator- workspace-)
 SHARED_NET_PROJ_PREFIX="shared-networking-"
+REPO_NAME="tb-terraform-code"
 
 BS_RND_ID=""
 LZ_DISCRIMINATOR=""
@@ -234,9 +235,18 @@ gcloud resource-manager folders remove-iam-policy-binding "${FOLDER_ID}" --membe
 gcloud resource-manager folders remove-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.xpnAdmin --format=none
 
 # remove project binding off the billing account
-echo "Remmoving project binding off billing account..."
+echo;echo "Removing project binding off billing account..."
 gcloud alpha billing projects unlink "${PROJECT_ID}" --format=none
 echo "Project binding removed"
+
+# Remove the tb source repo
+echo;echo "Removing TB source repo..."
+tb_repo=$(gcloud source repos list --format="value(name)" --filter="name~'${REPO_NAME}'")
+if [[ -z "${tb_repo}" ]]; then
+	echo "ERROR: Didn't find repo [${tb-repo}]"
+else
+  gcloud source repos delete "${REPO_NAME}" --quiet
+fi
 
 # Delete TB (sub-)folders
 echo
