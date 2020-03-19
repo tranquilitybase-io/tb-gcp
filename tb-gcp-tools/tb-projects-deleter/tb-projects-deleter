@@ -173,8 +173,18 @@ echo
 
 # Delete liens
 echo "Deleting Liens..."
-echo
 gcloud alpha --project ${shared_net_project} resource-manager liens delete $(gcloud --project ${shared_net_project} alpha resource-manager liens list --format='value(name)' --filter=origin=xpn.googleapis.com --limit=1)
+echo
+
+# remove shared services projects billing bindings
+echo "Removing shared services projects billing bindings (other than networking)..."
+for project in ${other_shared_svcs_projects}; do
+	gcloud alpha billing projects unlink "${project}" --format=none
+done
+
+# remove networking project billing binding
+echo "Removing shared networking project billing binding..."
+gcloud alpha billing projects unlink "${shared_net_project}" --format=none
 echo
 
 # Delete Application projects
@@ -189,11 +199,10 @@ fi
 echo
 
 # Delete shared services projects (other then networking)
-echo "Deleting shared services projects (other then networking)..."
+echo "Deleting shared services projects (other than networking)..."
 for project in ${other_shared_svcs_projects}; do
 	gcloud projects delete ${project} --quiet
 done
-echo
 
 # Delete shared networking project
 echo "Deleting shared networking project..."
@@ -207,14 +216,6 @@ gcloud beta billing accounts get-iam-policy ${BILLING_ID} > billing.yaml
 sed "/${SA_EMAIL}/d" billing.yaml > billing2.yaml
 gcloud beta billing accounts set-iam-policy ${BILLING_ID} billing2.yaml --format=none
 rm billing.yaml billing2.yaml
-# Remove the activator-dev-sa as billing account admin
-echo "Removing activator service account [${ACTIVATOR_SA_EMAIL}] as billing account admin..."
-gcloud beta billing accounts get-iam-policy ${BILLING_ID} > billing.yaml
-# Remove the line containing the name of the service account
-sed "/${ACTIVATOR_SA_EMAIL}/d" billing.yaml > billing3.yaml
-gcloud beta billing accounts set-iam-policy ${BILLING_ID} billing3.yaml --format=none
-rm billing.yaml billing3.yaml
-
 # Revoke bootstrap SA project and folder roles. Just in case the project is not deleted this allows
 # to re-use the same service account name and work around known issue:
 # https://cloud.google.com/iam/docs/understanding-service-accounts#deleting_and_recreating_service_accounts
@@ -234,19 +235,31 @@ gcloud resource-manager folders remove-iam-policy-binding "${FOLDER_ID}" --membe
 gcloud resource-manager folders remove-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.networkAdmin --format=none
 gcloud resource-manager folders remove-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.xpnAdmin --format=none
 
-# remove project binding off the billing account
-echo;echo "Removing project binding off billing account..."
-gcloud alpha billing projects unlink "${PROJECT_ID}" --format=none
-echo "Project binding removed"
+# Remove the activator-dev-sa as billing account admin
+echo "Removing activator service account [${ACTIVATOR_SA_EMAIL}] as billing account admin..."
+gcloud beta billing accounts get-iam-policy ${BILLING_ID} > billing.yaml
+# Remove the line containing the name of the service account
+sed "/${ACTIVATOR_SA_EMAIL}/d" billing.yaml > billing3.yaml
+gcloud beta billing accounts set-iam-policy ${BILLING_ID} billing3.yaml --format=none
+rm billing.yaml billing3.yaml
+
 
 # Remove the tb source repo
-echo;echo "Removing TB source repo..."
+echo "Removing TB source repo..."
+# "gcloud list" will list all repos of the currently active project
+# therefore, we set first bootstrap project as active project
+gcloud config set core/project "${PROJECT_ID}"
 tb_repo=$(gcloud source repos list --format="value(name)" --filter="name~'${REPO_NAME}'")
 if [[ -z "${tb_repo}" ]]; then
 	echo "ERROR: Didn't find repo [${tb-repo}]"
 else
   gcloud source repos delete "${REPO_NAME}" --quiet
 fi
+
+# remove bootstrap project billing binding
+echo "Removing project [${PROJECT_ID}] billing binding..."
+gcloud alpha billing projects unlink "${PROJECT_ID}" --format=none
+echo "Billind binding removed"
 
 # Delete TB (sub-)folders
 echo
@@ -261,4 +274,3 @@ gcloud projects delete ${PROJECT_ID} --quiet
 echo
 
 exit 0
-
