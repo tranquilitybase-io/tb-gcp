@@ -35,7 +35,6 @@ This script was created to be executed by future deployers of Tranquility Base f
    - oslogin.googleapis.com
    - serviceusage.googleapis.com
    - sourcerepo.googleapis.com
-   - sqladmin.googleapis.com
    - storage-api.googleapis.com
    
 The tool verifies that the provided Project, Folder and Billing Account do exist and are accessible to the authenticated account. If not, the tool exits with error message.
@@ -155,7 +154,6 @@ Example execution
     - oslogin.googleapis.com
     - serviceusage.googleapis.com
     - sourcerepo.googleapis.com
-    - sqladmin.googleapis.com
     - storage-api.googleapis.com
   
   Press Y to continue or any other key to abort: 
