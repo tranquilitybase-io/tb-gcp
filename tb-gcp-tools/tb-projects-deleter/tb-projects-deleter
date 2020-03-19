@@ -222,6 +222,8 @@ echo "Removing bootstrap service account [${SA_EMAIL}] bindings at the project l
 gcloud projects remove-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.instanceAdmin.v1 --format=none
 gcloud projects remove-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/storage.admin --format=none
 gcloud projects remove-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/source.admin --format=none
+gcloud projects remove-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/logging.logWriter --format=none
+
 # remove permissions at the folder level
 echo "Removing bootstrap service account [${SA_EMAIL}] bindings at the folder level... "
 gcloud resource-manager folders remove-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/resourcemanager.folderAdmin --format=none
@@ -231,6 +233,10 @@ gcloud resource-manager folders remove-iam-policy-binding "${FOLDER_ID}" --membe
 gcloud resource-manager folders remove-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.networkAdmin --format=none
 gcloud resource-manager folders remove-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.xpnAdmin --format=none
 
+# remove project binding off the billing account
+echo "Remmoving project binding off billing account..."
+gcloud alpha billing projects unlink "${PROJECT_ID}" --format=none
+echo "Project binding removed"
 
 # Delete TB (sub-)folders
 echo
