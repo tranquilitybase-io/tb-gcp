@@ -43,7 +43,7 @@ spec:
     spec:
       containers:
         - name: houstonservice
-          image: gcr.io/eagle-console-resources/tb-houston-service-image:latest
+          image: gcr.io/tranquility-base-images/tb-houston-service:alpha
           resources:
             requests:
               cpu: "100m"

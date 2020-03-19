@@ -345,21 +345,21 @@ module "SharedServices_configuration_file" {
   dependency_var    = null_resource.kubernetes_service_account_key_secret.id
 }
 
-module "SharedServices_ssp" {
-  source = "../../../tb-common-tr/start_service"
-
-  k8s_template_file = var.application_yaml_path
-  cluster_context   = module.k8s-ssp_context.context_name
-  dependency_var    = module.SharedServices_configuration_file.id
-}
-
-//module "eagle_console_ssp" {
+//module "SharedServices_ssp" {
 //  source = "../../../tb-common-tr/start_service"
 //
-//  k8s_template_file = var.eagle_console_yaml_path
+//  k8s_template_file = var.application_yaml_path
 //  cluster_context   = module.k8s-ssp_context.context_name
 //  dependency_var    = module.SharedServices_configuration_file.id
 //}
+
+module "eagle_console_ssp" {
+  source = "../../../tb-common-tr/start_service"
+
+  k8s_template_file = var.eagle_console_yaml_path
+  cluster_context   = module.k8s-ssp_context.context_name
+  dependency_var    = module.SharedServices_configuration_file.id
+}
 
 module "houston_service_ssp" {
   source = "../../../tb-common-tr/start_service"
@@ -401,7 +401,7 @@ resource "null_resource" "get_endpoint" {
 
   #   command = "echo -n 'http://' > ${var.endpoint_file} && kubectl --context=${module.k8s-ssp_context.context_name} get svc istio-ingressgateway -n istio-system -o jsonpath='{.status.loadBalancer.ingress[0].ip}' >> ${var.endpoint_file}"
 
-  depends_on = [module.SharedServices_ssp]
+  depends_on = [module.eagle_console_ssp]
 }
 
 resource "google_storage_bucket_object" "backend-endpoint" {
