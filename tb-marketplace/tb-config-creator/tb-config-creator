@@ -112,7 +112,6 @@ echo "  - compute.googleapis.com"
 echo "  - container.googleapis.com"
 echo "  - containerregistry.googleapis.com"
 echo "  - logging.googleapis.com"
-echo "  - oslogin.googleapis.com"
 echo "  - serviceusage.googleapis.com"
 echo "  - sourcerepo.googleapis.com"
 echo "  - sqladmin.googleapis.com"
@@ -178,7 +177,6 @@ gcloud --project "${PROJECT_ID}" services enable compute.googleapis.com
 gcloud --project "${PROJECT_ID}" services enable container.googleapis.com
 gcloud --project "${PROJECT_ID}" services enable containerregistry.googleapis.com
 gcloud --project "${PROJECT_ID}" services enable logging.googleapis.com
-gcloud --project "${PROJECT_ID}" services enable oslogin.googleapis.com
 gcloud --project "${PROJECT_ID}" services enable serviceusage.googleapis.com
 gcloud --project "${PROJECT_ID}" services enable sourcerepo.googleapis.com
 gcloud --project "${PROJECT_ID}" services enable sqladmin.googleapis.com
