@@ -361,13 +361,13 @@ module "eagle_console_ssp" {
   dependency_var    = module.SharedServices_configuration_file.id
 }
 
-//module "houston_service_ssp" {
-//  source = "../../../tb-common-tr/start_service"
-//
-//  k8s_template_file = var.houston_service_yaml_path
-//  cluster_context   = module.k8s-ssp_context.context_name
-//  dependency_var    = module.SharedServices_configuration_file.id
-//}
+module "houston_service_ssp" {
+  source = "../../../tb-common-tr/start_service"
+
+  k8s_template_file = var.houston_service_yaml_path
+  cluster_context   = module.k8s-ssp_context.context_name
+  dependency_var    = module.SharedServices_configuration_file.id
+}
 
 module "self-service-app" {
   source = "../../gae-self-service-portal"

@@ -67,59 +67,6 @@ spec:
           secret:
             secretName: ssp-service-account
 ---
-apiVersion: v1
-kind: Service
-metadata:
-  name: houstonservice
-  labels:
-    app: houstonservice
-spec:
-  ports:
-    - port: 3001
-      targetPort: 5000
-      name: http
-  selector:
-    app: houstonservice
----
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
-  name: houstonservice-v1
-spec:
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: houstonservice
-        version: v1
-    spec:
-      containers:
-        - name: houstonservice
-          image: gcr.io/eagle-console-resources/tb-houston-service-image:latest
-          resources:
-            requests:
-              cpu: "100m"
-          imagePullPolicy: IfNotPresent #Always
-          ports:
-            - containerPort: 5000
-          volumeMounts:
-            - name: config-volume
-              mountPath: /app/ssp-config.yaml
-              subPath: ssp-config.yaml
-            - name: google-cloud-key
-              mountPath: /var/secrets/google
-          env:
-            - name: GOOGLE_APPLICATION_CREDENTIALS
-              value: /var/secrets/google/ssp-service-account-config.json
-      volumes:
-        - name: config-volume
-          configMap:
-            name: ssp-config
-        - name: google-cloud-key
-          secret:
-            secretName: ssp-service-account
----
-
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
@@ -131,12 +78,6 @@ spec:
     - port:
         number: 80
         name: http
-        protocol: HTTP
-      hosts:
-        - "*"
-    - port:
-        number: 3001
-        name: http-3001
         protocol: HTTP
       hosts:
         - "*"
@@ -171,26 +112,6 @@ spec:
           - DELETE
         allowHeaders:
           - "*"
-    - match:
-        - uri:
-            prefix: /api/
-        route:
-          - destination:
-              port:
-                number: 3001
-              host: houstonservice
-        corsPolicy:
-          allowOrigin:
-            - "*"
-          allowMethods:
-            - POST
-            - GET
-            - OPTIONS
-            - PUT
-            - PATCH
-            - DELETE
-          allowHeaders:
-            - "*"
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
@@ -252,20 +173,6 @@ metadata:
     cloud.google.com/load-balancer-type: "Internal"
 spec:
   host: eagleconsole
-  trafficPolicy:
-    loadBalancer:
-      simple: LEAST_CONN
-
----
-
-apiVersion: networking.istio.io/v1alpha3
-kind: DestinationRule
-metadata:
-  name: houstonservice
-  annotations:
-    cloud.google.com/load-balancer-type: "Internal"
-spec:
-  host: houstonservice
   trafficPolicy:
     loadBalancer:
       simple: LEAST_CONN
