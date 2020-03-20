@@ -368,55 +368,15 @@ resource "null_resource" "get_endpoint" {
   depends_on = [module.SharedServices_ssp]
 }
 
-resource "google_storage_bucket_object" "backend-endpoint" {
-  name          = "assets/endpoint-meta.json"
-  bucket        = module.self-service-app.bucket_name
-  source        = var.endpoint_file
-  cache_control = "no-cache, max-age=0"
-
-  # Added depends_on to ensure that this resource isn't created until upload_to_static_host null_resource in module.self-service-app is ready
-  depends_on = [
-    module.self-service-app,
-    null_resource.get_endpoint,
-  ]
-}
-
 // add bucket to store terraform ssp activator state
 resource "random_id" "activator_bucket_name" {
   byte_length = 4
-}
-
-resource "google_storage_bucket_iam_binding" "ssp-terraform-state-storage-admin" {
-  bucket = var.terraform_state_bucket_name
-  role   = "roles/storage.admin"
-
-  members = [
-    local.service_account_name,
-  ]
 }
 
 resource "google_sourcerepo_repository" "activator-terraform-code-store" {
   name       = "terraform-code-store"
   project    = module.shared_projects.shared_ssp_id
   depends_on = [module.apis_activation]
-}
-
-resource "google_sourcerepo_repository_iam_binding" "terraform-code-store-admin-binding" {
-  repository = google_sourcerepo_repository.activator-terraform-code-store.name
-  project    = module.shared_projects.shared_ssp_id
-  role       = "roles/source.admin"
-
-  members = [
-    local.service_account_name,
-  ]
-  depends_on = [google_sourcerepo_repository.activator-terraform-code-store]
-}
-
-// used only to enable datastore
-resource "google_app_engine_application" "enable-datastore" {
-  project     = module.shared_projects.shared_ssp_id
-  location_id = var.region
-  depends_on  = [google_sourcerepo_repository_iam_binding.terraform-code-store-admin-binding]
 }
 
 module "bastion-security" {
