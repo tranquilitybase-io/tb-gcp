@@ -40,12 +40,12 @@ resource "google_project_services" "ssp_project" {
 }
 */
 
-resource "google_project_service" "project" {
+resource "google_project_service" "bastion-iap" {
   project = var.bastion_project_id
   service = "iap.googleapis.com"
   depends_on = ["google_project_services.project"]
 }
-resource "google_project_service" "project" {
+resource "google_project_service" "bastion-recommender" {
   project = var.bastion_project_id
   service = "recommender.googleapis.com"
   depends_on = ["google_project_services.project"]
