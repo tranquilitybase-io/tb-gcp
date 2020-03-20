@@ -80,35 +80,3 @@ resource "google_storage_bucket_object" "ssp-ui-upload" {
   ]
 }
 
-# CREATE GAE STANDARD APPLICATION TO HOST SSP UI
-resource "google_app_engine_standard_app_version" "ssp-ui-deploy" {
-  version_id      = var.gae-version
-  service         = var.gae-service
-  runtime         = var.gae-runtime
-  project         = var.project_id
-  threadsafe      = true
-  noop_on_destroy = true
-  handlers {
-    url_regex = "/"
-    login     = var.gae-login-required
-    static_files {
-      path              = "${var.ui-dist-dir}/index.html"
-      upload_path_regex = "${var.ui-dist-dir}/index.html"
-    }
-  }
-  handlers {
-    url_regex = "/(.*)$"
-    login     = var.gae-login-required
-    static_files {
-      path              = "${var.ui-dist-dir}/\\1"
-      upload_path_regex = "${var.ui-dist-dir}/.*"
-    }
-  }
-  deployment {
-    zip {
-      source_url = "https://storage.googleapis.com/${google_storage_bucket.ssp-ui-static-files.name}/${var.ssp-ui-zip}"
-    }
-  }
-  depends_on = [google_storage_bucket_object.ssp-ui-upload]
-}
-
