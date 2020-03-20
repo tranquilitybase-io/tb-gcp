@@ -16,7 +16,7 @@ import { Component } from '@angular/core';
 import { faEllipsisV, faTimes, faPlus, faList, faThLarge } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'tb-ssp-change-view',
+  selector: 'tb-ec-change-view',
   templateUrl: './change-view.component.html',
   styleUrls: ['./change-view.component.scss']
 })

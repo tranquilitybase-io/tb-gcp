@@ -15,7 +15,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'tb-ssp-page-not-found',
+  selector: 'tb-ec-page-not-found',
   templateUrl: './page-not-found.component.html',
   styleUrls: ['./page-not-found.component.scss']
 })

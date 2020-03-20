@@ -38,8 +38,8 @@ resource "google_project_services" "project" {
 }
 
 /*
-resource "google_project_services" "ssp_project" {
-  project = "${var.ssp_project_id}"
+resource "google_project_services" "ec_project" {
+  project = "${var.ec_project_id}"
   services   = ["compute.googleapis.com", "oslogin.googleapis.com", "container.googleapis.com"]
   depends_on = ["google_project_services.project"]
 }

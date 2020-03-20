@@ -18,7 +18,7 @@ import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'tb-ssp-header',
+  selector: 'tb-ec-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })

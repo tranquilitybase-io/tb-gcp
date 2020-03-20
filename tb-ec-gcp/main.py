@@ -80,7 +80,7 @@ def run_terraform():
 
     terraform_source_path = '/opt/tb/repo/tb-gcp-activator/'  # this should be the param to python script
     activator_terraform_code_store = config['activator_terraform_code_store']
-    gcloud.clone_code_store(config['ssp_project_name'], activator_terraform_code_store)
+    gcloud.clone_code_store(config['ec_project_name'], activator_terraform_code_store)
 
     update_activator_input_subnets(backend_prefix, config, terraform_source_path, backend_prefix)
 
@@ -113,7 +113,7 @@ def update_activator_input_subnets(backend_prefix, config, terraform_activator_p
     :param formatted_app_name: application name
     :return:
     """
-    terraform_subnets_path = '/opt/ssp/tf_create_subnets/'
+    terraform_subnets_path = '/opt/ec/tf_create_subnets/'
     allocated_subnet_cirds = subnet_pool_handler.retrieve_free_subnet_cidrs('10.0.11.0/24', '10.0.255.0/24', config,
                                                                             formatted_app_name)
 
@@ -126,19 +126,19 @@ def update_activator_input_subnets(backend_prefix, config, terraform_activator_p
 
 def read_config_map():
     """
-    Returns the SSP configuration as a dictionary
+    Returns the EC configuration as a dictionary
 
     :return: dict of config
     """
     try:
-        with open("/app/ssp-config.yaml", 'r') as stream:
+        with open("/app/ec-config.yaml", 'r') as stream:
             try:
                 return yaml.safe_load(stream)
             except yaml.YAMLError as exc:
-                logger.exception("Failed to parse SSP YAML after successfully opening")
+                logger.exception("Failed to parse EC YAML after successfully opening")
                 raise
     except Exception:
-        logger.exception("Failed to load SSP YAML file")
+        logger.exception("Failed to load EC YAML file")
         raise
 
 

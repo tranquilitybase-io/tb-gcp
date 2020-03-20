@@ -18,7 +18,7 @@ import { Router } from '@angular/router';
 import { DeploymentStatus } from '../../../models/deployment-status.enum';
 
 @Component({
-  selector: 'tb-ssp-deployment-status',
+  selector: 'tb-ec-deployment-status',
   templateUrl: './deployment-status.component.html',
   styleUrls: ['./deployment-status.component.scss']
 })

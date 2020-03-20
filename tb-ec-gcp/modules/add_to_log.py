@@ -21,10 +21,10 @@ logger = get_logger()
 
 def add_to_log(user, app_name, tf_data, config):
     env_data = config['env_data']
-    ssp_project_name = config['ssp_project_name']
+    ec_project_name = config['ec_project_name']
     app_id = commit_terraform.create_hash(user, app_name)
 
     try:
-        datastore.add_gcp_log(user, app_name, app_id, tf_data, env_data, ssp_project_name)
+        datastore.add_gcp_log(user, app_name, app_id, tf_data, env_data, ec_project_name)
     except Exception as e:  # not an end-of-the-world failure, don't push the exception upstream for now
         logger.exception("Error while saving log to datastore")

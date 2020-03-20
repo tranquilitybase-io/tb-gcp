@@ -13,5 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-exec >> /var/log/pull_changes.log 2>&1
-git -C /opt/ssp/terraform-code-store pull
+exec >> /var/log/git_init.log 2>&1
+user_email="$1"
+git config --global user.email "$user_email"
+# git user name hardcoded
+git config --global user.name "GCP-EC-Backend"

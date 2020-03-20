@@ -59,9 +59,9 @@ resource "google_project" "shared_billing" {
   auto_create_network = false
 }
 
-resource "google_project" "shared_ssp" {
-  name                = "${var.shared_ssp_project_name}-${random_id.project.hex}"
-  project_id          = "${var.shared_ssp_project_name}-${random_id.project.hex}"
+resource "google_project" "shared_ec" {
+  name                = "${var.shared_ec_project_name}-${random_id.project.hex}"
+  project_id          = "${var.shared_ec_project_name}-${random_id.project.hex}"
   folder_id           = var.root_id
   billing_account     = var.billing_account_id
   auto_create_network = false

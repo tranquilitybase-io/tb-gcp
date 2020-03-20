@@ -15,7 +15,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'tb-ssp-root',
+  selector: 'tb-ec-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })

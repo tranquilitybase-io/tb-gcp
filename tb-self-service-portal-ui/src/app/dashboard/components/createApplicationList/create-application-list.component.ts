@@ -22,7 +22,7 @@ import { merge } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 @Component({
-  selector: 'tb-ssp-create-application-list',
+  selector: 'tb-ec-create-application-list',
   templateUrl: './create-application-list.component.html',
   styleUrls: ['./create-application-list.component.scss']
 })
