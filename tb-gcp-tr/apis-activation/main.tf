@@ -70,6 +70,7 @@ resource "google_project_services" "project_shared" {
     "oslogin.googleapis.com",
     "recommender.googleapis.com",
     "serviceusage.googleapis.com",
+    "sourcerepo.googleapis.com",
     "sqladmin.googleapis.com",
     "storage-api.googleapis.com",
   ]
