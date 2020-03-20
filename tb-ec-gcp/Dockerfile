@@ -54,6 +54,8 @@ RUN gcloud components install beta kubectl --quiet
 RUN pip install -r /opt/ec/requirements.txt
 
 RUN  apt-get update -y && \
+     apt-get upgrade -y && \	
+     apt-get dist-upgrade -y && \
      apt-get -y autoremove && \
      apt-get clean
 
