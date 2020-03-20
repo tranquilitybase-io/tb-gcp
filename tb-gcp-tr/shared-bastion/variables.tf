@@ -16,7 +16,7 @@ variable "region" {
   description = "region name."
 }
 
-variable "tb_bastion_id" {
+variable "shared_bastion_id" {
   type        = string
   description = "TB Bastion ID"
 }
