@@ -24,7 +24,6 @@ This script was created to be executed by future deployers of Tranquility Base f
      - billing.admin
 
  2. Activation of the following APIs:
-   - appengine.googleapis.com
    - cloudbilling.googleapis.com
    - cloudkms.googleapis.com
    - cloudresourcemanager.googleapis.com 
@@ -142,7 +141,6 @@ Example execution
     - at the billing account level
       - billing.admin
   2.Activation of the following API's:
-    - appengine.googleapis.com
     - cloudbilling.googleapis.com
     - cloudkms.googleapis.com
     - cloudresourcemanager.googleapis.com
