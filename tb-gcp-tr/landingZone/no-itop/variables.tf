@@ -76,9 +76,9 @@ variable "shared_billing_project_name" {
   description = "Shared billing project name."
 }
 
-variable "tb_bastion_project_name" {
+variable "shared_bastion_project_name" {
   type        = string
-  default     = "tb-bastion"
+  default     = "shared-bastion"
   description = "Name for bastion project"
 }
 

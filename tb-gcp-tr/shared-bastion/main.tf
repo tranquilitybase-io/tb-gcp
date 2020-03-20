@@ -3,12 +3,12 @@
 resource "google_service_account" "bastion_service_account" {
   account_id   = "bastion-service-account"
   display_name = "bastion-service-account"
-  project = var.tb_bastion_id
+  project = var.shared_bastion_id
 }
 # Adding bastion project as service project to host vpc
 resource "google_compute_shared_vpc_service_project" "attach_bastion_project" {
   host_project    = var.shared_networking_id
-  service_project = var.tb_bastion_id
+  service_project = var.shared_bastion_id
 }
 
 resource "google_compute_subnetwork_iam_binding" "bastion_subnet_permission" {
@@ -51,7 +51,7 @@ resource "google_compute_firewall" "bast-nat-http" {
 resource "google_compute_instance" "tb_windows_bastion" {
   depends_on = [
     google_service_account.bastion_service_account]
-  project = var.tb_bastion_id
+  project = var.shared_bastion_id
   zone = var.region_zone
   name = "tb-windows-bastion"
   machine_type = "n1-standard-2"
@@ -72,7 +72,7 @@ resource "google_compute_instance" "tb_windows_bastion" {
 resource "google_compute_instance" "tb_linux_bastion" {
   depends_on = [
     google_service_account.bastion_service_account]
-  project = var.tb_bastion_id
+  project = var.shared_bastion_id
   zone = var.region_zone
   name = "tb-linux-bastion"
   machine_type = "n1-standard-2"

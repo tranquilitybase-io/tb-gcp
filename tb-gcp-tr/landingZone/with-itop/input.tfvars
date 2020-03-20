@@ -18,7 +18,7 @@ shared_secrets_project_name   = "shared-secrets"
 shared_telemetry_project_name  = "shared-telemetry"
 shared_itsm_project_name = "shared-itsm"
 shared_billing_project_name    = "shared-billing"
-tb_bastion_project_name = "tb-bastion"
+shared_bastion_project_name = "shared-bastion"
 
 #APIs ACTIVATION
 

@@ -68,9 +68,9 @@ resource "google_project" "shared_ec" {
   depends_on          = [google_project.shared_networking]
 }
 
-resource "google_project" "tb_bastion" {
-  name                = "${var.tb_bastion_project_name}-${random_id.project.hex}"
-  project_id          = "${var.tb_bastion_project_name}-${random_id.project.hex}"
+resource "google_project" "shared_bastion" {
+  name                = "${var.shared_bastion_project_name}-${random_id.project.hex}"
+  project_id          = "${var.shared_bastion_project_name}-${random_id.project.hex}"
   folder_id           = var.root_id
   billing_account     = var.billing_account_id
   auto_create_network = false
