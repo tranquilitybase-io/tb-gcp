@@ -181,6 +181,14 @@ gcloud --project "${PROJECT_ID}" services enable sourcerepo.googleapis.com
 gcloud --project "${PROJECT_ID}" services enable storage-api.googleapis.com
 echo "Essential APIs activated."
 
+# best practice (needs to be done after compute API is enabled)
+echo "Deleting default network..."
+gcloud compute firewall-rules delete projects/"${PROJECT_ID}"/global/firewalls/default-allow-icmp --quiet
+gcloud compute firewall-rules delete projects/"${PROJECT_ID}"/global/firewalls/default-allow-rdp --quiet
+gcloud compute firewall-rules delete projects/"${PROJECT_ID}"/global/firewalls/default-allow-ssh --quiet
+gcloud compute firewall-rules delete projects/"${PROJECT_ID}"/global/firewalls/default-allow-internal --quiet
+gcloud compute networks delete projects/"${PROJECT_ID}"/global/networks/default --quiet
+
 echo
 echo "Configuration completed!"
 echo "You can now deploy Tranquility Base from Marketplace in project [${PROJECT_ID}]."
