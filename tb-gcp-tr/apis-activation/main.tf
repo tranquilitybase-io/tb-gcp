@@ -55,12 +55,14 @@ resource "google_project_services" "project_shared" {
   count   = var.service_projects_number
   project = var.service_project_ids[count.index]
   services = [
+    "appengine.googleapis.com",
     "cloudbilling.googleapis.com",
     "cloudkms.googleapis.com",
     "cloudresourcemanager.googleapis.com",
     "compute.googleapis.com",
     "container.googleapis.com",
     "containerregistry.googleapis.com",
+    "datastore.googleapis.com",
     "iam.googleapis.com",
     "iamcredentials.googleapis.com",
     "logging.googleapis.com",
