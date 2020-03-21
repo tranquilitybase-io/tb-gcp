@@ -141,51 +141,19 @@ spec:
       hosts:
         - "*"
 ---
-#apiVersion: networking.istio.io/v1alpha3
-#kind: VirtualService
-#metadata:
-#  name: eagleconsole
-#spec:
-#  hosts:
-#    - "*"
-#  gateways:
-#    - mygateway
-#  http:
-#    - match:
-#        - uri:
-#            prefix: /
-#      route:
-#        - destination:
-#            host: eagleconsole
-#            port:
-#              number: 80
-#      corsPolicy:
-#        allowOrigin:
-#          - "*"
-#        allowMethods:
-#          - POST
-#          - GET
-#          - OPTIONS
-#          - PUT
-#          - PATCH
-#          - DELETE
-#        allowHeaders:
-#          - "*"
-#---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: eagleconsole
+  name: houstonservice
 spec:
   hosts:
     - "*"
   gateways:
     - mygateway
   http:
-    - name: "mock server"
-      match:
+    - match:
         - uri:
-            prefix: "/api"
+            prefix: /api
       route:
         - destination:
             host: houstonservice
@@ -203,13 +171,24 @@ spec:
           - DELETE
         allowHeaders:
           - "*"
-    - name: "eagle-console-ui"
-      route:
-        - destination:
-            host: eagleconsole
-            port:
-              number: 80
 ---
+#apiVersion: networking.istio.io/v1alpha3
+#kind: VirtualService
+#metadata:
+#  name: eagleconsole
+#spec:
+#  hosts:
+#    - "*"
+#  gateways:
+#    - mygateway
+#  http:
+#    - route:
+#        - destination:
+#            host: eagleconsole
+#            port:
+#              number: 80
+#
+#---
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
