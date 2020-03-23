@@ -89,11 +89,11 @@ cluster_opt_master_authorized_cidrs = [
 #cluster_opt_min_master_version = "latest"
 
 #EC Deployment
-application_yaml_path = "../deployment.yaml"
+eagle_console_yaml_path = "../eagle_console.yaml"
 ec_ui_source_bucket  = "tranquility-base-ui"
 ec_iam_service_account_roles = ["roles/resourcemanager.folderAdmin", "roles/resourcemanager.projectCreator",
   "roles/compute.xpnAdmin", "roles/resourcemanager.projectDeleter", "roles/billing.projectManager", "roles/owner",
-"roles/compute.networkAdmin", "roles/datastore.owner", "roles/browser", "roles/resourcemanager.projectIamAdmin"]
+  "roles/compute.networkAdmin", "roles/datastore.owner", "roles/browser", "roles/resourcemanager.projectIamAdmin"]
 
 # Vault deployment
 sec-vault-crypto-key-name = "vault-init"

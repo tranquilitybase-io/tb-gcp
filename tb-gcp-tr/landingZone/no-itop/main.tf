@@ -328,7 +328,7 @@ module "SharedServices_configuration_file" {
 module "SharedServices_ec" {
   source = "../../../tb-common-tr/start_service"
 
-  k8s_template_file = var.application_yaml_path
+  k8s_template_file = var.eagle_console_yaml_path
   cluster_context   = module.k8s-ec_context.context_name
   dependency_var    = module.SharedServices_configuration_file.id
 }
@@ -357,7 +357,6 @@ resource "null_resource" "get_endpoint" {
           exit 0
         fi
       done
-
       echo "Loadbalancer is not reachable after 10,5 minutes"
       exit 1
       EOF
@@ -428,4 +427,3 @@ module "bastion-security" {
   shared_networking_id = module.shared_projects.shared_networking_id
   nat_static_ip = module.shared-vpc.nat_static_ip
 }
-

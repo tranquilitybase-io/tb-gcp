@@ -286,9 +286,10 @@ variable "istio_status" {
   #  description = "the default behaviour is to not installed"
 }
 
-# EC Deployment
-variable "application_yaml_path" {
-  description = "Path to the yaml file describing the application resources"
+# Eagle console Deployment
+
+variable "eagle_console_yaml_path" {
+  description = "Path to the yaml file describing the eagle console resources"
   type        = string
 }
 

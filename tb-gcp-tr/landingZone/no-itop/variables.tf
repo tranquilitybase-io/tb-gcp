@@ -287,8 +287,8 @@ variable "istio_status" {
 }
 
 # EC Deployment
-variable "application_yaml_path" {
-  description = "Path to the yaml file describing the application resources"
+variable "eagle_console_yaml_path" {
+  description = "Path to the yaml file describing the eagle console resources"
   type        = string
 }
 
