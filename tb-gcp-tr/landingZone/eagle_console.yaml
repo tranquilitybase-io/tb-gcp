@@ -71,20 +71,20 @@ spec:
             - containerPort: 80
           volumeMounts:
             - name: config-volume
-              mountPath: /app/ssp-config.yaml
-              subPath: ssp-config.yaml
+              mountPath: /app/ec-config.yaml
+              subPath: ec-config.yaml
             - name: google-cloud-key
               mountPath: /var/secrets/google
           env:
             - name: GOOGLE_APPLICATION_CREDENTIALS
-              value: /var/secrets/google/ssp-service-account-config.json
+              value: /var/secrets/google/ec-service-account-config.json
       volumes:
         - name: config-volume
           configMap:
-            name: ssp-config
+            name: ec-config
         - name: google-cloud-key
           secret:
-            secretName: ssp-service-account
+            secretName: ec-service-account
 ---
 
 apiVersion: extensions/v1beta1
