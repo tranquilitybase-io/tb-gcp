@@ -287,18 +287,9 @@ variable "istio_status" {
 }
 
 # SSP Deployment
-variable "application_yaml_path" {
-  description = "Path to the yaml file describing the application resources"
-  type        = string
-}
 
 variable "eagle_console_yaml_path" {
   description = "Path to the yaml file describing the eagle console resources"
-  type        = string
-}
-
-variable "houston_service_yaml_path" {
-  description = "Houston Service Yaml path"
   type        = string
 }
 

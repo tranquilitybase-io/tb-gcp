@@ -89,9 +89,7 @@ cluster_opt_master_authorized_cidrs = [
 #cluster_opt_min_master_version = "latest"
 
 #SSP Deployment
-application_yaml_path = "../deployment.yaml"
 eagle_console_yaml_path = "../eagle_console.yaml"
-houston_service_yaml_path = "../houston_service.yaml"
 ssp_ui_source_bucket  = "tranquility-base-ui"
 ssp_iam_service_account_roles = ["roles/resourcemanager.folderAdmin", "roles/resourcemanager.projectCreator",
   "roles/compute.xpnAdmin", "roles/resourcemanager.projectDeleter", "roles/billing.projectManager", "roles/owner",

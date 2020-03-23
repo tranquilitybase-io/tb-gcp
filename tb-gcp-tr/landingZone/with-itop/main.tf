@@ -150,167 +150,167 @@ resource "google_sourcerepo_repository" "SSP" {
   depends_on = [module.apis_activation]
 }
 
-//module "gke-security" {
-//  source = "../../kubernetes-cluster-creation"
-//
-//  providers = {
-//    google                 = google.vault
-//    google-beta.shared-vpc = google-beta.shared-vpc
-//  }
-//
-//  region               = var.region
-//  sharedvpc_project_id = module.shared_projects.shared_networking_id
-//  sharedvpc_network    = var.shared_vpc_name
-//
-//  cluster_enable_private_nodes  = var.cluster_sec_enable_private_nodes
-//  cluster_project_id            = module.shared_projects.shared_security_id
-//  cluster_subnetwork            = var.cluster_sec_subnetwork
-//  cluster_service_account       = var.cluster_sec_service_account
-//  cluster_service_account_roles = var.cluster_sec_service_account_roles
-//  cluster_name                  = var.cluster_sec_name
-//  cluster_pool_name             = var.cluster_sec_pool_name
-//  cluster_master_cidr           = var.cluster_sec_master_cidr
-//  cluster_master_authorized_cidrs = concat(
-//  var.cluster_sec_master_authorized_cidrs,
-//  [
-//    merge(
-//    {
-//      "display_name" = "initial-admin-ip"
-//    },
-//    {
-//      "cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
-//    },
-//    ),
-//  ],
-//  )
-//  cluster_min_master_version = var.cluster_sec_min_master_version
-//  istio_status               = var.istio_status
-//  cluster_oauth_scopes       = var.cluster_sec_oauth_scope
-//
-//  apis_dependency          = module.apis_activation.all_apis_enabled
-//  shared_vpc_dependency    = module.shared-vpc.gke_subnetwork_ids
-//  gke_pod_network_name     = var.gke_pod_network_name
-//  gke_service_network_name = var.gke_service_network_name
-//}
+module "gke-security" {
+  source = "../../kubernetes-cluster-creation"
 
-//module "vault" {
-//  source = "../../vault"
-//
-//  vault_cluster_project             = module.shared_projects.shared_security_id
-//  vault-gcs-location                = var.location
-//  vault-region                      = var.region
-//  vault_keyring_name                = var.sec-vault-keyring
-//  vault_crypto_key_name             = var.sec-vault-crypto-key-name
-//  vault-lb                          = var.sec-lb-name
-//  vault-sa                          = module.gke-security.cluster_sa
-//  vault-gke-sec-endpoint            = module.gke-security.cluster_endpoint
-//  vault-gke-sec-master-auth-ca-cert = module.gke-security.cluster_endpoint
-//  vault-gke-sec-username            = module.gke-security.cluster_master_auth_username
-//  vault-gke-sec-password            = module.gke-security.cluster_master_auth_password
-//  vault-gke-sec-client-ca           = module.gke-security.cluster_master_auth_0_client_certificate
-//  vault-gke-sec-client-key          = module.gke-security.cluster_master_auth_0_client_key
-//  vault-gke-sec-cluster_ca_cert     = module.gke-security.cluster_master_auth_0_cluster_ca_certificate
-//  vault-gke-sec-name                = var.cluster_sec_name
-//
-//  vault-cert-common-name  = var.cert-common-name
-//  vault-cert-organization = var.tls-organization
-//
-//  apis_dependency = module.apis_activation.all_apis_enabled
-//  #  shared_vpc_dependency = "${module.shared-vpc.gke_subnetwork_ids}"
-//}
+  providers = {
+    google                 = google.vault
+    google-beta.shared-vpc = google-beta.shared-vpc
+  }
 
-//module "gke-operations" {
-//  source = "../../kubernetes-cluster-creation"
-//
-//  providers = {
-//    google                 = google
-//    google-beta.shared-vpc = google-beta.shared-vpc
-//    kubernetes             = kubernetes.gke-operations
-//  }
-//
-//  region               = var.region
-//  sharedvpc_project_id = module.shared_projects.shared_networking_id
-//  sharedvpc_network    = var.shared_vpc_name
-//
-//  cluster_enable_private_nodes = var.cluster_opt_enable_private_nodes
-//  cluster_project_id           = module.shared_projects.shared_operations_id
-//  cluster_subnetwork           = var.cluster_opt_subnetwork
-//  cluster_service_account      = var.cluster_opt_service_account
-//  cluster_name                 = var.cluster_opt_name
-//  cluster_pool_name            = var.cluster_opt_pool_name
-//  cluster_master_cidr          = var.cluster_opt_master_cidr
-//  cluster_master_authorized_cidrs = concat(
-//  var.cluster_opt_master_authorized_cidrs,
-//  [
-//    merge(
-//    {
-//      "display_name" = "initial-admin-ip"
-//    },
-//    {
-//      "cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
-//    },
-//    ),
-//  ],
-//  )
-//  cluster_min_master_version = var.cluster_opt_min_master_version
-//
-//  apis_dependency          = module.apis_activation.all_apis_enabled
-//  istio_status             = var.istio_status
-//  istio_permissive_mtls    = "true"
-//  shared_vpc_dependency    = module.shared-vpc.gke_subnetwork_ids
-//  gke_pod_network_name     = var.gke_pod_network_name
-//  gke_service_network_name = var.gke_service_network_name
-//}
+  region               = var.region
+  sharedvpc_project_id = module.shared_projects.shared_networking_id
+  sharedvpc_network    = var.shared_vpc_name
+
+  cluster_enable_private_nodes  = var.cluster_sec_enable_private_nodes
+  cluster_project_id            = module.shared_projects.shared_security_id
+  cluster_subnetwork            = var.cluster_sec_subnetwork
+  cluster_service_account       = var.cluster_sec_service_account
+  cluster_service_account_roles = var.cluster_sec_service_account_roles
+  cluster_name                  = var.cluster_sec_name
+  cluster_pool_name             = var.cluster_sec_pool_name
+  cluster_master_cidr           = var.cluster_sec_master_cidr
+  cluster_master_authorized_cidrs = concat(
+  var.cluster_sec_master_authorized_cidrs,
+  [
+    merge(
+    {
+      "display_name" = "initial-admin-ip"
+    },
+    {
+      "cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
+    },
+    ),
+  ],
+  )
+  cluster_min_master_version = var.cluster_sec_min_master_version
+  istio_status               = var.istio_status
+  cluster_oauth_scopes       = var.cluster_sec_oauth_scope
+
+  apis_dependency          = module.apis_activation.all_apis_enabled
+  shared_vpc_dependency    = module.shared-vpc.gke_subnetwork_ids
+  gke_pod_network_name     = var.gke_pod_network_name
+  gke_service_network_name = var.gke_service_network_name
+}
+
+module "vault" {
+  source = "../../vault"
+
+  vault_cluster_project             = module.shared_projects.shared_security_id
+  vault-gcs-location                = var.location
+  vault-region                      = var.region
+  vault_keyring_name                = var.sec-vault-keyring
+  vault_crypto_key_name             = var.sec-vault-crypto-key-name
+  vault-lb                          = var.sec-lb-name
+  vault-sa                          = module.gke-security.cluster_sa
+  vault-gke-sec-endpoint            = module.gke-security.cluster_endpoint
+  vault-gke-sec-master-auth-ca-cert = module.gke-security.cluster_endpoint
+  vault-gke-sec-username            = module.gke-security.cluster_master_auth_username
+  vault-gke-sec-password            = module.gke-security.cluster_master_auth_password
+  vault-gke-sec-client-ca           = module.gke-security.cluster_master_auth_0_client_certificate
+  vault-gke-sec-client-key          = module.gke-security.cluster_master_auth_0_client_key
+  vault-gke-sec-cluster_ca_cert     = module.gke-security.cluster_master_auth_0_cluster_ca_certificate
+  vault-gke-sec-name                = var.cluster_sec_name
+
+  vault-cert-common-name  = var.cert-common-name
+  vault-cert-organization = var.tls-organization
+
+  apis_dependency = module.apis_activation.all_apis_enabled
+  #  shared_vpc_dependency = "${module.shared-vpc.gke_subnetwork_ids}"
+}
+
+module "gke-operations" {
+  source = "../../kubernetes-cluster-creation"
+
+  providers = {
+    google                 = google
+    google-beta.shared-vpc = google-beta.shared-vpc
+    kubernetes             = kubernetes.gke-operations
+  }
+
+  region               = var.region
+  sharedvpc_project_id = module.shared_projects.shared_networking_id
+  sharedvpc_network    = var.shared_vpc_name
+
+  cluster_enable_private_nodes = var.cluster_opt_enable_private_nodes
+  cluster_project_id           = module.shared_projects.shared_operations_id
+  cluster_subnetwork           = var.cluster_opt_subnetwork
+  cluster_service_account      = var.cluster_opt_service_account
+  cluster_name                 = var.cluster_opt_name
+  cluster_pool_name            = var.cluster_opt_pool_name
+  cluster_master_cidr          = var.cluster_opt_master_cidr
+  cluster_master_authorized_cidrs = concat(
+  var.cluster_opt_master_authorized_cidrs,
+  [
+    merge(
+    {
+      "display_name" = "initial-admin-ip"
+    },
+    {
+      "cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
+    },
+    ),
+  ],
+  )
+  cluster_min_master_version = var.cluster_opt_min_master_version
+
+  apis_dependency          = module.apis_activation.all_apis_enabled
+  istio_status             = var.istio_status
+  istio_permissive_mtls    = "true"
+  shared_vpc_dependency    = module.shared-vpc.gke_subnetwork_ids
+  gke_pod_network_name     = var.gke_pod_network_name
+  gke_service_network_name = var.gke_service_network_name
+}
 
 # Kubernetes provider for the gke-operations cluster
-//provider "kubernetes" {
-//  alias                  = "gke-operations"
-//  host                   = "https://${module.gke-operations.cluster_endpoint}"
-//  load_config_file       = false
-//  cluster_ca_certificate = base64decode(module.gke-operations.cluster_ca_certificate)
-//  token                  = data.google_client_config.current.access_token
-//  version = "~> 1.10.0"
-//}
+provider "kubernetes" {
+  alias                  = "gke-operations"
+  host                   = "https://${module.gke-operations.cluster_endpoint}"
+  load_config_file       = false
+  cluster_ca_certificate = base64decode(module.gke-operations.cluster_ca_certificate)
+  token                  = data.google_client_config.current.access_token
+  version = "~> 1.10.0"
+}
 
 # Deploy gke-operations cluster helm pre-requisite resources
-//module "gke_operations_helm_pre_req" {
-//  source = "../../helm-pre-requisites"
-//  providers = {
-//    kubernetes = kubernetes.gke-operations
-//  }
-//}
+module "gke_operations_helm_pre_req" {
+  source = "../../helm-pre-requisites"
+  providers = {
+    kubernetes = kubernetes.gke-operations
+  }
+}
 
 # Set GKE Operations cluster Helm provider
-//provider "helm" {
-//  alias = "gke-operations"
-//  kubernetes {
-//    host                   = "https://${module.gke-operations.cluster_endpoint}"
-//    load_config_file       = false
-//    cluster_ca_certificate = base64decode(module.gke-operations.cluster_ca_certificate)
-//    token                  = data.google_client_config.current.access_token
-//  }
-//  service_account = module.gke_operations_helm_pre_req.tiller_svc_accnt_name
-//  version = "~> 0.10.4"
-//}
+provider "helm" {
+  alias = "gke-operations"
+  kubernetes {
+    host                   = "https://${module.gke-operations.cluster_endpoint}"
+    load_config_file       = false
+    cluster_ca_certificate = base64decode(module.gke-operations.cluster_ca_certificate)
+    token                  = data.google_client_config.current.access_token
+  }
+  service_account = module.gke_operations_helm_pre_req.tiller_svc_accnt_name
+  version = "~> 0.10.4"
+}
 
 # Deploys itop on GKE Operations cluster
 
-//module "itop" {
-//  source = "../../itop"
-//  providers = {
-//    kubernetes = kubernetes.gke-operations
-//    helm       = helm.gke-operations
-//  }
-//
-//  host_project_id       = module.shared_projects.shared_operations_id
-//  itop_chart_local_path = "../../itop/helm"
-//  region                = var.region
-//  region_zone           = var.region_zone
-//  database_user_name    = var.itop_database_user_name
-//  k8_cluster_name       = var.cluster_sec_name
-//
-//  dependency_vars = module.gke-operations.node_id
-//}
+module "itop" {
+  source = "../../itop"
+  providers = {
+    kubernetes = kubernetes.gke-operations
+    helm       = helm.gke-operations
+  }
+
+  host_project_id       = module.shared_projects.shared_operations_id
+  itop_chart_local_path = "../../itop/helm"
+  region                = var.region
+  region_zone           = var.region_zone
+  database_user_name    = var.itop_database_user_name
+  k8_cluster_name       = var.cluster_sec_name
+
+  dependency_vars = module.gke-operations.node_id
+}
 
 
 module "k8s-ssp_context" {
@@ -345,14 +345,6 @@ module "SharedServices_configuration_file" {
   dependency_var    = null_resource.kubernetes_service_account_key_secret.id
 }
 
-//module "SharedServices_ssp" {
-//  source = "../../../tb-common-tr/start_service"
-//
-//  k8s_template_file = var.application_yaml_path
-//  cluster_context   = module.k8s-ssp_context.context_name
-//  dependency_var    = module.SharedServices_configuration_file.id
-//}
-
 module "eagle_console_ssp" {
   source = "../../../tb-common-tr/start_service"
 
@@ -360,14 +352,6 @@ module "eagle_console_ssp" {
   cluster_context   = module.k8s-ssp_context.context_name
   dependency_var    = module.SharedServices_configuration_file.id
 }
-
-//module "houston_service_ssp" {
-//  source = "../../../tb-common-tr/start_service"
-//
-//  k8s_template_file = var.houston_service_yaml_path
-//  cluster_context   = module.k8s-ssp_context.context_name
-//  dependency_var    = module.SharedServices_configuration_file.id
-//}
 
 module "self-service-app" {
   source = "../../gae-self-service-portal"
