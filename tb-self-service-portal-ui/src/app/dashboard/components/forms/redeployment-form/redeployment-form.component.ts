@@ -18,7 +18,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RedeploymentsService } from 'src/app/dashboard/services/redeployments.service';
 
 @Component({
-  selector: 'tb-ssp-redeployment-form',
+  selector: 'tb-ec-redeployment-form',
   templateUrl: './redeployment-form.component.html',
   styleUrls: ['./redeployment-form.component.scss']
 })

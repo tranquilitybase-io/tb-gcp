@@ -19,7 +19,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DeploymentsService } from 'src/app/dashboard/services/deployments.service';
 
 @Component({
-  selector: 'tb-ssp-deploy-new-form',
+  selector: 'tb-ec-deploy-new-form',
   templateUrl: './deploy-new-form.component.html',
   styleUrls: ['./deploy-new-form.component.scss']
 })

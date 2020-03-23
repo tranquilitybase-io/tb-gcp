@@ -24,18 +24,18 @@ resource "google_project" "shared_networking" {
   auto_create_network = false
 }
 
-resource "google_project" "shared_security" {
-  name                = "${var.shared_security_project_name}-${random_id.project.hex}"
-  project_id          = "${var.shared_security_project_name}-${random_id.project.hex}"
+resource "google_project" "shared_secrets" {
+  name                = "${var.shared_secrets_project_name}-${random_id.project.hex}"
+  project_id          = "${var.shared_secrets_project_name}-${random_id.project.hex}"
   folder_id           = var.root_id
   billing_account     = var.billing_account_id
   auto_create_network = false
   depends_on          = [google_project.shared_networking]
 }
 
-resource "google_project" "shared_operations" {
-  name                = "${var.shared_operations_project_name}-${random_id.project.hex}"
-  project_id          = "${var.shared_operations_project_name}-${random_id.project.hex}"
+resource "google_project" "shared_itsm" {
+  name                = "${var.shared_itsm_project_name}-${random_id.project.hex}"
+  project_id          = "${var.shared_itsm_project_name}-${random_id.project.hex}"
   folder_id           = var.root_id
   billing_account     = var.billing_account_id
   auto_create_network = false
@@ -59,18 +59,18 @@ resource "google_project" "shared_billing" {
   auto_create_network = false
 }
 
-resource "google_project" "shared_ssp" {
-  name                = "${var.shared_ssp_project_name}-${random_id.project.hex}"
-  project_id          = "${var.shared_ssp_project_name}-${random_id.project.hex}"
+resource "google_project" "shared_ec" {
+  name                = "${var.shared_ec_project_name}-${random_id.project.hex}"
+  project_id          = "${var.shared_ec_project_name}-${random_id.project.hex}"
   folder_id           = var.root_id
   billing_account     = var.billing_account_id
   auto_create_network = false
   depends_on          = [google_project.shared_networking]
 }
 
-resource "google_project" "tb_bastion" {
-  name                = "${var.tb_bastion_project_name}-${random_id.project.hex}"
-  project_id          = "${var.tb_bastion_project_name}-${random_id.project.hex}"
+resource "google_project" "shared_bastion" {
+  name                = "${var.shared_bastion_project_name}-${random_id.project.hex}"
+  project_id          = "${var.shared_bastion_project_name}-${random_id.project.hex}"
   folder_id           = var.root_id
   billing_account     = var.billing_account_id
   auto_create_network = false

@@ -23,5 +23,5 @@ sharedvpc_network="shared-network"
 bastion_name = "bastion"
 bastion_machine_type="g1-small"
 bastion_service_account="bastion"
-bastion_subnetwork = "operations"
+bastion_subnetwork = "itsm"
 bastion_source_cidr = ["1.1.1.1", "2.2.2.2"]

@@ -18,11 +18,11 @@ service_project_ids = ["infra-services-11111"]
 
 standard_network_subnets = [
     {
-        Name = "operations"
+        Name = "itsm"
         CIDR = "10.0.1.0/24"
     },
     {
-        Name = "security"
+        Name = "secrets"
         CIDR = "10.0.2.0/24"
     },
     {

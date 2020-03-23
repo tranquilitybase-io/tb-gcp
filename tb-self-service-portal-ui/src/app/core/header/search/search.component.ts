@@ -17,7 +17,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'tb-ssp-search',
+  selector: 'tb-ec-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })

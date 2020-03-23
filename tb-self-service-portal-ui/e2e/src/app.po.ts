@@ -20,6 +20,6 @@ export class AppPage {
   }
 
   getTitleText() {
-    return element(by.css('tb-ssp-root h1')).getText() as Promise<string>;
+    return element(by.css('tb-ec-root h1')).getText() as Promise<string>;
   }
 }

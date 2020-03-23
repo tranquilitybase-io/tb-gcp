@@ -166,7 +166,7 @@ terraform apply -var-file=input.tfvars
 ### Wrap-up tasks
 
 1. After the bootstrap deployment, you may want to disable the `tb-bootstrap-builder` service account;
-1. An initial password for the `itop` user used to access the Cloud SQL instance on the `shared-operations-` project, this password is displayed on the `terraform-server` logs and should be reset as soon as possible;
+1. An initial password for the `itop` user used to access the Cloud SQL instance on the `shared-itsm-` project, this password is displayed on the `terraform-server` logs and should be reset as soon as possible;
 1. vault: root token should be surfaced from the vault terraform module to the root terraform module and changed as soon as possible.
 
 ### Inspec tests

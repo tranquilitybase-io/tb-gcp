@@ -17,14 +17,14 @@ output "shared_networking_id" {
   value       = google_project.shared_networking.project_id
 }
 
-output "shared_security_id" {
-  description = "identifier for the shared_security project."
-  value       = google_project.shared_security.project_id
+output "shared_secrets_id" {
+  description = "identifier for the shared_secrets project."
+  value       = google_project.shared_secrets.project_id
 }
 
-output "shared_operations_id" {
-  description = "identifier for the shared_operations project."
-  value       = google_project.shared_operations.project_id
+output "shared_itsm_id" {
+  description = "identifier for the shared_itsm project."
+  value       = google_project.shared_itsm.project_id
 }
 
 output "shared_telemetry_id" {
@@ -32,17 +32,17 @@ output "shared_telemetry_id" {
   value       = google_project.shared_telemetry.project_id
 }
 
-output "shared_ssp_id" {
-  description = "identifier for the shared_ssp project."
-  value       = google_project.shared_ssp.project_id
+output "shared_ec_id" {
+  description = "identifier for the shared_ec project."
+  value       = google_project.shared_ec.project_id
 }
 
-output "shared_ssp_name" {
-  description = "identifier for the shared_ssp project."
-  value       = google_project.shared_ssp.name
+output "shared_ec_name" {
+  description = "identifier for the shared_ec project."
+  value       = google_project.shared_ec.name
 }
 
-output "tb_bastion_id" {
+output "shared_bastion_id" {
   description = "identifier for the tab_bastion project."
-  value       = google_project.tb_bastion.id
+  value       = google_project.shared_bastion.id
 }

@@ -17,7 +17,7 @@ output "cluster_sa" {
 }
 
 output "node_id" {
-  description = "identifier for node id needed for ssp deployment."
+  description = "identifier for node id needed for ec deployment."
   value       = google_container_node_pool.gke_node_pool.id
 }
 
