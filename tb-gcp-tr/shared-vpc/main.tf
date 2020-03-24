@@ -69,7 +69,7 @@ resource "google_compute_subnetwork" "gke" {
   }
 }
 
-resource "google_compute_subnetwork" "tb-bastion-subnetwork" {
+resource "google_compute_subnetwork" "shared-bastion-subnetwork" {
   name                     = "bastion-subnetwork"
   ip_cidr_range            = "10.0.6.0/24"
   region                   = var.region

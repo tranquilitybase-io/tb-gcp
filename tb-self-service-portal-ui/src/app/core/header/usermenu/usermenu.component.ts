@@ -17,7 +17,7 @@ import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'tb-ssp-usermenu',
+  selector: 'tb-ec-usermenu',
   templateUrl: './usermenu.component.html',
   styleUrls: ['./usermenu.component.scss'],
   exportAs: ''

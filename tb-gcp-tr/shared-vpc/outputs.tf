@@ -27,7 +27,7 @@ output "gke_subnetwork_ids" {
 }
 
 output "tb_subnetwork_name"{
-  value = google_compute_subnetwork.tb-bastion-subnetwork.name
+  value = google_compute_subnetwork.shared-bastion-subnetwork.name
 }
 
 output "nat_static_ip" {

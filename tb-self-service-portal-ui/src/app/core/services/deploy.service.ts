@@ -35,7 +35,7 @@ export class DeployService {
   public static readonly PROVIDER_SPECIFIC_OPTS = {
     aws: {
       params: {
-        bucket: 'terraform-state-ssp-2',
+        bucket: 'terraform-state-ec-2',
         terraform_url: 'https://github.com/tranquilitybase-io/tb-activator.git',
         user_role:  'arn:aws:iam::123456789012:role/fullPermissions',
         region: 'eu-central-1',

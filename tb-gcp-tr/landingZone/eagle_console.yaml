@@ -1,0 +1,215 @@
+# Copyright 2019 The Tranquility Base Authors
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: eagleconsole
+  labels:
+    app: eagleconsole
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+      name: http
+    - port: 443
+      targetPort: 80
+      name: https
+  selector:
+    app: eagleconsole
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: houstonservice
+  labels:
+    app: houstonservice
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+      name: http
+    - port: 443
+      targetPort: 80
+      name: https
+  selector:
+    app: houstonservice
+---
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: eagleconsole-v1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: eagleconsole
+        version: v1
+    spec:
+      containers:
+        - name: eagleconsole
+          image: gcr.io/tranquility-base-images/tb-eagle-console-ui:alpha
+          resources:
+            requests:
+              cpu: "100m"
+          imagePullPolicy: IfNotPresent #Always
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/ec-config.yaml
+              subPath: ec-config.yaml
+            - name: google-cloud-key
+              mountPath: /var/secrets/google
+          env:
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /var/secrets/google/ec-service-account-config.json
+      volumes:
+        - name: config-volume
+          configMap:
+            name: ec-config
+        - name: google-cloud-key
+          secret:
+            secretName: ec-service-account
+---
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: houstonservice-v1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: houstonservice
+        version: v1
+    spec:
+      containers:
+        - name: houstonservice
+          image: gcr.io/tranquility-base-images/tb-eagle-console-ui:mock
+          resources:
+            requests:
+              cpu: "100m"
+          imagePullPolicy: IfNotPresent #Always
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/ec-config.yaml
+              subPath: ec-config.yaml
+            - name: google-cloud-key
+              mountPath: /var/secrets/google
+          env:
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /var/secrets/google/ec-service-account-config.json
+      volumes:
+        - name: config-volume
+          configMap:
+            name: ec-config
+        - name: google-cloud-key
+          secret:
+            secretName: ec-service-account
+---
+
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: mygateway
+spec:
+  selector:
+    istio: ingressgateway # use istio default controller
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - "*"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: houstonservice
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - mygateway
+  http:
+    - match:
+        - uri:
+            prefix: /api
+      route:
+        - destination:
+            host: houstonservice
+            port:
+              number: 80
+      corsPolicy:
+        allowOrigin:
+          - "*"
+        allowMethods:
+          - POST
+          - GET
+          - OPTIONS
+          - PUT
+          - PATCH
+          - DELETE
+        allowHeaders:
+          - "*"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: eagleconsole
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - mygateway
+  http:
+    - route:
+        - destination:
+            host: eagleconsole
+            port:
+              number: 80
+
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: eagleconsole
+  annotations:
+    cloud.google.com/load-balancer-type: "Internal"
+spec:
+  host: eagleconsole
+  trafficPolicy:
+    loadBalancer:
+      simple: LEAST_CONN
+
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: houstonservice
+  annotations:
+    cloud.google.com/load-balancer-type: "Internal"
+spec:
+  host: houstonservice
+  trafficPolicy:
+    loadBalancer:
+      simple: LEAST_CONN

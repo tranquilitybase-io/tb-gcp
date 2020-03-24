@@ -76,9 +76,9 @@ variable "shared_billing_project_name" {
   description = "Shared billing project name."
 }
 
-variable "tb_bastion_project_name" {
+variable "shared_bastion_project_name" {
   type        = string
-  default     = "tb-bastion"
+  default     = "shared-bastion"
   description = "Name for bastion project"
 }
 
@@ -158,7 +158,7 @@ variable "service_projects_number" {
 }
 
 #KUBERNETES CLUSTERS
-variable "cluster_ssp_service_account" {
+variable "cluster_ec_service_account" {
   description = "Service account to associate to the nodes in the cluster"
 }
 
@@ -181,7 +181,7 @@ variable "cluster_ssp_service_account" {
 //  description = "Service account to associate to the nodes in the cluster"
 //}
 
-variable "cluster_ssp_subnetwork" {
+variable "cluster_ec_subnetwork" {
   description = "The subnetwork to host the cluster in"
 }
 
@@ -193,7 +193,7 @@ variable "cluster_ssp_subnetwork" {
 //  description = "The subnetwork to host the cluster in"
 //}
 
-variable "cluster_ssp_name" {
+variable "cluster_ec_name" {
   description = "The cluster name"
 }
 
@@ -205,7 +205,7 @@ variable "cluster_ssp_name" {
 //  description = "The cluster name"
 //}
 
-variable "cluster_ssp_pool_name" {
+variable "cluster_ec_pool_name" {
   description = "The cluster pool name"
 }
 
@@ -225,11 +225,11 @@ variable "cluster_ssp_pool_name" {
 //  type = string
 //}
 
-variable "cluster_ssp_enable_private_nodes" {
+variable "cluster_ec_enable_private_nodes" {
   type = string
 }
 
-variable "cluster_ssp_master_cidr" {
+variable "cluster_ec_master_cidr" {
   type = string
 }
 
@@ -241,7 +241,7 @@ variable "cluster_ssp_master_cidr" {
 //  type = string
 //}
 
-variable "cluster_ssp_master_authorized_cidrs" {
+variable "cluster_ec_master_authorized_cidrs" {
   type = list(object({
     cidr_block   = string
     display_name = string
@@ -274,7 +274,7 @@ variable "cluster_ssp_master_authorized_cidrs" {
 //  type        = string
 //}
 
-variable "cluster_ssp_min_master_version" {
+variable "cluster_ec_min_master_version" {
   default     = "latest"
   description = "Master node minimal version"
   type        = string
@@ -286,13 +286,14 @@ variable "istio_status" {
   #  description = "the default behaviour is to not installed"
 }
 
-# SSP Deployment
-variable "application_yaml_path" {
-  description = "Path to the yaml file describing the application resources"
+# Eagle console Deployment
+
+variable "eagle_console_yaml_path" {
+  description = "Path to the yaml file describing the eagle console resources"
   type        = string
 }
 
-variable "ssp_repository_name" {
+variable "ec_repository_name" {
   type        = string
   description = "Repository name used to store activator code"
 }
@@ -303,7 +304,7 @@ variable "endpoint_file" {
   default     = "/opt/tb/repo/tb-gcp-tr/gae-self-service-portal/endpoint-meta.json"
 }
 
-variable "ssp_iam_service_account_roles" {
+variable "ec_iam_service_account_roles" {
   type        = list(string)
   description = "Roles attached to service account"
 }
@@ -355,7 +356,7 @@ variable "clusters_master_whitelist_ip" {
   type        = string
 }
 
-variable "ssp_ui_source_bucket" {
+variable "ec_ui_source_bucket" {
   description = "GCS Bucket hosting Self Service Portal Angular source code."
   type        = string
 }
