@@ -67,6 +67,9 @@ resource "google_compute_instance" "tb_windows_bastion" {
     email = google_service_account.bastion_service_account.email
     scopes = []
   }
+  metadata = {
+    windows-startup-script-ps1 = "$LocalTempDir = $env:TEMP; $ChromeInstaller = \"ChromeInstaller.exe\"; (new-object System.Net.WebClient).DownloadFile('http://dl.google.com/chrome/install/375.126/chrome_installer.exe', \"$LocalTempDir\\$ChromeInstaller\"); & \"$LocalTempDir\\$ChromeInstaller\" /silent /install;"
+  }
 }
 
 resource "google_compute_instance" "tb_linux_bastion" {
