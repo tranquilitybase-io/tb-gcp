@@ -47,7 +47,7 @@ spec:
         - name: cloudsqlproxy
           image: {{ .Values.cloudSqlProxySidecar.image }}
           command: ["/cloud_sql_proxy",
-                    "-instances={{ required \"The .Values.cloudSqlProxySidecar.instanceConnectionName is required\" .Values.cloudSqlProxySidecar.instanceConnectionName }}=tcp:{{ .Values.cloudSqlProxySidecar.dbPort }}",
+                    "-instances={{ required "The .Values.cloudSqlProxySidecar.instanceConnectionName is required" .Values.cloudSqlProxySidecar.instanceConnectionName }}=tcp:{{ .Values.cloudSqlProxySidecar.dbPort }}",
                     "-credential_file=/secrets/cloudsql/cloudsql-proxy-sa-credentials.json"]
           volumeMounts:
             - name: cloudsql-proxy-secrets-volume
