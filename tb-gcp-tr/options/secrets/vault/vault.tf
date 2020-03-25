@@ -28,7 +28,7 @@ terraform {
 }
 
 module "vault" {
-  source = "../../../vault"
+  source = "./vault-module"
 
   vault_cluster_project             = data.terraform_remote_state.landingzone.outputs.shared_secrets_id
   vault-gcs-location                = var.location
