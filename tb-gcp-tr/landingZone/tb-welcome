@@ -17,7 +17,7 @@ exec 2> >(tee -ia "/var/log/bootstrap.log" >&2)
 
 date=$(date '+%Y-%m-%d %H:%M:%S')
 echo "Time start: ${date}"
-cd /opt/tb/repo/tb-gcp-tr/landingZone/no-itop
+cd /opt/tb/repo/tb-gcp-tr/landingZone/with-itop
 #Retrieve terraform vars
 source input.auto.tfvars
 
