@@ -177,9 +177,9 @@ variable "cluster_ec_service_account" {
 //  description = "Service account to associate to the nodes in the cluster"
 //}
 //
-//variable "cluster_itsm_service_account" {
-//  description = "Service account to associate to the nodes in the cluster"
-//}
+variable "cluster_itsm_service_account" {
+  description = "Service account to associate to the nodes in the cluster"
+}
 
 variable "cluster_ec_subnetwork" {
   description = "The subnetwork to host the cluster in"
@@ -189,9 +189,9 @@ variable "cluster_ec_subnetwork" {
 //  description = "The subnetwork to host the cluster in"
 //}
 //
-//variable "cluster_itsm_subnetwork" {
-//  description = "The subnetwork to host the cluster in"
-//}
+variable "cluster_itsm_subnetwork" {
+  description = "The subnetwork to host the cluster in"
+}
 
 variable "cluster_ec_name" {
   description = "The cluster name"
@@ -201,9 +201,9 @@ variable "cluster_ec_name" {
 //  description = "The cluster name"
 //}
 //
-//variable "cluster_itsm_name" {
-//  description = "The cluster name"
-//}
+variable "cluster_itsm_name" {
+  description = "The cluster name"
+}
 
 variable "cluster_ec_pool_name" {
   description = "The cluster pool name"
@@ -213,13 +213,13 @@ variable "cluster_ec_pool_name" {
 //  description = "The cluster pool name"
 //}
 //
-//variable "cluster_itsm_pool_name" {
-//  description = "The cluster pool name"
-//}
-//
-//variable "cluster_itsm_enable_private_nodes" {
-//  type = string
-//}
+variable "cluster_itsm_pool_name" {
+  description = "The cluster pool name"
+}
+
+variable "cluster_itsm_enable_private_nodes" {
+  type = string
+}
 //
 //variable "cluster_sec_enable_private_nodes" {
 //  type = string
@@ -237,9 +237,9 @@ variable "cluster_ec_master_cidr" {
 //  type = string
 //}
 //
-//variable "cluster_itsm_master_cidr" {
-//  type = string
-//}
+variable "cluster_itsm_master_cidr" {
+  type = string
+}
 
 variable "cluster_ec_master_authorized_cidrs" {
   type = list(object({
@@ -255,18 +255,18 @@ variable "cluster_ec_master_authorized_cidrs" {
 //  }))
 //}
 //
-//variable "cluster_itsm_master_authorized_cidrs" {
-//  type = list(object({
-//    cidr_block   = string
-//    display_name = string
-//  }))
-//}
-//
-//variable "cluster_itsm_min_master_version" {
-//  default     = "latest"
-//  description = "Master node minimal version"
-//  type        = string
-//}
+variable "cluster_itsm_master_authorized_cidrs" {
+  type = list(object({
+    cidr_block   = string
+    display_name = string
+  }))
+}
+
+variable "cluster_itsm_min_master_version" {
+  default     = "latest"
+  description = "Master node minimal version"
+  type        = string
+}
 //
 //variable "cluster_sec_min_master_version" {
 //  default     = "latest"
@@ -332,11 +332,11 @@ variable "ec_iam_service_account_roles" {
 //}
 
 #iTop deployment
-//variable "itop_database_user_name" {
-//  description = "iTop's database user account name"
-//  default     = "itop"
-//  type        = string
-//}
+variable "itop_database_user_name" {
+  description = "iTop's database user account name"
+  default     = "itop"
+  type        = string
+}
 
 #TLS Certs
 //variable "cert-common-name" {

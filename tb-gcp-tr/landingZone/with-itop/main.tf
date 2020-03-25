@@ -219,98 +219,98 @@ resource "google_sourcerepo_repository" "SSP" {
 //  #  shared_vpc_dependency = "${module.shared-vpc.gke_subnetwork_ids}"
 //}
 
-//module "gke-itsm" {
-//  source = "../../kubernetes-cluster-creation"
-//
-//  providers = {
-//    google                 = google
-//    google-beta.shared-vpc = google-beta.shared-vpc
-//    kubernetes             = kubernetes.gke-itsm
-//  }
-//
-//  region               = var.region
-//  sharedvpc_project_id = module.shared_projects.shared_networking_id
-//  sharedvpc_network    = var.shared_vpc_name
-//
-//  cluster_enable_private_nodes = var.cluster_itsm_enable_private_nodes
-//  cluster_project_id           = module.shared_projects.shared_itsm_id
-//  cluster_subnetwork           = var.cluster_itsm_subnetwork
-//  cluster_service_account      = var.cluster_itsm_service_account
-//  cluster_name                 = var.cluster_itsm_name
-//  cluster_pool_name            = var.cluster_itsm_pool_name
-//  cluster_master_cidr          = var.cluster_itsm_master_cidr
-//  cluster_master_authorized_cidrs = concat(
-//  var.cluster_itsm_master_authorized_cidrs,
-//  [
-//    merge(
-//    {
-//      "display_name" = "initial-admin-ip"
-//    },
-//    {
-//      "cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
-//    },
-//    ),
-//  ],
-//  )
-//  cluster_min_master_version = var.cluster_itsm_min_master_version
-//
-//  apis_dependency          = module.apis_activation.all_apis_enabled
-//  istio_status             = var.istio_status
-//  istio_permissive_mtls    = "true"
-//  shared_vpc_dependency    = module.shared-vpc.gke_subnetwork_ids
-//  gke_pod_network_name     = var.gke_pod_network_name
-//  gke_service_network_name = var.gke_service_network_name
-//}
+module "gke-itsm" {
+  source = "../../kubernetes-cluster-creation"
+
+  providers = {
+    google                 = google
+    google-beta.shared-vpc = google-beta.shared-vpc
+    kubernetes             = kubernetes.gke-itsm
+  }
+
+  region               = var.region
+  sharedvpc_project_id = module.shared_projects.shared_networking_id
+  sharedvpc_network    = var.shared_vpc_name
+
+  cluster_enable_private_nodes = var.cluster_itsm_enable_private_nodes
+  cluster_project_id           = module.shared_projects.shared_itsm_id
+  cluster_subnetwork           = var.cluster_itsm_subnetwork
+  cluster_service_account      = var.cluster_itsm_service_account
+  cluster_name                 = var.cluster_itsm_name
+  cluster_pool_name            = var.cluster_itsm_pool_name
+  cluster_master_cidr          = var.cluster_itsm_master_cidr
+  cluster_master_authorized_cidrs = concat(
+  var.cluster_itsm_master_authorized_cidrs,
+  [
+    merge(
+    {
+      "display_name" = "initial-admin-ip"
+    },
+    {
+      "cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
+    },
+    ),
+  ],
+  )
+  cluster_min_master_version = var.cluster_itsm_min_master_version
+
+  apis_dependency          = module.apis_activation.all_apis_enabled
+  istio_status             = var.istio_status
+  istio_permissive_mtls    = "true"
+  shared_vpc_dependency    = module.shared-vpc.gke_subnetwork_ids
+  gke_pod_network_name     = var.gke_pod_network_name
+  gke_service_network_name = var.gke_service_network_name
+}
 
 # Kubernetes provider for the gke-itsm cluster
-//provider "kubernetes" {
-//  alias                  = "gke-itsm"
-//  host                   = "https://${module.gke-itsm.cluster_endpoint}"
-//  load_config_file       = false
-//  cluster_ca_certificate = base64decode(module.gke-itsm.cluster_ca_certificate)
-//  token                  = data.google_client_config.current.access_token
-//  version = "~> 1.10.0"
-//}
+provider "kubernetes" {
+  alias                  = "gke-itsm"
+  host                   = "https://${module.gke-itsm.cluster_endpoint}"
+  load_config_file       = false
+  cluster_ca_certificate = base64decode(module.gke-itsm.cluster_ca_certificate)
+  token                  = data.google_client_config.current.access_token
+  version = "~> 1.10.0"
+}
 
 # Deploy gke-itsm cluster helm pre-requisite resources
-//module "gke_itsm_helm_pre_req" {
-//  source = "../../helm-pre-requisites"
-//  providers = {
-//    kubernetes = kubernetes.gke-itsm
-//  }
-//}
+module "gke_itsm_helm_pre_req" {
+  source = "../../helm-pre-requisites"
+  providers = {
+    kubernetes = kubernetes.gke-itsm
+  }
+}
 
 # Set GKE Itsm cluster Helm provider
-//provider "helm" {
-//  alias = "gke-itsm"
-//  kubernetes {
-//    host                   = "https://${module.gke-itsm.cluster_endpoint}"
-//    load_config_file       = false
-//    cluster_ca_certificate = base64decode(module.gke-itsm.cluster_ca_certificate)
-//    token                  = data.google_client_config.current.access_token
-//  }
-//  service_account = module.gke_itsm_helm_pre_req.tiller_svc_accnt_name
-//  version = "~> 0.10.4"
-//}
+provider "helm" {
+  alias = "gke-itsm"
+  kubernetes {
+    host                   = "https://${module.gke-itsm.cluster_endpoint}"
+    load_config_file       = false
+    cluster_ca_certificate = base64decode(module.gke-itsm.cluster_ca_certificate)
+    token                  = data.google_client_config.current.access_token
+  }
+  service_account = module.gke_itsm_helm_pre_req.tiller_svc_accnt_name
+  version = "~> 0.10.4"
+}
 
 # Deploys itop on GKE Itsm cluster
 
-//module "itop" {
-//  source = "../../itop"
-//  providers = {
-//    kubernetes = kubernetes.gke-itsm
-//    helm       = helm.gke-itsm
-//  }
-//
-//  host_project_id       = module.shared_projects.shared_itsm_id
-//  itop_chart_local_path = "../../itop/helm"
-//  region                = var.region
-//  region_zone           = var.region_zone
-//  database_user_name    = var.itop_database_user_name
-//  k8_cluster_name       = var.cluster_sec_name
-//
-//  dependency_vars = module.gke-itsm.node_id
-//}
+module "itop" {
+  source = "../../options/itsm/itop/itop-module"
+  providers = {
+    kubernetes = kubernetes.gke-itsm
+    helm       = helm.gke-itsm
+  }
+
+  host_project_id       = module.shared_projects.shared_itsm_id
+  itop_chart_local_path = "../../itop/helm"
+  region                = var.region
+  region_zone           = var.region_zone
+  database_user_name    = var.itop_database_user_name
+  k8_cluster_name       = var.cluster_itsm_name
+
+  dependency_vars = module.gke-itsm.node_id
+}
 
 
 module "k8s-ec_context" {
