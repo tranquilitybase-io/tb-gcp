@@ -125,8 +125,8 @@ then
 fi
 
 # Generate a random alphanumeric
-PREFIX="bootstrap-tb-"
-RND="$(date | md5sum |  awk '{print substr($0,0,7)}')"
+PREFIX="bootstrap-"
+RND="$(date | md5sum |  awk '{print substr($0,0,8)}')"
 PROJECT_ID="${PREFIX}${RND}"
 SA_NAME="${PREFIX}sa"
 SA_EMAIL="${SA_NAME}@${PROJECT_ID}.iam.gserviceaccount.com"
