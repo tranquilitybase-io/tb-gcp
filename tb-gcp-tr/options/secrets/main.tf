@@ -1,7 +1,7 @@
 data "terraform_remote_state" "landingzone" {
   backend = "gcs"
   config = {
-    bucket  = var.terraform_state_bucket
+    bucket  = var.terraform_state_bucket_name
     prefix  = "landingZone"
   }
 }
@@ -27,7 +27,7 @@ provider "kubernetes" {
 
 terraform {
   backend "gcs"   {
-    bucket  = var.terraform_state_bucket
+    bucket  = var.terraform_state_bucket_name
     prefix  = "options/secrets"
   }
 }

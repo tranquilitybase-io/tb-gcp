@@ -1,7 +1,7 @@
 data "terraform_remote_state" "landingzone" {
   backend = "gcs"
   config = {
-    bucket  = var.terraform_state_bucket
+    bucket  = var.terraform_state_bucket_name
     prefix  = "landingZone"
   }
 }
@@ -9,7 +9,7 @@ data "terraform_remote_state" "landingzone" {
 data "terraform_remote_state" "secrets_cluster" {
   backend = "gcs"
   config = {
-    bucket  = var.terraform_state_bucket
+    bucket  = var.terraform_state_bucket_name
     prefix  = "options/secrets"
   }
 }
@@ -22,7 +22,7 @@ provider "google" {
 
 terraform {
   backend "gcs"  {
-    bucket  = var.terraform_state_bucket
+    bucket  = var.terraform_state_bucket_name
     prefix  = "options/secrets/vault"
   }
 }

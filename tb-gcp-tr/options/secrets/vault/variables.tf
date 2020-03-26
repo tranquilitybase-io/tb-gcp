@@ -1,4 +1,4 @@
-variable "terraform_state_bucket" {
+variable "terraform_state_bucket_name" {
   type = string
   description = "Name of the terraform state bucket"
 }
