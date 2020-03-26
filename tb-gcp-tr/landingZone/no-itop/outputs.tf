@@ -20,17 +20,17 @@
 #    value = "${module.gke-secrets.master_auth.0.client_certificate}"
 # }
 
-output "sec-cluster_master_auth_0_client_key" {
-  value = module.gke-secrets.cluster_master_auth_0_client_certificate
-}
-
-output "sec-gke-endpoint" {
-  value = module.gke-secrets.cluster_endpoint
-}
-
-output "vault-root-token" {
-  value = module.vault.root_token
-}
+//output "sec-cluster_master_auth_0_client_key" {
+//  value = module.gke-secrets.cluster_master_auth_0_client_certificate
+//}
+//
+//output "sec-gke-endpoint" {
+//  value = module.gke-secrets.cluster_endpoint
+//}
+//
+//output "vault-root-token" {
+//  value = module.vault.root_token
+//}
 
 output "nat-static-ip" {
   value = module.shared-vpc.nat_static_ip

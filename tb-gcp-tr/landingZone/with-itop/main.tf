@@ -194,7 +194,7 @@ module "gke-secrets" {
 }
 
 module "vault" {
-  source = "../../vault"
+  source = "../../options/secrets/vault/vault-module"
 
   vault_cluster_project             = module.shared_projects.shared_secrets_id
   vault-gcs-location                = var.location
