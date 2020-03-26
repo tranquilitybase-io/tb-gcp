@@ -3,11 +3,12 @@
 The folder `tb-gcp/tb-gcp-tr/options` will contain the modules that are not deployed by default in the Landing Zone. Therefore, they will be
 optional deployments.
 
-Each option will be associated to a new Terraform state.
+Each option will be associated to a new Terraform state. These states will be stored in the same GCS bucket that the `landingZone` state, 
+using a specific backend prefix
 
 ## Folder structure & Terraform states
-Initially, only the Vault installation will be optional. The below depicts the folder structure and the Terraform folder that will
-hold the state of this infrastructure. These states will be stored in the same GCS bucket that the `landingZone` state, using a specific backend prefix: 
+Initially, only the Vault software installation will be optional. The below depicts the folder structure and the Terraform backend prefix that 
+will hold the state of this infrastructure: 
 - options
   - secrets: At this level there is code that deploys the secrets Kubernetes cluster only. Its state is stored with prefix `/secrets`
     - vault: Installation of Vault is stored at this level. Necessarily, Terraform must have been applied at the parent folder in order
