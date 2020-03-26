@@ -1,11 +1,11 @@
 # Copyright 2019 The Tranquility Base Authors
-# 
+#
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# 
+#
 #     http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -36,3 +36,35 @@ output "nat-static-ip" {
   value = module.shared-vpc.nat_static_ip
 }
 
+# The following outputs will be used to deploy the optional resources
+output "all_apis_enabled" {
+  value = module.apis_activation.all_apis_enabled
+}
+
+output "clusters_master_whitelist_ip" {
+  value = var.clusters_master_whitelist_ip
+}
+
+output "gke_subnetwork_ids" {
+  value = module.shared-vpc.gke_subnetwork_ids
+}
+
+output "region" {
+  value = var.region
+}
+
+output "region_zone" {
+  value = var.region_zone
+}
+
+output "shared_networking_id" {
+  value = module.shared_projects.shared_networking_id
+}
+
+output "shared_secrets_id" {
+  value = module.shared_projects.shared_secrets_id
+}
+
+output "shared_vpc_name" {
+  value = var.shared_vpc_name
+}
