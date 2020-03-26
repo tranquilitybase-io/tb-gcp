@@ -156,7 +156,7 @@ resource "tls_self_signed_cert" "vault-ca" {
   ]
 
   provisioner "local-exec" {
-    command = "echo '${self.cert_pem}' > ../../vault/tls/ca.pem && chmod 0600 ../../vault/tls/ca.pem"
+    command = "echo '${self.cert_pem}' > ./vault-module/tls/ca.pem && chmod 0600 ./vault-module/tls/ca.pem"
   }
 }
 
@@ -166,7 +166,7 @@ resource "tls_private_key" "vault" {
   rsa_bits  = "2048"
 
   provisioner "local-exec" {
-    command = "echo '${self.private_key_pem}' > ../../vault/tls/vault.key && chmod 0600 ../../vault/tls/vault.key"
+    command = "echo '${self.private_key_pem}' > ./vault-module/tls/vault.key && chmod 0600 ./vault-module/tls/vault.key"
   }
 }
 
@@ -210,7 +210,7 @@ resource "tls_locally_signed_cert" "vault" {
   ]
 
   provisioner "local-exec" {
-    command = "echo '${self.cert_pem}' > ../../vault/tls/vault.pem && echo '${tls_self_signed_cert.vault-ca.cert_pem}' >> ../../vault/tls/vault.pem && chmod 0600 ../../vault/tls/vault.pem"
+    command = "echo '${self.cert_pem}' > ./vault-module/tls/vault.pem && echo '${tls_self_signed_cert.vault-ca.cert_pem}' >> ./vault-module/tls/vault.pem && chmod 0600 ./vault-module/tls/vault.pem"
   }
 }
 
@@ -247,7 +247,7 @@ resource "null_resource" "apply" {
 gcloud container clusters get-credentials "${var.vault-gke-sec-name}" --region="${var.vault-region}" --project="${var.vault_cluster_project}"
 
 CONTEXT="gke_${var.vault_cluster_project}_${var.vault-region}_${var.vault-gke-sec-name}"
-echo '${templatefile("${path.module}/../vault/k8s/vault.yaml", {
+echo '${templatefile("${path.module}/k8s/vault.yaml", {
     load_balancer_ip         = google_compute_address.vault.address
     num_vault_pods           = var.num_vault_pods
     vault_container          = var.vault_container
