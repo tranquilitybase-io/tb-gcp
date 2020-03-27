@@ -58,7 +58,7 @@ You'll be prompted to continue the configuration:
 #### Confirm execution 
 At confirmation, the steps of the configuration are triggered sequentially. 
 
-At the end of the process the script outputs the name of the project created (in this example'bootstrap-tb-011f7b'). 
+At the end of the process the script outputs the name of the project created (in this example'bootstrap-011f7b'). 
 
 Configuration is completed and the deployment in Marketplace can be done now!
 

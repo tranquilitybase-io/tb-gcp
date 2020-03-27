@@ -25,7 +25,7 @@ Example execution
 
 ```
 $ ./tb-projects-deleter -r b32208 -f 238741628734 -b AB1234-CD1234-EF1234 -s d30792a7
-Found project bootstrap-tb-b32208.
+Found project bootstrap-b32208.
 Found 'Tranquility Base - tbb32208' (698227606755) folder.
 Found 'Applications' (806674588542) folder.
 Found 'Shared Services' (276539436569) folder.
@@ -103,14 +103,14 @@ You can undo this operation for a limited period by running the command below.
 
 See https://cloud.google.com/resource-manager/docs/creating-managing-projects for information on shutting down projects.
 
-Removing bootstrap service account [bootstrap-tb-sa@bootstrap-tb-b32208.iam.gserviceaccount.com] as billing account admin...
+Removing bootstrap service account [bootstrap-sa@bootstrap-b32208.iam.gserviceaccount.com] as billing account admin...
 Updated IAM policy for account [AB1234-CD1234-EF1234].
 Removing activator service account [activator-dev-sa@shared-ec-d30792a7.iam.gserviceaccount.com] as billing account admin...
 Updated IAM policy for account [AB1234-CD1234-EF1234].
-Removing bootstrap service account [bootstrap-tb-sa@bootstrap-tb-b32208.iam.gserviceaccount.com] bindings at the project level...
-Updated IAM policy for project [bootstrap-tb-b32208].
-Updated IAM policy for project [bootstrap-tb-b32208].
-Removing bootstrap service account [bootstrap-tb-sa@bootstrap-tb-b32208.iam.gserviceaccount.com] IAM policy bindings for folder [238741628734]...
+Removing bootstrap service account [bootstrap-sa@bootstrap-b32208.iam.gserviceaccount.com] bindings at the project level...
+Updated IAM policy for project [bootstrap-b32208].
+Updated IAM policy for project [bootstrap-b32208].
+Removing bootstrap service account [bootstrap-sa@bootstrap-b32208.iam.gserviceaccount.com] IAM policy bindings for folder [238741628734]...
 Updated IAM policy for folder [238741628734].
 Updated IAM policy for folder [238741628734].
 Updated IAM policy for folder [238741628734].
@@ -141,10 +141,10 @@ Deleted [<Folder
  parent: u'folders/238741628734'>].
 
 Deleting bootstrap project...
-Deleted [https://cloudresourcemanager.googleapis.com/v1/projects/bootstrap-tb-b32208].
+Deleted [https://cloudresourcemanager.googleapis.com/v1/projects/bootstrap-b32208].
 
 You can undo this operation for a limited period by running the command below.
-    $ gcloud projects undelete bootstrap-tb-b32208
+    $ gcloud projects undelete bootstrap-b32208
 
 See https://cloud.google.com/resource-manager/docs/creating-managing-projects for information on shutting down projects.
 $

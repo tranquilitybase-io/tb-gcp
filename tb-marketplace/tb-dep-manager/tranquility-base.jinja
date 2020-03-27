@@ -2,7 +2,7 @@
 
 {% set project = env["project"] %}
 {% set deployment = env["deployment"] %}
-{% set tbBootstrapSA = "bootstrap-tb-sa@%s.iam.gserviceaccount.com" % project %}
+{% set tbBootstrapSA = "bootstrap-sa@%s.iam.gserviceaccount.com" % project %}
 {% set tbDiscriminator = "tb%s" %  env["project"][-6:] %}
 {% set name = "%s-bootstrap-vm-tmpl" % env["name"] %}
 {% set instanceName = "%s-bootstrap-vm" % tbDiscriminator %}
