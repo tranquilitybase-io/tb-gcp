@@ -25,7 +25,7 @@ import { DeploymentStatus } from '../models/deployment-status.enum';
 import { CreatedApp } from './components/created-app';
 
 @Component({
-  selector: 'tb-ssp-create-app',
+  selector: 'tb-ec-create-app',
   templateUrl: './create-app.component.html',
   styleUrls: ['./create-app.component.scss']
 })

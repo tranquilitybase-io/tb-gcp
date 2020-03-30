@@ -18,7 +18,7 @@ import { DeploymentsService } from 'src/app/dashboard/services/deployments.servi
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'tb-ssp-remove-deployment-modal',
+  selector: 'tb-ec-remove-deployment-modal',
   template: `
     <div class="modal-header">
       <h4 class="modal-title">Remove Deployment</h4>

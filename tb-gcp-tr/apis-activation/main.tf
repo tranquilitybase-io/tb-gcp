@@ -15,39 +15,39 @@
 resource "google_project_services" "project" {
   project = var.host_project_id
   services = [
-    "appengine.googleapis.com",
-    "bigquery-json.googleapis.com",
-    "bigquerystorage.googleapis.com",
     "cloudbilling.googleapis.com",
     "cloudkms.googleapis.com",
     "cloudresourcemanager.googleapis.com",
     "compute.googleapis.com",
     "container.googleapis.com",
     "containerregistry.googleapis.com",
-    "datastore.googleapis.com",
     "iam.googleapis.com",
     "iamcredentials.googleapis.com",
     "logging.googleapis.com",
     "monitoring.googleapis.com",
     "oslogin.googleapis.com",
-    "pubsub.googleapis.com",
-    "sourcerepo.googleapis.com",
+    "recommender.googleapis.com",
     "serviceusage.googleapis.com",
     "storage-api.googleapis.com",
   ]
 }
 
 /*
-resource "google_project_services" "ssp_project" {
-  project = "${var.ssp_project_id}"
+resource "google_project_services" "ec_project" {
+  project = "${var.ec_project_id}"
   services   = ["compute.googleapis.com", "oslogin.googleapis.com", "container.googleapis.com"]
   depends_on = ["google_project_services.project"]
 }
 */
 
-resource "google_project_service" "project" {
+resource "google_project_service" "bastion-iap" {
   project = var.bastion_project_id
   service = "iap.googleapis.com"
+  depends_on = ["google_project_services.project"]
+}
+resource "google_project_service" "bastion-recommender" {
+  project = var.bastion_project_id
+  service = "recommender.googleapis.com"
   depends_on = ["google_project_services.project"]
 }
 
@@ -56,8 +56,6 @@ resource "google_project_services" "project_shared" {
   project = var.service_project_ids[count.index]
   services = [
     "appengine.googleapis.com",
-    "bigquery-json.googleapis.com",
-    "bigquerystorage.googleapis.com",
     "cloudbilling.googleapis.com",
     "cloudkms.googleapis.com",
     "cloudresourcemanager.googleapis.com",
@@ -70,7 +68,7 @@ resource "google_project_services" "project_shared" {
     "logging.googleapis.com",
     "monitoring.googleapis.com",
     "oslogin.googleapis.com",
-    "pubsub.googleapis.com",
+    "recommender.googleapis.com",
     "serviceusage.googleapis.com",
     "sourcerepo.googleapis.com",
     "sqladmin.googleapis.com",

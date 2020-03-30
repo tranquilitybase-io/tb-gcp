@@ -16,7 +16,7 @@ import { Component } from '@angular/core';
 import { faEllipsisV, faTimes, faPlus, faList, faThLarge } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'tb-ssp-dashboard',
+  selector: 'tb-ec-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })

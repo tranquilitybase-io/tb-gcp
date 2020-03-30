@@ -16,7 +16,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'tb-ssp-create-app',
+  selector: 'tb-ec-create-app',
   templateUrl: './create-app.component.html',
   styleUrls: ['./create-app.component.scss']
 })

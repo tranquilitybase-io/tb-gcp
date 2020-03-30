@@ -10,7 +10,7 @@
     "component-selector": [
       true,
       "element",
-      "tb-ssp",
+      "tb-ec",
       "kebab-case"
     ]
   }

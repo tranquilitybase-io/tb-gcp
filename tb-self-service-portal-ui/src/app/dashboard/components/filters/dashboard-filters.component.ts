@@ -15,7 +15,7 @@
 import { Component } from '@angular/core';
 import { faTimes, faPlus } from '@fortawesome/free-solid-svg-icons';
 @Component({
-  selector: 'tb-ssp-dashboard-filters',
+  selector: 'tb-ec-dashboard-filters',
   templateUrl: './dashboard-filters.component.html',
   styleUrls: ['./dashboard-filters.component.scss']
 })

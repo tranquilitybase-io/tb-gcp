@@ -12,7 +12,7 @@ It creates a project with following components:
  
 This module uses modules from two other repositories:
  - https://github.com/tranquilitybase-io/tb-common-tr
- - https://github.com/tranquilitybase-io/tb-ssp-gcp
+ - https://github.com/tranquilitybase-io/tb-ec-gcp
  
  and assumes that this two repositories are already cloned next to this repository
  To be able to use this module you need to clone this two repositories under the same 
@@ -21,7 +21,7 @@ This module uses modules from two other repositories:
  <directory>
     <current_directory>(tb-gcp-activator)
     tb-common-tr
-    tb-ssp-gcp
+    tb-ec-gcp
 ```
 
 #### To get access to Jenkins master:

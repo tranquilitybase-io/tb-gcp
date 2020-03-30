@@ -19,7 +19,7 @@ api_services = ["compute.googleapis.com", "oslogin.googleapis.com", "container.g
 #KUBERNETES ACTIVATOR CLUSTER
 vpc_name = "shared-network"
 activator_cluster_subnetwork = "activator-project-snet"
-cluster_service_account = "kubernetes-ssp"
+cluster_service_account = "kubernetes-ec"
 activator_cluster_name = "gke-activator"
 activator_cluster_pool_name = "gke-activator-node-pool"
 activator_cluster_master_cidr ="172.16.0.0/28"

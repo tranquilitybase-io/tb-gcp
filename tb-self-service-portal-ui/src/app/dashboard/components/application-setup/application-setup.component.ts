@@ -20,7 +20,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { DeploymentsService } from '../../services/deployments.service';
 
 @Component({
-  selector: 'tb-ssp-application-setup',
+  selector: 'tb-ec-application-setup',
   templateUrl: './application-setup.component.html',
   styleUrls: ['./application-setup.component.scss']
 })
