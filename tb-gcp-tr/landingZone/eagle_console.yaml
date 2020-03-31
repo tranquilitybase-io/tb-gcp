@@ -101,7 +101,7 @@ spec:
     spec:
       containers:
         - name: houstonservice
-          image: gcr.io/tranquility-base-images/tb-eagle-console-ui:mock
+          image: gcr.io/tranquility-base-images/tb-eagle-console-ui:alpha
           resources:
             requests:
               cpu: "100m"
@@ -117,6 +117,12 @@ spec:
           env:
             - name: GOOGLE_APPLICATION_CREDENTIALS
               value: /var/secrets/google/ec-service-account-config.json
+            - name: SQLALCHEMY_DATABASE_URI
+              value: mysql+mysqlconnector://eagle-user:eagle-user-secret-pw@mysql57/eagle_db
+            - name: SQLALCHEMY_ECHO
+              value: "True"
+            - name: SQLALCHEMY_TRACK_MODIFICATIONS
+              value: "True"
       volumes:
         - name: config-volume
           configMap:
