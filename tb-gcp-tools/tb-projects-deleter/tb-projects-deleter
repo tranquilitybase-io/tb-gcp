@@ -19,7 +19,6 @@ function print_help {
 	echo "-r, --bootstrap-random-id <id>	(REQUIRED) Bootstrap project's random ID (e.g. -r c5512f)"
 	echo "-f, --parent-folder-id <id>	(REQUIRED) Landing zone's parent folder ID (e.g. -f 238741628734)"
 	echo "-b, --billing-account-id <string>	(REQUIRED) Tranquility Base related Billing Account (e.g. -b AB1234-CD1234-EF1234)"
-	echo "-s, --shared-serv-random-id <string>	(REQUIRED) Shared service projects random ID (e.g. -s bac7b828)"
 	echo
 }
 

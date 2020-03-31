@@ -168,17 +168,17 @@ If **Y** is pressed, it will automatically create the Service Account and activa
 ```
 Creating project...
 
-Create in progress for [https://cloudresourcemanager.googleapis.com/v1/projects/bootstrap-ab91ae].
+Create in progress for [https://cloudresourcemanager.googleapis.com/v1/projects/bootstrap-ab91ae78].
 Waiting for [operations/cp.5499274151206614851] to finish...done.
-Enabling service [cloudapis.googleapis.com] on project [bootstrap-ab91ae]...
+Enabling service [cloudapis.googleapis.com] on project [bootstrap-ab91ae78]...
 Operation "operations/acf.1bdd5536-29cd-46da-ac7a-48290cc4dec8" finished successfully.
 Linking project to billing account...
 Linked project to billing account [F9C122-73127B-50AE5B].
 Creating service account...
 Created service account [bootstrap-sa].
 Adding permissions at the project level...
-Updated IAM policy for project [bootstrap-ab91ae].
-Updated IAM policy for project [bootstrap-ab91ae].
+Updated IAM policy for project [bootstrap-ab91ae78].
+Updated IAM policy for project [bootstrap-ab91ae78].
 Adding permissions at the folder level...
 Updated IAM policy for folder [705953663545].
 Updated IAM policy for folder [705953663545].
@@ -201,7 +201,7 @@ Operation "operations/acf.7065af63-0afd-4cf3-8b38-21fd467e09e4" finished success
 Essential APIs activated.
 
 Configuration completed!
-You can now deploy Tranquility Base from Marketplace in project [bootstrap-ab91ae].
+You can now deploy Tranquility Base from Marketplace in project [bootstrap-ab91ae78].
 
 ```
 

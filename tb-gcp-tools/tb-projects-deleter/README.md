@@ -14,18 +14,17 @@ Usage
 ```
 Usage: /home/usr1/bin/tb-projects-deleter <arguments>
 
--r, --bootstrap-random-id <id>	(REQUIRED) Bootstrap project's random ID (e.g. -r c5512f)
+-r, --bootstrap-random-id <id>	(REQUIRED) Bootstrap project's random ID (e.g. -r 6813a9eb )
 -f, --parent-folder-id <id>	(REQUIRED) Landing zone's parent folder ID (e.g. -f 238741628734)
 -b, --billing-account-id <string>	(REQUIRED) Tranquility Base related Billing Account (e.g. -b AB1234-CD1234-EF1234)
--s, --shared-serv-random-id <string>	(REQUIRED) Shared service projects random ID (e.g. -s bac7b828)
 ```
 
 Example execution
 -----------------
 
 ```
-$ ./tb-projects-deleter -r b32208 -f 238741628734 -b AB1234-CD1234-EF1234 -s d30792a7
-Found project bootstrap-b32208.
+$ ./tb-projects-deleter -r b32208 -f 238741628734 -b AB1234-CD1234-EF1234 
+Found project bootstrap-b3220878.
 Found 'Tranquility Base - tbb32208' (698227606755) folder.
 Found 'Applications' (806674588542) folder.
 Found 'Shared Services' (276539436569) folder.
@@ -103,14 +102,14 @@ You can undo this operation for a limited period by running the command below.
 
 See https://cloud.google.com/resource-manager/docs/creating-managing-projects for information on shutting down projects.
 
-Removing bootstrap service account [bootstrap-sa@bootstrap-b32208.iam.gserviceaccount.com] as billing account admin...
+Removing bootstrap service account [bootstrap-sa@bootstrap-b3220878.iam.gserviceaccount.com] as billing account admin...
 Updated IAM policy for account [AB1234-CD1234-EF1234].
 Removing activator service account [activator-dev-sa@shared-ec-d30792a7.iam.gserviceaccount.com] as billing account admin...
 Updated IAM policy for account [AB1234-CD1234-EF1234].
-Removing bootstrap service account [bootstrap-sa@bootstrap-b32208.iam.gserviceaccount.com] bindings at the project level...
-Updated IAM policy for project [bootstrap-b32208].
-Updated IAM policy for project [bootstrap-b32208].
-Removing bootstrap service account [bootstrap-sa@bootstrap-b32208.iam.gserviceaccount.com] IAM policy bindings for folder [238741628734]...
+Removing bootstrap service account [bootstrap-sa@bootstrap-b3220878.iam.gserviceaccount.com] bindings at the project level...
+Updated IAM policy for project [bootstrap-b3220878].
+Updated IAM policy for project [bootstrap-b3220878].
+Removing bootstrap service account [bootstrap-sa@bootstrap-b3220878.iam.gserviceaccount.com] IAM policy bindings for folder [238741628734]...
 Updated IAM policy for folder [238741628734].
 Updated IAM policy for folder [238741628734].
 Updated IAM policy for folder [238741628734].
@@ -141,10 +140,10 @@ Deleted [<Folder
  parent: u'folders/238741628734'>].
 
 Deleting bootstrap project...
-Deleted [https://cloudresourcemanager.googleapis.com/v1/projects/bootstrap-b32208].
+Deleted [https://cloudresourcemanager.googleapis.com/v1/projects/bootstrap-b3220878].
 
 You can undo this operation for a limited period by running the command below.
-    $ gcloud projects undelete bootstrap-b32208
+    $ gcloud projects undelete bootstrap-b3220878
 
 See https://cloud.google.com/resource-manager/docs/creating-managing-projects for information on shutting down projects.
 $
