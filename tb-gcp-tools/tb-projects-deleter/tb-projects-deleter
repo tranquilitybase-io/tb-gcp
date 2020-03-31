@@ -78,7 +78,7 @@ if [[ -z ${BS_RND_ID}  || -z ${FOLDER_ID} || -z ${BILLING_ID} ]]; then
 fi
 
 # More constants
-LZ_DISCRIMINATOR="tb${BS_RND_ID}"
+LZ_DISCRIMINATOR="${BS_RND_ID}"
 PREFIX="bootstrap-"
 PROJECT_ID=${PREFIX}${BS_RND_ID}
 SA_EMAIL="${PREFIX}sa@${PROJECT_ID}.iam.gserviceaccount.com"
