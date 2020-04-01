@@ -19,7 +19,6 @@ function print_help {
 	echo "-r, --bootstrap-random-id <id>	(REQUIRED) Bootstrap project's random ID (e.g. -r c5512f)"
 	echo "-f, --parent-folder-id <id>	(REQUIRED) Landing zone's parent folder ID (e.g. -f 238741628734)"
 	echo "-b, --billing-account-id <string>	(REQUIRED) Tranquility Base related Billing Account (e.g. -b AB1234-CD1234-EF1234)"
-	echo "-s, --shared-serv-random-id <string>	(REQUIRED) Shared service projects random ID (e.g. -s bac7b828)"
 	echo
 }
 
@@ -51,10 +50,6 @@ while (( "$#" )); do
       BILLING_ID=$2
       shift 2
       ;;
-    -s|--shared-serv-random-id)
-      SS_RND_ID=$2
-      shift 2
-      ;;
     -h|--help)
       print_help
       exit 0
@@ -74,7 +69,7 @@ while (( "$#" )); do
   esac
 done
 
-if [[ -z ${BS_RND_ID} || -z ${SS_RND_ID} || -z ${FOLDER_ID} || -z ${BILLING_ID} ]]; then
+if [[ -z ${BS_RND_ID}  || -z ${FOLDER_ID} || -z ${BILLING_ID} ]]; then
 	echo "ERROR: Invalid arguments."
 	echo
 	print_help
@@ -82,11 +77,11 @@ if [[ -z ${BS_RND_ID} || -z ${SS_RND_ID} || -z ${FOLDER_ID} || -z ${BILLING_ID} 
 fi
 
 # More constants
-LZ_DISCRIMINATOR="tb${BS_RND_ID}"
-PREFIX="bootstrap-tb-"
+LZ_DISCRIMINATOR="${BS_RND_ID}"
+PREFIX="bootstrap-"
 PROJECT_ID=${PREFIX}${BS_RND_ID}
 SA_EMAIL="${PREFIX}sa@${PROJECT_ID}.iam.gserviceaccount.com"
-ACTIVATOR_SA_EMAIL="activator-dev-sa@shared-ec-${SS_RND_ID}.iam.gserviceaccount.com"
+ACTIVATOR_SA_EMAIL="activator-dev-sa@shared-ec-${BS_RND_ID}.iam.gserviceaccount.com"
 # activator-dev-sa@shared-ec-bac7b828.iam.gserviceaccount.com
 
 # Collect bootstrap project name
