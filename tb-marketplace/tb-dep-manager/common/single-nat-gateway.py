@@ -18,15 +18,16 @@
 def GenerateConfig(context):
   """Generates config."""
 
-  prefix = context.properties['discriminator']
+  id_suffix = context.properties['discriminator']
   zone = context.properties['zone']
 
   resources = []
 
   #reserve a static IP address
-  ip_name = prefix + '-ip'
+  ip_name =  'nat-ip-' + id_suffix
   resources.append({
     'name': ip_name,
+
     'type': 'compute.v1.address',
     'properties': {
       'region': context.properties['region']
@@ -34,8 +35,8 @@ def GenerateConfig(context):
   })  
 
   # create an instance template that points to a reserved static IP address
-  template_name = prefix + '-it'
-  runtime_var_name = prefix + '/0'  
+  template_name = 'nat-it-' + id_suffix
+  runtime_var_name = id_suffix + '/0'
 
   resources.append({
     'name': template_name,
@@ -93,14 +94,14 @@ def GenerateConfig(context):
     }
   })
 
-  # create an instance greoup manager of size 1  with autohealing enabled
+  # create an instance group manager of size 1  with autohealing enabled
   # it will make sure that the NAT gateway VM is always up
-  igm_name = prefix + '-igm'
+  igm_name = 'nat-igm-' + id_suffix
   resources.append({
     'name': igm_name,
     'type': 'compute.beta.instanceGroupManager',
     'properties': {
-      'baseInstanceName': prefix + '-vm',
+      'baseInstanceName': 'vm-' + id_suffix,
       'instanceTemplate': '$(ref.' + template_name + '.selfLink)',
       'targetSize': 1,
       'zone': zone,
@@ -112,7 +113,7 @@ def GenerateConfig(context):
   })
 
   # Wait until a GCE VM is created by the instance group manager. 
-  waiter_name = prefix + '-waiter'
+  waiter_name = 'waiter-' + id_suffix
   resources.append({
     'name': waiter_name,
     'type': 'runtimeconfig.v1beta1.waiter',
@@ -122,7 +123,7 @@ def GenerateConfig(context):
       'timeout': '120s',
       'success': {
         'cardinality': {
-          'path': prefix,
+          'path': id_suffix,
           'number': 1
         }
       }
@@ -133,7 +134,7 @@ def GenerateConfig(context):
   })  
 
   # Find a name of the GCE VM created by the instance group manager
-  get_mig_instances = prefix + '-get-mig-instances' 
+  get_mig_instances =  'nat-mig-instances-' + id_suffix
   resources.append({
     'name': get_mig_instances,
     'action': 'gcp-types/compute-v1:compute.instanceGroupManagers.listManagedInstances',
@@ -148,7 +149,7 @@ def GenerateConfig(context):
   })
 
   #create a route that will allow to use the NAT gateway VM as a next hop
-  route_name = prefix + '-route'
+  route_name = 'nat-route-' + id_suffix
   resources.append({
     'name': route_name,
     'type': 'compute.v1.route',
