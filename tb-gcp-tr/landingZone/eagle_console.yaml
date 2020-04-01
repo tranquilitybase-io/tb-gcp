@@ -47,7 +47,44 @@ spec:
   selector:
     app: houstonservice
 ---
-
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+spec:
+  ports:
+    - port: 3306
+  selector:
+    app: mysql
+  clusterIP: None
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mysql-pv-volume
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 20Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pv-claim
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -123,6 +160,18 @@ spec:
               value: "True"
             - name: SQLALCHEMY_TRACK_MODIFICATIONS
               value: "True"
+        - name: mysql57
+          image: gcr.io/tranquility-base-images/tb-houston-service:mysql57
+          resources:
+            requests:
+              cpu: "100m"
+          imagePullPolicy: IfNotPresent #Always
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/ec-config.yaml
+              subPath: ec-config.yaml
       volumes:
         - name: config-volume
           configMap:
@@ -131,7 +180,43 @@ spec:
           secret:
             secretName: ec-service-account
 ---
-
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: mysql
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - image: mysql:5.7
+          name: gcr.io/tranquility-base-images/tb-houston-service:mysql57
+          env:
+            # Use secret in real usage
+            - name: MYSQL_ROOT_PASSWORD
+              value: password
+            - name: MYSQL_USER
+              value: eagle-user
+            # Use secret in real usage
+            - name: MYSQL_PASSWORD
+              value: eagle123
+            - name: MYSQL_DATABASE
+              value: eagle_db
+          volumeMounts:
+            - name: mysql-persistent-storage
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: mysql-persistent-storage
+          persistentVolumeClaim:
+            claimName: mysql-pv-claim
+---
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
