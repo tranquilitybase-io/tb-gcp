@@ -21,10 +21,10 @@ metadata:
 spec:
   ports:
     - port: 80
-      targetPort: 80
+      targetPort: 4200
       name: http
     - port: 443
-      targetPort: 80
+      targetPort: 4200
       name: https
   selector:
     app: eagleconsole
@@ -50,12 +50,14 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mysql
+  name: mysql57
 spec:
   ports:
     - port: 3306
+      targetPort: 3306
+      name: mysql57
   selector:
-    app: mysql
+    app: mysql57
   clusterIP: None
 ---
 apiVersion: v1
@@ -99,7 +101,7 @@ spec:
     spec:
       containers:
         - name: eagleconsole
-          image: gcr.io/tranquility-base-images/tb-eagle-console-ui:alpha
+          image: gcr.io/tranquility-base-images/tb-eagle-console:dev
           resources:
             requests:
               cpu: "100m"
@@ -144,7 +146,7 @@ spec:
               cpu: "100m"
           imagePullPolicy: IfNotPresent #Always
           ports:
-            - containerPort: 3000
+            - containerPort: 80
           volumeMounts:
             - name: config-volume
               mountPath: /app/ec-config.yaml
@@ -160,18 +162,6 @@ spec:
               value: "True"
             - name: SQLALCHEMY_TRACK_MODIFICATIONS
               value: "True"
-        - name: mysql57
-          image: gcr.io/tranquility-base-images/tb-houston-service:mysql57
-          resources:
-            requests:
-              cpu: "100m"
-          imagePullPolicy: IfNotPresent #Always
-          ports:
-            - containerPort: 3306
-          volumeMounts:
-            - name: config-volume
-              mountPath: /app/ec-config.yaml
-              subPath: ec-config.yaml
       volumes:
         - name: config-volume
           configMap:
@@ -196,8 +186,8 @@ spec:
         app: mysql
     spec:
       containers:
-        - image: mysql:5.7
-          name: gcr.io/tranquility-base-images/tb-houston-service:mysql57
+        - name: mysql57
+          image: gcr.io/tranquility-base-images/tb-houston-service:mysql57
           env:
             # Use secret in real usage
             - name: MYSQL_ROOT_PASSWORD
