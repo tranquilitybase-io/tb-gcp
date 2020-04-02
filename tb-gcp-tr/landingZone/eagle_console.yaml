@@ -39,10 +39,10 @@ metadata:
 spec:
   ports:
     - port: 80
-      targetPort: 80
+      targetPort: 3000
       name: http
     - port: 443
-      targetPort: 80
+      targetPort: 3000
       name: https
   selector:
     app: houstonservice
@@ -138,13 +138,13 @@ spec:
     spec:
       containers:
         - name: houstonservice
-          image: gcr.io/tranquility-base-images/tb-eagle-console-ui:alpha
+          image: gcr.io/tranquility-base-images/tb-houston-service:alpha
           resources:
             requests:
               cpu: "100m"
           imagePullPolicy: IfNotPresent #Always
           ports:
-            - containerPort: 80
+            - containerPort: 3000
           volumeMounts:
             - name: config-volume
               mountPath: /app/ec-config.yaml
