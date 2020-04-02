@@ -2,12 +2,12 @@
 
 {% set project = env["project"] %}
 {% set deployment = env["deployment"] %}
-{% set tbBootstrapSA = "bootstrap-tb-sa@%s.iam.gserviceaccount.com" % project %}
-{% set tbDiscriminator = "tb%s" %  env["project"][-6:] %}
+{% set tbBootstrapSA = "bootstrap-sa@%s.iam.gserviceaccount.com" % project %}
+{% set tbDiscriminator = "%s" %  env["project"][-8:] %}
 {% set name = "%s-bootstrap-vm-tmpl" % env["name"] %}
-{% set instanceName = "%s-bootstrap-vm" % tbDiscriminator %}
-{% set cloudStorageBucket = "%s-tfstate-bucket" % tbDiscriminator %}
-{% set natGateway = "%s-nat-gateway" % tbDiscriminator %}
+{% set instanceName = "tf-server-%s" % tbDiscriminator %}
+{% set cloudStorageBucket = "tf-state-%s" % tbDiscriminator %}
+{% set natGateway = "nat-gateway-%s" % tbDiscriminator %}
 {% set zone = properties["zone"] %}
 {% set region = properties["zone"][:-2] %}
 {% set bucketLocation = "eu" %}
@@ -23,13 +23,13 @@
 {% set hasExternalIP = externalIPs and externalIPs[0] != "NONE" %}
 {# Software status only works if the VM has an external IP. #}
 {% set enableStatusWaiter = hasExternalIP %}
-{% set bucketName = "%s-tf-export" % tbDiscriminator %}
-{% set tbNetwork = "%s-bootstrap-network" % tbDiscriminator %}
-{% set tbSubNetwork = "%s-bootstrap-sub-network" % tbDiscriminator %}
+{% set bucketName = "tf-export-%s" % tbDiscriminator %}
+{% set tbNetwork = "bootstrap-network-%s" % tbDiscriminator %}
+{% set tbSubNetwork = "bootstrap-sub-network-%s" % tbDiscriminator %}
 {% set rootId = properties["rootId"] %}
 {% set billingAccountId = properties["billingAccountId"] %}
-{% set allowIapFw = "%s-allow-iap" % tbDiscriminator %}
-{% set allowInternalFw = "%s-allow-internal" % tbDiscriminator %}
+{% set allowIapFw = "allow-iap-%s" % tbDiscriminator %}
+{% set allowInternalFw = "allow-internal-%s" % tbDiscriminator %}
 
 resources:
   - name: {{ tbNetwork }}
@@ -152,7 +152,7 @@ resources:
         root_is_org="false"
         tb_discriminator="{{ tbDiscriminator }}"
         terraform_state_bucket_name="{{ bucketName }}"
-        clusters_master_whitelist_ip="$(ref.{{ tbDiscriminator }}-ip.address)"
+        clusters_master_whitelist_ip="$(ref.nat-ip-{{ tbDiscriminator }}.address)"
         EOF
 
         echo "STARTUP COMPLETE"
