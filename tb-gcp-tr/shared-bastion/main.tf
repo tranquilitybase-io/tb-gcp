@@ -89,31 +89,13 @@ resource "google_compute_instance" "tb_linux_bastion" {
                               #!/bin/bash -x
                               #
                               # Startup script to install Chrome remote desktop and a desktop environment.
-                              #
-                              # See environmental variables at then end of the script for configuration
-                              #
 
                               function install_desktop_env {
                                 PACKAGES="desktop-base xscreensaver"
 
-                                if [[ "$INSTALL_XFCE" != "yes" && "$INSTALL_CINNAMON" != "yes" ]] ; then
-                                  # neither XFCE nor cinnamon specified; install both
-                                  INSTALL_XFCE=yes
-                                  INSTALL_CINNAMON=yes
-                                fi
-
                                 if [[ "$INSTALL_XFCE" = "yes" ]] ; then
                                   PACKAGES="$PACKAGES xfce4"
                                   echo "exec xfce4-session" > /etc/chrome-remote-desktop-session
-                                  [[ "$INSTALL_FULL_DESKTOP" = "yes" ]] && \
-                                    PACKAGES="$PACKAGES task-xfce-desktop"
-                                fi
-
-                                if [[ "$INSTALL_CINNAMON" = "yes" ]] ; then
-                                  PACKAGES="$PACKAGES cinnamon-core"
-                                  echo "exec cinnamon-session-cinnamon2d" > /etc/chrome-remote-desktop-session
-                                  [[ "$INSTALL_FULL_DESKTOP" = "yes" ]] && \
-                                    PACKAGES="$PACKAGES task-cinnamon-desktop"
                                 fi
 
                                 DEBIAN_FRONTEND=noninteractive \
@@ -135,9 +117,6 @@ resource "google_compute_instance" "tb_linux_bastion" {
 
                               # Configure the following environmental variables as required:
                               INSTALL_XFCE=yes
-                              INSTALL_CINNAMON=no
-                              INSTALL_CHROME=no
-                              INSTALL_FULL_DESKTOP=no
 
                               # Any additional packages that should be installed on startup can be added here
                               EXTRA_PACKAGES="less bzip2 zip unzip"
@@ -150,12 +129,6 @@ resource "google_compute_instance" "tb_linux_bastion" {
                                   /tmp/chrome-remote-desktop_current_amd64.deb
 
                               install_desktop_env
-
-                              [[ "$INSTALL_CHROME" = "yes" ]] && \
-                                ! is_installed google-chrome-stable && \
-                                download_and_install \
-                                  https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
-                                  /tmp/google-chrome-stable_current_amd64.deb
 
                               echo "Chrome remote desktop installation completed"
                               SCRIPT
