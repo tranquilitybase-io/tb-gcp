@@ -18,6 +18,7 @@ resource "google_compute_subnetwork_iam_binding" "bastion_subnet_permission" {
 
   members = [
     "serviceAccount:${google_service_account.bastion_service_account.email}",
+    "serviceAccount:${var.shared_bastion_project_number}@cloudservices.gserviceaccount.com"
   ]
 }
 
@@ -72,23 +73,76 @@ resource "google_compute_instance" "tb_windows_bastion" {
   }
 }
 
-resource "google_compute_instance" "tb_linux_bastion" {
-  depends_on = [
-    google_service_account.bastion_service_account]
+//resource "google_compute_instance" "tb_linux_bastion" {
+//  depends_on = [
+//    google_service_account.bastion_service_account]
+//  project = var.shared_bastion_id
+//  zone = var.region_zone
+//  name = "tb-linux-bastion"
+//  machine_type = "n1-standard-2"
+//  boot_disk {
+//    initialize_params {
+//      image = "debian-9-stretch-v20191210"
+//    }
+//  }
+//  network_interface {
+//    subnetwork = "projects/${var.shared_networking_id}/regions/${var.region}/subnetworks/bastion-subnetwork"
+//  }
+//  service_account {
+//    email = google_service_account.bastion_service_account.email
+//    scopes = []
+//  }
+//}
+
+data "google_compute_image" "debian_image" {
+  family  = "debian-9"
   project = var.shared_bastion_id
-  zone = var.region_zone
-  name = "tb-linux-bastion"
-  machine_type = "n1-standard-2"
-  boot_disk {
-    initialize_params {
-      image = "debian-9-stretch-v20191210"
-    }
+}
+
+// Create instance template
+resource "google_compute_instance_template" "bastion_linux_template" {
+  project = var.shared_bastion_id
+  name        = "bastion-linux-template"
+  description = "This template is used to create linux bastion instance"
+
+  instance_description = "Bastion linux instance"
+  machine_type         = "n1-standard-2"
+
+  scheduling {
+    automatic_restart   = true
+    on_host_maintenance = "MIGRATE"
   }
+
+  // boot disk
+  disk {
+    source_image = data.google_compute_image.debian_image.self_link
+  }
+
   network_interface {
     subnetwork = "projects/${var.shared_networking_id}/regions/${var.region}/subnetworks/bastion-subnetwork"
   }
+
   service_account {
     email = google_service_account.bastion_service_account.email
     scopes = []
   }
+}
+
+// Create instance group
+
+resource "google_compute_instance_group_manager" "linux_bastion_group" {
+  project = var.shared_bastion_id
+  base_instance_name = "linux-bastion"
+  zone               = var.region_zone
+
+  version {
+    instance_template  = google_compute_instance_template.bastion_linux_template.self_link
+    name = "bastion-linux-template"
+  }
+
+  target_size  = 1
+  instance_template = google_compute_instance_template.bastion_linux_template.self_link
+  name = "linux-bastion-group"
+
+  depends_on = [google_compute_subnetwork_iam_binding.bastion_subnet_permission]
 }
