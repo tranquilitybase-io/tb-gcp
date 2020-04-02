@@ -92,3 +92,24 @@ resource "google_compute_instance" "tb_linux_bastion" {
     scopes = []
   }
 }
+
+resource "google_compute_instance" "tb_kube_proxy" {
+  depends_on = [
+    google_service_account.bastion_service_account]
+  project = var.shared_bastion_id
+  zone = var.region_zone
+  name = "tb-kube-proxy"
+  machine_type = "n1-standard-2"
+  boot_disk {
+    initialize_params {
+      image = "debian-9-stretch-v20191210"
+    }
+  }
+  network_interface {
+    subnetwork = "projects/${var.shared_networking_id}/regions/${var.region}/subnetworks/bastion-subnetwork"
+  }
+  service_account {
+    email = google_service_account.bastion_service_account.email
+    scopes = []
+  }
+}
