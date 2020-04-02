@@ -12,6 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+variable "tb_discriminator" {
+  type        = string
+  description = "Random ID that is associated with the corresponding bootstrap project."
+}
+
 variable "root_id" {
   type        = string
   description = "id for the parent (organization or folder) where these projects will be created."

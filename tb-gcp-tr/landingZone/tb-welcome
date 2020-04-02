@@ -32,7 +32,7 @@ export HOME=/root
 #Retrieve project ID
 PROJECT_ID=$(curl -s "http://metadata.google.internal/computeMetadata/v1/project/project-id" -H "Metadata-Flavor: Google")
 #Initialise variables
-SA_NAME="bootstrap-tb-sa"
+SA_NAME="bootstrap-sa"
 SA_EMAIL=${SA_NAME}@${PROJECT_ID}.iam.gserviceaccount.com
 FOLDER_ID=${root_id}
 echo "Folder is ${FOLDER_ID}"

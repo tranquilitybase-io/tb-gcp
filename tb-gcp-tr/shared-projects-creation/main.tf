@@ -12,21 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-resource "random_id" "project" {
-  byte_length = 4
-}
 
 resource "google_project" "shared_networking" {
-  name                = "${var.shared_networking_project_name}-${random_id.project.hex}"
-  project_id          = "${var.shared_networking_project_name}-${random_id.project.hex}"
+  name                = "${var.shared_networking_project_name}-${var.tb_discriminator}"
+  project_id          = "${var.shared_networking_project_name}-${var.tb_discriminator}"
   folder_id           = var.root_id
   billing_account     = var.billing_account_id
   auto_create_network = false
 }
 
 resource "google_project" "shared_secrets" {
-  name                = "${var.shared_secrets_project_name}-${random_id.project.hex}"
-  project_id          = "${var.shared_secrets_project_name}-${random_id.project.hex}"
+  name                = "${var.shared_secrets_project_name}-${var.tb_discriminator}"
+  project_id          = "${var.shared_secrets_project_name}-${var.tb_discriminator}"
   folder_id           = var.root_id
   billing_account     = var.billing_account_id
   auto_create_network = false
@@ -34,8 +31,8 @@ resource "google_project" "shared_secrets" {
 }
 
 resource "google_project" "shared_itsm" {
-  name                = "${var.shared_itsm_project_name}-${random_id.project.hex}"
-  project_id          = "${var.shared_itsm_project_name}-${random_id.project.hex}"
+  name                = "${var.shared_itsm_project_name}-${var.tb_discriminator}"
+  project_id          = "${var.shared_itsm_project_name}-${var.tb_discriminator}"
   folder_id           = var.root_id
   billing_account     = var.billing_account_id
   auto_create_network = false
@@ -43,8 +40,8 @@ resource "google_project" "shared_itsm" {
 }
 
 resource "google_project" "shared_telemetry" {
-  name                = "${var.shared_telemetry_project_name}-${random_id.project.hex}"
-  project_id          = "${var.shared_telemetry_project_name}-${random_id.project.hex}"
+  name                = "${var.shared_telemetry_project_name}-${var.tb_discriminator}"
+  project_id          = "${var.shared_telemetry_project_name}-${var.tb_discriminator}"
   folder_id           = var.root_id
   billing_account     = var.billing_account_id
   auto_create_network = false
@@ -52,16 +49,16 @@ resource "google_project" "shared_telemetry" {
 }
 
 resource "google_project" "shared_billing" {
-  name                = "${var.shared_billing_project_name}-${random_id.project.hex}"
-  project_id          = "${var.shared_billing_project_name}-${random_id.project.hex}"
+  name                = "${var.shared_billing_project_name}-${var.tb_discriminator}"
+  project_id          = "${var.shared_billing_project_name}-${var.tb_discriminator}"
   folder_id           = var.root_id
   billing_account     = var.billing_account_id
   auto_create_network = false
 }
 
 resource "google_project" "shared_ec" {
-  name                = "${var.shared_ec_project_name}-${random_id.project.hex}"
-  project_id          = "${var.shared_ec_project_name}-${random_id.project.hex}"
+  name                = "${var.shared_ec_project_name}-${var.tb_discriminator}"
+  project_id          = "${var.shared_ec_project_name}-${var.tb_discriminator}"
   folder_id           = var.root_id
   billing_account     = var.billing_account_id
   auto_create_network = false
@@ -69,8 +66,8 @@ resource "google_project" "shared_ec" {
 }
 
 resource "google_project" "shared_bastion" {
-  name                = "${var.shared_bastion_project_name}-${random_id.project.hex}"
-  project_id          = "${var.shared_bastion_project_name}-${random_id.project.hex}"
+  name                = "${var.shared_bastion_project_name}-${var.tb_discriminator}"
+  project_id          = "${var.shared_bastion_project_name}-${var.tb_discriminator}"
   folder_id           = var.root_id
   billing_account     = var.billing_account_id
   auto_create_network = false

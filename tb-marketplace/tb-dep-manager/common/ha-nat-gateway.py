@@ -47,11 +47,11 @@ def GenerateConfig(context):
 
   CheckParameters(context)
 
-  prefix = context.properties['discriminator']
+  suffix = context.properties['discriminator']
 
-  hc_name = prefix + '-hc'
-  fw_name = prefix + '-hc-fw'
-  rt_config_name = prefix + '-config'
+  hc_name = 'hc-' + suffix
+  fw_name = 'hc-fw-' + suffix
+  rt_config_name = 'config-' + suffix
 
   project_id = context.properties['projectId']
   network_project_id = context.properties['networkProjectId']
@@ -118,7 +118,7 @@ def GenerateConfig(context):
   for zone in zones:
     nat_gateway_vm = {
         # the same zone can be specified multiple times, so adding a counter for uniquness
-        'name': prefix  + '-nat-' +  str(i) + '-' + zone ,
+        'name': 'nat-' +  str(i) + '-' + zone + '-' + suffix,
         'type': 'single-nat-gateway.py',
         'properties': {
             'projectId': project_id,
