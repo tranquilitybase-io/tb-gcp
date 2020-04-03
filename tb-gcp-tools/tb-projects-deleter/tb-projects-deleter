@@ -32,7 +32,6 @@ SHARED_NET_PROJ_PREFIX="shared-networking-"
 REPO_NAME="tb-terraform-code"
 
 BS_RND_ID=""
-LZ_DISCRIMINATOR=""
 FOLDER_ID=""
 BILLING_ID=""
 
@@ -77,7 +76,6 @@ if [[ -z ${BS_RND_ID}  || -z ${FOLDER_ID} || -z ${BILLING_ID} ]]; then
 fi
 
 # More constants
-LZ_DISCRIMINATOR="${BS_RND_ID}"
 PREFIX="bootstrap-"
 PROJECT_ID=${PREFIX}${BS_RND_ID}
 SA_EMAIL="${PREFIX}sa@${PROJECT_ID}.iam.gserviceaccount.com"
@@ -94,16 +92,16 @@ else
 fi
 
 # Collect TB folder ID and name
-tb_folder_id=$(gcloud resource-manager folders list --format='value(name)' --folder ${FOLDER_ID} --filter="displayName~'^${TB_FOLDER_PREFIX}${LZ_DISCRIMINATOR}$'")
+tb_folder_id=$(gcloud resource-manager folders describe ${FOLDER_ID}  --format='value(name)')
 if [[ -z "${tb_folder_id}" ]]; then
-	echo "ERROR: Was not able to find the ${TB_FOLDER_PREFIX}${LZ_DISCRIMINATOR} folder."
-	#exit 1
+	echo "ERROR: Was not able to find the ${TB_FOLDER_PREFIX}${BS_RND_ID} folder."
+	# exit 1
 else
-	echo "Found '${TB_FOLDER_PREFIX}${LZ_DISCRIMINATOR}' (${tb_folder_id}) folder."
+	echo "Found '${TB_FOLDER_PREFIX}${BS_RND_ID}' (${FOLDER_ID}) folder."
 fi
 
 # Collect TB sub-folders ID and name
-applications_folder_id=$(gcloud resource-manager folders list --format='value(name)' --folder ${tb_folder_id} --filter="displayName:'${APPLICATIONS_FOLDER_NAME}'")
+applications_folder_id=$(gcloud resource-manager folders list --format='value(name)' --folder ${FOLDER_ID} --filter="displayName:'${APPLICATIONS_FOLDER_NAME}'")
 if [[ -z "${applications_folder_id}" ]]; then
 	echo "ERROR: Was not able to find the ${APPLICATIONS_FOLDER_NAME} folder."
 	#exit 1
@@ -111,7 +109,7 @@ else
 	echo "Found '${APPLICATIONS_FOLDER_NAME}' (${applications_folder_id}) folder."
 fi
 
-shared_svcs_folder_id=$(gcloud resource-manager folders list --format='value(name)' --folder ${tb_folder_id} --filter="displayName:'${SHARED_SVCS_FOLDER_NAME}'")
+shared_svcs_folder_id=$(gcloud resource-manager folders list --format='value(name)' --folder ${FOLDER_ID} --filter="displayName:'${SHARED_SVCS_FOLDER_NAME}'")
 if [[ -z "${shared_svcs_folder_id}" ]]; then
 	echo "ERROR: Was not able to find the ${SHARED_SVCS_FOLDER_NAME} folder."
 	#exit 1
@@ -256,16 +254,19 @@ echo "Removing project [${PROJECT_ID}] billing binding..."
 gcloud alpha billing projects unlink "${PROJECT_ID}" --format=none
 echo "Billind binding removed"
 
-# Delete TB (sub-)folders
-echo
-echo "Deleting folders..."
-for folder in ${shared_svcs_folder_id} ${applications_folder_id} ${tb_folder_id}; do
-	gcloud resource-manager folders delete ${folder}
-done
-echo
+
 # Delete bootstrap project
 echo "Deleting bootstrap project..."
 gcloud projects delete ${PROJECT_ID} --quiet
 echo
+
+# Delete TB (sub-)folders
+echo
+echo "Deleting folders..."
+for folder in ${shared_svcs_folder_id} ${applications_folder_id} ${FOLDER_ID}; do
+	gcloud resource-manager folders delete ${folder}
+done
+echo
+
 
 exit 0
