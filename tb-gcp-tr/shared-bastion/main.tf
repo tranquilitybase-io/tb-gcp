@@ -96,13 +96,13 @@ resource "google_compute_instance" "tb_windows_bastion" {
 
 data "google_compute_image" "debian_image" {
   family  = "debian-9"
-  project = var.shared_bastion_id
+  project = "debian-cloud"
 }
 
-// Create instance template
+// Create instance template for the linux instance
 resource "google_compute_instance_template" "bastion_linux_template" {
   project = var.shared_bastion_id
-  name        = "bastion-linux-template"
+  name        = "tb-bastion-linux-template"
   description = "This template is used to create linux bastion instance"
 
   instance_description = "Bastion linux instance"
@@ -128,11 +128,62 @@ resource "google_compute_instance_template" "bastion_linux_template" {
   }
 }
 
-// Create instance group
-
+// Create instance group for the linux bastion
 resource "google_compute_instance_group_manager" "linux_bastion_group" {
   project = var.shared_bastion_id
-  base_instance_name = "linux-bastion"
+  base_instance_name = "tb-linux-bastion"
+  zone               = var.region_zone
+
+  version {
+    instance_template  = google_compute_instance_template.bastion_linux_template.self_link
+    name = "tb-bastion-linux-template"
+  }
+
+  target_size  = 1
+  name = "tb-linux-bastion-group"
+
+  depends_on = [google_compute_subnetwork_iam_binding.bastion_subnet_permission]
+}
+
+// Windows MIG
+data "google_compute_image" "windows_image" {
+  family  = "windows-2019"
+  project = "gce-uefi-images"
+}
+
+// Create instance template for the windows instance
+resource "google_compute_instance_template" "bastion_windows_template" {
+  project = var.shared_bastion_id
+  name        = "tb-bastion-windows-template"
+  description = "This template is used to create windows bastion instance"
+
+  instance_description = "Bastion windows instance"
+  machine_type         = "n1-standard-2"
+
+  scheduling {
+    automatic_restart   = true
+    on_host_maintenance = "MIGRATE"
+  }
+
+  // boot disk
+  disk {
+    source_image = data.google_compute_image.windows_image.self_link
+  }
+
+  network_interface {
+    subnetwork = "projects/${var.shared_networking_id}/regions/${var.region}/subnetworks/bastion-subnetwork"
+  }
+
+  service_account {
+    email = google_service_account.bastion_service_account.email
+    scopes = []
+  }
+}
+
+// Create instance group for the windows bastion
+resource "google_compute_instance_group_manager" "windows_bastion_group" {
+  project = var.shared_bastion_id
+  base_instance_name = "tb-windows-bastion"
   zone               = var.region_zone
 
   version {
@@ -141,8 +192,7 @@ resource "google_compute_instance_group_manager" "linux_bastion_group" {
   }
 
   target_size  = 1
-  instance_template = google_compute_instance_template.bastion_linux_template.self_link
-  name = "linux-bastion-group"
+  name = "tb-windows-bastion-group"
 
   depends_on = [google_compute_subnetwork_iam_binding.bastion_subnet_permission]
 }

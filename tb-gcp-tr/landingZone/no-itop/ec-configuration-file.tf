@@ -32,7 +32,6 @@ data:
     terraform_state_bucket: ${var.terraform_state_bucket_name}
     env_data: input.tfvars
     ec_project_name: ${module.shared_projects.shared_ec_name}
-    activator_terraform_code_store: ${google_sourcerepo_repository.activator-terraform-code-store.name}
     shared_vpc_host_project: ${module.shared_projects.shared_networking_id}
     shared_network_name: ${var.shared_vpc_name}
     shared_networking_id: ${module.shared_projects.shared_networking_id}
