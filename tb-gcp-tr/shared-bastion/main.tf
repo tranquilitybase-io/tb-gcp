@@ -49,29 +49,29 @@ resource "google_compute_firewall" "bast-nat-http" {
 }
 
 # Create compute instance and attach service account
-resource "google_compute_instance" "tb_windows_bastion" {
-  depends_on = [
-    google_service_account.bastion_service_account]
-  project = var.shared_bastion_id
-  zone = var.region_zone
-  name = "tb-windows-bastion"
-  machine_type = "n1-standard-2"
-  boot_disk {
-    initialize_params {
-      image = "windows-server-2019-dc-v20191008"
-    }
-  }
-  network_interface {
-    subnetwork = "projects/${var.shared_networking_id}/regions/${var.region}/subnetworks/bastion-subnetwork"
-  }
-  service_account {
-    email = google_service_account.bastion_service_account.email
-    scopes = []
-  }
-  metadata = {
-    windows-startup-script-ps1 = "$LocalTempDir = $env:TEMP; $ChromeInstaller = \"ChromeInstaller.exe\"; (new-object System.Net.WebClient).DownloadFile('http://dl.google.com/chrome/install/375.126/chrome_installer.exe', \"$LocalTempDir\\$ChromeInstaller\"); & \"$LocalTempDir\\$ChromeInstaller\" /silent /install;"
-  }
-}
+//resource "google_compute_instance" "tb_windows_bastion" {
+//  depends_on = [
+//    google_service_account.bastion_service_account]
+//  project = var.shared_bastion_id
+//  zone = var.region_zone
+//  name = "tb-windows-bastion"
+//  machine_type = "n1-standard-2"
+//  boot_disk {
+//    initialize_params {
+//      image = "windows-server-2019-dc-v20191008"
+//    }
+//  }
+//  network_interface {
+//    subnetwork = "projects/${var.shared_networking_id}/regions/${var.region}/subnetworks/bastion-subnetwork"
+//  }
+//  service_account {
+//    email = google_service_account.bastion_service_account.email
+//    scopes = []
+//  }
+//  metadata = {
+//    windows-startup-script-ps1 = "$LocalTempDir = $env:TEMP; $ChromeInstaller = \"ChromeInstaller.exe\"; (new-object System.Net.WebClient).DownloadFile('http://dl.google.com/chrome/install/375.126/chrome_installer.exe', \"$LocalTempDir\\$ChromeInstaller\"); & \"$LocalTempDir\\$ChromeInstaller\" /silent /install;"
+//  }
+//}
 
 //resource "google_compute_instance" "tb_linux_bastion" {
 //  depends_on = [
@@ -177,6 +177,10 @@ resource "google_compute_instance_template" "bastion_windows_template" {
   service_account {
     email = google_service_account.bastion_service_account.email
     scopes = []
+  }
+
+  metadata = {
+    windows-startup-script-ps1 = "$LocalTempDir = $env:TEMP; $ChromeInstaller = \"ChromeInstaller.exe\"; (new-object System.Net.WebClient).DownloadFile('http://dl.google.com/chrome/install/375.126/chrome_installer.exe', \"$LocalTempDir\\$ChromeInstaller\"); & \"$LocalTempDir\\$ChromeInstaller\" /silent /install;"
   }
 }
 
