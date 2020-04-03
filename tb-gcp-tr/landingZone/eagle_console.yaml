@@ -55,7 +55,6 @@ spec:
   ports:
     - port: 3306
       targetPort: 3306
-      name: mysql57
   selector:
     app: mysql57
   clusterIP: None
@@ -173,21 +172,29 @@ spec:
 apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
 kind: Deployment
 metadata:
-  name: mysql
+  name: mysql57
 spec:
+  replicas: 1
   selector:
     matchLabels:
-      app: mysql
+      app: mysql57
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: mysql
+        app: mysql57
     spec:
       containers:
         - name: mysql57
           image: gcr.io/tranquility-base-images/tb-houston-service:mysql57
+          resources:
+            requests:
+              cpu: "100m"
+          imagePullPolicy: IfNotPresent #Always
+          ports:
+            - name: mysql57
+              containerPort: 3306
           env:
             # Use secret in real usage
             - name: MYSQL_ROOT_PASSWORD
