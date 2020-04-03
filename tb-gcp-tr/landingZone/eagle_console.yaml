@@ -179,13 +179,6 @@ spec:
               value: eagle-user-secret-pw
             - name: MYSQL_DATABASE
               value: eagle_db
-          volumeMounts:
-            - name: mysql-persistent-storage
-              mountPath: /var/lib/mysql
-      volumes:
-        - name: mysql-persistent-storage
-          persistentVolumeClaim:
-            claimName: mysql-pv-claim
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
