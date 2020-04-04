@@ -1,7 +1,6 @@
 #!/bin/bash -xe
 
 # output to log file
-exec >> /var/log/bootstrap.log 2>&1
 
 echo "metadata_start"
 
