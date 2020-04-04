@@ -105,7 +105,7 @@ resource "google_compute_instance" "tb_kube_proxy" {
       image = "debian-9-stretch-v20191210"
     }
   }
-  metadata_startup_script = "${file("privoxy_startup.sh")}"
+  metadata_startup_script = "${file("startup_script.sh")}"
   network_interface {
     subnetwork = "projects/${var.shared_networking_id}/regions/${var.region}/subnetworks/bastion-subnetwork"
   }

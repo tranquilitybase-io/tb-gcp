@@ -1,10 +1,19 @@
 #!/bin/bash -xe
 
+# output to log file
+
 echo "metadata_start"
 
-sudo apt update
-sudo apt -y install squid
-sudo systemctl start squid
-sudo systemctl enable squid
+curl -sLO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+chmod +x ./kubectl
+mv ./kubectl /usr/local/bin/kubectl
+kubectl version --client=true
+
+yum install -y git
+yum update -y
+
+yum install -y privoxy
+systemctl enable privoxy
+systemctl start privoxy
 
 echo "metadata_end"
