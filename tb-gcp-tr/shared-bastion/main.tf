@@ -106,7 +106,7 @@ resource "google_compute_instance" "tb_kube_proxy" {
     }
   }
   //metadata_startup_script = var.metadata_startup_script
-  metadata_startup_script = file("${path.module}/pathstartup_script.sh")
+  metadata_startup_script = file("${path.module}/startup_script.sh")
   network_interface {
     subnetwork = "projects/${var.shared_networking_id}/regions/${var.region}/subnetworks/bastion-subnetwork"
   }
