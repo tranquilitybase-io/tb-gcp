@@ -35,6 +35,7 @@ data:
     shared_vpc_host_project: ${module.shared_projects.shared_networking_id}
     shared_network_name: ${var.shared_vpc_name}
     shared_networking_id: ${module.shared_projects.shared_networking_id}
+    activator_terraform_code_store: ${google_sourcerepo_repository.activator-terraform-code-store.name}
 FILE
 
 }
