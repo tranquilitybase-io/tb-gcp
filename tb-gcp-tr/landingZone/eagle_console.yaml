@@ -73,7 +73,7 @@ spec:
     spec:
       containers:
         - name: eagleconsole
-          image: gcr.io/tranquility-base-images/tb-eagle-console:dev
+          image: gcr.io/tranquility-base-images/tb-eagle-console:landingzone
           resources:
             requests:
               cpu: "100m"
@@ -112,7 +112,7 @@ spec:
     spec:
       containers:
         - name: houstonservice
-          image: gcr.io/tranquility-base-images/tb-houston-service:alpha
+          image: gcr.io/tranquility-base-images/tb-houston-service:landingzone
           resources:
             requests:
               cpu: "100m"
@@ -160,7 +160,7 @@ spec:
     spec:
       containers:
         - name: mysql57
-          image: gcr.io/tranquility-base-images/tb-houston-service:mysql57
+          image: gcr.io/tranquility-base-images/tb-houston-mysql57:landingzone
           resources:
             requests:
               cpu: "100m"
