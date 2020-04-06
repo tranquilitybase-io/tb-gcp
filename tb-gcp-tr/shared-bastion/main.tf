@@ -145,7 +145,7 @@ resource "google_compute_instance_group_manager" "windows_bastion_group" {
   zone               = var.region_zone
 
   version {
-    instance_template  = google_compute_instance_template.bastion_linux_template.self_link
+    instance_template  = google_compute_instance_template.bastion_windows_template.self_link
     name = "bastion-linux-template"
   }
 
