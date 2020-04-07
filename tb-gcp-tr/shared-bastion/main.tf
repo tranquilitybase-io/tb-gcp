@@ -129,6 +129,6 @@ resource "google_compute_instance" "tb_kube_proxy" {
   }
   service_account {
     email = google_service_account.proxy-sa-res.email
-    scopes = []
+    scopes = var.scopes
   }
 }
