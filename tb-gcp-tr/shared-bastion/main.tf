@@ -123,7 +123,7 @@ resource "google_compute_instance_template" "bastion_windows_template" {
   disk {
     source_image = data.google_compute_image.windows_image.self_link
   }
-
+  
   network_interface {
     subnetwork = "projects/${var.shared_networking_id}/regions/${var.region}/subnetworks/bastion-subnetwork"
   }

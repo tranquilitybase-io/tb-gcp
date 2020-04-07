@@ -125,8 +125,8 @@ then
 fi
 
 # Generate a random alphanumeric
-PREFIX="bootstrap-tb-"
-RND="$(date | md5sum |  awk '{print substr($0,0,7)}')"
+PREFIX="bootstrap-"
+RND="$(date | md5sum |  awk '{print substr($0,0,9)}')"
 PROJECT_ID="${PREFIX}${RND}"
 SA_NAME="${PREFIX}sa"
 SA_EMAIL="${SA_NAME}@${PROJECT_ID}.iam.gserviceaccount.com"
@@ -177,6 +177,8 @@ gcloud --project "${PROJECT_ID}" services enable logging.googleapis.com
 gcloud --project "${PROJECT_ID}" services enable serviceusage.googleapis.com
 gcloud --project "${PROJECT_ID}" services enable sourcerepo.googleapis.com
 gcloud --project "${PROJECT_ID}" services enable storage-api.googleapis.com
+gcloud --project "${PROJECT_ID}" services enable runtimeconfig.googleapis.com
+
 echo "Essential APIs activated."
 
 # best practice (needs to be done after compute API is enabled)

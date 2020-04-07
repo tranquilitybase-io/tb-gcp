@@ -2,8 +2,8 @@
 
 {% set project = env["project"] %}
 {% set deployment = env["deployment"] %}
-{% set tbBootstrapSA = "bootstrap-tb-sa@%s.iam.gserviceaccount.com" % project %}
-{% set tbDiscriminator = "%s" %  env["project"][-6:] %}
+{% set tbBootstrapSA = "bootstrap-sa@%s.iam.gserviceaccount.com" % project %}
+{% set tbDiscriminator = "%s" %  env["project"][-8:] %}
 {% set name = "%s-bootstrap-vm-tmpl" % env["name"] %}
 {% set instanceName = "tf-server-%s" % tbDiscriminator %}
 {% set cloudStorageBucket = "tf-state-%s" % tbDiscriminator %}
