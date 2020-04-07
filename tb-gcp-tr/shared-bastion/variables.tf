@@ -31,13 +31,14 @@ variable "nat_static_ip" {
   description = "NAT Static IP"
 }
 
-variable "root_id" {
-  type        = string
-  description = "id for the parent (organization or folder) where these projects will be created."
+variable root_id {
+  type = string
+  description = "ID for the parent organisation where folders will be created"
 }
 
 variable "folder_id" {
   type        = string
+  default = "943956663445"
   description = "Id for the parent folder where this project will be created."
 }
 
