@@ -5,6 +5,23 @@ resource "google_service_account" "bastion_service_account" {
   display_name = "bastion-service-account"
   project = var.shared_bastion_id
 }
+#CREATE-SERVICE-ACCOUNT
+resource "google_service_account" "proxy-sa-res" {
+  account_id   = "proxy-sa"
+  display_name = "proxy-sa"
+  project      = var.shared_bastion_id
+}
+locals {
+  service_account_name = "serviceAccount:${google_service_account.proxy-sa-res.account_id}@${var.shared_bastion_id}.iam.gserviceaccount.com"
+}
+resource "google_folder_iam_member" "sa-folder-admin-role" {
+  count      = length(var.main_iam_service_account_roles)
+  folder     = "folders/${var.folder_id}"
+  role       = element(var.main_iam_service_account_roles, count.index)
+  member     = local.service_account_name
+  depends_on = [google_service_account.proxy-sa-res]
+}
+
 # Adding bastion project as service project to host vpc
 resource "google_compute_shared_vpc_service_project" "attach_bastion_project" {
   host_project    = var.shared_networking_id
@@ -111,7 +128,7 @@ resource "google_compute_instance" "tb_kube_proxy" {
     subnetwork = "projects/${var.shared_networking_id}/regions/${var.region}/subnetworks/bastion-subnetwork"
   }
   service_account {
-    email = google_service_account.bastion_service_account.email
+    email = google_service_account.proxy-sa-res.email
     scopes = []
   }
 }

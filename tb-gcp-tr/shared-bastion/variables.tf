@@ -30,3 +30,33 @@ variable "nat_static_ip" {
   type = string
   description = "NAT Static IP"
 }
+
+variable "root_id" {
+  type        = string
+  description = "id for the parent (organization or folder) where these projects will be created."
+}
+
+variable "folder_id" {
+  type        = string
+  description = "Id for the parent folder where this project will be created."
+}
+
+variable "scopes" {
+  type        = list(string)
+  default     = ["https://www.googleapis.com/auth/cloud-platform"]
+  description = "A list of service scopes attached to the bootstrap terraform server. To allow full access to all Cloud APIs, use the cloud-platform scope. For other scopes see here: https://cloud.google.com/sdk/gcloud/reference/alpha/compute/instances/set-scopes#--scopes "
+}
+
+variable "main_iam_service_account_roles" {
+  type = list(string)
+  default = [
+    "roles/resourcemanager.folderAdmin",
+    "roles/resourcemanager.projectCreator",
+    "roles/resourcemanager.projectDeleter",
+    "roles/billing.projectManager",
+    "roles/compute.xpnAdmin",
+    "roles/owner",
+    "roles/compute.networkAdmin",
+  ]
+  description = "Roles attached to service account"
+}
