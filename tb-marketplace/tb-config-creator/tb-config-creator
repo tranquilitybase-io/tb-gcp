@@ -19,20 +19,28 @@ function print_help {
   echo "If you need to grant gcloud with these permissions please use 'gcloud auth login' and then run the script again."
   echo
   echo "Usage: $0 <arguments>"
-  echo "  -f, --parent-folder-id <id> (REQUIRED) Parent folder ID (or Organisation ID) where the Tranquility Base folder will be created"
   echo "  -b, --billing-account-id <string> (REQUIRED) Billing account ID tied to all Tranquility Base consumption"
-  echo
+  echo "  -f, --parent-folder-id <id> Parent folder ID where the Tranquility Base folder will be created"
+  echo "  -o, --organization-id <id> Organisation ID where the Tranquility Base folder will be created"
+  echo "  Either parent-folder-id or organization-id is REQUIRED"
   echo "Example:"
   echo "  $ ./tb-config-creator -f 705953663545 -b F9C122-73127B-50AE5B"
+  echo "  $ ./tb-config-creator -0 123953123545 -b F9C122-73127B-50AE5B"
+
 }
 
-FOLDER_ID=""
+PARENT_FOLDER_ID=""
 BILLING_ID=""
+ORG_ID=""
 
 while (( "$#" )); do
   case "$1" in
     -f|--parent-folder-id)
-      FOLDER_ID=$2
+      PARENT_FOLDER_ID=$2
+      shift 2
+      ;;
+    -o|--organization-id )
+      ORG_ID=$2
       shift 2
       ;;
     -h|--help)
@@ -58,21 +66,46 @@ while (( "$#" )); do
   esac
 done
 
-if [[ -z ${BILLING_ID} || -z ${FOLDER_ID} ]]; then
+# we need on or the other
+if [[ -z ${ORG_ID} || -z ${PARENT_FOLDER_ID} ]]; then
   #echo "ERROR: Invalid arguments."
-  echo
-  print_help
+  echo "Error: Either Organisation or Folder ID needs to be provided"
   exit 1
 fi
 
-
-# Check parent folder ID
-tb_folder_id=$(gcloud alpha resource-manager folders describe "${FOLDER_ID}" --format='value(name)')
-if [[ -z "${tb_folder_id}" ]]; then
-  echo "ERROR: Was not able to find the ${FOLDER_ID} folder."
+if [[ -n ${ORG_ID} && -n ${PARENT_FOLDER_ID} ]]; then
+  #echo "ERROR: Invalid arguments."
+  echo "Error: Either Organisation or Folder ID needs to be provided, not both"
   exit 1
-else
-  echo "Found parent folder ${FOLDER_ID}."
+fi
+
+parent_type=""
+parent_id=""
+
+if [[ -n ${PARENT_FOLDER_ID}  ]]; then
+  # Check parent folder ID
+  tb_folder_id=$(gcloud alpha resource-manager folders describe "${PARENT_FOLDER_ID}" --format='value(name)')
+  if [[ -z "${tb_folder_id}" ]]; then
+    echo "ERROR: Was not able to find the ${PARENT_FOLDER_ID} folder."
+    exit 1
+  else
+    echo "Found parent folder ${PARENT_FOLDER_ID}."
+    parent_type="folder"
+    parent_id=$PARENT_FOLDER_ID
+  fi
+fi
+
+if [[ -n ${ORG_ID}  ]]; then
+  # Check organization exists
+  org_id=$(gcloud organizations  describe "${ORG_ID}" --format='value(name)')
+  if [[ -z "${org_id}" ]]; then
+    echo "ERROR: Was not able to find the ${ORG_ID} organization."
+    exit 1
+  else
+    echo "Found parent organization ${ORG_ID}."
+    parent_type="organization"
+    parent_id=ORG_ID
+  fi
 fi
 
 
@@ -135,8 +168,8 @@ TBASE_FOLDER_PREFIX="Tranquility Base - "
 TBASE_FOLDER_NAME="${TBASE_FOLDER_PREFIX}${RND}"
 
 # Create Tbase folder to store bootstrap project, involves parsing the output of the glcoud command to get the folder id
-folder_id_entry=$(gcloud resource-manager folders create --display-name="${TBASE_FOLDER_NAME}" --folder="${FOLDER_ID}" --format="value(name)")
-IFS='/' read -ra split_array <<< $folder_id_entry
+folder_id_entry=$(gcloud resource-manager folders create --display-name="${TBASE_FOLDER_NAME}" --"${parent_type}"="${parent_id}" --format="value(name)")
+IFS='/' read -ra split_array <<< "$folder_id_entry"
 tb_folder_id="$(echo ${split_array[1]} | sed 's/[^0-9]*//g')"
 
 echo "Creating project..."
