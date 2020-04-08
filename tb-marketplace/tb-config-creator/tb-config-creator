@@ -67,9 +67,9 @@ while (( "$#" )); do
 done
 
 # we need on or the other
-if [[ -z ${ORG_ID} || -z ${PARENT_FOLDER_ID} ]]; then
+if [[ -z ${BILLING_ID} && -z ${PARENT_FOLDER_ID} ]] || [[ -z ${BILLING_ID} && -z ${ORG_ID} ]]; then
   #echo "ERROR: Invalid arguments."
-  echo "Error: Either Organisation or Folder ID needs to be provided"
+  echo "Error: Either Organisation or Folder ID needs to be provided with a Billing Account"
   exit 1
 fi
 
@@ -104,7 +104,7 @@ if [[ -n ${ORG_ID}  ]]; then
   else
     echo "Found parent organization ${ORG_ID}."
     parent_type="organization"
-    parent_id=ORG_ID
+    parent_id=${ORG_ID}
   fi
 fi
 
