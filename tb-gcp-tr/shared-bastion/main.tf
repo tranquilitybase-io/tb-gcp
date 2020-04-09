@@ -1,15 +1,5 @@
 # Bastion Infrastructure
 
-#Enable Kubernetes API for proxy to use
-resource "google_project_services" "project_shared" {
-  project = var.shared_bastion_id
-  services = [
-    "compute.googleapis.com",
-    "container.googleapis.com",
-  ]
-  depends_on = [var.shared_bastion_id]
-}
-
 # Create bastion service account
 resource "google_service_account" "bastion_service_account" {
   account_id   = "bastion-service-account"

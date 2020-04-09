@@ -42,7 +42,11 @@ resource "google_project_services" "ec_project" {
 
 resource "google_project_service" "bastion-iap" {
   project = var.bastion_project_id
-  service = "iap.googleapis.com"
+  services = [
+    "iap.googleapis.com",
+    "compute.googleapis.com",
+    "container.googleapis.com",
+  ]
   depends_on = ["google_project_services.project"]
 }
 resource "google_project_service" "bastion-recommender" {
