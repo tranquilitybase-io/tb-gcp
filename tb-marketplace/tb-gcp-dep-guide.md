@@ -46,7 +46,7 @@ If you execute the script without any parameter, a help message will be displaye
 #### Run configuration
 Then run the script with proper Folder ID and Billing Account. E.g.,
 ```
-$ ./tb-config-creator -f 705953663545 -b F9C122-73127B-50AE5B
+$ ./tb-config-creator -f 1234567890 -b AAAAAA-AAAAAA-XXXXXX
 ```
 The script verifies that both are valid entries 
 (it will fail if you have no permissions into them both) and then it lists the configuration that is about to be created.
