@@ -1,4 +1,15 @@
 # Bastion Infrastructure
+
+#Enable Kubernetes API for proxy to use
+resource "google_project_services" "project_shared" {
+  project = var.shared_bastion_id
+  services = [
+    "compute.googleapis.com",
+    "container.googleapis.com",
+  ]
+  depends_on = [var.shared_bastion_id]
+}
+
 # Create bastion service account
 resource "google_service_account" "bastion_service_account" {
   account_id   = "bastion-service-account"
@@ -43,7 +54,8 @@ resource "google_compute_firewall" "shared-net-bast" {
   name    = "allow-iap-ingress-ssh-rdp"
   network = var.shared_vpc_name
   project = var.shared_networking_id
-  target_service_accounts = [google_service_account.bastion_service_account.email, google_service_account.proxy-sa-res.email]
+  target_service_accounts = [
+    google_service_account.bastion_service_account.email, google_service_account.proxy-sa-res.email]
   source_ranges = ["35.235.240.0/20"]
   allow {
     protocol = "tcp"
@@ -57,7 +69,8 @@ resource "google_compute_firewall" "bast-nat-http" {
   network = var.shared_vpc_name
   project = var.shared_networking_id
   source_ranges = [var.nat_static_ip]
-  source_service_accounts = [google_service_account.bastion_service_account.email, google_service_account.proxy-sa-res.email]
+  source_service_accounts = [
+    google_service_account.bastion_service_account.email, google_service_account.proxy-sa-res.email]
   allow {
     protocol = "tcp"
     ports    = ["80", "443"]
