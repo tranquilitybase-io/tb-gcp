@@ -104,52 +104,52 @@ module "shared-vpc" {
   service_project_ids      = [module.shared_projects.shared_secrets_id, module.shared_projects.shared_itsm_id, module.shared_projects.shared_ec_id]
 }
 
-//module "gke-ec" {
-//  source = "../../kubernetes-cluster-creation"
-//
-//  providers = {
-//    google                 = google
-//    google-beta.shared-vpc = google-beta.shared-vpc
-//  }
-//
-//  region               = var.region
-//  sharedvpc_project_id = module.shared_projects.shared_networking_id
-//  sharedvpc_network    = var.shared_vpc_name
-//
-//  cluster_enable_private_nodes = var.cluster_ec_enable_private_nodes
-//  cluster_project_id           = module.shared_projects.shared_ec_id
-//  cluster_subnetwork           = var.cluster_ec_subnetwork
-//  cluster_service_account      = var.cluster_ec_service_account
-//  cluster_name                 = var.cluster_ec_name
-//  cluster_pool_name            = var.cluster_ec_pool_name
-//  cluster_master_cidr          = var.cluster_ec_master_cidr
-//  cluster_master_authorized_cidrs = concat(
-//  var.cluster_ec_master_authorized_cidrs,
-//  [
-//    merge(
-//    {
-//      "display_name" = "initial-admin-ip"
-//    },
-//    {
-//      "cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
-//    },
-//    ),
-//  ],
-//  )
-//  cluster_min_master_version = var.cluster_ec_min_master_version
-//
-//  apis_dependency          = module.apis_activation.all_apis_enabled
-//  shared_vpc_dependency    = module.shared-vpc.gke_subnetwork_ids
-//  istio_status             = var.istio_status
-//  gke_pod_network_name     = var.gke_pod_network_name
-//  gke_service_network_name = var.gke_service_network_name
-//}
-//
-//resource "google_sourcerepo_repository" "EC" {
-//  name       = var.ec_repository_name
-//  project    = module.shared_projects.shared_ec_id
-//  depends_on = [module.apis_activation]
-//}
+module "gke-ec" {
+  source = "../../kubernetes-cluster-creation"
+
+  providers = {
+    google                 = google
+    google-beta.shared-vpc = google-beta.shared-vpc
+  }
+
+  region               = var.region
+  sharedvpc_project_id = module.shared_projects.shared_networking_id
+  sharedvpc_network    = var.shared_vpc_name
+
+  cluster_enable_private_nodes = var.cluster_ec_enable_private_nodes
+  cluster_project_id           = module.shared_projects.shared_ec_id
+  cluster_subnetwork           = var.cluster_ec_subnetwork
+  cluster_service_account      = var.cluster_ec_service_account
+  cluster_name                 = var.cluster_ec_name
+  cluster_pool_name            = var.cluster_ec_pool_name
+  cluster_master_cidr          = var.cluster_ec_master_cidr
+  cluster_master_authorized_cidrs = concat(
+  var.cluster_ec_master_authorized_cidrs,
+  [
+    merge(
+    {
+      "display_name" = "initial-admin-ip"
+    },
+    {
+      "cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
+    },
+    ),
+  ],
+  )
+  cluster_min_master_version = var.cluster_ec_min_master_version
+
+  apis_dependency          = module.apis_activation.all_apis_enabled
+  shared_vpc_dependency    = module.shared-vpc.gke_subnetwork_ids
+  istio_status             = var.istio_status
+  gke_pod_network_name     = var.gke_pod_network_name
+  gke_service_network_name = var.gke_service_network_name
+}
+
+resource "google_sourcerepo_repository" "EC" {
+  name       = var.ec_repository_name
+  project    = module.shared_projects.shared_ec_id
+  depends_on = [module.apis_activation]
+}
 
 module "gke-secrets" {
   source = "../../kubernetes-cluster-creation"
@@ -220,119 +220,119 @@ module "vault" {
   #  shared_vpc_dependency = "${module.shared-vpc.gke_subnetwork_ids}"
 }
 
-//module "gke-itsm" {
-//  source = "../../kubernetes-cluster-creation"
-//
-//  providers = {
-//    google                 = google
-//    google-beta.shared-vpc = google-beta.shared-vpc
-//    kubernetes             = kubernetes.gke-itsm
-//  }
-//
-//  region               = var.region
-//  sharedvpc_project_id = module.shared_projects.shared_networking_id
-//  sharedvpc_network    = var.shared_vpc_name
-//
-//  cluster_enable_private_nodes = var.cluster_opt_enable_private_nodes
-//  cluster_project_id           = module.shared_projects.shared_itsm_id
-//  cluster_subnetwork           = var.cluster_opt_subnetwork
-//  cluster_service_account      = var.cluster_opt_service_account
-//  cluster_name                 = var.cluster_opt_name
-//  cluster_pool_name            = var.cluster_opt_pool_name
-//  cluster_master_cidr          = var.cluster_opt_master_cidr
-//  cluster_master_authorized_cidrs = concat(
-//  var.cluster_opt_master_authorized_cidrs,
-//  [
-//    merge(
-//    {
-//      "display_name" = "initial-admin-ip"
-//    },
-//    {
-//      "cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
-//    },
-//    ),
-//  ],
-//  )
-//  cluster_min_master_version = var.cluster_opt_min_master_version
-//
-//  apis_dependency          = module.apis_activation.all_apis_enabled
-//  istio_status             = var.istio_status
-//  istio_permissive_mtls    = "true"
-//  shared_vpc_dependency    = module.shared-vpc.gke_subnetwork_ids
-//  gke_pod_network_name     = var.gke_pod_network_name
-//  gke_service_network_name = var.gke_service_network_name
-//}
-//
-//# Kubernetes provider for the gke-itsm cluster
-//provider "kubernetes" {
-//  alias                  = "gke-itsm"
-//  host                   = "https://${module.gke-itsm.cluster_endpoint}"
-//  load_config_file       = false
-//  cluster_ca_certificate = base64decode(module.gke-itsm.cluster_ca_certificate)
-//  token                  = data.google_client_config.current.access_token
-//  version = "~> 1.10.0"
-//}
+module "gke-itsm" {
+  source = "../../kubernetes-cluster-creation"
+
+  providers = {
+    google                 = google
+    google-beta.shared-vpc = google-beta.shared-vpc
+    kubernetes             = kubernetes.gke-itsm
+  }
+
+  region               = var.region
+  sharedvpc_project_id = module.shared_projects.shared_networking_id
+  sharedvpc_network    = var.shared_vpc_name
+
+  cluster_enable_private_nodes = var.cluster_opt_enable_private_nodes
+  cluster_project_id           = module.shared_projects.shared_itsm_id
+  cluster_subnetwork           = var.cluster_opt_subnetwork
+  cluster_service_account      = var.cluster_opt_service_account
+  cluster_name                 = var.cluster_opt_name
+  cluster_pool_name            = var.cluster_opt_pool_name
+  cluster_master_cidr          = var.cluster_opt_master_cidr
+  cluster_master_authorized_cidrs = concat(
+  var.cluster_opt_master_authorized_cidrs,
+  [
+    merge(
+    {
+      "display_name" = "initial-admin-ip"
+    },
+    {
+      "cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
+    },
+    ),
+  ],
+  )
+  cluster_min_master_version = var.cluster_opt_min_master_version
+
+  apis_dependency          = module.apis_activation.all_apis_enabled
+  istio_status             = var.istio_status
+  istio_permissive_mtls    = "true"
+  shared_vpc_dependency    = module.shared-vpc.gke_subnetwork_ids
+  gke_pod_network_name     = var.gke_pod_network_name
+  gke_service_network_name = var.gke_service_network_name
+}
+
+# Kubernetes provider for the gke-itsm cluster
+provider "kubernetes" {
+  alias                  = "gke-itsm"
+  host                   = "https://${module.gke-itsm.cluster_endpoint}"
+  load_config_file       = false
+  cluster_ca_certificate = base64decode(module.gke-itsm.cluster_ca_certificate)
+  token                  = data.google_client_config.current.access_token
+  version = "~> 1.10.0"
+}
 
 # Deploy gke-itsm cluster helm pre-requisite resources
-//module "gke_itsm_helm_pre_req" {
-//  source = "../../helm-pre-requisites"
-//  providers = {
-//    kubernetes = kubernetes.gke-itsm
-//  }
-//}
-//
-//# Set GKE Operations cluster Helm provider
-//provider "helm" {
-//  alias = "gke-itsm"
-//  kubernetes {
-//    host                   = "https://${module.gke-itsm.cluster_endpoint}"
-//    load_config_file       = false
-//    cluster_ca_certificate = base64decode(module.gke-itsm.cluster_ca_certificate)
-//    token                  = data.google_client_config.current.access_token
-//  }
-//  service_account = module.gke_itsm_helm_pre_req.tiller_svc_accnt_name
-//  version = "~> 0.10.4"
-//}
-//
-//module "k8s-ec_context" {
-//  source = "../../k8s-context"
-//
-//  cluster_name    = var.cluster_ec_name
-//  region = var.region
-//  cluster_project = module.shared_projects.shared_ec_id
-//  dependency_var  = module.gke-ec.node_id
-//}
+module "gke_itsm_helm_pre_req" {
+  source = "../../helm-pre-requisites"
+  providers = {
+    kubernetes = kubernetes.gke-itsm
+  }
+}
 
-//resource "null_resource" "kubernetes_service_account_key_secret" {
-//  triggers = {
-//    content = module.k8s-ec_context.k8s-context_id
-//  }
-//
-//  provisioner "local-exec" {
-//    command = "kubectl --context=${module.k8s-ec_context.context_name} create secret generic ec-service-account --from-file=${local_file.ec_service_account_key.filename}"
-//  }
-//
-//  provisioner "local-exec" {
-//    command = "kubectl --context=${module.k8s-ec_context.context_name} delete secret ec-service-account"
-//    when    = destroy
-//  }
-//}
-//
-//module "SharedServices_configuration_file" {
-//  source = "../../../tb-common-tr/start_service"
-//
-//  k8s_template_file = local_file.ec_config_map.filename
-//  cluster_context   = module.k8s-ec_context.context_name
-//  dependency_var    = null_resource.kubernetes_service_account_key_secret.id
-//}
-//
-//module "SharedServices_ec" {
-//  source = "../../../tb-common-tr/start_service"
-//
-//  k8s_template_file = var.eagle_console_yaml_path
-//  cluster_context   = module.k8s-ec_context.context_name
-//  dependency_var    = module.SharedServices_configuration_file.id
-//}
+# Set GKE Operations cluster Helm provider
+provider "helm" {
+  alias = "gke-itsm"
+  kubernetes {
+    host                   = "https://${module.gke-itsm.cluster_endpoint}"
+    load_config_file       = false
+    cluster_ca_certificate = base64decode(module.gke-itsm.cluster_ca_certificate)
+    token                  = data.google_client_config.current.access_token
+  }
+  service_account = module.gke_itsm_helm_pre_req.tiller_svc_accnt_name
+  version = "~> 0.10.4"
+}
+
+module "k8s-ec_context" {
+  source = "../../k8s-context"
+
+  cluster_name    = var.cluster_ec_name
+  region = var.region
+  cluster_project = module.shared_projects.shared_ec_id
+  dependency_var  = module.gke-ec.node_id
+}
+
+resource "null_resource" "kubernetes_service_account_key_secret" {
+  triggers = {
+    content = module.k8s-ec_context.k8s-context_id
+  }
+
+  provisioner "local-exec" {
+    command = "kubectl --context=${module.k8s-ec_context.context_name} create secret generic ec-service-account --from-file=${local_file.ec_service_account_key.filename}"
+  }
+
+  provisioner "local-exec" {
+    command = "kubectl --context=${module.k8s-ec_context.context_name} delete secret ec-service-account"
+    when    = destroy
+  }
+}
+
+module "SharedServices_configuration_file" {
+  source = "../../../tb-common-tr/start_service"
+
+  k8s_template_file = local_file.ec_config_map.filename
+  cluster_context   = module.k8s-ec_context.context_name
+  dependency_var    = null_resource.kubernetes_service_account_key_secret.id
+}
+
+module "SharedServices_ec" {
+  source = "../../../tb-common-tr/start_service"
+
+  k8s_template_file = var.eagle_console_yaml_path
+  cluster_context   = module.k8s-ec_context.context_name
+  dependency_var    = module.SharedServices_configuration_file.id
+}
 
 #module "self-service-app" {
 #  source = "../../gae-self-service-portal"
@@ -346,27 +346,27 @@ module "vault" {
 # This is only temporrary piece of code.
 # Creating the endpoint file is a part of istio module in tb-common-tr repository
 # null_resource.get_endpoint behind can be removed if this module will be integrated (TBASE-194)
-//resource "null_resource" "get_endpoint" {
-//  provisioner "local-exec" {
-//    command = <<EOF
-//      echo -n 'http://' > ${var.endpoint_file}
-//      for i in $(seq -s " " 1 35); do
-//        sleep $i
-//        ENDPOINT=$(kubectl --context=${module.k8s-ec_context.context_name} get svc istio-ingressgateway -n istio-system -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
-//        if [ -n "$ENDPOINT" ]; then
-//          echo "$ENDPOINT" >> ${var.endpoint_file}
-//          exit 0
-//        fi
-//      done
-//      echo "Loadbalancer is not reachable after 10,5 minutes"
-//      exit 1
-//      EOF
-//  }
-//
-//  #   command = "echo -n 'http://' > ${var.endpoint_file} && kubectl --context=${module.k8s-ec_context.context_name} get svc istio-ingressgateway -n istio-system -o jsonpath='{.status.loadBalancer.ingress[0].ip}' >> ${var.endpoint_file}"
-//
-//  depends_on = [module.SharedServices_ec]
-//}
+resource "null_resource" "get_endpoint" {
+  provisioner "local-exec" {
+    command = <<EOF
+      echo -n 'http://' > ${var.endpoint_file}
+      for i in $(seq -s " " 1 35); do
+        sleep $i
+        ENDPOINT=$(kubectl --context=${module.k8s-ec_context.context_name} get svc istio-ingressgateway -n istio-system -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+        if [ -n "$ENDPOINT" ]; then
+          echo "$ENDPOINT" >> ${var.endpoint_file}
+          exit 0
+        fi
+      done
+      echo "Loadbalancer is not reachable after 10,5 minutes"
+      exit 1
+      EOF
+  }
+
+  #   command = "echo -n 'http://' > ${var.endpoint_file} && kubectl --context=${module.k8s-ec_context.context_name} get svc istio-ingressgateway -n istio-system -o jsonpath='{.status.loadBalancer.ingress[0].ip}' >> ${var.endpoint_file}"
+
+  depends_on = [module.SharedServices_ec]
+}
 
 #resource "google_storage_bucket_object" "backend-endpoint" {
 #  name          = "assets/endpoint-meta.json"
