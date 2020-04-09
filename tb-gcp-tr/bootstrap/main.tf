@@ -53,6 +53,7 @@ resource "google_project_services" "bootstrap_project_apis" {
     "iam.googleapis.com",
     "iamcredentials.googleapis.com",
     "logging.googleapis.com",
+    "monitoring.googleapis.com",
     "oslogin.googleapis.com",
     "pubsub.googleapis.com",
     "serviceusage.googleapis.com",
