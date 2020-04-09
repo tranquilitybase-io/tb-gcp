@@ -12,11 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+##
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: vault
+  labels:
+    name: vault
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: vault
+  namespace: vault
   annotations:
     cloud.google.com/load-balancer-type: "Internal"
   labels:
@@ -37,6 +45,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: vault
+  namespace: vault
   labels:
     app: vault
 spec:
