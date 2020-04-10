@@ -40,14 +40,20 @@ resource "google_project_services" "ec_project" {
 }
 */
 
-resource "google_project_services" "bastion-iap" {
+//resource "google_project_services" "bastion-iap" {
+////  project = var.bastion_project_id
+////  services = [
+////    "iap.googleapis.com",
+////    "compute.googleapis.com",
+////    "container.googleapis.com",
+////  ]
+////  depends_on = [google_project_services.project]
+////}
+
+resource "google_project_service" "bastion-iap" {
   project = var.bastion_project_id
-  services = [
-    "iap.googleapis.com",
-    "compute.googleapis.com",
-    "container.googleapis.com",
-  ]
-  depends_on = [google_project_services.project]
+  service = "iap.googleapis.com"
+  depends_on = ["google_project_services.project"]
 }
 resource "google_project_service" "bastion-recommender" {
   project = var.bastion_project_id
