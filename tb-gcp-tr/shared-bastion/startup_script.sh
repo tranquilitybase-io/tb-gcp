@@ -9,10 +9,10 @@ chmod +x ./kubectl
 mv ./kubectl /usr/local/bin/kubectl
 kubectl version --client=true
 
-yum install -y git
-yum update -y
+sudo apt install -y git
+sudo update -y
 
-yum install -y privoxy
+sudo install -y privoxy
 systemctl enable privoxy
 systemctl start privoxy
 
