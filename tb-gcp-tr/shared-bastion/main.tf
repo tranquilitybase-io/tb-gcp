@@ -122,7 +122,8 @@ resource "google_compute_instance" "tb_kube_proxy" {
   machine_type = "n1-standard-2"
   boot_disk {
     initialize_params {
-      image = "debian-9-stretch-v20191210"
+      //image = "debian-9-stretch-v20191210"
+      image = "rhel-7-v20200309"
     }
   }
   //metadata_startup_script = var.metadata_startup_script
