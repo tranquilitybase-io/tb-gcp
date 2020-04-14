@@ -143,3 +143,5 @@ variable "vault-gke-sec-client-key" {
 variable "vault-gke-sec-name" {
 }
 
+variable "shared_bastion_project" {}
+

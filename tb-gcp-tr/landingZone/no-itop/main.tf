@@ -218,6 +218,8 @@ module "vault" {
 
   apis_dependency = module.apis_activation.all_apis_enabled
   #  shared_vpc_dependency = "${module.shared-vpc.gke_subnetwork_ids}"
+
+  shared_bastion_project = module.shared_projects.shared_bastion_id
 }
 
 module "gke-itsm" {
