@@ -13,7 +13,7 @@
 # limitations under the License.
 
 provider "google" {
-  version = "~> 2.5"
+  version = "~> 3.17"
   project = "${var.shared_networking_id}"
   region = "${var.region}"
 }
