@@ -46,3 +46,8 @@ output "shared_bastion_id" {
   description = "identifier for the tab_bastion project."
   value       = google_project.shared_bastion.id
 }
+
+output "shared_bastion_project_number" {
+  description = "number of the bastion project."
+  value       = google_project.shared_bastion.number
+}

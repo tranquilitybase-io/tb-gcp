@@ -30,3 +30,7 @@ variable "nat_static_ip" {
   type = string
   description = "NAT Static IP"
 }
+
+variable "shared_bastion_project_number" {
+  type = string
+}
