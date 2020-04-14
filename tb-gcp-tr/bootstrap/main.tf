@@ -15,21 +15,13 @@
 provider "google" {
   region = var.region
   zone   = var.region_zone
-  version = "~> 2.5"
-}
-
-provider "google" {
-  region = "${var.region}"
-  zone   = var.region_zone
   version = "~> 3.17"
-  alias = "google-3"
 }
 
 provider "google-beta" {
   region  = "${var.region}"
   zone    = "${var.region_zone}"
   version = "~> 3.17"
-  alias = "google-beta-3"
 }
 
 #CREATE-BOOTSTRAP-PROJECT
