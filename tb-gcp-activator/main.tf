@@ -13,8 +13,14 @@
 # limitations under the License.
 
 provider "google" {
+  version = "~> 2.5"
+  region = "${var.region}"
+}
+
+provider "google" {
   version = "~> 3.17"
   region = "${var.region}"
+  alias = "google-3"
 }
 
 provider "google-beta" {
@@ -22,8 +28,14 @@ provider "google-beta" {
   region  = "${var.region}"
   zone    = "${var.zone}"
   project = "${var.shared_vpc_host_project}"
+  version = "~> 2.5"
+}
+
+provider "google-beta" {
+  region  = "${var.region}"
+  zone    = "${var.zone}"
   version = "~> 3.17"
-  //project = "${google_project.activator.id}"
+  alias = "google-beta-3"
 }
 
 terraform {

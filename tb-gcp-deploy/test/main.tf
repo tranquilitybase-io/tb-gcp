@@ -15,7 +15,7 @@
 provider "google" {
   region = "${var.region}"
   zone = "${var.zone}"
-  version = "~> 3.17"
+  version = "~> 2.5"
 }
 
 
