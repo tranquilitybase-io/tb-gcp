@@ -234,7 +234,7 @@ resource "null_resource" "test-ssh" {
 
   provisioner "local-exec" {
     command = <<EOF
-gcloud compute ssh proxyuser@tb-kube-proxy --quiet --project="${var.shared_bastion_project}" --zone="europe-west2-a" --command="gcloud container get-credentials gke-sec --region=europe-west2 --project="${var.vault_cluster_project}" --internal-ip"
+gcloud compute ssh proxyuser@tb-kube-proxy --quiet --project="${var.shared_bastion_project}" --zone="europe-west2-a" --command="gcloud container clusters get-credentials gke-sec --region=europe-west2 --project="${var.vault_cluster_project}" --internal-ip"
 gcloud compute ssh proxyuser@tb-kube-proxy --quiet --project="${var.shared_bastion_project}" --zone="europe-west2-a" --command="kubectl get nodes"
 
 EOF
