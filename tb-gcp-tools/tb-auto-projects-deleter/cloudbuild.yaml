@@ -1,9 +1,15 @@
 steps:
   #### pull latest tbase repo ####
   - name: gcr.io/cloud-builders/git
-    args: ['clone', 'https://github.com/GoogleCloudPlatform/cloud-builders']
+    args: ['clone', 'https://github.com/tranquilitybase-io/tb-gcp.git']
+
+  #### change branch ####
+  - name: gcr.io/cloud-builders/git
+    dir: 'tb-gcp'
+    args: ['checkout', 'issue-127']
 
   #### pull latest tbase repo, args can be inspected in app.py ####
   - name: 'gcr.io/${PROJECT_ID}/ubuntu-terraform:latest'
     entrypoint: 'python3'
-    args: [ 'tb-gcp-tools/tb-auto-projects-deleter/app.py', '${PROJECT_ID}', '${BILLING_ACCOUNT}',  'tb-gcp-tools/tb-projects-deleter/tb-projects-deleter', 'tb-gcp-tools/tb-auto-projects-deleter/service_account_permissions.sh' ]
+    dir: 'tb-gcp/tb-gcp-tools'
+    args: [ 'tb-auto-projects-deleter/app.py', '${PROJECT_ID}', '${_BILLING_ACCOUNT}',  'tb-projects-deleter/tb-projects-deleter', 'tb-auto-projects-deleter/service_account_permissions.sh' ]

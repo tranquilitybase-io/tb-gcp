@@ -12,6 +12,7 @@ BOOTSTRAP_PREFIX = "bootstrap-"
 NO_DELETE_LABEL = "no-delete"
 
 
+
 def main():
     client = resource_manager.Client()
 
@@ -54,3 +55,7 @@ def call_deleter_script_for_project(project, billing_account, folder_id, path_to
 
 def get_random_id_from_project(project):
     return project.name[-8:]
+
+
+if __name__ == "__main__":
+    main()
