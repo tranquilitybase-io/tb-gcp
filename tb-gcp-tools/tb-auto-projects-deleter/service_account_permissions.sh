@@ -5,6 +5,11 @@ BILLING_ID=${args[1]}
 SA_EMAIL=${args[2]}
 FOLDER_ID=${args[3]}
 
+echo $PROJECT_ID
+echo $BILLING_ID
+echo $SA_EMAIL
+echo $FOLDER_ID
+
 #Add permissions at the project level
 echo "Adding permissions at the project level... "
 gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.instanceAdmin.v1 --format=none
