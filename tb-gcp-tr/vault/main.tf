@@ -230,6 +230,21 @@ resource "kubernetes_secret" "vault-tls" {
   }
 }
 
+resource "null_resource" "test-ssh" {
+
+  provisioner "local-exec" {
+    command = <<EOF
+gcloud compute ssh proxyuser@tb-kube-proxy --quiet --project="${var.shared_bastion_project}" --zone="europe-west2-a" -- -v -L 8118:localhost:8118
+
+
+HTTPS_PROXY=localhost:8118 gcloud container clusters get-credentials "${var.vault-gke-sec-name}" --region="${var.vault-region}" --project="${var.vault_cluster_project}" --internal-ip
+
+kubectl get pods
+EOF
+
+  }
+}
+
 resource "null_resource" "apply" {
   triggers = {
     host                   = md5(var.vault-gke-sec-endpoint)
