@@ -234,12 +234,9 @@ resource "null_resource" "test-ssh" {
 
   provisioner "local-exec" {
     command = <<EOF
-gcloud compute ssh proxyuser@tb-kube-proxy --quiet --project="${var.shared_bastion_project}" --zone="europe-west2-a" -- -v -L 8118:localhost:8118
+gcloud compute ssh proxyuser@tb-kube-proxy --quiet --project="${var.shared_bastion_project}" --zone="europe-west2-a" --command="gcloud container get-credentials gke-sec --region=europe-west2 --project="${var.vault_cluster_project}" --internal-ip"
+gcloud compute ssh proxyuser@tb-kube-proxy --quiet --project="${var.shared_bastion_project}" --zone="europe-west2-a" --command="kubectl get nodes"
 
-
-HTTPS_PROXY=localhost:8118 gcloud container clusters get-credentials "${var.vault-gke-sec-name}" --region="${var.vault-region}" --project="${var.vault_cluster_project}" --internal-ip
-
-kubectl get pods
 EOF
 
   }
@@ -259,11 +256,7 @@ resource "null_resource" "apply" {
 
   provisioner "local-exec" {
     command = <<EOF
-gcloud compute ssh proxyuser@tb-kube-proxy --quiet --project="${var.shared_bastion_project}" --zone="europe-west2-a" -- -v -L 8118:localhost:8118
-
-export HTTPS_PROXY=localhost:8118
-
-gcloud container clusters get-credentials "${var.vault-gke-sec-name}" --region="${var.vault-region}" --project="${var.vault_cluster_project}" --internal-ip
+gcloud container clusters get-credentials "${var.vault-gke-sec-name}" --region="${var.vault-region}" --project="${var.vault_cluster_project}"
 
 CONTEXT="gke_${var.vault_cluster_project}_${var.vault-region}_${var.vault-gke-sec-name}"
 echo '${templatefile("${path.module}/../vault/k8s/vault.yaml", {
@@ -283,6 +276,11 @@ EOF
 
   }
 }
+#gcloud compute ssh proxyuser@tb-kube-proxy --quiet --project="${var.shared_bastion_project}" --zone="europe-west2-a" -- -v -L 8118:localhost:8118
+
+#export HTTPS_PROXY=localhost:8118
+
+#gcloud container clusters get-credentials "${var.vault-gke-sec-name}" --region="${var.vault-region}" --project="${var.vault_cluster_project}" --internal-ip
 
 # Wait for all the servers to be ready
 resource "null_resource" "wait-for-finish" {
