@@ -5,10 +5,11 @@ BILLING_ID=${args[1]}
 SA_EMAIL=${args[2]}
 FOLDER_ID=${args[3]}
 
-echo $PROJECT_ID
-echo $BILLING_ID
-echo $SA_EMAIL
-echo $FOLDER_ID
+echo "printing args"
+echo "project id:$PROJECT_ID"
+echo "billing:$BILLING_ID"
+echo "service account:$SA_EMAIL"
+echo "folderid:$FOLDER_ID"
 
 #Add permissions at the project level
 echo "Adding permissions at the project level... "
