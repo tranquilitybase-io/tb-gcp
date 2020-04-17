@@ -26,9 +26,9 @@ gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=s
 gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/owner --format=none
 
 # Add permissions at the billing level
-echo "Adding permissions at the billing account level..."
-gcloud beta billing accounts get-iam-policy "${BILLING_ID}" > billing.yaml
-sa="\ \ - serviceAccount:${SA_EMAIL}"
-sed "/billing.admin/i ${sa}" billing.yaml > billing2.yaml
-gcloud beta billing accounts set-iam-policy "${BILLING_ID}" billing2.yaml --format=none
-rm billing.yaml billing2.yaml
+# echo "Adding permissions at the billing account level..."
+# gcloud beta billing accounts get-iam-policy "${BILLING_ID}" > billing.yaml
+# sa="\ \ - serviceAccount:${SA_EMAIL}"
+# sed "/billing.admin/i ${sa}" billing.yaml > billing2.yaml
+# gcloud beta billing accounts set-iam-policy "${BILLING_ID}" billing2.yaml --format=none
+# rm billing.yaml billing2.yaml
