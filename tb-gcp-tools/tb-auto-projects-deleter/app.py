@@ -21,6 +21,7 @@ def main():
 
     for project in projects_to_delete_list:
         folder_id = project.parent['id']
+        print("sa:{}  project:{}  billing:{}  sa:{}  folder_id:{}".format(PATH_SA_PERMISSION_SCRIPT, project.name, BILLING_ACCOUNT, BUILD_SA_NAME, folder_id))
         give_build_sa_permission_to_delete(PATH_SA_PERMISSION_SCRIPT, project.name, BILLING_ACCOUNT, BUILD_SA_NAME, folder_id)
         print("ATTEMPTING TO DELETE PROJECT {}".format(project.name))
         # call_deleter_script_for_project(project.id, BILLING_ACCOUNT, folder_id, PATH_DELETE_SCRIPT)
