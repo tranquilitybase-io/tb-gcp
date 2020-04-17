@@ -38,7 +38,7 @@ def filter_non_tb_projects(project):
 
 def give_build_sa_permission_to_delete(path_to_script, project_id, billing_account, sa_name, folder_id):
     print("GIVE SA permissions to {}".format(project_id))
-    cmd = "bash {} {} {} {}".format(path_to_script, project_id, billing_account, sa_name, folder_id)
+    cmd = "bash {} {} {} {} {}".format(path_to_script, project_id, billing_account, sa_name, folder_id)
     run_bash_command(cmd)
     return
 
