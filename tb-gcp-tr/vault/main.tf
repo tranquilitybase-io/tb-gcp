@@ -231,7 +231,7 @@ resource "kubernetes_secret" "vault-tls" {
 }
 
 locals {
-  proxy_command = "gcloud compute ssh proxyuser@tb-kube-proxy --quiet --project=${var.shared_bastion_project} --zone=europe-west2-a --command="
+  proxy_command = "gcloud compute ssh proxyuser@tb-kube-proxy --quiet --project=${var.shared_bastion_project} --zone=europe-west2-a --command"
 }
 
 #proxy_command1 = "gcloud compute ssh proxyuser@tb-kube-proxy --quiet --project=${var.shared_bastion_project} --zone=europe-west2-a --command="
@@ -241,8 +241,8 @@ resource "null_resource" "test-ssh" {
 
   provisioner "local-exec" {
     command = <<EOF
-${local.proxy_command}"gcloud compute instances list"
-${local.proxy_command}"gcloud container clusters get-credentials gke-sec --region=europe-west2 --project="${var.vault_cluster_project}" --internal-ip"
+${local.proxy_command}="gcloud compute instances list"
+${local.proxy_command}="gcloud container clusters get-credentials gke-sec --region=europe-west2 --project="${var.vault_cluster_project}" --internal-ip"
 gcloud compute ssh proxyuser@tb-kube-proxy --quiet --project="${var.shared_bastion_project}" --zone="europe-west2-a" --command="kubectl get nodes"
 
 EOF
@@ -279,7 +279,7 @@ echo '${templatefile("${path.module}/../vault/k8s/vault.yaml", {
     kms_key_ring             = google_kms_key_ring.vault.name
     kms_crypto_key           = google_kms_crypto_key.vault-init.name
     gcs_bucket_name          = google_storage_bucket.vault.name
-  })}' | gcloud compute ssh proxyuser@tb-kube-proxy --quiet --project="${var.shared_bastion_project}" --zone="europe-west2-a" --command="gcloud kubectl apply --context="$CONTEXT" -f -"
+  })}' | gcloud compute ssh proxyuser@tb-kube-proxy --quiet --project="${var.shared_bastion_project}" --zone="europe-west2-a" --command="kubectl apply --context="$CONTEXT" -f -"
 EOF
 
   }
