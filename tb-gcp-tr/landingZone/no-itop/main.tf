@@ -305,17 +305,21 @@ module "k8s-ec_context" {
   dependency_var  = module.gke-ec.node_id
 }
 
+locals {
+  proxy_command = "gcloud compute ssh proxyuser@tb-kube-proxy --quiet --project=shared-bastion-404a9ed6 --zone=europe-west2-a --command"
+}
+
 resource "null_resource" "kubernetes_service_account_key_secret" {
   triggers = {
     content = module.k8s-ec_context.k8s-context_id
   }
 
   provisioner "local-exec" {
-    command = "kubectl --context=${module.k8s-ec_context.context_name} create secret generic ec-service-account --from-file=${local_file.ec_service_account_key.filename}"
+    command = '${local.proxy_command}="kubectl --context=${module.k8s-ec_context.context_name} create secret generic ec-service-account --from-file=${local_file.ec_service_account_key.filename}"'
   }
 
   provisioner "local-exec" {
-    command = "kubectl --context=${module.k8s-ec_context.context_name} delete secret ec-service-account"
+    command = '${local.proxy_command}="kubectl --context=${module.k8s-ec_context.context_name} delete secret ec-service-account"'
     when    = destroy
   }
 }
