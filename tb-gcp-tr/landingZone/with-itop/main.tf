@@ -336,11 +336,11 @@ resource "null_resource" "kubernetes_service_account_key_secret" {
   }
 
   provisioner "local-exec" {
-    command = '${local.proxy_command}="kubectl --context=${module.k8s-ec_context.context_name} create secret generic ec-service-account --from-file=${local_file.ec_service_account_key.filename}"'
+    command = "${local.proxy_command}=\"kubectl --context=${module.k8s-ec_context.context_name} create secret generic ec-service-account --from-file=${local_file.ec_service_account_key.filename}\""
   }
 
   provisioner "local-exec" {
-    command = '${local.proxy_command}="kubectl --context=${module.k8s-ec_context.context_name} delete secret ec-service-account"'
+    command = "${local.proxy_command}=\"kubectl --context=${module.k8s-ec_context.context_name} delete secret ec-service-account\""
     when    = destroy
   }
 }
