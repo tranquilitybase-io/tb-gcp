@@ -18,7 +18,7 @@ resource "null_resource" "k8s_config" {
   }
   provisioner "local-exec" {
     command = <<EOT
-    gcloud beta container clusters get-credentials "${var.cluster_name}" --region="${var.region}" --project="${var.cluster_project}"
+    gcloud compute ssh proxyuser@tb-kube-proxy --quiet --project=shared-bastion-a3738d6d --zone=europe-west2-a --command="gcloud beta container clusters get-credentials "${var.cluster_name}" --region="${var.region}" --project="${var.cluster_project}""
     EOT
   }
 }
