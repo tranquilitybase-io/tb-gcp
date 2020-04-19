@@ -244,7 +244,6 @@ locals {
 #${local.proxy_command}="gcloud compute instances list"
 #${local.proxy_command}="gcloud container clusters get-credentials gke-sec --region=europe-west2 --project="${var.vault_cluster_project}" --internal-ip"
 #${local.proxy_command}="kubectl get nodes"
-
 #EOF
 #}
 
