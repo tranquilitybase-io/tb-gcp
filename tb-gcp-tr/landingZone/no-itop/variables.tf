@@ -133,6 +133,12 @@ variable "gke_service_network_name" {
   description = "Name for the gke service network"
 }
 
+variable "bastion_subnetwork_cidr" {
+  type = string
+  default = "10.0.6.0/24"
+  description = "ip range for bastion subnet"
+}
+
 variable "router_name" {
   type        = string
   default     = "vpc-network-router"

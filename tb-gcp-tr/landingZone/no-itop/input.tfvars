@@ -37,6 +37,7 @@ gke_network_subnets = [{ name = "shared-ec-snet", cidr = "10.0.1.0/24", pod_cidr
 { name = "workspace-project-snet", cidr = "10.0.5.0/24", pod_cidr = "10.5.0.0/17", service_cidr = "10.5.128.0/20" }]
 gke_pod_network_name     = "gke-pods-snet"
 gke_service_network_name = "gke-services-snet"
+bastion_subnetwork_cidr = "10.0.6.0/24"
 
 #KUBERNETES EC CLUSTER
 cluster_ec_subnetwork           = "shared-ec-snet"

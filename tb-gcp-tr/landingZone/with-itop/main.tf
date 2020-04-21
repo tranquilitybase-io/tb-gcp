@@ -102,6 +102,7 @@ module "shared-vpc" {
   router_nat_name          = var.router_nat_name
   service_projects_number  = var.service_projects_number
   service_project_ids      = [module.shared_projects.shared_secrets_id, module.shared_projects.shared_itsm_id, module.shared_projects.shared_ec_id]
+  bastion_subnet_cidr      = var.bastion_subnetwork_cidr
 }
 
 module "gke-ec" {
@@ -131,7 +132,7 @@ module "gke-ec" {
       "display_name" = "initial-admin-ip"
     },
     {
-      "cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
+      "cidr_block" = var.bastion_subnetwork_cidr
     },
     ),
   ],
@@ -179,7 +180,7 @@ module "gke-secrets" {
       "display_name" = "initial-admin-ip"
     },
     {
-      "cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
+      "cidr_block" = var.bastion_subnetwork_cidr
     },
     ),
   ],
@@ -251,7 +252,7 @@ module "gke-itsm" {
       "display_name" = "initial-admin-ip"
     },
     {
-      "cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
+      "cidr_block" = var.bastion_subnetwork_cidr
     },
     ),
   ],
