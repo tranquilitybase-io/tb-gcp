@@ -35,6 +35,7 @@ variable "standard_network_subnets" {
 
 variable "bastion_subnet_cidr" {
   type = string
+  default = "10.0.6.0/24"
   description = "cidr range for the bastion subnetwork"
 }
 
