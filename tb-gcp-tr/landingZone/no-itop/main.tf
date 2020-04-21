@@ -320,9 +320,9 @@ resource "null_resource" "kubernetes_service_account_key_secret" {
 
   provisioner "local-exec" {
     command = <<EOF
-    gcloud compute scp  ${local_file.ec_service_account_key.filename} proxyuser@tb-kube-proxy:~ --project=shared-bastion-404a9ed6 --zone=europe-west2-a
-    kubectl --context=${module.k8s-ec_context.context_name} create secret generic ec-service-account --from-file=ec-service-account-config.json
+    kubectl --context=${module.k8s-ec_context.context_name} create secret generic ec-service-account --from-file=${local_file.ec_service_account_key.filename}
     EOF
+    #gcloud compute scp  ${local_file.ec_service_account_key.filename} proxyuser@tb-kube-proxy:~ --project=shared-bastion-404a9ed6 --zone=europe-west2-a
   }
 
   provisioner "local-exec" {
