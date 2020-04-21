@@ -132,7 +132,8 @@ module "gke-ec" {
       "display_name" = "initial-admin-ip"
     },
     {
-      "cidr_block" = var.bastion_subnetwork_cidr
+      "cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
+      #"cidr_block" = var.bastion_subnetwork_cidr
     },
     ),
   ],
@@ -180,7 +181,8 @@ module "gke-secrets" {
       "display_name" = "initial-admin-ip"
     },
     {
-      "cidr_block" = var.bastion_subnetwork_cidr
+      "cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
+      #"cidr_block" = var.bastion_subnetwork_cidr
     },
     ),
   ],
@@ -252,7 +254,8 @@ module "gke-itsm" {
       "display_name" = "initial-admin-ip"
     },
     {
-      "cidr_block" = var.bastion_subnetwork_cidr
+      "cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
+      #"cidr_block" = var.bastion_subnetwork_cidr
     },
     ),
   ],
@@ -337,11 +340,14 @@ resource "null_resource" "kubernetes_service_account_key_secret" {
   }
 
   provisioner "local-exec" {
-    command = "${local.proxy_command}=\"kubectl --context=${module.k8s-ec_context.context_name} create secret generic ec-service-account --from-file=${local_file.ec_service_account_key.filename}\""
+    command = <<EOF
+    gcloud compute scp  ${local_file.ec_service_account_key.filename} proxyuser@tb-kube-proxy:~ --project=shared-bastion-404a9ed6 --zone=europe-west2-a
+    kubectl --context=${module.k8s-ec_context.context_name} create secret generic ec-service-account --from-file=ec-service-account-config.json
+    EOF
   }
 
   provisioner "local-exec" {
-    command = "${local.proxy_command}=\"kubectl --context=${module.k8s-ec_context.context_name} delete secret ec-service-account\""
+    command = "kubectl --context=${module.k8s-ec_context.context_name} delete secret ec-service-account"
     when    = destroy
   }
 }
