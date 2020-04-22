@@ -4,7 +4,15 @@ Hi, and welcome to Tranquility Base - the open source multi-cloud infrastructure
 
 The current version is feature complete for this release but we are aware there will be bugs to be fixed and patches to be made. For example there will be security improvements to be made and we are working to identify and update the codebase to address them. Please review the issues list for an idea of the enhancements and fixes we're planning to implement. If you want to help us with this or contribute to Tranquility Base in general please contact us on [contact@tranquilitybase.io]
 
-## Example Deployment instructions
+**There are 2 ways to deploy Tranquility base:**
+1. Deploy using Market Place
+2. Manual process
+
+
+## Deploying using Google Marketplace:
+Follow the instructions in the README.md file of the `tb-marketplace` directory.
+
+## Manual Deployment instructions
 
 The following instructions assume the following requisites are met:
 * a project exists to host a service account and GCE images which will be used to deploy Tranquility Base;
@@ -12,6 +20,7 @@ The following instructions assume the following requisites are met:
 * a billing account has been previously setup and can be used for all projects created by Tranquility Base;
 * `terraform` `~0.12` is installed;
 * `packer` `~1.4` is installed.
+
 
 ### Initial setup:
 

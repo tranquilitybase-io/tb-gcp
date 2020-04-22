@@ -354,15 +354,6 @@ module "SharedServices_ec" {
   dependency_var    = module.SharedServices_configuration_file.id
 }
 
-#module "self-service-app" {
-#  source = "../../gae-self-service-portal"
-#
-#  project_id         = module.shared_projects.shared_ec_id
-#  source_bucket      = var.ec_ui_source_bucket
-#  ec_gke_dependency = null_resource.get_endpoint.id
-#  endpoint_file      = var.endpoint_file
-#}
-
 # This is only temporrary piece of code.
 # Creating the endpoint file is a part of istio module in tb-common-tr repository
 # null_resource.get_endpoint behind can be removed if this module will be integrated (TBASE-194)
@@ -388,33 +379,6 @@ resource "null_resource" "get_endpoint" {
   depends_on = [module.SharedServices_ec]
 }
 
-#resource "google_storage_bucket_object" "backend-endpoint" {
-#  name          = "assets/endpoint-meta.json"
-#  bucket        = module.self-service-app.bucket_name
-#  source        = var.endpoint_file
-#  cache_control = "no-cache, max-age=0"
-#
-#  # Added depends_on to ensure that this resource isn't created until upload_to_static_host null_resource in module.self-service-app is ready
-#  depends_on = [
-#    module.self-service-app,
-#    null_resource.get_endpoint,
-#  ]
-#}
-
-// add bucket to store terraform ec activator state
-#resource "random_id" "activator_bucket_name" {
-#  byte_length = 4
-#}
-
-#resource "google_storage_bucket_iam_binding" "ec-terraform-state-storage-admin" {
-#  bucket = var.terraform_state_bucket_name
-#  role   = "roles/storage.admin"
-#
-#  members = [
-#    local.service_account_name,
-#  ]
-#}
-
 resource "google_sourcerepo_repository" "activator-terraform-code-store" {
   name       = "terraform-code-store"
   project    = module.shared_projects.shared_ec_id
@@ -431,13 +395,6 @@ resource "google_sourcerepo_repository_iam_binding" "terraform-code-store-admin-
   ]
   depends_on = [google_sourcerepo_repository.activator-terraform-code-store]
 }
-
-// used only to enable datastore
-#resource "google_app_engine_application" "enable-datastore" {
-#  project     = module.shared_projects.shared_ec_id
-#  location_id = var.region
-#  depends_on  = [google_sourcerepo_repository_iam_binding.terraform-code-store-admin-binding]
-#}
 
 module "bastion-security" {
   source = "../../shared-bastion"
