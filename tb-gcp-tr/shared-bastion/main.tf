@@ -67,6 +67,24 @@ resource "google_compute_firewall" "bast-nat-http" {
   }
 }
 
+resource "google_compute_firewall" "remote-mgmt-iap" {
+  name        = "remote-mgmt-iap-test"
+  network     = var.shared_vpc_name
+  project = var.shared_networking_id
+  description = "Allow inbound connections from iap"
+  direction   = "INGRESS"
+  source_service_accounts = [google_service_account.proxy-sa-res.email]
+  allow {
+    protocol = "icmp"
+  }
+
+  allow {
+    protocol = "tcp"
+  }
+
+  source_ranges = ["35.235.240.0/20"]
+}
+
 
 # Create compute instance and attach service account
 resource "google_compute_instance" "tb_windows_bastion" {
