@@ -1,0 +1,71 @@
+# This workflow will install Python dependencies, with a single version of Python.
+# Apply sematic versioning.
+#
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: tb-gcp - SEMVER Workflow
+
+on:
+  push:
+    branches-ignore: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Extract current branch name
+      shell: bash
+      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      id: extract_branch
+    - name: Echo Branch Name
+      shell: bash
+      run: |
+        echo "Branch name: ${{ steps.extract_branch.outputs.branch }}"
+    - uses: actions/checkout@v2
+      with:
+        repository: tranquilitybase-io/TranquilityBase
+        path: TranquilityBase
+        fetch-depth: 0
+    - uses: actions/checkout@v2
+      with:
+        repository: tranquilitybase-io/tb-gcp
+        path: tb-gcp
+        fetch-depth: 0
+    - name: Set up Python 3.6
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.6
+
+    - name: run semver, store in step variable version
+      shell: bash
+      run: |
+        cd ${GITHUB_WORKSPACE}/tb-gcp/
+        echo "##[set-output name=version;]$(python ${GITHUB_WORKSPACE}/TranquilityBase/scripts/semver.py ${{ steps.extract_branch.outputs.branch }})"
+      id: get_version
+    - name: check if version variable is set
+      shell: bash
+      run: |
+        if [[ -z "${{ steps.get_version.outputs.version }}" ]]; then
+          echo "Error: version in environment is not set." 1>&2
+          exit 1
+        fi
+        cd ${GITHUB_WORKSPACE}/tb-gcp/
+        cat version.json
+    - name: git add, commit and push
+      shell: bash
+      run: |
+        cd ${GITHUB_WORKSPACE}/tb-gcp/
+        git config user.email git.action@gft.com
+        git config user.name "git.action"
+        git add version.json
+        git commit -m "Add version.json"
+        git tag -a "internal-v${{ steps.get_version.outputs.version }}" -m "semver tagging ${{ steps.get_version_outputs.version }}"
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        branch: ${{ steps.extract_branch.outputs.branch }}
+        force: true
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        # directory: "${GITHUB_WORKSPACE}/tb-gcp/"
+        # Workaround, variable is not being expanded
+        directory: "/home/runner/work/tb-gcp/tb-gcp/tb-gcp"
