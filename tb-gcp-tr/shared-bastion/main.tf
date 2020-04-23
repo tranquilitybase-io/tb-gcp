@@ -67,6 +67,7 @@ resource "google_compute_firewall" "bast-nat-http" {
   }
 }
 
+
 # Create compute instance and attach service account
 resource "google_compute_instance" "tb_windows_bastion" {
   depends_on = [
@@ -127,7 +128,31 @@ resource "google_compute_instance" "tb_kube_proxy" {
     }
   }
   //metadata_startup_script = var.metadata_startup_script
-  metadata_startup_script = file("${path.module}/startup_script.sh")
+  #metadata_startup_script = file("${path.module}/startup_script.sh")
+  network_interface {
+    subnetwork = "projects/${var.shared_networking_id}/regions/${var.region}/subnetworks/bastion-subnetwork"
+  }
+  service_account {
+    email = google_service_account.proxy-sa-res.email
+    scopes = var.scopes
+  }
+}
+
+resource "google_compute_instance" "tb_kube_proxy-dev" {
+  depends_on = [
+    google_service_account.bastion_service_account]
+  project = var.shared_bastion_id
+  zone = var.region_zone
+  name = "tb-kube-proxy-dev"
+  machine_type = "n1-standard-2"
+  boot_disk {
+    initialize_params {
+      image = "debian-9-stretch-v20191210"
+      #image = "rhel-8"
+    }
+  }
+  //metadata_startup_script = var.metadata_startup_script
+  #metadata_startup_script = file("${path.module}/privoxy_startup.sh")
   network_interface {
     subnetwork = "projects/${var.shared_networking_id}/regions/${var.region}/subnetworks/bastion-subnetwork"
   }
