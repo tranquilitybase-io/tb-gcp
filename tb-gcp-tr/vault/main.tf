@@ -246,8 +246,6 @@ gcloud compute start-iap-tunnel tb-kube-proxy 3128 --local-host-port localhost:3
 
 gcloud container clusters get-credentials gke-sec --project ${var.vault_cluster_project} --region europe-west2 --internal-ip
 https_proxy=localhost:3128 kubectl get all
-export https_proxy=localhost:3128
-kubectl get nodes
 EOF
   }
   #${local.proxy_command}="gcloud compute instances list"
