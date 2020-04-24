@@ -237,15 +237,21 @@ locals {
 #proxy_command1 = "gcloud compute ssh proxyuser@tb-kube-proxy --quiet --project=${var.shared_bastion_project} --zone=europe-west2-a --command="
 #gcloud compute ssh proxyuser@tb-kube-proxy --quiet --project="${var.shared_bastion_project}" --zone="europe-west2-a" --command="gcloud container clusters get-credentials gke-sec --region=europe-west2 --project="${var.vault_cluster_project}" --internal-ip"
 
-#resource "null_resource" "test-ssh" {
-#
- # provisioner "local-exec" {
-  #  command = <<EOF
-#${local.proxy_command}="gcloud compute instances list"
-#${local.proxy_command}="gcloud container clusters get-credentials gke-sec --region=europe-west2 --project="${var.vault_cluster_project}" --internal-ip"
-#${local.proxy_command}="kubectl get nodes"
-#EOF
-#}
+
+resource "null_resource" "test-ssh" {
+
+  provisioner "local-exec" {
+    command = <<EOF
+gcloud compute start-iap-tunnel tb-kube-proxy 3128 --local-host-port localhost:3128 --project ${var.shared_bastion_project} --zone europe-west2-a &
+
+gcloud container clusters get-credentials gke-sec --project ${var.vault_cluster_project} --region europe-west2 --internal-ip
+https_proxy=localhost:3128 kubectl get all
+export https_proxy=localhost:3128
+kubectl get nodes
+EOF
+  }
+  #${local.proxy_command}="gcloud compute instances list"
+}
 
 resource "null_resource" "apply" {
   triggers = {
