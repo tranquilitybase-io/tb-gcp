@@ -156,6 +156,8 @@ gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=s
 gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/billing.projectManager --format=none
 gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.networkAdmin --format=none
 gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.xpnAdmin --format=none
+gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/owner --format=none
+
 
 # Add permissions at the billing level
 echo "Adding permissions at the billing account level..."
@@ -178,6 +180,17 @@ gcloud --project "${PROJECT_ID}" services enable serviceusage.googleapis.com
 gcloud --project "${PROJECT_ID}" services enable sourcerepo.googleapis.com
 gcloud --project "${PROJECT_ID}" services enable storage-api.googleapis.com
 gcloud --project "${PROJECT_ID}" services enable runtimeconfig.googleapis.com
+
+gcloud --project "${PROJECT_ID}" services enable appengine.googleapis.com
+gcloud --project "${PROJECT_ID}" services enable bigquery-json.googleapis.com
+gcloud --project "${PROJECT_ID}" services enable bigquerystorage.googleapis.com
+gcloud --project "${PROJECT_ID}" services enable datastore.googleapis.com
+gcloud --project "${PROJECT_ID}" services enable iap.googleapis.com
+gcloud --project "${PROJECT_ID}" services enable iam.googleapis.com
+gcloud --project "${PROJECT_ID}" services enable iamcredentials.googleapis.com
+gcloud --project "${PROJECT_ID}" services enable oslogin.googleapis.com
+gcloud --project "${PROJECT_ID}" services enable pubsub.googleapis.com
+gcloud --project "${PROJECT_ID}" services enable sqladmin.googleapis.com
 
 echo "Essential APIs activated."
 
