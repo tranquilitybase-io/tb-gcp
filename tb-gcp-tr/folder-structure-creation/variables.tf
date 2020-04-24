@@ -27,12 +27,6 @@ variable "root_id" {
   description = "id for the parent where these folders will be created."
 }
 
-variable "root_is_org" {
-  type        = string
-  default     = "true"
-  description = "determines whether root directory is an org or a directory inside an org."
-}
-
 variable "tb_discriminator" {
   type        = string
   default     = ""

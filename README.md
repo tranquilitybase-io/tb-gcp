@@ -28,8 +28,20 @@ The following instructions assume the following requisites are met:
 
 ``` bash
 BILLING_ACCOUNT=<billing_account_id>
-FOLDER_ID=<folder_id>
+PARENT_FOLDER_ID=<parent_folder_id>
 PROJECT_ID=<project_id>
+```
+
+### Create Tranquility Base Folder
+* Create a folder to contain the tranquility base deployment:
+
+``` bash
+gcloud resource-manager folders create --display-name="${TBASE_FOLDER_NAME}" --folder="${PARENT_FOLDER_ID}"
+```
+
+* Get the folder ID and set as another environment variable:
+```bash
+FOLDER_ID=<folder_id>
 ```
 
 ### Service Account Creation

@@ -57,7 +57,6 @@ module "folder_structure" {
   region           = var.region
   region_zone      = var.region_zone
   root_id          = var.root_id
-  root_is_org      = var.root_is_org
   tb_discriminator = var.tb_discriminator
 }
 
