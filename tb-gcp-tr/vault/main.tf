@@ -238,14 +238,11 @@ locals {
 #gcloud compute ssh proxyuser@tb-kube-proxy --quiet --project="${var.shared_bastion_project}" --zone="europe-west2-a" --command="gcloud container clusters get-credentials gke-sec --region=europe-west2 --project="${var.vault_cluster_project}" --internal-ip"
 
 
-resource "null_resource" "test-ssh" {
+resource "null_resource" "create-iap-tunnel" {
 
   provisioner "local-exec" {
     command = <<EOF
 gcloud compute start-iap-tunnel tb-kube-proxy 3128 --local-host-port localhost:3128 --project ${var.shared_bastion_project} --zone europe-west2-a &
-
-gcloud container clusters get-credentials gke-sec --project ${var.vault_cluster_project} --region europe-west2 --internal-ip
-https_proxy=localhost:3128 kubectl get all
 EOF
   }
   #${local.proxy_command}="gcloud compute instances list"
@@ -265,6 +262,8 @@ resource "null_resource" "apply" {
 
   provisioner "local-exec" {
     command = <<EOF
+gcloud container clusters get-credentials gke-sec --project ${var.vault_cluster_project} --region europe-west2 --internal-ip
+https_proxy=localhost:3128 kubectl get nodes
 gcloud container clusters get-credentials "${var.vault-gke-sec-name}" --region="${var.vault-region}" --project="${var.vault_cluster_project}"
 
 CONTEXT="gke_${var.vault_cluster_project}_${var.vault-region}_${var.vault-gke-sec-name}"
