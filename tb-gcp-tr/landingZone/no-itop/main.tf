@@ -105,6 +105,17 @@ module "shared-vpc" {
   service_project_ids      = [module.shared_projects.shared_secrets_id, module.shared_projects.shared_itsm_id, module.shared_projects.shared_ec_id]
 }
 
+module "bastion-security" {
+  source = "../../shared-bastion"
+
+  region = var.region
+  region_zone = var.region_zone
+  shared_bastion_id = module.shared_projects.shared_bastion_id
+  shared_networking_id = module.shared_projects.shared_networking_id
+  nat_static_ip = module.shared-vpc.nat_static_ip
+  root_id = var.root_id
+}
+
 module "gke-ec" {
   source = "../../kubernetes-cluster-creation"
 
@@ -430,13 +441,3 @@ resource "google_sourcerepo_repository_iam_binding" "terraform-code-store-admin-
 #  depends_on  = [google_sourcerepo_repository_iam_binding.terraform-code-store-admin-binding]
 #}
 
-module "bastion-security" {
-  source = "../../shared-bastion"
-
-  region = var.region
-  region_zone = var.region_zone
-  shared_bastion_id = module.shared_projects.shared_bastion_id
-  shared_networking_id = module.shared_projects.shared_networking_id
-  nat_static_ip = module.shared-vpc.nat_static_ip
-  root_id = var.root_id
-}
