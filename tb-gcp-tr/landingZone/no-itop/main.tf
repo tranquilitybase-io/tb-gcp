@@ -144,7 +144,7 @@ module "gke-ec" {
     },
     {
       #"cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
-      "cidr_block" = "10.0.6.0/24"
+      "cidr_block" = "172.16.0.18/32"
     },
     ),
   ],
@@ -193,7 +193,7 @@ module "gke-secrets" {
     },
     {
       #"cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
-      "cidr_block" = "10.0.6.0/24"
+      "cidr_block" = "172.16.0.18/32"
     },
     ),
   ],
@@ -265,7 +265,7 @@ module "gke-itsm" {
     },
     {
       #"cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
-      "cidr_block" = "10.0.6.0/24"
+      "cidr_block" = "172.16.0.18/32"
     },
     ),
   ],
