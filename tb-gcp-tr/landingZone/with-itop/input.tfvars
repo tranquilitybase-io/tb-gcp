@@ -46,10 +46,14 @@ cluster_ec_name                 = "gke-ec"
 cluster_ec_pool_name            = "gke-ec-node-pool"
 cluster_ec_enable_private_nodes = "true"
 cluster_ec_master_cidr          = "172.16.0.0/28"
-cluster_ec_master_authorized_cidrs = [
+cluster_sec_master_authorized_cidrs = [
   {
     cidr_block   = "10.0.0.0/8"
     display_name = "mgmt-1"
+  },
+  {
+    cidr_block   = "10.0.6.0/24"
+    display_name = "proxy-subnet"
   }
 ]
 #cluster_ec_min_master_version = "latest"
@@ -67,6 +71,10 @@ cluster_sec_master_authorized_cidrs = [
   {
     cidr_block   = "10.0.0.0/8"
     display_name = "mgmt-1"
+  },
+  {
+    cidr_block   = "10.0.6.0/24"
+    display_name = "proxy-subnet"
   }
 ]
 #cluster_sec_min_master_version = "latest"
@@ -81,10 +89,14 @@ cluster_opt_name                 = "gke-opt"
 cluster_opt_pool_name            = "gke-opt-node-pool"
 cluster_opt_enable_private_nodes = "true"
 cluster_opt_master_cidr          = "172.16.0.32/28"
-cluster_opt_master_authorized_cidrs = [
+cluster_sec_master_authorized_cidrs = [
   {
     cidr_block   = "10.0.0.0/8"
     display_name = "mgmt-1"
+  },
+  {
+    cidr_block   = "10.0.6.0/24"
+    display_name = "proxy-subnet"
   }
 ]
 #cluster_opt_min_master_version = "latest"

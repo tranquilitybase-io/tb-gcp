@@ -156,26 +156,37 @@ resource "google_compute_instance" "tb_kube_proxy" {
   }
 }
 
-resource "google_compute_instance" "tb_kube_proxy-dev" {
-  depends_on = [
-    google_service_account.bastion_service_account]
-  project = var.shared_bastion_id
-  zone = var.region_zone
-  name = "tb-kube-proxy-dev"
-  machine_type = "n1-standard-2"
-  boot_disk {
-    initialize_params {
-      image = "debian-9-stretch-v20191210"
-      #image = "rhel-8"
-    }
+//resource "google_compute_instance" "tb_kube_proxy-dev" {
+//  depends_on = [
+//    google_service_account.bastion_service_account]
+//  project = var.shared_bastion_id
+//  zone = var.region_zone
+//  name = "tb-kube-proxy-dev"
+//  machine_type = "n1-standard-2"
+//  boot_disk {
+//    initialize_params {
+//      image = "debian-9-stretch-v20191210"
+//      #image = "rhel-8"
+//    }
+//  }
+//  //metadata_startup_script = var.metadata_startup_script
+//  #metadata_startup_script = file("${path.module}/privoxy_startup.sh")
+//  network_interface {
+//    subnetwork = "projects/${var.shared_networking_id}/regions/${var.region}/subnetworks/bastion-subnetwork"
+//  }
+//  service_account {
+//    email = google_service_account.proxy-sa-res.email
+//    scopes = var.scopes
+//  }
+//}
+
+resource "null_resource" "start-iap-tunnel" {
+
+  provisioner "local-exec" {
+    command = <<EOF
+gcloud compute start-iap-tunnel tb-kube-proxy 3128 --local-host-port localhost:3128 --project ${var.shared_bastion_id} --zone ${var.region_zone} &
+EOF
   }
-  //metadata_startup_script = var.metadata_startup_script
-  #metadata_startup_script = file("${path.module}/privoxy_startup.sh")
-  network_interface {
-    subnetwork = "projects/${var.shared_networking_id}/regions/${var.region}/subnetworks/bastion-subnetwork"
-  }
-  service_account {
-    email = google_service_account.proxy-sa-res.email
-    scopes = var.scopes
-  }
+  #${local.proxy_command}="gcloud compute instances list"
+  depends_on = [google_compute_instance.tb_kube_proxy]
 }
