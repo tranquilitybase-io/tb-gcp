@@ -61,3 +61,6 @@ variable "main_iam_service_account_roles" {
   ]
   description = "Roles attached to service account"
 }
+variable "shared_bastion_project_number" {
+  type = string
+}

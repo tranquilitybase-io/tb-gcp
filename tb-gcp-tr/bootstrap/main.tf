@@ -53,6 +53,7 @@ resource "google_project_services" "bootstrap_project_apis" {
     "iam.googleapis.com",
     "iamcredentials.googleapis.com",
     "logging.googleapis.com",
+    "monitoring.googleapis.com",
     "oslogin.googleapis.com",
     "pubsub.googleapis.com",
     "serviceusage.googleapis.com",
@@ -127,7 +128,6 @@ resource "google_compute_instance" "bootstrap_terraform_server" {
     region                       = var.region
     region_zone                  = var.region_zone
     root_id                      = var.folder_id
-    root_is_org                  = "false"
     billing_account_id           = var.billing_account_id
     tb_discriminator             = var.tb_discriminator
     terraform_state_bucket_name  = google_storage_bucket.terraform-state-bucket-res.name

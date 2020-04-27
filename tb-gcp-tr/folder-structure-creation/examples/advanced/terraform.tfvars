@@ -16,7 +16,6 @@ zone = "europe-west-2"
 zone_region = "europe-west2-a"
 
 root_id = "0123456789"
-root_is_org = "false"
 
 shared_services_projects = [
     "shared-itsm",
