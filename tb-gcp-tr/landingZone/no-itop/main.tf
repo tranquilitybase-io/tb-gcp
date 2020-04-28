@@ -338,6 +338,8 @@ resource "null_resource" "kubernetes_service_account_key_secret" {
     command = "https_proxy=localhost:3128 kubectl --context=${module.k8s-ec_context.context_name} delete secret ec-service-account"
     when    = destroy
   }
+
+  depends_on = [module.bastion-security]
 }
 
 module "SharedServices_configuration_file" {

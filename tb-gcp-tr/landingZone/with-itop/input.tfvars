@@ -54,6 +54,26 @@ cluster_ec_master_authorized_cidrs = [
   {
     cidr_block   = "10.0.6.0/24"
     display_name = "proxy-subnet"
+  },
+  {
+    cidr_block   = "10.0.1.0/24"
+    display_name = "ec-subnet"
+  },
+  {
+    cidr_block   = "10.0.2.0/24"
+    display_name = "itsm-subnet"
+  },
+  {
+    cidr_block   = "10.0.3.0/24"
+    display_name = "secrets-subnet"
+  },
+  {
+    cidr_block   = "10.0.4.0/24"
+    display_name = "activator-subnet"
+  },
+  {
+    cidr_block   = "10.0.5.0/24"
+    display_name = "workspace-subnet"
   }
 ]
 #cluster_ec_min_master_version = "latest"
@@ -75,6 +95,26 @@ cluster_sec_master_authorized_cidrs = [
   {
     cidr_block   = "10.0.6.0/24"
     display_name = "proxy-subnet"
+  },
+  {
+    cidr_block   = "10.0.1.0/24"
+    display_name = "ec-subnet"
+  },
+  {
+    cidr_block   = "10.0.2.0/24"
+    display_name = "itsm-subnet"
+  },
+  {
+    cidr_block   = "10.0.3.0/24"
+    display_name = "secrets-subnet"
+  },
+  {
+    cidr_block   = "10.0.4.0/24"
+    display_name = "activator-subnet"
+  },
+  {
+    cidr_block   = "10.0.5.0/24"
+    display_name = "workspace-subnet"
   }
 ]
 #cluster_sec_min_master_version = "latest"
@@ -97,6 +137,26 @@ cluster_opt_master_authorized_cidrs = [
   {
     cidr_block   = "10.0.6.0/24"
     display_name = "proxy-subnet"
+  },
+  {
+    cidr_block   = "10.0.1.0/24"
+    display_name = "ec-subnet"
+  },
+  {
+    cidr_block   = "10.0.2.0/24"
+    display_name = "itsm-subnet"
+  },
+  {
+    cidr_block   = "10.0.3.0/24"
+    display_name = "secrets-subnet"
+  },
+  {
+    cidr_block   = "10.0.4.0/24"
+    display_name = "activator-subnet"
+  },
+  {
+    cidr_block   = "10.0.5.0/24"
+    display_name = "workspace-subnet"
   }
 ]
 #cluster_opt_min_master_version = "latest"
