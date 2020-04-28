@@ -247,6 +247,7 @@ resource "null_resource" "start-iap-tunnel" {
 
   provisioner "local-exec" {
     command = <<EOF
+echo "starting iap tunnel"
 gcloud compute start-iap-tunnel tb-kube-proxy 3128 --local-host-port localhost:3128 --project ${var.shared_bastion_id} --zone ${var.region_zone} &
 EOF
   }
