@@ -291,7 +291,6 @@ provider "kubernetes" {
 }
 
 # Deploy gke-itsm cluster helm pre-requisite resources
-#make change here
 module "gke_itsm_helm_pre_req" {
   source = "../../helm-pre-requisites"
   providers = {
