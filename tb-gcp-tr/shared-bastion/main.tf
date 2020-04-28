@@ -17,7 +17,7 @@ locals {
 }
 resource "google_folder_iam_member" "sa-folder-admin-role" {
   count      = length(var.main_iam_service_account_roles)
-  folder     = "folders/${var.folder_id}"
+  folder     = "folders/${var.root_id}"
   role       = element(var.main_iam_service_account_roles, count.index)
   member     = local.service_account_name
   depends_on = [google_service_account.proxy-sa-res]
