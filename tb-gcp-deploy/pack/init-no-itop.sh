@@ -96,12 +96,6 @@ mkdir -p /opt/tb
 mv repo /opt/tb/
 mv tb-gcp-tr /opt/tb/repo
 
-# Build self service portal ui angular app
-cd /opt/tb/repo/tb-self-service-portal-ui/
-
-sudo npm install
-sudo npm run build --prod
-
 #Navigate to Landing Zone working dir
 cd /opt/tb/repo/tb-gcp-tr/landingZone/no-itop/
 # Download required terraform providers
