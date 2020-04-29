@@ -95,12 +95,6 @@ rm terraform_0.12.9_linux_amd64.zip
 mkdir -p /opt/tb
 mv repo /opt/tb/
 
-# Build self service portal ui angular app
-cd /opt/tb/repo/tb-self-service-portal-ui/
-
-sudo npm install
-sudo npm run build --prod
-
 #Navigate to Landing Zone working dir
 cd /opt/tb/repo/tb-gcp-tr/landingZone/
 
