@@ -21,13 +21,13 @@ steps:
     name: 'gcr.io/cloud-builders/gcloud'
     waitFor:
       - Package image
-    args: ['compute', 'images', 'update', '$_IMAGE_NAME-$BRANCH_NAME$TAG_NAME','--update-labels','git_repo=$REPO_NAME,git_commit=$COMMIT_SHA,git_branch=$BRANCH_NAME$TAG_NAME','--project=$PROJECT_ID']
+    args: ['compute', 'images', 'update', '$_IMAGE_NAME-$BRANCH_NAME$TAG_NAME','--update-labels','git_repo=$REPO_NAME,git_commit=$COMMIT_SHA,git_branch=$BRANCH_NAME','--project=$PROJECT_ID']
 
   - id: Grant access to image
     name: 'gcr.io/cloud-builders/gcloud'
     waitFor:
       - Label image
-    args: ['compute', 'images', 'add-iam-policy-binding', '$_IMAGE_NAME-$BRANCH_NAME$TAG_NAME','--member=$_IMAGE_MEMBER','--role=$_IMAGE_ROLE']
+    args: ['compute', 'images', 'add-iam-policy-binding', '$_IMAGE_NAME-$BRANCH_NAME','--member=$_IMAGE_MEMBER','--role=$_IMAGE_ROLE']
 
   # testing starts here
 # create instance from image. instance starting up creates resources required for tranquility base via terraform or GDM in bootstrap.sh
