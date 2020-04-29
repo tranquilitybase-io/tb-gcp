@@ -12,13 +12,16 @@ Usage
 -----
 
 ```
-Usage: /home/usr1/bin/tb-projects-deleter <arguments>
+Usage: ./tb-projects-deleter <arguments>
 
 -r, --bootstrap-random-id <id>	(REQUIRED) Bootstrap project's random ID (e.g. -r 6813a9eb )
 -f, --folder-id <id>	(REQUIRED) Landing zone's folder ID (e.g. -f 238741628734)
 -b, --billing-account-id <string>	(REQUIRED) Tranquility Base related Billing Account (e.g. -b AB1234-CD1234-EF1234)
 ```
-
+*NOTE:* You may have to run the following command to make bash file executable
+```
+chmod +x tb-projects-deleter
+```
 Example execution
 -----------------
 
