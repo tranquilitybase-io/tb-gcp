@@ -250,7 +250,8 @@ resource "null_resource" "start-iap-tunnel" {
     command = <<EOF
 echo 'gcloud compute start-iap-tunnel tb-kube-proxy 3128 --local-host-port localhost:3128 --project ${var.shared_bastion_id} --zone ${var.region_zone} > /dev/null 2>&1 &
 TUNNELPID=$1
-sleep 10' | tee -a /opt/tb/repo/tb-gcp/tr/landingZone/kube.sh
+sleep 10
+export https_proxy="localhost:3128"' | tee -a /opt/tb/repo/tb-gcp/tr/landingZone/kube.sh
 EOF
   }
   #${local.proxy_command}="gcloud compute instances list"
