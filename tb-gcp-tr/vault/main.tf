@@ -269,7 +269,7 @@ echo 'echo '${templatefile("${path.module}/../vault/k8s/vault.yaml", {
     kms_key_ring             = google_kms_key_ring.vault.name
     kms_crypto_key           = google_kms_crypto_key.vault-init.name
     gcs_bucket_name          = google_storage_bucket.vault.name
-  })}' | kubectl apply --context="$CONTEXT" -f -' | tee -a kube.sh
+  })}' | kubectl apply --context="$CONTEXT" -f -' | tee -a /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh
 EOF
 
   }
@@ -293,7 +293,7 @@ echo 'for i in $(seq -s " " 1 42); do
 done
 
 echo "Pods are not ready after 15m3s."
-exit 1' | tee -a kube.sh
+exit 1' | tee -a /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh
 EOF
 
   }

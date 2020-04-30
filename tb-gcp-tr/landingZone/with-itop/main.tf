@@ -351,13 +351,13 @@ resource "null_resource" "kubernetes_service_account_key_secret" {
   }
 
   provisioner "local-exec" {
-    command = "echo 'kubectl --context=${module.k8s-ec_context.context_name} create secret generic ec-service-account --from-file=${local_file.ec_service_account_key.filename}' | tee -a kube.sh"
+    command = "echo 'kubectl --context=${module.k8s-ec_context.context_name} create secret generic ec-service-account --from-file=${local_file.ec_service_account_key.filename}' | tee -a /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh"
     #gcloud compute scp  ${local_file.ec_service_account_key.filename} proxyuser@tb-kube-proxy:~ --project=shared-bastion-404a9ed6 --zone=europe-west2-a
   }
 
   provisioner "local-exec" {
-    command = "echo 'kubectl --context=${module.k8s-ec_context.context_name} delete secret ec-service-account' | tee -a kube.sh"
-    when = destroy
+    command = "echo 'kubectl --context=${module.k8s-ec_context.context_name} delete secret ec-service-account' | tee -a /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh"
+    when    = destroy
   }
 }
 
@@ -393,7 +393,7 @@ resource "null_resource" "get_endpoint" {
         fi
       done
       echo "Loadbalancer is not reachable after 10,5 minutes"
-      exit 1' | tee -a kube.sh
+      exit 1' | tee -a /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh
       EOF
   }
 
