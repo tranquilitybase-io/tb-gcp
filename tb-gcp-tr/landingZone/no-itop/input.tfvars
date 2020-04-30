@@ -162,7 +162,7 @@ cluster_opt_master_authorized_cidrs = [
 #cluster_opt_min_master_version = "latest"
 
 #EC Deployment
-eagle_console_yaml_path = "../eagle_console.yaml"
+eagle_console_yaml_path = "/opt/tb/repo/tb-gcp-tr/landingZone/eagle_console.yaml"
 ec_ui_source_bucket  = "tranquility-base-ui"
 ec_iam_service_account_roles = ["roles/resourcemanager.folderAdmin", "roles/resourcemanager.projectCreator",
   "roles/compute.xpnAdmin", "roles/resourcemanager.projectDeleter", "roles/billing.projectManager", "roles/owner",
