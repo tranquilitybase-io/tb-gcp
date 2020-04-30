@@ -254,12 +254,10 @@ resource "null_resource" "apply" {
 
   provisioner "local-exec" {
     command = <<EOF
-gcloud container clusters get-credentials gke-sec --project ${var.vault_cluster_project} --region europe-west2 --internal-ip
-https_proxy=localhost:3128 kubectl get nodes
 gcloud container clusters get-credentials "${var.vault-gke-sec-name}" --region="${var.vault-region}" --project="${var.vault_cluster_project}" --internal-ip
 
 CONTEXT="gke_${var.vault_cluster_project}_${var.vault-region}_${var.vault-gke-sec-name}"
-echo '${templatefile("${path.module}/../vault/k8s/vault.yaml", {
+echo 'echo '${templatefile("${path.module}/../vault/k8s/vault.yaml", {
     load_balancer_ip         = google_compute_address.vault.address
     num_vault_pods           = var.num_vault_pods
     vault_container          = var.vault_container
@@ -271,7 +269,7 @@ echo '${templatefile("${path.module}/../vault/k8s/vault.yaml", {
     kms_key_ring             = google_kms_key_ring.vault.name
     kms_crypto_key           = google_kms_crypto_key.vault-init.name
     gcs_bucket_name          = google_storage_bucket.vault.name
-  })}' | https_proxy=localhost:3128 kubectl apply --context="$CONTEXT" -f -
+  })}' | kubectl apply --context="$CONTEXT" -f -' | tee -a kube.sh
 EOF
 
   }
@@ -286,7 +284,7 @@ EOF
 resource "null_resource" "wait-for-finish" {
   provisioner "local-exec" {
     command = <<EOF
-for i in $(seq -s " " 1 42); do
+echo 'for i in $(seq -s " " 1 42); do
   sleep $i
   CONTEXT="gke_${var.vault_cluster_project}_${var.vault-region}_${var.vault-gke-sec-name}"
   if [ $(https_proxy=localhost:3128 kubectl --context="$CONTEXT" get pod -o jsonpath='{.items[?(@.status.phase=="Running")].metadata.name}' | wc -w) -eq ${var.num_vault_pods} ]; then
@@ -295,7 +293,7 @@ for i in $(seq -s " " 1 42); do
 done
 
 echo "Pods are not ready after 15m3s."
-exit 1
+exit 1' | tee -a kube.sh
 EOF
 
   }

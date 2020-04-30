@@ -330,16 +330,14 @@ resource "null_resource" "kubernetes_service_account_key_secret" {
   }
 
   provisioner "local-exec" {
-    command = "https_proxy=localhost:3128 kubectl --context=${module.k8s-ec_context.context_name} create secret generic ec-service-account --from-file=${local_file.ec_service_account_key.filename}"
+    command = "echo 'kubectl --context=${module.k8s-ec_context.context_name} create secret generic ec-service-account --from-file=${local_file.ec_service_account_key.filename}' | tee -a kube.sh"
     #gcloud compute scp  ${local_file.ec_service_account_key.filename} proxyuser@tb-kube-proxy:~ --project=shared-bastion-404a9ed6 --zone=europe-west2-a
   }
 
   provisioner "local-exec" {
-    command = "https_proxy=localhost:3128 kubectl --context=${module.k8s-ec_context.context_name} delete secret ec-service-account"
+    command = "echo 'kubectl --context=${module.k8s-ec_context.context_name} delete secret ec-service-account' | tee -a kube.sh"
     when    = destroy
   }
-
-  depends_on = [module.bastion-security]
 }
 
 module "SharedServices_configuration_file" {
@@ -361,17 +359,17 @@ module "SharedServices_ec" {
 resource "null_resource" "get_endpoint" {
   provisioner "local-exec" {
     command = <<EOF
-      echo -n 'http://' > ${var.endpoint_file}
+      echo 'echo -n 'http://' > ${var.endpoint_file}
       for i in $(seq -s " " 1 35); do
         sleep $i
-        ENDPOINT=$(https_proxy=localhost:3128 kubectl --context=${module.k8s-ec_context.context_name} get svc istio-ingressgateway -n istio-system -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+        ENDPOINT=$(kubectl --context=${module.k8s-ec_context.context_name} get svc istio-ingressgateway -n istio-system -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
         if [ -n "$ENDPOINT" ]; then
           echo "$ENDPOINT" >> ${var.endpoint_file}
           exit 0
         fi
       done
       echo "Loadbalancer is not reachable after 10,5 minutes"
-      exit 1
+      exit 1' | tee -a kube.sh
       EOF
   }
 
