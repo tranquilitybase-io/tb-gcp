@@ -7,13 +7,13 @@ BUILD_PROJECT_ID = sys.argv[1]
 BILLING_ACCOUNT = sys.argv[2]
 PATH_DELETE_SCRIPT = sys.argv[3]
 PATH_SA_PERMISSION_SCRIPT = sys.argv[4]
-BUILD_SA_NAME = "{}@cloudbuild.gserviceaccount.com".format(BUILD_PROJECT_ID)
 BOOTSTRAP_PREFIX = "bootstrap-"
 NO_DELETE_LABEL = "no-delete"
-
+client = resource_manager.Client()
 
 def main():
-    client = resource_manager.Client()
+
+    build_service_account = get_sa_name_for_cloud_build(BUILD_PROJECT_ID)
 
     projects_to_delete_list = \
         list(filter(filter_non_tb_projects, client.list_projects()))
@@ -26,6 +26,12 @@ def main():
         # call_deleter_script_for_project(project.id, BILLING_ACCOUNT, folder_id, PATH_DELETE_SCRIPT)
 
 
+def get_sa_name_for_cloud_build(project_id):
+    project = client.fetch_project(project_id)
+    sa_name = "{}@cloudbuild.gserviceaccount.com".format(project.number)
+    return sa_name
+
+
 def filter_non_tb_projects(project):
     if project.name.startswith(BOOTSTRAP_PREFIX) and NO_DELETE_LABEL in project.labels:
         return True
@@ -34,13 +40,15 @@ def filter_non_tb_projects(project):
 
 
 def give_build_sa_permission_to_delete(path_to_script, project_id, billing_account, sa_name, folder_id):
-    cmd = "bash {} -r {} -f {} -b {}".format(path_to_script, project_id, billing_account, sa_name, folder_id)
+    print("GIVE SA permissions to {}".format(project_id))
+    cmd = "bash {} {} {} {} {}".format(path_to_script, project_id, billing_account, sa_name, folder_id)
     run_bash_command(cmd)
     return
 
 
 def run_bash_command(cmd):
-    ps = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    ps = subprocess.Popen(
+        cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     output = ps.communicate()[0].decode()
     print(output)
 
@@ -48,9 +56,14 @@ def run_bash_command(cmd):
 def call_deleter_script_for_project(project, billing_account, folder_id, path_to_script):
     print("DELETING RESOURCES CREATED BY " + project.name + " PROJECT")
     random_id = get_random_id_from_project(project)
-    cmd = "yes Y | bash {} -r {} -f {} -b {}".format(path_to_script, random_id, folder_id, billing_account)
+    cmd = "yes Y | bash {} -r {} -f {} -b {}".format(
+        path_to_script, random_id, folder_id, billing_account)
     run_bash_command(cmd)
 
 
 def get_random_id_from_project(project):
     return project.name[-8:]
+
+
+if __name__ == "__main__":
+    main()

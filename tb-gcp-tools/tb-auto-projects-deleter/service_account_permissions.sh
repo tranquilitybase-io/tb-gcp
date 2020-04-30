@@ -5,6 +5,15 @@ BILLING_ID=${args[1]}
 SA_EMAIL=${args[2]}
 FOLDER_ID=${args[3]}
 
+<<<<<<< HEAD
+=======
+echo "printing args"
+echo "project id:$PROJECT_ID"
+echo "billing:$BILLING_ID"
+echo "service account:$SA_EMAIL"
+echo "folderid:$FOLDER_ID"
+
+>>>>>>> 2cb05132c31cf4aebeb82a02d74ba57d48953a15
 #Add permissions at the project level
 echo "Adding permissions at the project level... "
 gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.instanceAdmin.v1 --format=none
@@ -20,9 +29,9 @@ gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=s
 gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/owner --format=none
 
 # Add permissions at the billing level
-echo "Adding permissions at the billing account level..."
-gcloud beta billing accounts get-iam-policy "${BILLING_ID}" > billing.yaml
-sa="\ \ - serviceAccount:${SA_EMAIL}"
-sed "/billing.admin/i ${sa}" billing.yaml > billing2.yaml
-gcloud beta billing accounts set-iam-policy "${BILLING_ID}" billing2.yaml --format=none
-rm billing.yaml billing2.yaml
+# echo "Adding permissions at the billing account level..."
+# gcloud beta billing accounts get-iam-policy "${BILLING_ID}" > billing.yaml
+# sa="\ \ - serviceAccount:${SA_EMAIL}"
+# sed "/billing.admin/i ${sa}" billing.yaml > billing2.yaml
+# gcloud beta billing accounts set-iam-policy "${BILLING_ID}" billing2.yaml --format=none
+# rm billing.yaml billing2.yaml
