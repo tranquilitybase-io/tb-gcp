@@ -67,6 +67,7 @@ apply_failures=0
 while [ $apply_failures -lt $MAX_ATTEMPTS ]; do
 terraform apply -var-file input.tfvars -auto-approve
 echo 'kill -9 ${TUNNELPID}'| tee -a kube.sh
+echo 'unset https_proxy'| tee -a kube.sh
 chmod +x kube.sh
 ./kube.sh
 if [ $? -eq 0 ]; then
