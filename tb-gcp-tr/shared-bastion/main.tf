@@ -248,10 +248,9 @@ resource "null_resource" "start-iap-tunnel" {
 
   provisioner "local-exec" {
     command = <<EOF
-echo "Waiting for startup script"
-sleep 300
-echo "starting iap tunnel"
-timeout 300 gcloud compute start-iap-tunnel tb-kube-proxy 3128 --local-host-port localhost:3128 --project ${var.shared_bastion_id} --zone ${var.region_zone} &
+echo 'gcloud compute start-iap-tunnel tb-kube-proxy 3128 --local-host-port localhost:3128 --project ${var.shared_bastion_id} --zone ${var.region_zone} > /dev/null 2>&1 &
+TUNNELPID=$1
+sleep 10' | tee -a /opt/tb/repo/tb-gcp/tr/landingZone/kube.sh
 EOF
   }
   #${local.proxy_command}="gcloud compute instances list"
