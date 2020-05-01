@@ -67,7 +67,7 @@ apply_failures=0
 while [ $apply_failures -lt $MAX_ATTEMPTS ]; do
 terraform apply -var-file input.tfvars -auto-approve
 chmod +x /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh
-./opt/tb/repo/tb-gcp-tr/landingZone/kube.sh
+/opt/tb/repo/tb-gcp-tr/landingZone/kube.sh
 if [ $? -eq 0 ]; then
 echo "Landing Zone successfully deployed."
 break
