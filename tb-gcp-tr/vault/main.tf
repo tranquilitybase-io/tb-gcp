@@ -215,7 +215,11 @@ resource "tls_locally_signed_cert" "vault" {
 }
 
 #################### K8s Config ###############################
-
+resource "null_resource" "set_proxy" {
+  provisioner "local-exec" {
+    command = "export https_proxy=\"localhost:3128\""
+  }
+}
 # Write the secret
 resource "kubernetes_secret" "vault-tls" {
   provider = kubernetes.vault
@@ -227,6 +231,10 @@ resource "kubernetes_secret" "vault-tls" {
     "vault.crt" = "${tls_locally_signed_cert.vault.cert_pem}\n${tls_self_signed_cert.vault-ca.cert_pem}"
     "vault.key" = tls_private_key.vault.private_key_pem
     "ca.crt"    = tls_self_signed_cert.vault-ca.cert_pem
+  }
+  depends_on = [null_resource.set_proxy]
+  provisioner "local-exec" {
+    command = "unset https_proxy"
   }
 }
 

@@ -66,8 +66,6 @@ done
 apply_failures=0
 while [ $apply_failures -lt $MAX_ATTEMPTS ]; do
 terraform apply -var-file input.tfvars -auto-approve
-chmod +x /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh
-/opt/tb/repo/tb-gcp-tr/landingZone/kube.sh
 if [ $? -eq 0 ]; then
 echo "Landing Zone successfully deployed."
 break
@@ -77,6 +75,9 @@ echo "Maximum of $MAX_ATTEMPTS reached. Moving on..."
 break
 fi
 echo "Landing Zone deployment failed."
+chmod +x /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh
+/opt/tb/repo/tb-gcp-tr/landingZone/kube.sh
+export HTTPS_PROXY="localhost:3128"
 apply_failures=$((apply_failures + 1))
 echo "Retry #$apply_failures starting in $DELAY_BETWEEN_ATTEMPTS seconds."
 sleep $DELAY_BETWEEN_ATTEMPTS
