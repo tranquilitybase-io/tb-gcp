@@ -75,7 +75,9 @@ echo "Maximum of $MAX_ATTEMPTS reached. Moving on..."
 break
 fi
 echo "Landing Zone deployment failed."
+chmod + /opt/tb/repo/tb-gcp-tr/landingZone/iap-tunnel.sh
 chmod +x /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh
+/opt/tb/repo/tb-gcp-tr/landingZone/iap-tunnel.sh
 /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh
 unset HTTPS_PROXY
 apply_failures=$((apply_failures + 1))
