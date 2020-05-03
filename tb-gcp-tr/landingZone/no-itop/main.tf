@@ -194,8 +194,8 @@ module "gke-secrets" {
       "display_name" = "initial-admin-ip"
     },
     {
-      "cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
-      #"cidr_block" = "172.16.0.18/32"
+      #"cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
+      "cidr_block" = "172.16.0.18/32"
     },
     ),
   ],
