@@ -217,10 +217,7 @@ resource "tls_locally_signed_cert" "vault" {
 #################### K8s Config ###############################
 resource "null_resource" "set_proxy" {
   provisioner "local-exec" {
-    command = <<EOF
-  sleep 300
-  export HTTPS_PROXY="localhost:3128"
-EOF
+    command = "export HTTPS_PROXY=\"localhost:3128\""
   }
 }
 # Write the secret
