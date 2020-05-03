@@ -104,6 +104,42 @@ cluster_opt_master_authorized_cidrs = [
 ]
 #cluster_opt_min_master_version = "latest"
 
+#KUBERNETES SECRETS FAILOVER CLUSTER
+cluster_sec_fo_name                 = "gke-sec-failover"
+cluster_sec_fo_pool_name            = "gke-sec-node-pool-failover"
+cluster_sec_fo_enable_private_nodes = "true"
+cluster_sec_fo_enable_private_endpoint = "true"
+cluster_sec_fo_master_cidr          = "172.16.0.16/28"
+cluster_sec_fo_master_authorized_cidrs = [
+  {
+    cidr_block   = "10.0.0.0/8"
+    display_name = "mgmt-1"
+  },
+  {
+    cidr_block   = "10.0.6.0/24"
+    display_name = "proxy-subnet"
+  }
+]
+
+#KUBERNETES OPERATIONS CLUSTER
+cluster_opt_subnetwork           = "shared-itsm-snet"
+cluster_opt_service_account      = "kubernetes-opt"
+cluster_opt_name                 = "gke-opt"
+cluster_opt_pool_name            = "gke-opt-node-pool"
+cluster_opt_enable_private_nodes = "true"
+cluster_opt_enable_private_endpoint = "false"
+cluster_opt_master_cidr          = "172.16.0.32/28"
+cluster_opt_master_authorized_cidrs = [
+  {
+    cidr_block   = "10.0.0.0/8"
+    display_name = "mgmt-1"
+  },
+  {
+    cidr_block   = "10.0.6.0/24"
+    display_name = "proxy-subnet"
+  }
+]
+
 #EC Deployment
 eagle_console_yaml_path = "/opt/tb/repo/tb-gcp-tr/landingZone/eagle_console.yaml"
 ec_ui_source_bucket  = "tranquility-base-ui"

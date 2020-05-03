@@ -219,7 +219,7 @@ resource "null_resource" "set_proxy" {
   provisioner "local-exec" {
     command = <<EOF
   sleep 300
-  export HTTPS_PROXY="localhost:3128\"
+  export HTTPS_PROXY="localhost:3128"
 EOF
   }
 }
