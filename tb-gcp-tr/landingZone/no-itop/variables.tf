@@ -166,12 +166,27 @@ variable "cluster_sec_service_account" {
   description = "Service account to associate to the nodes in the cluster"
 }
 
+variable "cluster_sec_fo_service_account" {
+  description = "Service account to associate to the nodes in the cluster"
+}
+
 variable "cluster_sec_oauth_scope" {
   description = "API scope to be given to Secrets Cluster, for vault leave default value"
   default     = ["cloud-platform"]
 }
 
 variable "cluster_sec_service_account_roles" {
+  type        = list(string)
+  default     = ["roles/cloudkms.cryptoKeyEncrypterDecrypter"]
+  description = "Service account to associate to the nodes in the cluster"
+}
+
+variable "cluster_sec_fo_oauth_scope" {
+  description = "API scope to be given to Secrets Cluster, for vault leave default value"
+  default     = ["cloud-platform"]
+}
+
+variable "cluster_sec_fo_service_account_roles" {
   type        = list(string)
   default     = ["roles/cloudkms.cryptoKeyEncrypterDecrypter"]
   description = "Service account to associate to the nodes in the cluster"
