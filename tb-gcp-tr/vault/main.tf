@@ -262,10 +262,10 @@ resource "null_resource" "apply" {
 
   provisioner "local-exec" {
     command = <<EOF
-gcloud container clusters get-credentials "${var.vault-gke-sec-name}" --region="${var.vault-region}" --project="${var.vault_cluster_project}" --internal-ip
+echo 'gcloud container clusters get-credentials "${var.vault-gke-sec-name}" --region="${var.vault-region}" --project="${var.vault_cluster_project}" --internal-ip
 
 CONTEXT="gke_${var.vault_cluster_project}_${var.vault-region}_${var.vault-gke-sec-name}"
-echo 'echo '${templatefile("${path.module}/../vault/k8s/vault.yaml", {
+echo \'${templatefile("${path.module}/../vault/k8s/vault.yaml", {
     load_balancer_ip         = google_compute_address.vault.address
     num_vault_pods           = var.num_vault_pods
     vault_container          = var.vault_container
@@ -277,7 +277,7 @@ echo 'echo '${templatefile("${path.module}/../vault/k8s/vault.yaml", {
     kms_key_ring             = google_kms_key_ring.vault.name
     kms_crypto_key           = google_kms_crypto_key.vault-init.name
     gcs_bucket_name          = google_storage_bucket.vault.name
-  })}' | kubectl apply --context="$CONTEXT" -f -' | tee -a /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh
+  })}\' | kubectl apply --context="$CONTEXT" -f -' | tee -a /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh
 EOF
 
   }
