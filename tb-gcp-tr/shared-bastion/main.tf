@@ -205,7 +205,7 @@ resource "google_compute_instance" "tb_kube_proxy" {
   boot_disk {
     initialize_params {
       //image = "debian-9-stretch-v20191210"
-      image = "rhel-7"
+      image = "centos-7"
     }
   }
   //metadata_startup_script = var.metadata_startup_script

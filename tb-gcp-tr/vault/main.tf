@@ -229,15 +229,6 @@ resource "kubernetes_secret" "vault-tls" {
   }
 }
 
-locals {
-  proxy_command = "gcloud compute ssh proxyuser@tb-kube-proxy --quiet --project=${var.shared_bastion_project} --zone=europe-west2-a --command"
-}
-
-#proxy_command1 = "gcloud compute ssh proxyuser@tb-kube-proxy --quiet --project=${var.shared_bastion_project} --zone=europe-west2-a --command="
-#gcloud compute ssh proxyuser@tb-kube-proxy --quiet --project="${var.shared_bastion_project}" --zone="europe-west2-a" --command="gcloud container clusters get-credentials gke-sec --region=europe-west2 --project="${var.vault_cluster_project}" --internal-ip"
-
-
-
 
 resource "null_resource" "apply" {
   triggers = {
@@ -273,11 +264,7 @@ EOF
 
   }
 }
-#gcloud compute ssh proxyuser@tb-kube-proxy --quiet --project="${var.shared_bastion_project}" --zone="europe-west2-a" -- -v -L 8118:localhost:8118
 
-#export HTTPS_PROXY=localhost:8118
-
-#gcloud container clusters get-credentials "${var.vault-gke-sec-name}" --region="${var.vault-region}" --project="${var.vault_cluster_project}" --internal-ip
 
 # Wait for all the servers to be ready
 resource "null_resource" "wait-for-finish" {
