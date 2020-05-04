@@ -283,16 +283,16 @@ EOF
 resource "null_resource" "wait-for-finish" {
   provisioner "local-exec" {
     command = <<EOF
-echo 'for i in $(seq -s " " 1 42); do
+for i in $(seq -s " " 1 42); do
   sleep $i
   CONTEXT="gke_${var.vault_cluster_project}_${var.vault-region}_${var.vault-gke-sec-name}"
-  if [ $(https_proxy=localhost:3128 kubectl --context="$CONTEXT" get pod -o jsonpath='{.items[?(@.status.phase=="Running")].metadata.name}' | wc -w) -eq ${var.num_vault_pods} ]; then
+  if [ $(kubectl --context="$CONTEXT" get pod -o jsonpath='{.items[?(@.status.phase=="Running")].metadata.name}' | wc -w) -eq ${var.num_vault_pods} ]; then
     exit 0
   fi
 done
 
 echo "Pods are not ready after 15m3s."
-exit 1' | tee -a /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh
+exit 1
 EOF
 
   }
