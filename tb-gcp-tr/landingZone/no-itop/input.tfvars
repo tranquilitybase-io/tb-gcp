@@ -66,7 +66,7 @@ gke_pod_network_name = "gke-pods-snet"
 gke_service_network_name = "gke-services-snet"
 
 #CLOUD DNS
-private_dns_name = "private DNS"
+private_dns_name = "private-landng-zone"
 private_dns_domain_name = "private.landing-zone.com"
 
 #KUBERNETES EC CLUSTER
