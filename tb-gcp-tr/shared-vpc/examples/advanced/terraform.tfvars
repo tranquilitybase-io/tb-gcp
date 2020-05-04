@@ -50,3 +50,6 @@ tags = {
     environment = "dev"
     terraform = "true"
 }
+
+private_dns_name = "private-landng-zone"
+private_dns_domain_name = "private.landing-zone.com."

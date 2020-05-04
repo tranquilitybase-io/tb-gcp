@@ -24,15 +24,17 @@ module "shared-vpc" {
   service_project_ids      = var.service_project_ids
   standard_network_subnets = var.standard_network_subnets
 
-  gke_pod_network_name     = var.gke_pod_network_name
+  gke_pod_network_name = var.gke_pod_network_name
   gke_service_network_name = var.gke_service_network_name
 
-  gke_node_network_subnets    = var.gke_node_network_subnets
-  gke_pod_network_subnets     = var.gke_pod_network_subnets
+  gke_node_network_subnets = var.gke_node_network_subnets
+  gke_pod_network_subnets = var.gke_pod_network_subnets
   gke_service_network_subnets = var.gke_service_network_subnets
 
   create_nat_gateway = var.create_nat_gateway
 
   tags = var.tags
+  private_dns_name = var.private_dns_name
+  private_dns_domain_name = var.private_dns_domain_name
 }
 

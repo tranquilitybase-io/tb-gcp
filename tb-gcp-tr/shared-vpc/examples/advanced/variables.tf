@@ -70,13 +70,24 @@ variable "gke_service_network_name" {
 
 variable "create_nat_gateway" {
   type        = string
-  default     = true
+  default = true
   description = "Boolean value to determine whether to create a NAT gateway"
 }
 
 variable "tags" {
-  type        = map(string)
-  default     = {}
+  type = map(string)
+  default = {}
   description = "A map of tags to add to all resources"
 }
 
+variable "private_dns_name" {
+  type = string
+  default = ""
+  description = "Name for private DNS zone"
+}
+
+variable "private_dns_domain_name" {
+  type = string
+  default = ""
+  description = "Domain name for private DNS"
+}
