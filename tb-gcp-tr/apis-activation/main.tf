@@ -29,6 +29,7 @@ resource "google_project_services" "project" {
     "recommender.googleapis.com",
     "serviceusage.googleapis.com",
     "storage-api.googleapis.com",
+    "dns.googleapis.com"
   ]
 }
 
