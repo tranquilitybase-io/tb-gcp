@@ -268,7 +268,7 @@ echo '${templatefile("${path.module}/../vault/k8s/vault.yaml", {
     kms_key_ring             = google_kms_key_ring.vault.name
     kms_crypto_key           = google_kms_crypto_key.vault-init.name
     gcs_bucket_name          = google_storage_bucket.vault.name
-  })}' | kubectl apply --context="$CONTEXT" -f -'
+  })}' | kubectl apply --context="$CONTEXT" -f -
 EOF
 
   }
