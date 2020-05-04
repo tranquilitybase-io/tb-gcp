@@ -4,7 +4,7 @@ steps:
   #    args: ['clone', 'https://github.com/tranquilitybase-io/tb-gcp.git']
 
   #### pull latest tbase repo, args can be inspected in app.py ####
-  - name: 'gcr.io/${PROJECT_ID}/ubuntu-terraform:latest'
+  - name: 'gcr.io/$PROJECT_ID/ubuntu-terraform:latest'
     entrypoint: 'python3'
     dir: 'tb-gcp/tb-gcp-tools'
-    args: [ 'tb-auto-projects-deleter/app.py', '${PROJECT_ID}', '${BILLING_ACCOUNT}',  'tb-projects-deleter/tb-projects-deleter', 'tb-auto-projects-deleter/service_account_permissions.sh',  '668829837500@cloudbuild.gserviceaccount.com']
+    args: [ 'tb-auto-projects-deleter/app.py', '$PROJECT_ID', '${_BILLING_ACCOUNT}',  'tb-projects-deleter/tb-projects-deleter', 'tb-auto-projects-deleter/service_account_permissions.sh',  '668829837500@cloudbuild.gserviceaccount.com']
