@@ -93,13 +93,25 @@ variable "router_nat_name" {
 
 variable "service_project_ids" {
   type        = list(string)
-  default     = []
+  default = []
   description = "Associated service projects to link with the host project."
 }
 
 variable "service_projects_number" {
-  type        = string
-  default     = ""
+  type = string
+  default = ""
   description = "Number of service projects attached to shared vpc host"
+}
+
+variable "private_dns_name" {
+  type = string
+  default = ""
+  description = "Name for private DNS zone"
+}
+
+variable "private_dns_domain_name" {
+  type = string
+  default = ""
+  description = "Domain name for private DNS"
 }
 

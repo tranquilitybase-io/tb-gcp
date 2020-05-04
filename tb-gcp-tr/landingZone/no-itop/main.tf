@@ -91,16 +91,22 @@ module "shared-vpc" {
   region                   = var.region
   shared_vpc_name          = var.shared_vpc_name
   standard_network_subnets = var.standard_network_subnets
-  enable_flow_logs         = var.enable_flow_logs
-  tags                     = var.tags
-  gke_network_subnets      = var.gke_network_subnets
-  gke_pod_network_name     = var.gke_pod_network_name
+  enable_flow_logs = var.enable_flow_logs
+  tags = var.tags
+  gke_network_subnets = var.gke_network_subnets
+  gke_pod_network_name = var.gke_pod_network_name
   gke_service_network_name = var.gke_service_network_name
-  router_name              = var.router_name
-  create_nat_gateway       = var.create_nat_gateway
-  router_nat_name          = var.router_nat_name
-  service_projects_number  = var.service_projects_number
-  service_project_ids      = [module.shared_projects.shared_secrets_id, module.shared_projects.shared_itsm_id, module.shared_projects.shared_ec_id]
+  router_name = var.router_name
+  create_nat_gateway = var.create_nat_gateway
+  router_nat_name = var.router_nat_name
+  service_projects_number = var.service_projects_number
+  service_project_ids = [
+    module.shared_projects.shared_secrets_id,
+    module.shared_projects.shared_itsm_id,
+    module.shared_projects.shared_ec_id]
+  private_dns_name = var.private_dns_name
+  private_dns_domain_name = var.private_dns_domain_name
+
 }
 
 module "gke-ec" {
