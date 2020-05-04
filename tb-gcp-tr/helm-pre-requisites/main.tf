@@ -16,11 +16,6 @@
 # * creates the tiller service account
 # * gives it cluster-admin
 
-resource "null_resource" "set_proxy" {
-  provisioner "local-exec" {
-    command = "export https_proxy=\"localhost:3128\""
-  }
-}
 
 # Create tiller's service account
 resource "kubernetes_service_account" "tiller_svc_accnt" {
@@ -28,7 +23,6 @@ resource "kubernetes_service_account" "tiller_svc_accnt" {
     name      = var.tiller_svc_accnt_name
     namespace = "kube-system"
   }
-  depends_on = [null_resource.set_proxy]
 
 }
 
@@ -55,10 +49,4 @@ resource "kubernetes_cluster_role_binding" "helm_role_binding" {
   }
 }
 
-resource "null_resource" "unset_proxy" {
-  provisioner "local-exec" {
-    command = "unset https_proxy"
-  }
-  depends_on = [kubernetes_cluster_role_binding.helm_role_binding]
-}
 
