@@ -45,7 +45,7 @@ cluster_ec_service_account      = "kubernetes-ec"
 cluster_ec_name                 = "gke-ec"
 cluster_ec_pool_name            = "gke-ec-node-pool"
 cluster_ec_enable_private_nodes = "true"
-cluster_ec_enable_private_endpoint = "false"
+cluster_ec_enable_private_endpoint = "true"
 cluster_ec_master_cidr          = "172.16.0.0/28"
 cluster_ec_master_authorized_cidrs = [
   {
@@ -67,7 +67,7 @@ cluster_sec_service_account      = "kubernetes-sec"
 cluster_sec_name                 = "gke-sec"
 cluster_sec_pool_name            = "gke-sec-node-pool"
 cluster_sec_enable_private_nodes = "true"
-cluster_sec_enable_private_endpoint = "true"
+cluster_sec_enable_private_endpoint = "false"
 cluster_sec_master_cidr          = "172.16.0.16/28"
 cluster_sec_master_authorized_cidrs = [
   {
@@ -90,7 +90,7 @@ cluster_sec_fo_name                 = "gke-sec-failover"
 cluster_sec_fo_pool_name            = "gke-sec-node-pool-failover"
 cluster_sec_fo_enable_private_nodes = "true"
 cluster_sec_fo_enable_private_endpoint = "true"
-cluster_sec_fo_master_cidr          = "172.16.0.16/28"
+cluster_sec_fo_master_cidr          = "172.16.0.48/28"
 cluster_sec_fo_master_authorized_cidrs = [
   {
     cidr_block   = "10.0.0.0/8"

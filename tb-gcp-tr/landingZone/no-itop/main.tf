@@ -144,8 +144,8 @@ module "gke-ec" {
       "display_name" = "initial-admin-ip"
     },
     {
-      "cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
-      #"cidr_block" = "172.16.0.18/32"
+      #"cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
+      "cidr_block" = "172.16.0.18/32"
     },
     ),
   ],
@@ -194,8 +194,8 @@ module "gke-secrets" {
       "display_name" = "initial-admin-ip"
     },
     {
-      #"cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
-      "cidr_block" = "172.16.0.18/32"
+      "cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
+      #"cidr_block" = "172.16.0.18/32"
     },
     ),
   ],
@@ -374,14 +374,14 @@ resource "null_resource" "kubernetes_service_account_key_secret" {
   }
 
   provisioner "local-exec" {
-    command = "kubectl --context=${module.k8s-ec_context.context_name} create secret generic ec-service-account --from-file=${local_file.ec_service_account_key.filename}"
-    #command = "echo 'kubectl --context=${module.k8s-ec_context.context_name} create secret generic ec-service-account --from-file=${local_file.ec_service_account_key.filename}' | tee -a /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh"
+    #command = "kubectl --context=${module.k8s-ec_context.context_name} create secret generic ec-service-account --from-file=${local_file.ec_service_account_key.filename}"
+    command = "echo 'kubectl --context=${module.k8s-ec_context.context_name} create secret generic ec-service-account --from-file=${local_file.ec_service_account_key.filename}' | tee -a /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh"
     #gcloud compute scp  ${local_file.ec_service_account_key.filename} proxyuser@tb-kube-proxy:~ --project=shared-bastion-404a9ed6 --zone=europe-west2-a
   }
 
   provisioner "local-exec" {
-    command = "kubectl --context=${module.k8s-ec_context.context_name} delete secret ec-service-account"
-    #command = "echo 'kubectl --context=${module.k8s-ec_context.context_name} delete secret ec-service-account' | tee -a /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh"
+    #command = "kubectl --context=${module.k8s-ec_context.context_name} delete secret ec-service-account"
+    command = "echo 'kubectl --context=${module.k8s-ec_context.context_name} delete secret ec-service-account' | tee -a /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh"
     when    = destroy
   }
 }
@@ -405,7 +405,7 @@ module "SharedServices_ec" {
 resource "null_resource" "get_endpoint" {
   provisioner "local-exec" {
     command = <<EOF
-      echo -n 'http://' > ${var.endpoint_file}
+      echo 'echo -n 'http://' > ${var.endpoint_file}
       for i in $(seq -s " " 1 35); do
         sleep $i
         ENDPOINT=$(kubectl --context=${module.k8s-ec_context.context_name} get svc istio-ingressgateway -n istio-system -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
@@ -415,7 +415,7 @@ resource "null_resource" "get_endpoint" {
         fi
       done
       echo "Loadbalancer is not reachable after 10,5 minutes"
-      exit 1
+      exit 1' | tee -a /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh
       EOF
   }
 

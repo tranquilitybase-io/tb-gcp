@@ -215,11 +215,6 @@ resource "tls_locally_signed_cert" "vault" {
 }
 
 #################### K8s Config ###############################
-resource "null_resource" "set_proxy" {
-  provisioner "local-exec" {
-    command = "export HTTPS_PROXY=\"localhost:3128\""
-  }
-}
 # Write the secret
 resource "kubernetes_secret" "vault-tls" {
   provider = kubernetes.vault
@@ -231,10 +226,6 @@ resource "kubernetes_secret" "vault-tls" {
     "vault.crt" = "${tls_locally_signed_cert.vault.cert_pem}\n${tls_self_signed_cert.vault-ca.cert_pem}"
     "vault.key" = tls_private_key.vault.private_key_pem
     "ca.crt"    = tls_self_signed_cert.vault-ca.cert_pem
-  }
-  depends_on = [null_resource.set_proxy]
-  provisioner "local-exec" {
-    command = "unset HTTPS_PROXY"
   }
 }
 
@@ -262,10 +253,10 @@ resource "null_resource" "apply" {
 
   provisioner "local-exec" {
     command = <<EOF
-echo 'gcloud container clusters get-credentials "${var.vault-gke-sec-name}" --region="${var.vault-region}" --project="${var.vault_cluster_project}" --internal-ip
+gcloud container clusters get-credentials "${var.vault-gke-sec-name}" --region="${var.vault-region}" --project="${var.vault_cluster_project}"
 
 CONTEXT="gke_${var.vault_cluster_project}_${var.vault-region}_${var.vault-gke-sec-name}"
-echo \'${templatefile("${path.module}/../vault/k8s/vault.yaml", {
+echo '${templatefile("${path.module}/../vault/k8s/vault.yaml", {
     load_balancer_ip         = google_compute_address.vault.address
     num_vault_pods           = var.num_vault_pods
     vault_container          = var.vault_container
@@ -277,7 +268,7 @@ echo \'${templatefile("${path.module}/../vault/k8s/vault.yaml", {
     kms_key_ring             = google_kms_key_ring.vault.name
     kms_crypto_key           = google_kms_crypto_key.vault-init.name
     gcs_bucket_name          = google_storage_bucket.vault.name
-  })}\' | kubectl apply --context="$CONTEXT" -f -' | tee -a /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh
+  })}' | kubectl apply --context="$CONTEXT" -f -'
 EOF
 
   }
