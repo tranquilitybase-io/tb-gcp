@@ -129,7 +129,8 @@ resource "google_compute_shared_vpc_service_project" "service_project" {
 resource "google_dns_managed_zone" "private-zone" {
   name = var.private_dns_name
   dns_name = var.private_dns_domain_name
-  description = "Example private DNS zone"
+  project = var.host_project_id
+  description = "Private DNS zone"
   #labels          = "${var.tags}"
 
   visibility = "private"
