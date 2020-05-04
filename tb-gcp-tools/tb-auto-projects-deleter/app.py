@@ -7,30 +7,22 @@ BUILD_PROJECT_ID = sys.argv[1]
 BILLING_ACCOUNT = sys.argv[2]
 PATH_DELETE_SCRIPT = sys.argv[3]
 PATH_SA_PERMISSION_SCRIPT = sys.argv[4]
+BUILD_SA_ACCOUNT = sys.argv[5]
 BOOTSTRAP_PREFIX = "bootstrap-"
 NO_DELETE_LABEL = "no-delete"
 client = resource_manager.Client()
 
 def main():
 
-    build_service_account = get_sa_name_for_cloud_build(BUILD_PROJECT_ID)
-
     projects_to_delete_list = \
         list(filter(filter_non_tb_projects, client.list_projects()))
 
     for project in projects_to_delete_list:
         folder_id = project.parent['id']
-        give_build_sa_permission_to_delete(project.id, BILLING_ACCOUNT, folder_id, BUILD_SA_NAME,
+        give_build_sa_permission_to_delete(project.id, BILLING_ACCOUNT, folder_id, BUILD_SA_ACCOUNT,
                                            PATH_SA_PERMISSION_SCRIPT)
         print("ATTEMPTING TO DELETE PROJECT {}".format(project.name))
         # call_deleter_script_for_project(project.id, BILLING_ACCOUNT, folder_id, PATH_DELETE_SCRIPT)
-
-
-def get_sa_name_for_cloud_build(project_id):
-    project = client.fetch_project(project_id)
-    sa_name = "{}@cloudbuild.gserviceaccount.com".format(project.number)
-    return sa_name
-
 
 def filter_non_tb_projects(project):
     if project.name.startswith(BOOTSTRAP_PREFIX) and NO_DELETE_LABEL in project.labels:

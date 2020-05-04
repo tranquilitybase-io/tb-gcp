@@ -7,4 +7,4 @@ steps:
   - name: 'gcr.io/${PROJECT_ID}/ubuntu-terraform:latest'
     entrypoint: 'python3'
     dir: 'tb-gcp/tb-gcp-tools'
-    args: [ 'tb-auto-projects-deleter/app.py', '${PROJECT_ID}', '${BILLING_ACCOUNT}',  'tb-projects-deleter/tb-projects-deleter', 'tb-auto-projects-deleter/service_account_permissions.sh' ]
+    args: [ 'tb-auto-projects-deleter/app.py', '${PROJECT_ID}', '${BILLING_ACCOUNT}',  'tb-projects-deleter/tb-projects-deleter', 'tb-auto-projects-deleter/service_account_permissions.sh',  '668829837500@cloudbuild.gserviceaccount.com']
