@@ -1,7 +1,7 @@
 steps:
-  #### pull latest tbase repo ####
-  - name: gcr.io/cloud-builders/git
-    args: ['clone', 'https://github.com/tranquilitybase-io/tb-gcp.git']
+#  #### pull latest tbase repo ####
+  #  - name: gcr.io/cloud-builders/git
+  #    args: ['clone', 'https://github.com/tranquilitybase-io/tb-gcp.git']
 
   #### pull latest tbase repo, args can be inspected in app.py ####
   - name: 'gcr.io/${PROJECT_ID}/ubuntu-terraform:latest'
