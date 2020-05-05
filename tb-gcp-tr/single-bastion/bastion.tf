@@ -68,14 +68,10 @@ resource "google_compute_firewall" "bastion" {
 
   allow {
     protocol = "tcp"
-    ports = [
-      "22"]
+    ports    = ["22"]
   }
 
   source_ranges = var.bastion_source_cidr
-  target_tags = [
-    "remote-mgmt"]
-
-  enable_logging = true
+  target_tags   = ["remote-mgmt"]
 }
 

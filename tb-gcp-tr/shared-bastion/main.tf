@@ -27,15 +27,12 @@ resource "google_compute_firewall" "shared-net-bast" {
   name    = "allow-iap-ingress-ssh-rdp"
   network = var.shared_vpc_name
   project = var.shared_networking_id
-  target_service_accounts = [
-    google_service_account.bastion_service_account.email]
-  source_ranges = [
-    "35.235.240.0/20"]
+  target_service_accounts = ["${google_service_account.bastion_service_account.email}"]
+  source_ranges = ["35.235.240.0/20"]
   allow {
     protocol = "tcp"
     ports    = ["3389", "22"]
   }
-  enable_logging = true
 }
 
 resource "google_compute_firewall" "bast-nat-http" {
@@ -43,15 +40,12 @@ resource "google_compute_firewall" "bast-nat-http" {
   name    = "bastion-http-https-allow"
   network = var.shared_vpc_name
   project = var.shared_networking_id
-  source_ranges = [
-    var.nat_static_ip]
-  source_service_accounts = [
-    google_service_account.bastion_service_account.email]
+  source_ranges = [var.nat_static_ip]
+  source_service_accounts = ["${google_service_account.bastion_service_account.email}"]
   allow {
     protocol = "tcp"
     ports    = ["80", "443"]
   }
-  enable_logging = true
 }
 
 data "google_compute_image" "debian_image" {

@@ -64,10 +64,9 @@ resource "google_compute_firewall" "fw_iap_ingress_ssh" {
   }
   description   = "Allows known IAP IP ranges to SSH into VMs"
   name          = "allow-iap-ingress-ssh"
-  network       = google_compute_network.bootstrap_network.name
-  project       = google_project.bootstrap-res.project_id
+  network = google_compute_network.bootstrap_network.name
+  project = google_project.bootstrap-res.project_id
   source_ranges = [
     "35.235.240.0/20"]
-  enable_logging = true
 }
 
