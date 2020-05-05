@@ -36,12 +36,6 @@ variable root_id {
   description = "ID for the parent organisation where folders will be created"
 }
 
-variable "folder_id" {
-  type        = string
-  default = "943956663445"
-  description = "Id for the parent folder where this project will be created."
-}
-
 variable "scopes" {
   type        = list(string)
   default     = ["https://www.googleapis.com/auth/cloud-platform"]

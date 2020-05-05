@@ -229,6 +229,18 @@ variable "cluster_ec_enable_private_nodes" {
   type = string
 }
 
+variable "cluster_opt_enable_private_endpoint" {
+  type = string
+}
+
+variable "cluster_sec_enable_private_endpoint" {
+  type = string
+}
+
+variable "cluster_ec_enable_private_endpoint" {
+  type = string
+}
+
 variable "cluster_ec_master_cidr" {
   type = string
 }

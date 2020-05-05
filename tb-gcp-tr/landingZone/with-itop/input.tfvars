@@ -45,6 +45,7 @@ cluster_ec_service_account      = "kubernetes-ec"
 cluster_ec_name                 = "gke-ec"
 cluster_ec_pool_name            = "gke-ec-node-pool"
 cluster_ec_enable_private_nodes = "true"
+cluster_ec_enable_private_endpoint = "true"
 cluster_ec_master_cidr          = "172.16.0.0/28"
 cluster_ec_master_authorized_cidrs = [
   {
@@ -66,6 +67,7 @@ cluster_sec_service_account      = "kubernetes-sec"
 cluster_sec_name                 = "gke-sec"
 cluster_sec_pool_name            = "gke-sec-node-pool"
 cluster_sec_enable_private_nodes = "true"
+cluster_sec_enable_private_endpoint = "false"
 cluster_sec_master_cidr          = "172.16.0.16/28"
 cluster_sec_master_authorized_cidrs = [
   {
@@ -88,6 +90,7 @@ cluster_opt_service_account      = "kubernetes-opt"
 cluster_opt_name                 = "gke-opt"
 cluster_opt_pool_name            = "gke-opt-node-pool"
 cluster_opt_enable_private_nodes = "true"
+cluster_opt_enable_private_endpoint = "false"
 cluster_opt_master_cidr          = "172.16.0.32/28"
 cluster_opt_master_authorized_cidrs = [
   {
@@ -102,7 +105,7 @@ cluster_opt_master_authorized_cidrs = [
 #cluster_opt_min_master_version = "latest"
 
 #EC Deployment
-eagle_console_yaml_path = "../eagle_console.yaml"
+eagle_console_yaml_path = "/opt/tb/repo/tb-gcp-tr/landingZone/eagle_console.yaml"
 ec_ui_source_bucket  = "tranquility-base-ui"
 ec_iam_service_account_roles = ["roles/resourcemanager.folderAdmin", "roles/resourcemanager.projectCreator",
   "roles/compute.xpnAdmin", "roles/resourcemanager.projectDeleter", "roles/billing.projectManager", "roles/owner",

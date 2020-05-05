@@ -1,5 +1,4 @@
 # Bastion Infrastructure
-
 # Create bastion service account
 resource "google_service_account" "bastion_service_account" {
   account_id   = "bastion-service-account"
@@ -90,8 +89,6 @@ data "google_compute_image" "debian_image" {
   family  = "debian-9"
   project = "debian-cloud"
 }
-
-
 
 // Create instance template for the linux instance
 resource "google_compute_instance_template" "bastion_linux_template" {

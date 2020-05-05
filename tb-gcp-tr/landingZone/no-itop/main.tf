@@ -144,7 +144,6 @@ module "gke-ec" {
       "display_name" = "initial-admin-ip"
     },
     {
-      #"cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
       "cidr_block" = "172.16.0.18/32"
     },
     ),
@@ -195,7 +194,6 @@ module "gke-secrets" {
     },
     {
       "cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
-      #"cidr_block" = "172.16.0.18/32"
     },
     ),
   ],
@@ -210,34 +208,34 @@ module "gke-secrets" {
   gke_service_network_name = var.gke_service_network_name
 }
 
-
-module "vault" {
-  source = "../../vault"
-
-  vault_cluster_project             = module.shared_projects.shared_secrets_id
-  vault-gcs-location                = var.location
-  vault-region                      = var.region
-  vault_keyring_name                = var.sec-vault-keyring
-  vault_crypto_key_name             = var.sec-vault-crypto-key-name
-  vault-lb                          = var.sec-lb-name
-  vault-sa                          = module.gke-secrets.cluster_sa
-  vault-gke-sec-endpoint            = module.gke-secrets.cluster_endpoint
-  vault-gke-sec-master-auth-ca-cert = module.gke-secrets.cluster_endpoint
-  vault-gke-sec-username            = module.gke-secrets.cluster_master_auth_username
-  vault-gke-sec-password            = module.gke-secrets.cluster_master_auth_password
-  vault-gke-sec-client-ca           = module.gke-secrets.cluster_master_auth_0_client_certificate
-  vault-gke-sec-client-key          = module.gke-secrets.cluster_master_auth_0_client_key
-  vault-gke-sec-cluster_ca_cert     = module.gke-secrets.cluster_master_auth_0_cluster_ca_certificate
-  vault-gke-sec-name                = var.cluster_sec_name
-
-  vault-cert-common-name  = var.cert-common-name
-  vault-cert-organization = var.tls-organization
-
-  apis_dependency = module.apis_activation.all_apis_enabled
-  #  shared_vpc_dependency = "${module.shared-vpc.gke_subnetwork_ids}"
-
-  shared_bastion_project = module.shared_projects.shared_bastion_id
-}
+#Vault being taken out into its own activator/module
+//module "vault" {
+//  source = "../../vault"
+//
+//  vault_cluster_project             = module.shared_projects.shared_secrets_id
+//  vault-gcs-location                = var.location
+//  vault-region                      = var.region
+//  vault_keyring_name                = var.sec-vault-keyring
+//  vault_crypto_key_name             = var.sec-vault-crypto-key-name
+//  vault-lb                          = var.sec-lb-name
+//  vault-sa                          = module.gke-secrets.cluster_sa
+//  vault-gke-sec-endpoint            = module.gke-secrets.cluster_endpoint
+//  vault-gke-sec-master-auth-ca-cert = module.gke-secrets.cluster_endpoint
+//  vault-gke-sec-username            = module.gke-secrets.cluster_master_auth_username
+//  vault-gke-sec-password            = module.gke-secrets.cluster_master_auth_password
+//  vault-gke-sec-client-ca           = module.gke-secrets.cluster_master_auth_0_client_certificate
+//  vault-gke-sec-client-key          = module.gke-secrets.cluster_master_auth_0_client_key
+//  vault-gke-sec-cluster_ca_cert     = module.gke-secrets.cluster_master_auth_0_cluster_ca_certificate
+//  vault-gke-sec-name                = var.cluster_sec_name
+//
+//  vault-cert-common-name  = var.cert-common-name
+//  vault-cert-organization = var.tls-organization
+//
+//  apis_dependency = module.apis_activation.all_apis_enabled
+//  #  shared_vpc_dependency = "${module.shared-vpc.gke_subnetwork_ids}"
+//
+//  shared_bastion_project = module.shared_projects.shared_bastion_id
+//}
 
 module "gke-itsm" {
   source = "../../kubernetes-cluster-creation"
@@ -269,7 +267,6 @@ module "gke-itsm" {
     },
     {
       "cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
-      #"cidr_block" = "172.16.0.18/32"
     },
     ),
   ],
@@ -330,12 +327,10 @@ resource "null_resource" "kubernetes_service_account_key_secret" {
   }
 
   provisioner "local-exec" {
-    #command = "kubectl --context=${module.k8s-ec_context.context_name} create secret generic ec-service-account --from-file=${local_file.ec_service_account_key.filename}"
     command = "echo 'kubectl --context=${module.k8s-ec_context.context_name} create secret generic ec-service-account --from-file=${local_file.ec_service_account_key.filename}' | tee -a /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh"
   }
 
   provisioner "local-exec" {
-    #command = "kubectl --context=${module.k8s-ec_context.context_name} delete secret ec-service-account"
     command = "echo 'kubectl --context=${module.k8s-ec_context.context_name} delete secret ec-service-account' | tee -a /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh"
     when    = destroy
   }
