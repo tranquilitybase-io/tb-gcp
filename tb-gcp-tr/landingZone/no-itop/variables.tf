@@ -166,27 +166,12 @@ variable "cluster_sec_service_account" {
   description = "Service account to associate to the nodes in the cluster"
 }
 
-variable "cluster_sec_fo_service_account" {
-  description = "Service account to associate to the nodes in the cluster"
-}
-
 variable "cluster_sec_oauth_scope" {
   description = "API scope to be given to Secrets Cluster, for vault leave default value"
   default     = ["cloud-platform"]
 }
 
 variable "cluster_sec_service_account_roles" {
-  type        = list(string)
-  default     = ["roles/cloudkms.cryptoKeyEncrypterDecrypter"]
-  description = "Service account to associate to the nodes in the cluster"
-}
-
-variable "cluster_sec_fo_oauth_scope" {
-  description = "API scope to be given to Secrets Cluster, for vault leave default value"
-  default     = ["cloud-platform"]
-}
-
-variable "cluster_sec_fo_service_account_roles" {
   type        = list(string)
   default     = ["roles/cloudkms.cryptoKeyEncrypterDecrypter"]
   description = "Service account to associate to the nodes in the cluster"
@@ -216,10 +201,6 @@ variable "cluster_sec_name" {
   description = "The cluster name"
 }
 
-variable "cluster_sec_fo_name" {
-  description = "The cluster name"
-}
-
 variable "cluster_opt_name" {
   description = "The cluster name"
 }
@@ -229,10 +210,6 @@ variable "cluster_ec_pool_name" {
 }
 
 variable "cluster_sec_pool_name" {
-  description = "The cluster pool name"
-}
-
-variable "cluster_sec_fo_pool_name" {
   description = "The cluster pool name"
 }
 
@@ -248,10 +225,6 @@ variable "cluster_sec_enable_private_nodes" {
   type = string
 }
 
-variable "cluster_sec_fo_enable_private_nodes" {
-  type = string
-}
-
 variable "cluster_ec_enable_private_nodes" {
   type = string
 }
@@ -261,10 +234,6 @@ variable "cluster_opt_enable_private_endpoint" {
 }
 
 variable "cluster_sec_enable_private_endpoint" {
-  type = string
-}
-
-variable "cluster_sec_fo_enable_private_endpoint" {
   type = string
 }
 
@@ -280,10 +249,6 @@ variable "cluster_sec_master_cidr" {
   type = string
 }
 
-variable "cluster_sec_fo_master_cidr" {
-  type = string
-}
-
 variable "cluster_opt_master_cidr" {
   type = string
 }
@@ -296,13 +261,6 @@ variable "cluster_ec_master_authorized_cidrs" {
 }
 
 variable "cluster_sec_master_authorized_cidrs" {
-  type = list(object({
-    cidr_block   = string
-    display_name = string
-  }))
-}
-
-variable "cluster_sec_fo_master_authorized_cidrs" {
   type = list(object({
     cidr_block   = string
     display_name = string

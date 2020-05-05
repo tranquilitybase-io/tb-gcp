@@ -16,14 +16,12 @@
 # * creates the tiller service account
 # * gives it cluster-admin
 
-
 # Create tiller's service account
 resource "kubernetes_service_account" "tiller_svc_accnt" {
   metadata {
     name      = var.tiller_svc_accnt_name
     namespace = "kube-system"
   }
-
 }
 
 # Setup RBAC for tiller service account
@@ -48,5 +46,4 @@ resource "kubernetes_cluster_role_binding" "helm_role_binding" {
     command = "sleep 15"
   }
 }
-
 

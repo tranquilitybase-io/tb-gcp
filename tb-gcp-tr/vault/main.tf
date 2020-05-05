@@ -215,6 +215,7 @@ resource "tls_locally_signed_cert" "vault" {
 }
 
 #################### K8s Config ###############################
+
 # Write the secret
 resource "kubernetes_secret" "vault-tls" {
   provider = kubernetes.vault
@@ -228,7 +229,6 @@ resource "kubernetes_secret" "vault-tls" {
     "ca.crt"    = tls_self_signed_cert.vault-ca.cert_pem
   }
 }
-
 
 resource "null_resource" "apply" {
   triggers = {
@@ -264,7 +264,6 @@ EOF
 
   }
 }
-
 
 # Wait for all the servers to be ready
 resource "null_resource" "wait-for-finish" {

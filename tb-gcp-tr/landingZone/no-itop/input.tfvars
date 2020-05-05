@@ -84,23 +84,6 @@ vault-lb-name     = "sec-vault-lb"
 sec-vault-keyring = "vault"
 location          = "EU"
 
-#KUBERNETES SECRETS FAILOVER CLUSTER
-cluster_sec_fo_service_account      = "kubernetes-fo-sec"
-cluster_sec_fo_name                 = "gke-sec-failover"
-cluster_sec_fo_pool_name            = "gke-sec-node-pool-failover"
-cluster_sec_fo_enable_private_nodes = "true"
-cluster_sec_fo_enable_private_endpoint = "true"
-cluster_sec_fo_master_cidr          = "172.16.0.48/28"
-cluster_sec_fo_master_authorized_cidrs = [
-  {
-    cidr_block   = "10.0.0.0/8"
-    display_name = "mgmt-1"
-  },
-  {
-    cidr_block   = "10.0.6.0/24"
-    display_name = "proxy-subnet"
-  }
-]
 
 #KUBERNETES OPERATIONS CLUSTER
 cluster_opt_subnetwork           = "shared-itsm-snet"

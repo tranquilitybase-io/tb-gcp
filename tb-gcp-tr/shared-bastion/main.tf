@@ -204,12 +204,11 @@ resource "google_compute_instance" "tb_kube_proxy" {
   machine_type = "n1-standard-2"
   boot_disk {
     initialize_params {
-      //image = "debian-9-stretch-v20191210"
       image = "centos-7"
     }
   }
   //metadata_startup_script = var.metadata_startup_script
-  metadata_startup_script = file("${path.module}/squid_new.sh")
+  metadata_startup_script = file("${path.module}/squid_startup.sh")
   network_interface {
     subnetwork = "projects/${var.shared_networking_id}/regions/${var.region}/subnetworks/bastion-subnetwork"
   }
@@ -218,31 +217,6 @@ resource "google_compute_instance" "tb_kube_proxy" {
     scopes = var.scopes
   }
 }
-
-//resource "google_compute_instance" "tb_kube_proxy-dev" {
-//  depends_on = [
-//    google_service_account.bastion_service_account]
-//  project = var.shared_bastion_id
-//  zone = var.region_zone
-//  name = "tb-kube-proxy-dev"
-//  machine_type = "n1-standard-2"
-//  boot_disk {
-//    initialize_params {
-//      image = "debian-9-stretch-v20191210"
-//      #image = "rhel-8"
-//    }
-//  }
-//  //metadata_startup_script = var.metadata_startup_script
-//  #metadata_startup_script = file("${path.module}/privoxy_startup.sh")
-//  network_interface {
-//    subnetwork = "projects/${var.shared_networking_id}/regions/${var.region}/subnetworks/bastion-subnetwork"
-//  }
-//  service_account {
-//    email = google_service_account.proxy-sa-res.email
-//    scopes = var.scopes
-//  }
-//}
-
 
 resource "null_resource" "start-iap-tunnel" {
 
@@ -254,6 +228,5 @@ sleep 10
 export HTTPS_PROXY="localhost:3128"' | tee -a /opt/tb/repo/tb-gcp-tr/landingZone/iap-tunnel.sh
 EOF
   }
-  #${local.proxy_command}="gcloud compute instances list"
   depends_on = [google_compute_instance.tb_kube_proxy]
 }
