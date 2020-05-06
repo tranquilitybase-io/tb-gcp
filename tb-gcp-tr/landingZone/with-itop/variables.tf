@@ -229,16 +229,19 @@ variable "cluster_ec_enable_private_nodes" {
   type = string
 }
 
+#Bool input for whether opt cluster has private endpoint or not.
 variable "cluster_opt_enable_private_endpoint" {
-  type = string
+  type = bool
 }
 
+#Bool input for whether sec cluster has private endpoint or not.
 variable "cluster_sec_enable_private_endpoint" {
-  type = string
+  type = bool
 }
 
+#Bool input for whether ec cluster has private endpoint or not.
 variable "cluster_ec_enable_private_endpoint" {
-  type = string
+  type = bool
 }
 
 variable "cluster_ec_master_cidr" {
