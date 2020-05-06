@@ -74,9 +74,9 @@ resource "google_compute_firewall" "remote-mgmt-iap" {
   description = "Allow inbound connections from iap"
   direction   = "INGRESS"
   source_service_accounts = [google_service_account.proxy-sa-res.email]
-  allow {
-    protocol = "icmp"
-  }
+//  allow {
+//    protocol = "icmp"
+//  }
 
   allow {
     protocol = "tcp"
@@ -204,7 +204,6 @@ resource "google_compute_instance" "tb_kube_proxy" {
       image = "centos-7"
     }
   }
-  //metadata_startup_script = var.metadata_startup_script
   metadata_startup_script = file("${path.module}/squid_startup.sh")
   network_interface {
     subnetwork = "projects/${var.shared_networking_id}/regions/${var.region}/subnetworks/bastion-subnetwork"
