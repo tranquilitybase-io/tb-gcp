@@ -28,9 +28,9 @@ output "sec-gke-endpoint" {
   value = module.gke-secrets.cluster_endpoint
 }
 
-output "vault-root-token" {
-  value = module.vault.root_token
-}
+#output "vault-root-token" {
+#  value = module.vault.root_token
+#}
 
 output "nat-static-ip" {
   value = module.shared-vpc.nat_static_ip
