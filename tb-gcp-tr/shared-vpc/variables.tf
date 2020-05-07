@@ -105,13 +105,13 @@ variable "service_projects_number" {
 
 variable "private_dns_name" {
   type        = string
-  default     = ""
-  description = "Name for private DNS zone"
+  default = ""
+  description = "Name for private DNS zone in the shared vpc network"
 }
 
 variable "private_dns_domain_name" {
   type        = string
-  default     = ""
-  description = "Domain name for private DNS"
+  default = ""
+  description = "Domain name for private DNS in the shared vpc network"
 }
 
