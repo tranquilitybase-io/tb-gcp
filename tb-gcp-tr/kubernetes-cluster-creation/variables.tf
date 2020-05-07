@@ -47,6 +47,11 @@ variable "cluster_enable_private_nodes" {
   type    = string
 }
 
+variable "cluster_enable_private_endpoint" {
+  default = false
+  type    = bool
+}
+
 variable "cluster_master_cidr" {
   type = string
 }
