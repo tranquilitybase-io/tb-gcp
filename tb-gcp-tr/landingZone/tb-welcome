@@ -43,10 +43,6 @@ echo "Billing Id is ${BILLING_ID}"
 echo "Setting [${SA_EMAIL}] as active account"
 sudo gcloud config set account ${SA_EMAIL}
 
-#Make the IAP and Kubectl command scripts executable
-chmod +x /opt/tb/repo/tb-gcp-tr/landingZone/iap-tunnel.sh
-chmod +x /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh
-
 echo "Terraform init"
 # delay to allow nat gateway to be created
 sleep $DELAY_BETWEEN_ATTEMPTS
@@ -71,7 +67,6 @@ apply_failures=0
 while [ $apply_failures -lt $MAX_ATTEMPTS ]; do
 terraform apply -var-file input.tfvars -auto-approve
 if [ $? -eq 0 ]; then
-/opt/tb/repo/tb-gcp-tr/landingZone/iap-tunnel.sh && /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh
 echo "Landing Zone successfully deployed."
 break
 fi
@@ -80,7 +75,6 @@ echo "Maximum of $MAX_ATTEMPTS reached. Moving on..."
 break
 fi
 echo "Landing Zone deployment failed."
-/opt/tb/repo/tb-gcp-tr/landingZone/iap-tunnel.sh && /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh
 apply_failures=$((apply_failures + 1))
 echo "Retry #$apply_failures starting in $DELAY_BETWEEN_ATTEMPTS seconds."
 sleep $DELAY_BETWEEN_ATTEMPTS

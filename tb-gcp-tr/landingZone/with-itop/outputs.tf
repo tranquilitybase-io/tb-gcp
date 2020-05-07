@@ -33,9 +33,9 @@ output "itop_db_user_password" {
   value = module.itop.database_instance_connection_password
 }
 
-#output "vault-root-token" {
-#  value = module.vault.root_token
-#}
+output "vault-root-token" {
+  value = module.vault.root_token
+}
 
 output "nat-static-ip" {
   value = module.shared-vpc.nat_static_ip
