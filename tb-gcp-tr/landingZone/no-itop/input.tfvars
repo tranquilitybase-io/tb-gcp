@@ -14,11 +14,11 @@
 
 #SHARED PROJECTS CREATION
 shared_networking_project_name = "shared-networking"
-shared_secrets_project_name   = "shared-secrets"
+shared_secrets_project_name    = "shared-secrets"
 shared_telemetry_project_name  = "shared-telemetry"
-shared_itsm_project_name = "shared-itsm"
+shared_itsm_project_name       = "shared-itsm"
 shared_billing_project_name    = "shared-billing"
-shared_bastion_project_name = "shared-bastion"
+shared_bastion_project_name    = "shared-bastion"
 
 #APIs ACTIVATION
 
@@ -33,49 +33,49 @@ standard_network_subnets = [{
 enable_flow_logs = "false"
 gke_network_subnets = [
   {
-    name = "shared-ec-snet",
-    cidr = "10.0.1.0/24",
-    pod_cidr = "10.1.0.0/17",
+    name         = "shared-ec-snet",
+    cidr         = "10.0.1.0/24",
+    pod_cidr     = "10.1.0.0/17",
     service_cidr = "10.1.128.0/20"
   },
   {
-    name = "shared-itsm-snet",
-    cidr = "10.0.2.0/24",
-    pod_cidr = "10.2.0.0/17",
+    name         = "shared-itsm-snet",
+    cidr         = "10.0.2.0/24",
+    pod_cidr     = "10.2.0.0/17",
     service_cidr = "10.2.128.0/20"
   },
   {
-    name = "shared-secrets-snet",
-    cidr = "10.0.3.0/24",
-    pod_cidr = "10.3.0.0/17",
+    name         = "shared-secrets-snet",
+    cidr         = "10.0.3.0/24",
+    pod_cidr     = "10.3.0.0/17",
     service_cidr = "10.3.128.0/20"
   },
   {
-    name = "activator-project-snet",
-    cidr = "10.0.4.0/24",
-    pod_cidr = "10.4.0.0/17",
+    name         = "activator-project-snet",
+    cidr         = "10.0.4.0/24",
+    pod_cidr     = "10.4.0.0/17",
     service_cidr = "10.4.128.0/20"
   },
   {
-    name = "workspace-project-snet",
-    cidr = "10.0.5.0/24",
-    pod_cidr = "10.5.0.0/17",
+    name         = "workspace-project-snet",
+    cidr         = "10.0.5.0/24",
+    pod_cidr     = "10.5.0.0/17",
     service_cidr = "10.5.128.0/20"
-  }]
-gke_pod_network_name = "gke-pods-snet"
+}]
+gke_pod_network_name     = "gke-pods-snet"
 gke_service_network_name = "gke-services-snet"
 
 #CLOUD DNS
-private_dns_name = "private-landing-zone"
+private_dns_name        = "private-landing-zone"
 private_dns_domain_name = "private.landing-zone.com."
 
 #KUBERNETES EC CLUSTER
-cluster_ec_subnetwork = "shared-ec-snet"
-cluster_ec_service_account = "kubernetes-ec"
-cluster_ec_name = "gke-ec"
-cluster_ec_pool_name = "gke-ec-node-pool"
+cluster_ec_subnetwork           = "shared-ec-snet"
+cluster_ec_service_account      = "kubernetes-ec"
+cluster_ec_name                 = "gke-ec"
+cluster_ec_pool_name            = "gke-ec-node-pool"
 cluster_ec_enable_private_nodes = "true"
-cluster_ec_master_cidr = "172.16.0.0/28"
+cluster_ec_master_cidr          = "172.16.0.0/28"
 cluster_ec_master_authorized_cidrs = [
   {
     cidr_block   = "10.0.0.0/8"
@@ -83,7 +83,7 @@ cluster_ec_master_authorized_cidrs = [
   }
 ]
 #cluster_ec_min_master_version = "latest"
-istio_status        = "false"
+istio_status       = "false"
 ec_repository_name = "EC-activator-tf"
 
 #KUBERNETES SECRETS CLUSTER
@@ -121,10 +121,10 @@ cluster_opt_master_authorized_cidrs = [
 
 #EC Deployment
 eagle_console_yaml_path = "../eagle_console.yaml"
-ec_ui_source_bucket  = "tranquility-base-ui"
+ec_ui_source_bucket     = "tranquility-base-ui"
 ec_iam_service_account_roles = ["roles/resourcemanager.folderAdmin", "roles/resourcemanager.projectCreator",
   "roles/compute.xpnAdmin", "roles/resourcemanager.projectDeleter", "roles/billing.projectManager", "roles/owner",
-  "roles/compute.networkAdmin", "roles/datastore.owner", "roles/browser", "roles/resourcemanager.projectIamAdmin"]
+"roles/compute.networkAdmin", "roles/datastore.owner", "roles/browser", "roles/resourcemanager.projectIamAdmin"]
 
 # Vault deployment
 sec-vault-crypto-key-name = "vault-init"

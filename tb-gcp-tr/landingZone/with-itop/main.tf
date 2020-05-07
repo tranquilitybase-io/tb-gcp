@@ -17,15 +17,15 @@
 ###
 
 provider "google" {
-  region = var.region
-  zone   = var.region_zone
+  region  = var.region
+  zone    = var.region_zone
   version = "~> 2.5"
 }
 
 provider "google" {
-  alias  = "vault"
-  region = var.region
-  zone   = var.region_zone
+  alias   = "vault"
+  region  = var.region
+  zone    = var.region_zone
   version = "~> 2.5"
 }
 
@@ -38,7 +38,7 @@ provider "google-beta" {
 }
 
 provider "kubernetes" {
-  alias = "k8s"
+  alias   = "k8s"
   version = "~> 1.10.0"
 }
 
@@ -67,18 +67,18 @@ module "shared_projects" {
   root_id                        = module.folder_structure.shared_services_id
   billing_account_id             = var.billing_account_id
   shared_networking_project_name = var.shared_networking_project_name
-  shared_secrets_project_name   = var.shared_secrets_project_name
+  shared_secrets_project_name    = var.shared_secrets_project_name
   shared_telemetry_project_name  = var.shared_telemetry_project_name
-  shared_itsm_project_name = var.shared_itsm_project_name
+  shared_itsm_project_name       = var.shared_itsm_project_name
   shared_billing_project_name    = var.shared_billing_project_name
-  shared_bastion_project_name = var.shared_bastion_project_name
+  shared_bastion_project_name    = var.shared_bastion_project_name
 }
 
 module "apis_activation" {
   source = "../../apis-activation"
 
-  ec_project_id          = module.shared_projects.shared_ec_id
-  bastion_project_id              = module.shared_projects.shared_bastion_id
+  ec_project_id           = module.shared_projects.shared_ec_id
+  bastion_project_id      = module.shared_projects.shared_bastion_id
   host_project_id         = module.shared_projects.shared_networking_id
   service_projects_number = var.service_projects_number
   service_project_ids     = [module.shared_projects.shared_secrets_id, module.shared_projects.shared_itsm_id, module.shared_projects.shared_ec_id]
@@ -91,20 +91,20 @@ module "shared-vpc" {
   region                   = var.region
   shared_vpc_name          = var.shared_vpc_name
   standard_network_subnets = var.standard_network_subnets
-  enable_flow_logs = var.enable_flow_logs
-  tags = var.tags
-  gke_network_subnets = var.gke_network_subnets
-  gke_pod_network_name = var.gke_pod_network_name
+  enable_flow_logs         = var.enable_flow_logs
+  tags                     = var.tags
+  gke_network_subnets      = var.gke_network_subnets
+  gke_pod_network_name     = var.gke_pod_network_name
   gke_service_network_name = var.gke_service_network_name
-  router_name = var.router_name
-  create_nat_gateway = var.create_nat_gateway
-  router_nat_name = var.router_nat_name
-  service_projects_number = var.service_projects_number
+  router_name              = var.router_name
+  create_nat_gateway       = var.create_nat_gateway
+  router_nat_name          = var.router_nat_name
+  service_projects_number  = var.service_projects_number
   service_project_ids = [
     module.shared_projects.shared_secrets_id,
     module.shared_projects.shared_itsm_id,
-    module.shared_projects.shared_ec_id]
-  private_dns_name = var.private_dns_name
+  module.shared_projects.shared_ec_id]
+  private_dns_name        = var.private_dns_name
   private_dns_domain_name = var.private_dns_domain_name
 }
 
@@ -128,17 +128,17 @@ module "gke-ec" {
   cluster_pool_name            = var.cluster_ec_pool_name
   cluster_master_cidr          = var.cluster_ec_master_cidr
   cluster_master_authorized_cidrs = concat(
-  var.cluster_ec_master_authorized_cidrs,
-  [
-    merge(
-    {
-      "display_name" = "initial-admin-ip"
-    },
-    {
-      "cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
-    },
-    ),
-  ],
+    var.cluster_ec_master_authorized_cidrs,
+    [
+      merge(
+        {
+          "display_name" = "initial-admin-ip"
+        },
+        {
+          "cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
+        },
+      ),
+    ],
   )
   cluster_min_master_version = var.cluster_ec_min_master_version
 
@@ -176,17 +176,17 @@ module "gke-secrets" {
   cluster_pool_name             = var.cluster_sec_pool_name
   cluster_master_cidr           = var.cluster_sec_master_cidr
   cluster_master_authorized_cidrs = concat(
-  var.cluster_sec_master_authorized_cidrs,
-  [
-    merge(
-    {
-      "display_name" = "initial-admin-ip"
-    },
-    {
-      "cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
-    },
-    ),
-  ],
+    var.cluster_sec_master_authorized_cidrs,
+    [
+      merge(
+        {
+          "display_name" = "initial-admin-ip"
+        },
+        {
+          "cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
+        },
+      ),
+    ],
   )
   cluster_min_master_version = var.cluster_sec_min_master_version
   istio_status               = var.istio_status
@@ -245,17 +245,17 @@ module "gke-itsm" {
   cluster_pool_name            = var.cluster_opt_pool_name
   cluster_master_cidr          = var.cluster_opt_master_cidr
   cluster_master_authorized_cidrs = concat(
-  var.cluster_opt_master_authorized_cidrs,
-  [
-    merge(
-    {
-      "display_name" = "initial-admin-ip"
-    },
-    {
-      "cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
-    },
-    ),
-  ],
+    var.cluster_opt_master_authorized_cidrs,
+    [
+      merge(
+        {
+          "display_name" = "initial-admin-ip"
+        },
+        {
+          "cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
+        },
+      ),
+    ],
   )
   cluster_min_master_version = var.cluster_opt_min_master_version
 
@@ -274,7 +274,7 @@ provider "kubernetes" {
   load_config_file       = false
   cluster_ca_certificate = base64decode(module.gke-itsm.cluster_ca_certificate)
   token                  = data.google_client_config.current.access_token
-  version = "~> 1.10.0"
+  version                = "~> 1.10.0"
 }
 
 # Deploy gke-itsm cluster helm pre-requisite resources
@@ -295,7 +295,7 @@ provider "helm" {
     token                  = data.google_client_config.current.access_token
   }
   service_account = module.gke_itsm_helm_pre_req.tiller_svc_accnt_name
-  version = "~> 0.10.4"
+  version         = "~> 0.10.4"
 }
 
 # Deploys itop on GKE Operations cluster
@@ -322,7 +322,7 @@ module "k8s-ec_context" {
   source = "../../k8s-context"
 
   cluster_name    = var.cluster_ec_name
-  region = var.region
+  region          = var.region
   cluster_project = module.shared_projects.shared_ec_id
   dependency_var  = module.gke-ec.node_id
 }
@@ -403,10 +403,10 @@ resource "google_sourcerepo_repository_iam_binding" "terraform-code-store-admin-
 module "bastion-security" {
   source = "../../shared-bastion"
 
-  region = var.region
-  region_zone = var.region_zone
-  shared_bastion_id = module.shared_projects.shared_bastion_id
-  shared_networking_id = module.shared_projects.shared_networking_id
-  nat_static_ip = module.shared-vpc.nat_static_ip
+  region                        = var.region
+  region_zone                   = var.region_zone
+  shared_bastion_id             = module.shared_projects.shared_bastion_id
+  shared_networking_id          = module.shared_projects.shared_networking_id
+  nat_static_ip                 = module.shared-vpc.nat_static_ip
   shared_bastion_project_number = module.shared_projects.shared_bastion_project_number
 }

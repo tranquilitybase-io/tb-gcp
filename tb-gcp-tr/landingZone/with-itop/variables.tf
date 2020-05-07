@@ -347,23 +347,23 @@ variable "terraform_state_bucket_name" {
 
 variable "clusters_master_whitelist_ip" {
   description = "IP to add to the GKE clusters' master authorized networks"
-  type = string
+  type        = string
 }
 
 variable "ec_ui_source_bucket" {
   description = "GCS Bucket hosting Self Service Portal Angular source code."
-  type = string
+  type        = string
 }
 
 #DNS variables
 variable "private_dns_name" {
-  type = string
-  default = ""
+  type        = string
+  default     = ""
   description = "Name for private DNS zone"
 }
 
 variable "private_dns_domain_name" {
-  type = string
-  default = ""
+  type        = string
+  default     = ""
   description = "Domain name for private DNS"
 }

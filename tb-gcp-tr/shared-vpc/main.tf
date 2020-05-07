@@ -40,7 +40,6 @@ resource "google_compute_subnetwork" "standard" {
   network          = google_compute_network.shared_network.name
   enable_flow_logs = var.enable_flow_logs
 
-  #labels           = "${var.tags}"
   depends_on = [google_compute_network.shared_network]
 }
 
