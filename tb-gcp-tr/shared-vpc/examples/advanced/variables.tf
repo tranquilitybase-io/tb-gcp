@@ -19,8 +19,8 @@ variable "region" {
 }
 
 variable "region_zone" {
-  default = "europe-west2-a"
-  type    = string
+  default     = "europe-west2-a"
+  type        = string
   description = "zone name in the region provided."
 }
 
@@ -37,7 +37,7 @@ variable "service_project_ids" {
 }
 
 variable "standard_network_subnets" {
-  type        = list(object({
+  type = list(object({
     Name = string
     CIDR = string
   }))
@@ -46,7 +46,7 @@ variable "standard_network_subnets" {
 }
 
 variable "gke_network_subnets" {
-  type           = list(object({
+  type = list(object({
     Name         = string
     node_cidr    = string
     pod_cird     = string
@@ -70,24 +70,24 @@ variable "gke_service_network_name" {
 
 variable "create_nat_gateway" {
   type        = string
-  default = true
+  default     = true
   description = "Boolean value to determine whether to create a NAT gateway"
 }
 
 variable "tags" {
-  type = map(string)
-  default = {}
+  type        = map(string)
+  default     = {}
   description = "A map of tags to add to all resources"
 }
 
 variable "private_dns_name" {
-  type = string
-  default = ""
+  type        = string
+  default     = ""
   description = "Name for private DNS zone"
 }
 
 variable "private_dns_domain_name" {
-  type = string
-  default = ""
+  type        = string
+  default     = ""
   description = "Domain name for private DNS"
 }

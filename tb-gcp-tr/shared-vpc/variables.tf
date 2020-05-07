@@ -25,7 +25,7 @@ variable "shared_vpc_name" {
 }
 
 variable "standard_network_subnets" {
-  type        = list(object({
+  type = list(object({
     name = string
     cidr = string
   }))
@@ -51,10 +51,10 @@ variable "tags" {
 }
 
 variable "gke_network_subnets" {
-  type        = list(object({
-    name = string
-    cidr = string
-    pod_cidr = string
+  type = list(object({
+    name         = string
+    cidr         = string
+    pod_cidr     = string
     service_cidr = string
   }))
   default     = []
@@ -93,25 +93,25 @@ variable "router_nat_name" {
 
 variable "service_project_ids" {
   type        = list(string)
-  default = []
+  default     = []
   description = "Associated service projects to link with the host project."
 }
 
 variable "service_projects_number" {
-  type = string
-  default = ""
+  type        = string
+  default     = ""
   description = "Number of service projects attached to shared vpc host"
 }
 
 variable "private_dns_name" {
-  type = string
-  default = ""
+  type        = string
+  default     = ""
   description = "Name for private DNS zone"
 }
 
 variable "private_dns_domain_name" {
-  type = string
-  default = ""
+  type        = string
+  default     = ""
   description = "Domain name for private DNS"
 }
 
