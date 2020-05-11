@@ -51,6 +51,11 @@ resource "google_project_service" "bastion-recommender" {
   service = "recommender.googleapis.com"
   depends_on = ["google_project_services.project"]
 }
+resource "google_project_service" "bastion-kubernetes" {
+  project = var.bastion_project_id
+  service = "container.googleapis.com"
+  depends_on = ["google_project_services.project"]
+}
 
 resource "google_project_services" "project_shared" {
   count   = var.service_projects_number

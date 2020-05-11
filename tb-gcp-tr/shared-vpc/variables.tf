@@ -33,6 +33,12 @@ variable "standard_network_subnets" {
   description = "cidr ranges for standard (non-gke) subnetworks"
 }
 
+variable "bastion_subnet_cidr" {
+  type        = string
+  default     = "10.0.6.0/24"
+  description = "cidr range for the bastion subnetwork"
+}
+
 variable "region" {
   type        = string
   description = "region name"

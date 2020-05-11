@@ -91,6 +91,7 @@ module "shared-vpc" {
   region                   = var.region
   shared_vpc_name          = var.shared_vpc_name
   standard_network_subnets = var.standard_network_subnets
+  bastion_subnet_cidr      = var.bastion_subnetwork_cidr
   enable_flow_logs         = var.enable_flow_logs
   tags                     = var.tags
   gke_network_subnets      = var.gke_network_subnets
@@ -100,13 +101,19 @@ module "shared-vpc" {
   create_nat_gateway       = var.create_nat_gateway
   router_nat_name          = var.router_nat_name
   service_projects_number  = var.service_projects_number
-  service_project_ids = [
-    module.shared_projects.shared_secrets_id,
-    module.shared_projects.shared_itsm_id,
-  module.shared_projects.shared_ec_id]
-  private_dns_name        = var.private_dns_name
-  private_dns_domain_name = var.private_dns_domain_name
+  service_project_ids      = [module.shared_projects.shared_secrets_id, module.shared_projects.shared_itsm_id, module.shared_projects.shared_ec_id]
+}
 
+module "bastion-security" {
+  source = "../../shared-bastion"
+
+  region                        = var.region
+  region_zone                   = var.region_zone
+  shared_bastion_id             = module.shared_projects.shared_bastion_id
+  shared_networking_id          = module.shared_projects.shared_networking_id
+  nat_static_ip                 = module.shared-vpc.nat_static_ip
+  root_id                       = var.root_id
+  shared_bastion_project_number = module.shared_projects.shared_bastion_project_number
 }
 
 module "gke-ec" {
@@ -121,13 +128,14 @@ module "gke-ec" {
   sharedvpc_project_id = module.shared_projects.shared_networking_id
   sharedvpc_network    = var.shared_vpc_name
 
-  cluster_enable_private_nodes = var.cluster_ec_enable_private_nodes
-  cluster_project_id           = module.shared_projects.shared_ec_id
-  cluster_subnetwork           = var.cluster_ec_subnetwork
-  cluster_service_account      = var.cluster_ec_service_account
-  cluster_name                 = var.cluster_ec_name
-  cluster_pool_name            = var.cluster_ec_pool_name
-  cluster_master_cidr          = var.cluster_ec_master_cidr
+  cluster_enable_private_nodes    = var.cluster_ec_enable_private_nodes
+  cluster_enable_private_endpoint = var.cluster_ec_enable_private_endpoint
+  cluster_project_id              = module.shared_projects.shared_ec_id
+  cluster_subnetwork              = var.cluster_ec_subnetwork
+  cluster_service_account         = var.cluster_ec_service_account
+  cluster_name                    = var.cluster_ec_name
+  cluster_pool_name               = var.cluster_ec_pool_name
+  cluster_master_cidr             = var.cluster_ec_master_cidr
   cluster_master_authorized_cidrs = concat(
     var.cluster_ec_master_authorized_cidrs,
     [
@@ -136,7 +144,7 @@ module "gke-ec" {
           "display_name" = "initial-admin-ip"
         },
         {
-          "cidr_block" = join("", [var.clusters_master_whitelist_ip, "/32"])
+          "cidr_block" = "172.16.0.18/32"
         },
       ),
     ],
@@ -168,14 +176,15 @@ module "gke-secrets" {
   sharedvpc_project_id = module.shared_projects.shared_networking_id
   sharedvpc_network    = var.shared_vpc_name
 
-  cluster_enable_private_nodes  = var.cluster_sec_enable_private_nodes
-  cluster_project_id            = module.shared_projects.shared_secrets_id
-  cluster_subnetwork            = var.cluster_sec_subnetwork
-  cluster_service_account       = var.cluster_sec_service_account
-  cluster_service_account_roles = var.cluster_sec_service_account_roles
-  cluster_name                  = var.cluster_sec_name
-  cluster_pool_name             = var.cluster_sec_pool_name
-  cluster_master_cidr           = var.cluster_sec_master_cidr
+  cluster_enable_private_nodes    = var.cluster_sec_enable_private_nodes
+  cluster_enable_private_endpoint = var.cluster_sec_enable_private_endpoint
+  cluster_project_id              = module.shared_projects.shared_secrets_id
+  cluster_subnetwork              = var.cluster_sec_subnetwork
+  cluster_service_account         = var.cluster_sec_service_account
+  cluster_service_account_roles   = var.cluster_sec_service_account_roles
+  cluster_name                    = var.cluster_sec_name
+  cluster_pool_name               = var.cluster_sec_pool_name
+  cluster_master_cidr             = var.cluster_sec_master_cidr
   cluster_master_authorized_cidrs = concat(
     var.cluster_sec_master_authorized_cidrs,
     [
@@ -199,31 +208,34 @@ module "gke-secrets" {
   gke_service_network_name = var.gke_service_network_name
 }
 
-module "vault" {
-  source = "../../vault"
-
-  vault_cluster_project             = module.shared_projects.shared_secrets_id
-  vault-gcs-location                = var.location
-  vault-region                      = var.region
-  vault_keyring_name                = var.sec-vault-keyring
-  vault_crypto_key_name             = var.sec-vault-crypto-key-name
-  vault-lb                          = var.sec-lb-name
-  vault-sa                          = module.gke-secrets.cluster_sa
-  vault-gke-sec-endpoint            = module.gke-secrets.cluster_endpoint
-  vault-gke-sec-master-auth-ca-cert = module.gke-secrets.cluster_endpoint
-  vault-gke-sec-username            = module.gke-secrets.cluster_master_auth_username
-  vault-gke-sec-password            = module.gke-secrets.cluster_master_auth_password
-  vault-gke-sec-client-ca           = module.gke-secrets.cluster_master_auth_0_client_certificate
-  vault-gke-sec-client-key          = module.gke-secrets.cluster_master_auth_0_client_key
-  vault-gke-sec-cluster_ca_cert     = module.gke-secrets.cluster_master_auth_0_cluster_ca_certificate
-  vault-gke-sec-name                = var.cluster_sec_name
-
-  vault-cert-common-name  = var.cert-common-name
-  vault-cert-organization = var.tls-organization
-
-  apis_dependency = module.apis_activation.all_apis_enabled
-  #  shared_vpc_dependency = "${module.shared-vpc.gke_subnetwork_ids}"
-}
+#Vault being taken out into its own activator/module
+//module "vault" {
+//  source = "../../vault"
+//
+//  vault_cluster_project             = module.shared_projects.shared_secrets_id
+//  vault-gcs-location                = var.location
+//  vault-region                      = var.region
+//  vault_keyring_name                = var.sec-vault-keyring
+//  vault_crypto_key_name             = var.sec-vault-crypto-key-name
+//  vault-lb                          = var.sec-lb-name
+//  vault-sa                          = module.gke-secrets.cluster_sa
+//  vault-gke-sec-endpoint            = module.gke-secrets.cluster_endpoint
+//  vault-gke-sec-master-auth-ca-cert = module.gke-secrets.cluster_endpoint
+//  vault-gke-sec-username            = module.gke-secrets.cluster_master_auth_username
+//  vault-gke-sec-password            = module.gke-secrets.cluster_master_auth_password
+//  vault-gke-sec-client-ca           = module.gke-secrets.cluster_master_auth_0_client_certificate
+//  vault-gke-sec-client-key          = module.gke-secrets.cluster_master_auth_0_client_key
+//  vault-gke-sec-cluster_ca_cert     = module.gke-secrets.cluster_master_auth_0_cluster_ca_certificate
+//  vault-gke-sec-name                = var.cluster_sec_name
+//
+//  vault-cert-common-name  = var.cert-common-name
+//  vault-cert-organization = var.tls-organization
+//
+//  apis_dependency = module.apis_activation.all_apis_enabled
+//  #  shared_vpc_dependency = "${module.shared-vpc.gke_subnetwork_ids}"
+//
+//  shared_bastion_project = module.shared_projects.shared_bastion_id
+//}
 
 module "gke-itsm" {
   source = "../../kubernetes-cluster-creation"
@@ -238,13 +250,14 @@ module "gke-itsm" {
   sharedvpc_project_id = module.shared_projects.shared_networking_id
   sharedvpc_network    = var.shared_vpc_name
 
-  cluster_enable_private_nodes = var.cluster_opt_enable_private_nodes
-  cluster_project_id           = module.shared_projects.shared_itsm_id
-  cluster_subnetwork           = var.cluster_opt_subnetwork
-  cluster_service_account      = var.cluster_opt_service_account
-  cluster_name                 = var.cluster_opt_name
-  cluster_pool_name            = var.cluster_opt_pool_name
-  cluster_master_cidr          = var.cluster_opt_master_cidr
+  cluster_enable_private_nodes    = var.cluster_opt_enable_private_nodes
+  cluster_enable_private_endpoint = var.cluster_opt_enable_private_endpoint
+  cluster_project_id              = module.shared_projects.shared_itsm_id
+  cluster_subnetwork              = var.cluster_opt_subnetwork
+  cluster_service_account         = var.cluster_opt_service_account
+  cluster_name                    = var.cluster_opt_name
+  cluster_pool_name               = var.cluster_opt_pool_name
+  cluster_master_cidr             = var.cluster_opt_master_cidr
   cluster_master_authorized_cidrs = concat(
     var.cluster_opt_master_authorized_cidrs,
     [
@@ -314,11 +327,11 @@ resource "null_resource" "kubernetes_service_account_key_secret" {
   }
 
   provisioner "local-exec" {
-    command = "kubectl --context=${module.k8s-ec_context.context_name} create secret generic ec-service-account --from-file=${local_file.ec_service_account_key.filename}"
+    command = "echo 'kubectl --context=${module.k8s-ec_context.context_name} create secret generic ec-service-account --from-file=${local_file.ec_service_account_key.filename}' | tee -a /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh"
   }
 
   provisioner "local-exec" {
-    command = "kubectl --context=${module.k8s-ec_context.context_name} delete secret ec-service-account"
+    command = "echo 'kubectl --context=${module.k8s-ec_context.context_name} delete secret ec-service-account' | tee -a /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh"
     when    = destroy
   }
 }
@@ -342,7 +355,7 @@ module "SharedServices_ec" {
 resource "null_resource" "get_endpoint" {
   provisioner "local-exec" {
     command = <<EOF
-      echo -n 'http://' > ${var.endpoint_file}
+      echo 'echo -n 'http://' > ${var.endpoint_file}
       for i in $(seq -s " " 1 35); do
         sleep $i
         ENDPOINT=$(kubectl --context=${module.k8s-ec_context.context_name} get svc istio-ingressgateway -n istio-system -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
@@ -352,7 +365,7 @@ resource "null_resource" "get_endpoint" {
         fi
       done
       echo "Loadbalancer is not reachable after 10,5 minutes"
-      exit 1
+      exit 1' | tee -a /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh
       EOF
   }
 
@@ -376,15 +389,4 @@ resource "google_sourcerepo_repository_iam_binding" "terraform-code-store-admin-
     local.service_account_name,
   ]
   depends_on = [google_sourcerepo_repository.activator-terraform-code-store]
-}
-
-module "bastion-security" {
-  source = "../../shared-bastion"
-
-  region                        = var.region
-  region_zone                   = var.region_zone
-  shared_bastion_id             = module.shared_projects.shared_bastion_id
-  shared_networking_id          = module.shared_projects.shared_networking_id
-  nat_static_ip                 = module.shared-vpc.nat_static_ip
-  shared_bastion_project_number = module.shared_projects.shared_bastion_project_number
 }
