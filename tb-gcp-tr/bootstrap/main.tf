@@ -14,7 +14,7 @@
 
 provider "google" {
   region = var.region
-  zone   = var.region_zone
+  zone = var.region_zone
   version = "~> 2.5"
 }
 
@@ -130,7 +130,7 @@ resource "google_compute_instance" "bootstrap_terraform_server" {
     root_id                      = var.folder_id
     billing_account_id           = var.billing_account_id
     tb_discriminator             = var.tb_discriminator
-    terraform_state_bucket_name  = google_storage_bucket.terraform-state-bucket-res.name
+    terraform_state_bucket_name = google_storage_bucket.terraform-state-bucket-res.name
     enable_itop = var.enable_itop
   })
 

@@ -18,8 +18,8 @@ zone_region = "europe-west2-a"
 root_id = "0123456789"
 
 shared_services_projects = [
-    "shared-itsm",
-    "shared-secrets",
-    "shared-billing",
-    "shared-telemetry"
+  "shared-itsm",
+  "shared-secrets",
+  "shared-billing",
+  "shared-telemetry"
 ]

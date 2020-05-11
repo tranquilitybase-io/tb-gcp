@@ -135,6 +135,6 @@ variable "workspace_cluster_subnetwork" {
 
 variable "application_yaml_path" {
   description = "Path to the yaml file describing the application resources"
-  type    = "string"
+  type = "string"
   default = "files/jenkins-deployment.yaml"
 }
