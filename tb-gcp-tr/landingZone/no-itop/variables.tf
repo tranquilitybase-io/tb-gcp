@@ -377,12 +377,12 @@ variable "ec_ui_source_bucket" {
 
 variable "private_dns_name" {
   type        = string
-  default = ""
+  default     = ""
   description = "Name for private DNS zone in the shared vpc network"
 }
 
 variable "private_dns_domain_name" {
   type        = string
-  default = ""
+  default     = ""
   description = "Domain name for private DNS in the shared vpc network"
 }

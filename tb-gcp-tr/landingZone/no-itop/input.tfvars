@@ -68,7 +68,7 @@ gke_service_network_name = "gke-services-snet"
 bastion_subnetwork_cidr  = "10.0.6.0/24"
 
 #CLOUD DNS
-private_dns_name = "private-shared"
+private_dns_name        = "private-shared"
 private_dns_domain_name = "private.landing-zone.com"
 
 #KUBERNETES EC CLUSTER
