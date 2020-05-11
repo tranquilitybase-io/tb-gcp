@@ -26,9 +26,11 @@ service_projects_number = "3"
 
 #SHARED VPC
 shared_vpc_name = "shared-network"
-standard_network_subnets = [{
-  name = "shared-network-snet"
-cidr = "10.0.0.0/24" }]
+standard_network_subnets = [
+  {
+    name = "shared-network-snet"
+    cidr = "10.0.0.0/24"
+  }]
 enable_flow_logs = "false"
 gke_network_subnets = [
   {

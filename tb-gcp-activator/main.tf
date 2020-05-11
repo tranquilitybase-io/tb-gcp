@@ -40,9 +40,9 @@ locals {
   # Activator project name is pasted from activator prefix, app name and random_id.
   # It must be 6 to 30 with lowercase letters, digits, hyphens and start with a letter. Trailing hyphens are prohibited.
   activator_name_id = substr("${var.activator_project_name}-${var.app_name}-${random_id.project.hex}", 0, 30)
-  activator_project_name = replace("${replace(local.activator_name_id, "/[^0-9a-zA-Z-]+/", "-")}", "/-$/", "")
+  activator_project_name = replace(replace(local.activator_name_id, "/[^0-9a-zA-Z-]+/", "-"), "/-$/", "")
   workspace_name_id = substr("${var.workspace_project_name}-${var.app_name}-${random_id.project.hex}", 0, 30)
-  workspace_project_name = replace("${replace(local.workspace_name_id, "/[^0-9a-zA-Z-]+/", "-")}", "/-$/", "")
+  workspace_project_name = replace(replace(local.workspace_name_id, "/[^0-9a-zA-Z-]+/", "-"), "/-$/", "")
 }
 
 resource "google_project" "activator" {
