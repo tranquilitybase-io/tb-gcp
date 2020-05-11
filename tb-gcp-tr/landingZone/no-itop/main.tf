@@ -102,6 +102,8 @@ module "shared-vpc" {
   router_nat_name          = var.router_nat_name
   service_projects_number  = var.service_projects_number
   service_project_ids      = [module.shared_projects.shared_secrets_id, module.shared_projects.shared_itsm_id, module.shared_projects.shared_ec_id]
+  private_dns_name         = var.private_dns_name
+  private_dns_domain_name  = var.private_dns_domain_name
 }
 
 module "bastion-security" {
