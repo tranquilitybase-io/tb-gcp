@@ -18,7 +18,7 @@ provider "google" {
 }
 
 provider "google-beta" {
-  alias = "shared-vpc"
+  alias   = "shared-vpc"
   version = "~> 2.5"
 }
 

@@ -98,7 +98,7 @@ variable "cluster_autoscaling_max_nodes" {
 
 variable "cluster_master_authorized_cidrs" {
   type = list(object({
-    cidr_block = string
+    cidr_block   = string
     display_name = string
   }))
 }

@@ -17,36 +17,36 @@ host_project_id = "shared-vpc-11111"
 service_project_ids = ["infra-services-11111"]
 
 standard_network_subnets = [
-    {
-        Name = "itsm"
-        CIDR = "10.0.1.0/24"
-    },
-    {
-        Name = "secrets"
-        CIDR = "10.0.2.0/24"
-    },
-    {
-        Name = "transit"
-        CIDR = "10.0.0.0/24"
-    }
+  {
+    Name = "itsm"
+    CIDR = "10.0.1.0/24"
+  },
+  {
+    Name = "secrets"
+    CIDR = "10.0.2.0/24"
+  },
+  {
+    Name = "transit"
+    CIDR = "10.0.0.0/24"
+  }
 ]
 
-gke_pod_network_name = "gke-pod-network"
+gke_pod_network_name     = "gke-pod-network"
 gke_service_network_name = "gke-service-network"
 
 gke_network_subnets = [
-    {
-        Name = "cicd"
-        node_cidr = "10.0.10.0/24"
-        pod_cidr = "10.10.0.0/17"
-        service_cidr = "10.10.128.0/20"
-    }
+  {
+    Name         = "cicd"
+    node_cidr    = "10.0.10.0/24"
+    pod_cidr     = "10.10.0.0/17"
+    service_cidr = "10.10.128.0/20"
+  }
 ]
 
 create_nat_gateway = true
 
 tags = {
-    owner = "example owner"
-    environment = "dev"
-    terraform = "true"
+  owner       = "example owner"
+  environment = "dev"
+  terraform   = "true"
 }

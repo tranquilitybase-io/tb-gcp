@@ -36,7 +36,7 @@ provider "kubernetes" {
 
   cluster_ca_certificate = base64decode(var.vault-gke-sec-cluster_ca_cert)
   token                  = data.google_client_config.current.access_token
-  version = "~> 1.10.0"
+  version                = "~> 1.10.0"
 }
 
 resource "null_resource" "apis_dependency" {
@@ -259,10 +259,10 @@ echo '${templatefile("${path.module}/../vault/k8s/vault.yaml", {
     kms_key_ring             = google_kms_key_ring.vault.name
     kms_crypto_key           = google_kms_crypto_key.vault-init.name
     gcs_bucket_name          = google_storage_bucket.vault.name
-  })}' | kubectl apply --context="$CONTEXT" -f -
+})}' | kubectl apply --context="$CONTEXT" -f -
 EOF
 
-  }
+}
 }
 
 # Wait for all the servers to be ready

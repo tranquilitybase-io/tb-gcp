@@ -20,7 +20,7 @@ module "advanced-folder-with-project-example" {
   region      = var.region
   region_zone = var.region_zone
 
-  root_id     = var.root_id
+  root_id = var.root_id
 
   shared_services_projects = var.shared_services_projects
 }

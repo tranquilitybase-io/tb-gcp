@@ -128,8 +128,8 @@ variable "gke_service_network_name" {
 }
 
 variable "bastion_subnetwork_cidr" {
-  type = string
-  default = "10.0.6.0/24"
+  type        = string
+  default     = "10.0.6.0/24"
   description = "ip range for bastion subnet"
 }
 

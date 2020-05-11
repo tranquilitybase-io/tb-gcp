@@ -14,12 +14,12 @@
 
 variable "region" {
   description = "Zone for GCE resources"
-  default = "europe-west2"
+  default     = "europe-west2"
 }
 
 variable "zone" {
   description = "Zone for activator resources"
-  default = "europe-west2-a"
+  default     = "europe-west2-a"
 }
 
 variable "shared_network_name" {
@@ -27,22 +27,22 @@ variable "shared_network_name" {
 }
 
 variable "shared_networking_id" {
-  type = "string"
+  type        = "string"
   description = "Id of the project where Shared VPC was created"
 }
 
 variable "free_subnet_cidrs" {
-  type = "list"
+  type        = "list"
   description = "CIDR blocks for which subnets will be created"
 }
 
 variable "default_netmask" {
-  type = "string"
-  default = "8"
+  type        = "string"
+  default     = "8"
   description = "Default netmask used in secondary ip ranges to calculate CIDR's"
 }
 
 variable "subnets-name" {
-  type = "list"
+  type        = "list"
   description = "Name of subnets that will be created by script"
 }

@@ -13,8 +13,8 @@
 # limitations under the License.
 
 provider "google" {
-  region = var.region
-  zone   = var.region_zone
+  region  = var.region
+  zone    = var.region_zone
   version = "~> 2.5"
 }
 
@@ -131,7 +131,7 @@ resource "google_compute_instance" "bootstrap_terraform_server" {
     billing_account_id           = var.billing_account_id
     tb_discriminator             = var.tb_discriminator
     terraform_state_bucket_name  = google_storage_bucket.terraform-state-bucket-res.name
-    enable_itop = var.enable_itop
+    enable_itop                  = var.enable_itop
   })
 
   service_account {

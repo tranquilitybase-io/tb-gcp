@@ -14,31 +14,31 @@
 
 ## PROVIDER
 variable "region" {
-  type = "string"
-  default = "europe-west2"
+  type        = "string"
+  default     = "europe-west2"
   description = "Region name."
 }
 
 variable "zone" {
-  type = "string"
-  default = "europe-west2-a"
+  type        = "string"
+  default     = "europe-west2-a"
   description = "Zone name in the region provided."
 }
 
 ## COMPUTE_INSTANCE
 variable "machine_name" {
-  type = "string"
-  default = "test-terraform-server"
+  type        = "string"
+  default     = "test-terraform-server"
   description = "The test Compute Instance name."
 }
 
 variable "project_id" {
-  type = "string"
+  type        = "string"
   description = "The test Project Id where tshe test GCE instance will be built."
 }
 
 variable "image" {
-  type = "string"
+  type        = "string"
   description = "The image from which to build test GCE instance. For possible values see: https://www.terraform.io/docs/providers/google/r/compute_instance.html#image"
 }
 

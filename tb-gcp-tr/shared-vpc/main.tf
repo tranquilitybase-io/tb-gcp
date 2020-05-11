@@ -77,13 +77,14 @@ resource "google_compute_subnetwork" "shared-bastion-subnetwork" {
   project                  = var.host_project_id
   network                  = google_compute_network.shared_network.name
   enable_flow_logs         = var.enable_flow_logs
-  depends_on = [google_compute_network.shared_network]
+  depends_on = [
+  google_compute_network.shared_network]
 }
 ###
 # Additional Networking Resources
 ###
 resource "google_compute_address" "static" {
-  name   = "nat-static-ip"
+  name    = "nat-static-ip"
   project = var.host_project_id
 }
 
@@ -101,7 +102,7 @@ resource "google_compute_router_nat" "simple-nat" {
   router                             = google_compute_router.router.name
   region                             = var.region
   nat_ip_allocate_option             = "MANUAL_ONLY"
-  nat_ips                             = google_compute_address.static.*.self_link
+  nat_ips                            = google_compute_address.static.*.self_link
   source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
 }
 
