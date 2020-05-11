@@ -46,10 +46,10 @@ gke_network_subnets = [
 create_nat_gateway = true
 
 tags = {
-  owner       = "example owner"
+  owner = "example owner"
   environment = "dev"
-  terraform   = "true"
+  terraform = "true"
 }
 
-private_dns_name        = "private-landng-zone"
-private_dns_domain_name = "private.landing-zone.com."
+private_dns_name = "private-zone"
+private_dns_domain_name = "private.example.com."
