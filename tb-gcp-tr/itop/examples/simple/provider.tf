@@ -21,6 +21,6 @@ provider "google" {
 
 provider "kubernetes" {
   config_context_cluster = "gke_${var.host_project_id}_${var.region_zone}_${var.k8_cluster_name}"
-  version = "~> 1.10.0"
+  version                = "~> 1.10.0"
 }
 

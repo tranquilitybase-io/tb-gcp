@@ -13,12 +13,12 @@
 # limitations under the License.
 
 #PROVIDER
-region = ""
-region_zone = ""
-folder_id = ""
+region             = ""
+region_zone        = ""
+folder_id          = ""
 billing_account_id = ""
-tb_discriminator = ""
-enable_itop = ""
+tb_discriminator   = ""
+enable_itop        = ""
 
 #CREATE-BOOTSTRAP-TERRAFORM-SERVER
 bootstrap_host_disk_image = "projects/<project_id>/global/images/family/tb-tr-debian-9"

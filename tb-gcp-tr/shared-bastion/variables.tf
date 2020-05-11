@@ -27,12 +27,12 @@ variable "shared_networking_id" {
 }
 
 variable "nat_static_ip" {
-  type = string
+  type        = string
   description = "NAT Static IP"
 }
 
 variable root_id {
-  type = string
+  type        = string
   description = "ID for the parent organisation where folders will be created"
 }
 

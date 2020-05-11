@@ -14,7 +14,7 @@
 
 variable "project_id" {
   description = "ID of project to set up the infrastructure on"
-  default = ""
+  default     = ""
 }
 
 variable "region" {
@@ -35,12 +35,12 @@ variable "billing_account" {
 
 variable "activator_project_name" {
   description = "Name for activator project"
-  default = "activator"
+  default     = "activator"
 }
 
 variable "workspace_project_name" {
   description = "Name for workspace project containing Jenkins server, git repo and so on"
-  default = "workspace"
+  default     = "workspace"
 }
 
 variable "cluster_service_account" {
@@ -80,36 +80,36 @@ variable "workspace_cluster_master_authorized_cidrs" {
 }
 
 variable "istio_status" {
-  type = "string"
+  type    = "string"
   default = "true"
   #  description = "the default behaviour is to not installed"
 }
 
 variable vpc_name {
-  type = "string"
-  default = "shared-network"
+  type        = "string"
+  default     = "shared-network"
   description = "Name for the shared vpc network"
 }
 
 variable "api_services" {
-  type = "list"
+  type        = "list"
   description = "List of API's needed for activator account"
 }
 
 variable "env" {
-  type = "string"
-  default = "dev"
+  type        = "string"
+  default     = "dev"
   description = "Environment type"
 }
 
 variable "app_name" {
-  type = "string"
-  default = "activator-app"
+  type        = "string"
+  default     = "activator-app"
   description = "App name the activator and workspace is dedicated for"
 }
 
 variable "shared_vpc_host_project" {
-  type = "string"
+  type        = "string"
   description = "Shared vpc host ID"
 }
 
@@ -135,6 +135,6 @@ variable "workspace_cluster_subnetwork" {
 
 variable "application_yaml_path" {
   description = "Path to the yaml file describing the application resources"
-  type = "string"
-  default = "files/jenkins-deployment.yaml"
+  type        = "string"
+  default     = "files/jenkins-deployment.yaml"
 }

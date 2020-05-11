@@ -31,12 +31,12 @@ data "google_client_config" "current" {
 # This file contains all the interactions with Kubernetes
 provider "kubernetes" {
   load_config_file = false
-  host = var.vault-gke-sec-endpoint
-  alias = "vault"
+  host             = var.vault-gke-sec-endpoint
+  alias            = "vault"
 
   cluster_ca_certificate = base64decode(var.vault-gke-sec-cluster_ca_cert)
-  token = data.google_client_config.current.access_token
-  version = "~> 1.10.0"
+  token                  = data.google_client_config.current.access_token
+  version                = "~> 1.10.0"
 }
 
 resource "null_resource" "apis_dependency" {
@@ -262,7 +262,7 @@ echo '${templatefile("${path.module}/../vault/k8s/vault.yaml", {
 })}' | kubectl apply --context="$CONTEXT" -f -
 EOF
 
-  }
+}
 }
 
 # Wait for all the servers to be ready

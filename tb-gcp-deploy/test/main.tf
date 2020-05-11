@@ -13,8 +13,8 @@
 # limitations under the License.
 
 provider "google" {
-  region = var.region
-  zone = var.zone
+  region  = var.region
+  zone    = var.zone
   version = "~> 2.5"
 }
 
@@ -23,13 +23,13 @@ provider "google" {
 resource "google_service_account" "test_sa" {
   account_id   = "test-sa"
   display_name = "test-sa"
-  project = var.project_id
+  project      = var.project_id
 }
 
 
 resource "google_compute_instance" "test_instance" {
-  project = var.project_id
-  name = var.machine_name
+  project      = var.project_id
+  name         = var.machine_name
   machine_type = "f1-micro"
 
   boot_disk {
@@ -51,7 +51,7 @@ resource "google_compute_instance" "test_instance" {
   service_account {
     email = google_service_account.test_sa.email
     scopes = [
-      "cloud-platform"]
+    "cloud-platform"]
   }
 }
 

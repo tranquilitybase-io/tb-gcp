@@ -13,17 +13,17 @@
 # limitations under the License.
 
 credentials_file = "../infra-services-123456.json"
-region = "europe-west2"
+region           = "europe-west2"
 
-bastion_project_id = "dev-proj-123456"
+bastion_project_id   = "dev-proj-123456"
 sharedvpc_project_id = "shared-vpc-123456"
 
 sharedvpc_network = "shared-network"
 
-bastion_name = "bastion"
-bastion_machine_type = "g1-small"
+bastion_name            = "bastion"
+bastion_machine_type    = "g1-small"
 bastion_service_account = "bastion"
-bastion_subnetwork = "itsm"
+bastion_subnetwork      = "itsm"
 bastion_source_cidr = [
   "1.1.1.1",
-  "2.2.2.2"]
+"2.2.2.2"]

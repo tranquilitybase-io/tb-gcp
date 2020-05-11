@@ -19,8 +19,8 @@ variable "region" {
 }
 
 variable "region_zone" {
-  default = "europe-west2-a"
-  type = string
+  default     = "europe-west2-a"
+  type        = string
   description = "zone name in the region provided."
 }
 
@@ -41,18 +41,18 @@ variable "standard_network_subnets" {
     Name = string
     CIDR = string
   }))
-  default = []
+  default     = []
   description = "cidr ranges for standard (non-gke) subnetworks"
 }
 
 variable "gke_network_subnets" {
   type = list(object({
-    Name = string
-    node_cidr = string
-    pod_cird = string
+    Name         = string
+    node_cidr    = string
+    pod_cird     = string
     service_cidr = string
   }))
-  default = []
+  default     = []
   description = "cidr ranges for gke subnetworks"
 }
 

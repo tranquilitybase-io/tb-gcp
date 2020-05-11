@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-zone = "europe-west-2"
+zone        = "europe-west-2"
 zone_region = "europe-west2-a"
 
 root_id = "0123456789"

@@ -31,14 +31,14 @@ standard_network_subnets = [
   }
 ]
 
-gke_pod_network_name = "gke-pod-network"
+gke_pod_network_name     = "gke-pod-network"
 gke_service_network_name = "gke-service-network"
 
 gke_network_subnets = [
   {
-    Name = "cicd"
-    node_cidr = "10.0.10.0/24"
-    pod_cidr = "10.10.0.0/17"
+    Name         = "cicd"
+    node_cidr    = "10.0.10.0/24"
+    pod_cidr     = "10.10.0.0/17"
     service_cidr = "10.10.128.0/20"
   }
 ]
@@ -46,7 +46,7 @@ gke_network_subnets = [
 create_nat_gateway = true
 
 tags = {
-  owner = "example owner"
+  owner       = "example owner"
   environment = "dev"
-  terraform = "true"
+  terraform   = "true"
 }

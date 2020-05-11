@@ -13,8 +13,8 @@
 # limitations under the License.
 
 provider "google" {
-  region = var.region
-  zone = var.region_zone
+  region  = var.region
+  zone    = var.region_zone
   version = "~> 2.5"
 }
 
@@ -125,13 +125,13 @@ resource "google_compute_instance" "bootstrap_terraform_server" {
   #metadata_startup_script = data.template_file.startup-script.rendered
   metadata_startup_script = templatefile(var.metadata_startup_script, {
     clusters_master_whitelist_ip = google_compute_address.nat_gw_ip.address
-    region = var.region
-    region_zone = var.region_zone
-    root_id = var.folder_id
-    billing_account_id = var.billing_account_id
-    tb_discriminator = var.tb_discriminator
-    terraform_state_bucket_name = google_storage_bucket.terraform-state-bucket-res.name
-    enable_itop = var.enable_itop
+    region                       = var.region
+    region_zone                  = var.region_zone
+    root_id                      = var.folder_id
+    billing_account_id           = var.billing_account_id
+    tb_discriminator             = var.tb_discriminator
+    terraform_state_bucket_name  = google_storage_bucket.terraform-state-bucket-res.name
+    enable_itop                  = var.enable_itop
   })
 
   service_account {
