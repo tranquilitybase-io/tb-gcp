@@ -81,6 +81,7 @@ resource "google_project_services" "project_shared" {
     "sourcerepo.googleapis.com",
     "sqladmin.googleapis.com",
     "storage-api.googleapis.com",
+    "dns.googleapis.com",
   ]
   depends_on = [google_project_services.project]
 }

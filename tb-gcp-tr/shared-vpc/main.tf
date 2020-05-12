@@ -124,3 +124,25 @@ resource "google_compute_shared_vpc_service_project" "service_project" {
     google_compute_subnetwork.standard,
   ]
 }
+
+###
+# Creating a private DNS
+###
+
+resource "google_dns_managed_zone" "private-zone" {
+  name        = var.private_dns_name
+  dns_name    = var.private_dns_domain_name
+  project     = var.host_project_id
+  description = "Private DNS zone"
+
+  visibility = "private"
+
+  private_visibility_config {
+    networks {
+      network_url = google_compute_network.shared_network.self_link
+    }
+  }
+  depends_on = [
+    google_compute_shared_vpc_host_project.host
+  ]
+}

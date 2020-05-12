@@ -67,6 +67,10 @@ gke_pod_network_name     = "gke-pods-snet"
 gke_service_network_name = "gke-services-snet"
 bastion_subnetwork_cidr  = "10.0.6.0/24"
 
+#CLOUD DNS
+private_dns_name        = "private-shared"
+private_dns_domain_name = "private.landing-zone.com."  # domain requires . to finish
+
 #KUBERNETES EC CLUSTER
 cluster_ec_subnetwork              = "shared-ec-snet"
 cluster_ec_service_account         = "kubernetes-ec"
