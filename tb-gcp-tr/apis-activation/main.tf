@@ -29,6 +29,7 @@ resource "google_project_services" "project" {
     "recommender.googleapis.com",
     "serviceusage.googleapis.com",
     "storage-api.googleapis.com",
+    "dns.googleapis.com",
   ]
 }
 
@@ -81,7 +82,6 @@ resource "google_project_services" "project_shared" {
     "sourcerepo.googleapis.com",
     "sqladmin.googleapis.com",
     "storage-api.googleapis.com",
-    "dns.googleapis.com",
   ]
   depends_on = [google_project_services.project]
 }
