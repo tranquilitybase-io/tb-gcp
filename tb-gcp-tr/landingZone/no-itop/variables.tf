@@ -280,14 +280,6 @@ variable "itop_database_user_name" {
   type        = string
 }
 
-#TLS Certs
-variable "cert-common-name" {
-  type = string
-}
-
-variable "tls-organization" {
-  type = string
-}
 
 variable "terraform_state_bucket_name" {
   type = string
