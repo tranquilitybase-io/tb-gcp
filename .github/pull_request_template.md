@@ -19,13 +19,10 @@ Describe the problem or feature with a **link** to the issues.
 Also please describe which sections of the code do what and for what reason.  
   
 ## Reviewers  
- - **Reviewer A** please review this part.  
+ - For exmaple ... **Reviewer A** please review this part.  
  - **Review B** please review this part.  
   
   ## Checklist  
  - [ ] This PR is linked to one or more issues.  
- - [ ] This PR has been tested (attatch evidence if possible).  
+ - [ ] This PR has been tested (attach evidence if possible).  
  - [ ] This PR has passed style guidelines.  
-
-**NOTE**  
-When done, Please use **Squash and Merge** and add a link to the issue number(s) **(#issue-number)** in the merge. This will link the merge to the issue and also make it easier to read through the git log.
