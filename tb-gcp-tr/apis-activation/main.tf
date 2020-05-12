@@ -12,9 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-resource "google_project_services" "project" {
-  project = var.host_project_id
-  services = [
+locals {
+  host_project_apis = [
     "cloudbilling.googleapis.com",
     "cloudkms.googleapis.com",
     "cloudresourcemanager.googleapis.com",
@@ -29,40 +28,9 @@ resource "google_project_services" "project" {
     "recommender.googleapis.com",
     "serviceusage.googleapis.com",
     "storage-api.googleapis.com",
+    "dns.googleapis.com",
   ]
-}
-
-/*
-resource "google_project_services" "ec_project" {
-  project = "${var.ec_project_id}"
-  services   = ["compute.googleapis.com", "oslogin.googleapis.com", "container.googleapis.com"]
-  depends_on = ["google_project_services.project"]
-}
-*/
-
-resource "google_project_service" "bastion-iap" {
-  project = var.bastion_project_id
-  service = "iap.googleapis.com"
-  depends_on = [
-  "google_project_services.project"]
-}
-resource "google_project_service" "bastion-recommender" {
-  project = var.bastion_project_id
-  service = "recommender.googleapis.com"
-  depends_on = [
-  "google_project_services.project"]
-}
-resource "google_project_service" "bastion-kubernetes" {
-  project = var.bastion_project_id
-  service = "container.googleapis.com"
-  depends_on = [
-  "google_project_services.project"]
-}
-
-resource "google_project_services" "project_shared" {
-  count   = var.service_projects_number
-  project = var.service_project_ids[count.index]
-  services = [
+  service_project_apis = [
     "appengine.googleapis.com",
     "cloudbilling.googleapis.com",
     "cloudkms.googleapis.com",
@@ -81,8 +49,52 @@ resource "google_project_services" "project_shared" {
     "sourcerepo.googleapis.com",
     "sqladmin.googleapis.com",
     "storage-api.googleapis.com",
-    "dns.googleapis.com",
   ]
-  depends_on = [google_project_services.project]
+}
+
+
+resource "google_project_service" "host-project" {
+  project = var.host_project_id
+  for_each = toset(local.host_project_apis)
+  service = each.value
+}
+
+resource "google_project_service" "shared_secrets" {
+  project = var.shared_secrets_id
+  for_each = toset(local.service_project_apis)
+  service = each.value
+  depends_on = [
+    google_project_service.host-project]
+}
+
+resource "google_project_service" "shared_itsm" {
+  project = var.shared_itsm_id
+  for_each = toset(local.service_project_apis)
+  service = each.value
+  depends_on = [
+    google_project_service.host-project]
+}
+
+resource "google_project_service" "shared_ec" {
+  project = var.shared_ec_id
+  for_each = toset(local.service_project_apis)
+  service = each.value
+  depends_on = [
+    google_project_service.host-project]
+}
+
+
+resource "google_project_service" "bastion-iap" {
+  project = var.bastion_project_id
+  service = "iap.googleapis.com"
+  depends_on = [
+    google_project_service.host-project]
+}
+
+resource "google_project_service" "bastion-recommender" {
+  project = var.bastion_project_id
+  service = "recommender.googleapis.com"
+  depends_on = [
+    google_project_service.host-project]
 }
 
