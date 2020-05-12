@@ -19,7 +19,7 @@ Describe the problem or feature with a **link** to the issues.
 Also please describe which sections of the code do what and for what reason.  
   
 ## Reviewers  
- - For exmaple ... **Reviewer A** please review this part.  
+ - **Reviewer A** please review this part.  
  - **Review B** please review this part.  
   
   ## Checklist  
