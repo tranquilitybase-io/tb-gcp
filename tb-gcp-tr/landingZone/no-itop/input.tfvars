@@ -14,7 +14,6 @@
 
 #SHARED PROJECTS CREATION
 shared_networking_project_name = "shared-networking"
-shared_secrets_project_name    = "shared-secrets"
 shared_telemetry_project_name  = "shared-telemetry"
 shared_itsm_project_name       = "shared-itsm"
 shared_billing_project_name    = "shared-billing"
@@ -44,12 +43,6 @@ gke_network_subnets = [
     cidr         = "10.0.2.0/24",
     pod_cidr     = "10.2.0.0/17",
     service_cidr = "10.2.128.0/20"
-  },
-  {
-    name         = "shared-secrets-snet",
-    cidr         = "10.0.3.0/24",
-    pod_cidr     = "10.3.0.0/17",
-    service_cidr = "10.3.128.0/20"
   },
   {
     name         = "activator-project-snet",
