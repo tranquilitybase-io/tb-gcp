@@ -42,6 +42,10 @@ terraform_state_bucket_name = "${terraform_state_bucket_name}"
 
 EOF
 
+#Make the IAP and Kubectl command scripts executable
+chmod +x /opt/tb/repo/tb-gcp-tr/landingZone/iap-tunnel.sh
+chmod +x /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh
+
 terraform init -backend-config="bucket=${terraform_state_bucket_name}" -backend-config="prefix=landingZone"
 
 apply_failures=0
