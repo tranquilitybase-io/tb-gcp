@@ -48,6 +48,7 @@ apply_failures=0
 while [ $apply_failures -lt $MAX_ATTEMPTS ]; do
   terraform apply -var-file input.tfvars -auto-approve
   if [ $? -eq 0 ]; then
+    /opt/tb/repo/tb-gcp-tr/landingZone/iap-tunnel.sh && /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh
     echo "Landing Zone successfully deployed."
     break
   fi
@@ -56,6 +57,7 @@ while [ $apply_failures -lt $MAX_ATTEMPTS ]; do
     break
   fi
   echo "Landing Zone deployment failed."
+  opt/tb/repo/tb-gcp-tr/landingZone/iap-tunnel.sh && /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh
   apply_failures=$(($apply_failures + 1))
   echo "Retry #$apply_failures starting in $DELAY_BETWEEN_ATTEMPTS seconds."
   sleep $DELAY_BETWEEN_ATTEMPTS
