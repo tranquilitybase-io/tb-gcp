@@ -77,13 +77,12 @@ module "shared_projects" {
 module "apis_activation" {
   source = "../../apis-activation"
 
-  ec_project_id           = module.shared_projects.shared_ec_id
-  bastion_project_id      = module.shared_projects.shared_bastion_id
-  host_project_id         = module.shared_projects.shared_networking_id
-  service_projects_number = var.service_projects_number
-  shared_secrets_id       = module.shared_projects.shared_secrets_id
-  shared_itsm_id          = module.shared_projects.shared_itsm_id
-  shared_ec_id            = module.shared_projects.shared_ec_id
+  ec_project_id      = module.shared_projects.shared_ec_id
+  bastion_project_id = module.shared_projects.shared_bastion_id
+  host_project_id    = module.shared_projects.shared_networking_id
+  shared_secrets_id  = module.shared_projects.shared_secrets_id
+  shared_itsm_id     = module.shared_projects.shared_itsm_id
+  shared_ec_id       = module.shared_projects.shared_ec_id
 }
 
 module "shared-vpc" {

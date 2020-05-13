@@ -53,48 +53,46 @@ locals {
 }
 
 
-resource "google_project_service" "host-project" {
-  project = var.host_project_id
-  for_each = toset(local.host_project_apis)
-  service = each.value
+module "host-project" {
+  project_id = var.shared_ec_id
+  source     = "terraform-google-modules/project-factory/google//modules/project_services"
+  version    = "2.1.3"
+
+  activate_apis = local.host_project_apis
+
 }
 
-resource "google_project_service" "shared_secrets" {
-  project = var.shared_secrets_id
-  for_each = toset(local.service_project_apis)
-  service = each.value
-  depends_on = [
-    google_project_service.host-project]
+module "shared_secrets" {
+  project_id = var.shared_ec_id
+  source     = "terraform-google-modules/project-factory/google//modules/project_services"
+  version    = "2.1.3"
+
+  activate_apis = local.service_project_apis
+
 }
 
-resource "google_project_service" "shared_itsm" {
-  project = var.shared_itsm_id
-  for_each = toset(local.service_project_apis)
-  service = each.value
-  depends_on = [
-    google_project_service.host-project]
+module "shared_itsm" {
+  project_id = var.shared_ec_id
+  source     = "terraform-google-modules/project-factory/google//modules/project_services"
+  version    = "2.1.3"
+
+  activate_apis = local.service_project_apis
+
 }
 
-resource "google_project_service" "shared_ec" {
-  project = var.shared_ec_id
-  for_each = toset(local.service_project_apis)
-  service = each.value
-  depends_on = [
-    google_project_service.host-project]
+module "shared_ec" {
+  project_id = var.shared_ec_id
+  source     = "terraform-google-modules/project-factory/google//modules/project_services"
+  version    = "2.1.3"
+
+  activate_apis = local.service_project_apis
+
 }
 
+module "bastion" {
+  project_id = var.shared_ec_id
+  source     = "terraform-google-modules/project-factory/google//modules/project_services"
+  version    = "2.1.3"
 
-resource "google_project_service" "bastion-iap" {
-  project = var.bastion_project_id
-  service = "iap.googleapis.com"
-  depends_on = [
-    google_project_service.host-project]
+  activate_apis = ["iap.googleapis.com", "recommender.googleapis.com"]
 }
-
-resource "google_project_service" "bastion-recommender" {
-  project = var.bastion_project_id
-  service = "recommender.googleapis.com"
-  depends_on = [
-    google_project_service.host-project]
-}
-

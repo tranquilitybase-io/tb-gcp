@@ -14,7 +14,10 @@
 
 output "all_apis_enabled" {
   value = join(",", [
-    google_project_service.shared_secrets,
-    google_project_service.shared_itsm,
-    google_project_service.shared_ec])
+    module.host-project.project_id,
+    module.shared_secrets.project_id,
+    module.shared_itsm.project_id,
+    module.shared_ec.project_id,
+    module.bastion.project_id,
+  ])
 }
