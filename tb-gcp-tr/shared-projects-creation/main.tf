@@ -21,15 +21,6 @@ resource "google_project" "shared_networking" {
   auto_create_network = false
 }
 
-resource "google_project" "shared_secrets" {
-  name                = "${var.shared_secrets_project_name}-${var.tb_discriminator}"
-  project_id          = "${var.shared_secrets_project_name}-${var.tb_discriminator}"
-  folder_id           = var.root_id
-  billing_account     = var.billing_account_id
-  auto_create_network = false
-  depends_on          = [google_project.shared_networking]
-}
-
 resource "google_project" "shared_itsm" {
   name                = "${var.shared_itsm_project_name}-${var.tb_discriminator}"
   project_id          = "${var.shared_itsm_project_name}-${var.tb_discriminator}"
