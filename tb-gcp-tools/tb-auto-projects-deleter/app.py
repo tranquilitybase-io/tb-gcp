@@ -18,7 +18,7 @@ def main():
     for project in projects_to_delete_list:
         folder_id = project.parent['id']
         print(project)
-        call_deleter_script_for_project(project.id, BILLING_ACCOUNT, folder_id, PATH_DELETE_SCRIPT)
+        call_deleter_script_for_project(project.name, BILLING_ACCOUNT, folder_id, PATH_DELETE_SCRIPT)
 
 def filter_non_tb_projects(project):
     if project.status == 'ACTIVE' and project.name.startswith(BOOTSTRAP_PREFIX) and NO_DELETE_LABEL not in project.labels:
