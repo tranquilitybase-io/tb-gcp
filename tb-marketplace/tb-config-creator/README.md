@@ -166,6 +166,13 @@ $
 If **Y** is pressed, it will automatically create the Service Account and activate the API's:
 
 ```
+Waiting for [operations/cf.5068040668320891231] to finish...done.
+Created [<Folder
+ createTime: u'2020-04-02T23:13:41.740Z'
+ displayName: u'Tranquility Base - ab91ae78'
+ lifecycleState: LifecycleStateValueValuesEnum(ACTIVE, 1)
+ name: u'folders/380688131215'
+ parent: u'folders/705953663545'>].
 Creating project...
 
 Create in progress for [https://cloudresourcemanager.googleapis.com/v1/projects/bootstrap-ab91ae78].
@@ -201,8 +208,7 @@ Operation "operations/acf.7065af63-0afd-4cf3-8b38-21fd467e09e4" finished success
 Essential APIs activated.
 
 Configuration completed!
-You can now deploy Tranquility Base from Marketplace in project [bootstrap-ab91ae78].
-
+You can now deploy Tranquility Base from Marketplace in project [bootstrap-ab91ae78] in the [Tranquility Base - ab91ae78] folder.
 ```
 
 Installation

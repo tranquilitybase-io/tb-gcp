@@ -80,10 +80,6 @@ variable "gae-version" {
   default     = "v1"
 }
 
-variable "ui-source-local" {
-  default = "/opt/tb/repo/tb-self-service-portal-ui"
-}
-
 variable "ec_gke_dependency" {
   description = "Flag to control whether EC GKE cluster has been created"
 }

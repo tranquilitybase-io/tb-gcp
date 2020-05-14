@@ -20,7 +20,6 @@ module "simple-folder-example" {
   region      = var.region
   region_zone = var.region_zone
 
-  root_is_org = "true"
-  root_id     = var.root_id
+  root_id = var.root_id
 }
 

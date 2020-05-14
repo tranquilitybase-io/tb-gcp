@@ -27,14 +27,14 @@ locals {
 #ADD-POLICY-TO-SERVICE-ACCOUNT
 resource "google_folder_iam_member" "sa-folder-admin-role" {
   count      = length(var.ec_iam_service_account_roles)
-  folder     = module.folder_structure.tbase_id
+  folder     = var.root_id
   role       = element(var.ec_iam_service_account_roles, count.index)
   member     = local.service_account_name
   depends_on = [google_service_account.activator]
 }
 
 resource "google_folder_iam_member" "xpnbinding" {
-  folder = module.folder_structure.tbase_id
+  folder = var.root_id
   member = local.service_account_name
   role   = "roles/compute.admin"
 }

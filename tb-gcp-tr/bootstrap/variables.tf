@@ -91,7 +91,7 @@ variable "metadata_startup_script" {
 }
 
 variable "enable_itop" {
-  type = string
+  type        = string
   description = "Set it to false in order to disable iTop"
 }
 

@@ -14,15 +14,15 @@
 
 provider "google" {
   version = "~> 2.5"
-  project = "${var.shared_networking_id}"
-  region = "${var.region}"
+  project = var.shared_networking_id
+  region  = var.region
 }
 
 terraform {
   backend "gcs" {
     # The bucket name below is overloaded at every run with
     # `-backend-config="bucket=${bucket_name}"` parameter
-    bucket  = "dummybucketname"
+    bucket = "dummybucketname"
   }
 }
 
@@ -42,28 +42,28 @@ secondary_ip_range-2:
   - 10.1.128.0/20
 */
 resource "google_compute_subnetwork" "application" {
-  count = "${length(var.free_subnet_cidrs)}"
-  name = "${var.subnets-name[count.index]}"
-  project = "${var.shared_networking_id}"
-  ip_cidr_range = "${var.free_subnet_cidrs[count.index]}"
-  region = "${var.region}"
-  network = "${data.google_compute_network.shared.self_link}"
+  count         = length(var.free_subnet_cidrs)
+  name          = var.subnets-name[count.index]
+  project       = var.shared_networking_id
+  ip_cidr_range = var.free_subnet_cidrs[count.index]
+  region        = var.region
+  network       = data.google_compute_network.shared.self_link
   secondary_ip_range {
     range_name = "gke-pods-snet"
-    ip_cidr_range = "${cidrsubnet(join("/", list(element(split("/", var.free_subnet_cidrs[count.index]), 0), var.default_netmask)),
-     (17 - var.default_netmask),
-     ((element(split(".", var.free_subnet_cidrs[count.index]),  ceil((element(split("/", var.free_subnet_cidrs[count.index]) , 1)/8.0) - 1)))*2)
-     )}"
+    ip_cidr_range = cidrsubnet(join("/", list(element(split("/", var.free_subnet_cidrs[count.index]), 0), var.default_netmask)),
+      (17 - var.default_netmask),
+      ((element(split(".", var.free_subnet_cidrs[count.index]), ceil((element(split("/", var.free_subnet_cidrs[count.index]), 1) / 8.0) - 1))) * 2)
+    )
   }
   secondary_ip_range {
     range_name = "gke-services-snet"
-    ip_cidr_range = "${cidrsubnet(join("/", list(element(split("/", var.free_subnet_cidrs[count.index]), 0), var.default_netmask)),
-     (20 - var.default_netmask),
-     ((element(split(".", var.free_subnet_cidrs[count.index]),  ceil((element(split("/", var.free_subnet_cidrs[count.index]) , 1)/8.0) - 1))*16) + 8))}"
+    ip_cidr_range = cidrsubnet(join("/", list(element(split("/", var.free_subnet_cidrs[count.index]), 0), var.default_netmask)),
+      (20 - var.default_netmask),
+    ((element(split(".", var.free_subnet_cidrs[count.index]), ceil((element(split("/", var.free_subnet_cidrs[count.index]), 1) / 8.0) - 1)) * 16) + 8))
   }
 }
 
 resource "local_file" "ip-ranges" {
-  content     = "${join(",", google_compute_subnetwork.application.*.name)}"
+  content  = join(",", google_compute_subnetwork.application.*.name)
   filename = "${path.module}/subnet_names"
 }

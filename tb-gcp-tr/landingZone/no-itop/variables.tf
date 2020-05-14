@@ -28,12 +28,6 @@ variable "root_id" {
   description = "id for the parent where these folders will be created."
 }
 
-variable "root_is_org" {
-  type        = string
-  default     = "false"
-  description = "determines whether root directory is an org or a directory inside an org."
-}
-
 variable "tb_discriminator" {
   type        = string
   default     = ""
@@ -50,12 +44,6 @@ variable "shared_networking_project_name" {
   type        = string
   default     = "shared-networking"
   description = "Shared networking project name."
-}
-
-variable "shared_secrets_project_name" {
-  type        = string
-  default     = "shared-secrets"
-  description = "Shared secrets project name."
 }
 
 variable "shared_telemetry_project_name" {
@@ -133,6 +121,12 @@ variable "gke_service_network_name" {
   description = "Name for the gke service network"
 }
 
+variable "bastion_subnetwork_cidr" {
+  type        = string
+  default     = "10.0.6.0/24"
+  description = "ip range for bastion subnet"
+}
+
 variable "router_name" {
   type        = string
   default     = "vpc-network-router"
@@ -162,21 +156,6 @@ variable "cluster_ec_service_account" {
   description = "Service account to associate to the nodes in the cluster"
 }
 
-variable "cluster_sec_service_account" {
-  description = "Service account to associate to the nodes in the cluster"
-}
-
-variable "cluster_sec_oauth_scope" {
-  description = "API scope to be given to Secrets Cluster, for vault leave default value"
-  default     = ["cloud-platform"]
-}
-
-variable "cluster_sec_service_account_roles" {
-  type        = list(string)
-  default     = ["roles/cloudkms.cryptoKeyEncrypterDecrypter"]
-  description = "Service account to associate to the nodes in the cluster"
-}
-
 variable "cluster_opt_service_account" {
   description = "Service account to associate to the nodes in the cluster"
 }
@@ -185,9 +164,6 @@ variable "cluster_ec_subnetwork" {
   description = "The subnetwork to host the cluster in"
 }
 
-variable "cluster_sec_subnetwork" {
-  description = "The subnetwork to host the cluster in"
-}
 
 variable "cluster_opt_subnetwork" {
   description = "The subnetwork to host the cluster in"
@@ -197,9 +173,6 @@ variable "cluster_ec_name" {
   description = "The cluster name"
 }
 
-variable "cluster_sec_name" {
-  description = "The cluster name"
-}
 
 variable "cluster_opt_name" {
   description = "The cluster name"
@@ -209,9 +182,6 @@ variable "cluster_ec_pool_name" {
   description = "The cluster pool name"
 }
 
-variable "cluster_sec_pool_name" {
-  description = "The cluster pool name"
-}
 
 variable "cluster_opt_pool_name" {
   description = "The cluster pool name"
@@ -221,21 +191,26 @@ variable "cluster_opt_enable_private_nodes" {
   type = string
 }
 
-variable "cluster_sec_enable_private_nodes" {
-  type = string
-}
 
 variable "cluster_ec_enable_private_nodes" {
   type = string
+}
+
+#Bool input for whether opt cluster has private endpoint or not.
+variable "cluster_opt_enable_private_endpoint" {
+  type = bool
+}
+
+
+#Bool input for whether ec cluster has private endpoint or not.
+variable "cluster_ec_enable_private_endpoint" {
+  type = bool
 }
 
 variable "cluster_ec_master_cidr" {
   type = string
 }
 
-variable "cluster_sec_master_cidr" {
-  type = string
-}
 
 variable "cluster_opt_master_cidr" {
   type = string
@@ -248,12 +223,6 @@ variable "cluster_ec_master_authorized_cidrs" {
   }))
 }
 
-variable "cluster_sec_master_authorized_cidrs" {
-  type = list(object({
-    cidr_block   = string
-    display_name = string
-  }))
-}
 
 variable "cluster_opt_master_authorized_cidrs" {
   type = list(object({
@@ -268,11 +237,6 @@ variable "cluster_opt_min_master_version" {
   type        = string
 }
 
-variable "cluster_sec_min_master_version" {
-  default     = "latest"
-  description = "Master node minimal version"
-  type        = string
-}
 
 variable "cluster_ec_min_master_version" {
   default     = "latest"
@@ -308,27 +272,6 @@ variable "ec_iam_service_account_roles" {
   description = "Roles attached to service account"
 }
 
-# Vault deployment
-variable "vault-lb-name" {
-  type = string
-}
-
-variable "sec-vault-keyring" {
-  type = string
-}
-
-variable "location" {
-  type    = string
-  default = "EU"
-}
-
-variable "sec-vault-crypto-key-name" {
-  type = string
-}
-
-variable "sec-lb-name" {
-  type = string
-}
 
 #iTop deployment
 variable "itop_database_user_name" {
@@ -337,14 +280,6 @@ variable "itop_database_user_name" {
   type        = string
 }
 
-#TLS Certs
-variable "cert-common-name" {
-  type = string
-}
-
-variable "tls-organization" {
-  type = string
-}
 
 variable "terraform_state_bucket_name" {
   type = string
@@ -360,3 +295,14 @@ variable "ec_ui_source_bucket" {
   type        = string
 }
 
+variable "private_dns_name" {
+  type        = string
+  default     = ""
+  description = "Name for private DNS zone in the shared vpc network"
+}
+
+variable "private_dns_domain_name" {
+  type        = string
+  default     = ""
+  description = "Domain name for private DNS in the shared vpc network"
+}

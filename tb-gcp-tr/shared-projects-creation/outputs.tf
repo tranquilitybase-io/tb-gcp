@@ -17,10 +17,6 @@ output "shared_networking_id" {
   value       = google_project.shared_networking.project_id
 }
 
-output "shared_secrets_id" {
-  description = "identifier for the shared_secrets project."
-  value       = google_project.shared_secrets.project_id
-}
 
 output "shared_itsm_id" {
   description = "identifier for the shared_itsm project."
@@ -45,4 +41,9 @@ output "shared_ec_name" {
 output "shared_bastion_id" {
   description = "identifier for the tab_bastion project."
   value       = google_project.shared_bastion.id
+}
+
+output "shared_bastion_project_number" {
+  description = "number of the bastion project."
+  value       = google_project.shared_bastion.number
 }

@@ -28,12 +28,6 @@ variable "root_id" {
   description = "id for the parent where these folders will be created."
 }
 
-variable "root_is_org" {
-  type        = string
-  default     = "false"
-  description = "determines whether root directory is an org or a directory inside an org."
-}
-
 variable "tb_discriminator" {
   type        = string
   default     = ""
@@ -133,6 +127,12 @@ variable "gke_service_network_name" {
   description = "Name for the gke service network"
 }
 
+variable "bastion_subnetwork_cidr" {
+  type        = string
+  default     = "10.0.6.0/24"
+  description = "ip range for bastion subnet"
+}
+
 variable "router_name" {
   type        = string
   default     = "vpc-network-router"
@@ -227,6 +227,21 @@ variable "cluster_sec_enable_private_nodes" {
 
 variable "cluster_ec_enable_private_nodes" {
   type = string
+}
+
+#Bool input for whether opt cluster has private endpoint or not.
+variable "cluster_opt_enable_private_endpoint" {
+  type = bool
+}
+
+#Bool input for whether sec cluster has private endpoint or not.
+variable "cluster_sec_enable_private_endpoint" {
+  type = bool
+}
+
+#Bool input for whether ec cluster has private endpoint or not.
+variable "cluster_ec_enable_private_endpoint" {
+  type = bool
 }
 
 variable "cluster_ec_master_cidr" {

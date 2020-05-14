@@ -33,12 +33,6 @@ variable "shared_networking_project_name" {
   description = "Shared networking project name."
 }
 
-variable "shared_secrets_project_name" {
-  type        = string
-  default     = "shared-secrets"
-  description = "Shared secrets project name."
-}
-
 variable "shared_telemetry_project_name" {
   type        = string
   default     = "shared-telemetry"

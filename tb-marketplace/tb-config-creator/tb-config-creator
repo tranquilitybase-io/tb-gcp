@@ -19,30 +19,45 @@ function print_help {
   echo "If you need to grant gcloud with these permissions please use 'gcloud auth login' and then run the script again."
   echo
   echo "Usage: $0 <arguments>"
-  echo "  -f, --parent-folder-id <id> (REQUIRED) Parent folder ID (or Organisation ID) where the Tranquility Base folder will be created"
   echo "  -b, --billing-account-id <string> (REQUIRED) Billing account ID tied to all Tranquility Base consumption"
-  echo
+  echo "  -f, --parent-folder-id <id> Parent folder ID where the Tranquility Base folder will be created"
+  echo "  -o, --organization-id <id> Organisation ID where the Tranquility Base folder will be created"
+  echo "  -a, --admin-name <id> (OPTIONAL) admin name to label to bootstrap project"
+  echo "  Either parent-folder-id or organization-id is REQUIRED"
   echo "Example:"
   echo "  $ ./tb-config-creator -f 705953663545 -b F9C122-73127B-50AE5B"
+  echo "  $ ./tb-config-creator -0 123953123545 -b F9C122-73127B-50AE5B"
+
 }
 
-FOLDER_ID=""
+PARENT_FOLDER_ID=""
 BILLING_ID=""
+ORG_ID=""
+ADMIN=""
 
 while (( "$#" )); do
   case "$1" in
     -f|--parent-folder-id)
-      FOLDER_ID=$2
+      PARENT_FOLDER_ID=$2
+      shift 2
+      ;;
+    -o|--organization-id )
+      ORG_ID=$2
+      shift 2
+      ;;
+    -b|--billing-account-id)
+      BILLING_ID=$2
+      shift 2
+      ;;
+    -a|--admin-name)
+      ADMIN=$2
       shift 2
       ;;
     -h|--help)
       print_help
       exit 0
       ;;
-    -b|--billing-account-id)
-      BILLING_ID=$2
-      shift 2
-      ;;
+
     --) # end argument parsing
       shift
       break
@@ -58,22 +73,50 @@ while (( "$#" )); do
   esac
 done
 
-if [[ -z ${BILLING_ID} || -z ${FOLDER_ID} ]]; then
+## ARG CHECKING
+
+# we need on or the other
+if [[ -z ${BILLING_ID} && -z ${PARENT_FOLDER_ID} ]] || [[ -z ${BILLING_ID} && -z ${ORG_ID} ]]; then
   #echo "ERROR: Invalid arguments."
-  echo
-  print_help
+  echo "Error: Either Organisation or Folder ID needs to be provided with a Billing Account"
   exit 1
 fi
 
-
-# Check parent folder ID
-tb_folder_id=$(gcloud alpha resource-manager folders describe "${FOLDER_ID}" --format='value(name)')
-if [[ -z "${tb_folder_id}" ]]; then
-  echo "ERROR: Was not able to find the ${FOLDER_ID} folder."
+if [[ -n ${ORG_ID} && -n ${PARENT_FOLDER_ID} ]]; then
+  #echo "ERROR: Invalid arguments."
+  echo "Error: Either Organisation or Folder ID needs to be provided, not both"
   exit 1
-else
-  echo "Found parent folder ${FOLDER_ID}."
 fi
+
+parent_type=""
+parent_id=""
+
+if [[ -n ${PARENT_FOLDER_ID}  ]]; then
+  # Check parent folder ID
+  tb_folder_id=$(gcloud alpha resource-manager folders describe "${PARENT_FOLDER_ID}" --format='value(name)')
+  if [[ -z "${tb_folder_id}" ]]; then
+    echo "ERROR: Was not able to find the ${PARENT_FOLDER_ID} folder."
+    exit 1
+  else
+    echo "Found parent folder ${PARENT_FOLDER_ID}."
+    parent_type="folder"
+    parent_id=$PARENT_FOLDER_ID
+  fi
+fi
+
+if [[ -n ${ORG_ID}  ]]; then
+  # Check organization exists
+  org_id=$(gcloud organizations  describe "${ORG_ID}" --format='value(name)')
+  if [[ -z "${org_id}" ]]; then
+    echo "ERROR: Was not able to find the ${ORG_ID} organization."
+    exit 1
+  else
+    echo "Found parent organization ${ORG_ID}."
+    parent_type="organization"
+    parent_id=${ORG_ID}
+  fi
+fi
+
 
 # Check billing account
 tb_billing_id=$(gcloud beta billing accounts describe "${BILLING_ID}")
@@ -130,9 +173,22 @@ RND="$(date | md5sum |  awk '{print substr($0,0,9)}')"
 PROJECT_ID="${PREFIX}${RND}"
 SA_NAME="${PREFIX}sa"
 SA_EMAIL="${SA_NAME}@${PROJECT_ID}.iam.gserviceaccount.com"
+TBASE_FOLDER_PREFIX="Tranquility Base - "
+TBASE_FOLDER_NAME="${TBASE_FOLDER_PREFIX}${RND}"
+
+# Create Tbase folder to store bootstrap project, involves parsing the output of the glcoud command to get the folder id
+folder_id_entry=$(gcloud resource-manager folders create --display-name="${TBASE_FOLDER_NAME}" --"${parent_type}"="${parent_id}" --format="value(name)")
+IFS='/' read -ra split_array <<< "$folder_id_entry"
+tb_folder_id="$(echo ${split_array[1]} | sed 's/[^0-9]*//g')"
+
 
 echo "Creating project..."
-gcloud projects create "${PROJECT_ID}" --folder "${FOLDER_ID}" --format=none
+if [[ -n ${ADMIN}  ]]; then
+  gcloud projects create "${PROJECT_ID}" --folder "${tb_folder_id}" --format=none --labels admin=${ADMIN}
+else
+  gcloud projects create "${PROJECT_ID}" --folder "${tb_folder_id}" --format=none
+fi
+
 echo "Linking project to billing account..."
 gcloud alpha billing projects link "${PROJECT_ID}" --billing-account "${BILLING_ID}" --format=none
 echo "Linked project to billing account [${BILLING_ID}]."
@@ -150,12 +206,12 @@ gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"
 
 # Add permissions at the folder level
 echo "Adding permissions at the folder level..."
-gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/resourcemanager.folderAdmin --format=none
-gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/resourcemanager.projectCreator --format=none
-gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/resourcemanager.projectDeleter --format=none
-gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/billing.projectManager --format=none
-gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.networkAdmin --format=none
-gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.xpnAdmin --format=none
+gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/resourcemanager.folderAdmin --format=none
+gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/resourcemanager.projectCreator --format=none
+gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/resourcemanager.projectDeleter --format=none
+gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/billing.projectManager --format=none
+gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.networkAdmin --format=none
+gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.xpnAdmin --format=none
 
 # Add permissions at the billing level
 echo "Adding permissions at the billing account level..."
@@ -191,5 +247,5 @@ gcloud compute networks delete projects/"${PROJECT_ID}"/global/networks/default 
 
 echo
 echo "Configuration completed!"
-echo "You can now deploy Tranquility Base from Marketplace in project [${PROJECT_ID}]."
+echo "You can now deploy Tranquility Base from Marketplace in project [${PROJECT_ID}], in the [${TBASE_FOLDER_NAME}] folder"
 echo

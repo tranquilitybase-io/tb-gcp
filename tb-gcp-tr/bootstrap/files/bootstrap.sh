@@ -36,12 +36,15 @@ clusters_master_whitelist_ip = "${clusters_master_whitelist_ip}"
 region = "${region}"
 region_zone = "${region_zone}"
 root_id = "${root_id}"
-root_is_org = "${root_is_org}"
 billing_account_id = "${billing_account_id}"
 tb_discriminator = "${tb_discriminator}"
 terraform_state_bucket_name = "${terraform_state_bucket_name}"
 
 EOF
+
+#Make the IAP and Kubectl command scripts executable
+chmod +x /opt/tb/repo/tb-gcp-tr/landingZone/iap-tunnel.sh
+chmod +x /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh
 
 terraform init -backend-config="bucket=${terraform_state_bucket_name}" -backend-config="prefix=landingZone"
 
@@ -49,6 +52,7 @@ apply_failures=0
 while [ $apply_failures -lt $MAX_ATTEMPTS ]; do
   terraform apply -var-file input.tfvars -auto-approve
   if [ $? -eq 0 ]; then
+    /opt/tb/repo/tb-gcp-tr/landingZone/iap-tunnel.sh && /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh
     echo "Landing Zone successfully deployed."
     break
   fi
@@ -57,6 +61,7 @@ while [ $apply_failures -lt $MAX_ATTEMPTS ]; do
     break
   fi
   echo "Landing Zone deployment failed."
+  /opt/tb/repo/tb-gcp-tr/landingZone/iap-tunnel.sh && /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh
   apply_failures=$(($apply_failures + 1))
   echo "Retry #$apply_failures starting in $DELAY_BETWEEN_ATTEMPTS seconds."
   sleep $DELAY_BETWEEN_ATTEMPTS

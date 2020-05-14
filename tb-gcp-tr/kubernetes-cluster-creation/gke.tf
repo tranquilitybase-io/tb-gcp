@@ -66,8 +66,9 @@ resource "google_container_cluster" "gke" {
     services_secondary_range_name = var.gke_service_network_name
   }
   private_cluster_config {
-    enable_private_nodes   = var.cluster_enable_private_nodes
-    master_ipv4_cidr_block = var.cluster_master_cidr
+    enable_private_endpoint = var.cluster_enable_private_endpoint
+    enable_private_nodes    = var.cluster_enable_private_nodes
+    master_ipv4_cidr_block  = var.cluster_master_cidr
   }
 
   addons_config {

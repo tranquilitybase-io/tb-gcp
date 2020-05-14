@@ -47,6 +47,11 @@ variable "cluster_enable_private_nodes" {
   type    = string
 }
 
+variable "cluster_enable_private_endpoint" {
+  default = false
+  type    = bool
+}
+
 variable "cluster_master_cidr" {
   type = string
 }
@@ -93,7 +98,7 @@ variable "cluster_autoscaling_max_nodes" {
 
 variable "cluster_master_authorized_cidrs" {
   type = list(object({
-    cidr_block = string
+    cidr_block   = string
     display_name = string
   }))
 }

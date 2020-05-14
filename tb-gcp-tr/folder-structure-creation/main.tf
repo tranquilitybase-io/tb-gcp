@@ -16,18 +16,13 @@
 # Folder Structure Creation
 ###
 
-resource "google_folder" "tbase_folder" {
-  display_name = "Tranquility Base${var.tb_discriminator == "" ? "" : " - ${var.tb_discriminator}"}"
-  parent       = var.root_is_org ? "organizations/${var.root_id}" : "folders/${var.root_id}"
-}
-
 resource "google_folder" "activators_folder" {
   display_name = "Applications"
-  parent       = google_folder.tbase_folder.name
+  parent       = "folders/${var.root_id}"
 }
 
 resource "google_folder" "shared_services_folder" {
   display_name = "Shared Services"
-  parent       = google_folder.tbase_folder.name
+  parent       = "folders/${var.root_id}"
 }
 

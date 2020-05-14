@@ -15,7 +15,7 @@ Usage
 Usage: /home/usr1/bin/tb-projects-deleter <arguments>
 
 -r, --bootstrap-random-id <id>	(REQUIRED) Bootstrap project's random ID (e.g. -r 6813a9eb )
--f, --parent-folder-id <id>	(REQUIRED) Landing zone's parent folder ID (e.g. -f 238741628734)
+-f, --folder-id <id>	(REQUIRED) Landing zone's folder ID (e.g. -f 238741628734)
 -b, --billing-account-id <string>	(REQUIRED) Tranquility Base related Billing Account (e.g. -b AB1234-CD1234-EF1234)
 ```
 
@@ -23,14 +23,14 @@ Example execution
 -----------------
 
 ```
-$ ./tb-projects-deleter -r b32208 -f 238741628734 -b AB1234-CD1234-EF1234 
-Found project bootstrap-b3220878.
-Found 'Tranquility Base - tbb32208' (698227606755) folder.
+$ ./tb-projects-deleter -r 98b3465e -f 1035941827006 -b AB1234-CD1234-EF1234 
+Found project bootstrap-98b3465e.
+Found 'Tranquility Base - 98b3465e' (698227606755) folder.
 Found 'Applications' (806674588542) folder.
 Found 'Shared Services' (276539436569) folder.
-Found shared-networking-d30792a7 project.
+Found shared-networking-98b3465e project.
 Didn't find any application projects.
-Found shared-secrets-d30792a7 shared-telemetry-d30792a7 shared-itsm-d30792a7 shared-ec-d30792a7 shared-billing-d30792a7 shared-bastion-d30792a7  project(s).
+Found shared-secrets-98b3465e shared-telemetry-98b3465e shared-itsm-98b3465e shared-ec-98b3465e shared-billing-98b3465e shared-bastion-98b3465e  project(s).
 Found billing account AB1234-CD1234-EF1234.
 SHOULD THE ABOVE FOLDERS AND PROJECTS BE DELETED? (press Y to continue or any other key to abort) Y
 ```
@@ -56,68 +56,76 @@ No application projects to delete. Skipping...
 
 Deleting shared services projects (other then networking)...
 
-Deleted [https://cloudresourcemanager.googleapis.com/v1/projects/shared-security-d30792a7].
+Deleted [https://cloudresourcemanager.googleapis.com/v1/projects/shared-security-98b3465e].
 
 You can undo this operation for a limited period by running the command below.
-    $ gcloud projects undelete shared-security-d30792a7
+    $ gcloud projects undelete shared-security-98b3465e
 
 See https://cloud.google.com/resource-manager/docs/creating-managing-projects for information on shutting down projects.
-Deleted [https://cloudresourcemanager.googleapis.com/v1/projects/shared-telemetry-d30792a7].
+Deleted [https://cloudresourcemanager.googleapis.com/v1/projects/shared-telemetry-98b3465e].
 
 You can undo this operation for a limited period by running the command below.
-    $ gcloud projects undelete shared-telemetry-d30792a7
+    $ gcloud projects undelete shared-telemetry-98b3465e
 
 See https://cloud.google.com/resource-manager/docs/creating-managing-projects for information on shutting down projects.
-Deleted [https://cloudresourcemanager.googleapis.com/v1/projects/shared-itsm-d30792a7].
+Deleted [https://cloudresourcemanager.googleapis.com/v1/projects/shared-itsm-98b3465e].
 
 You can undo this operation for a limited period by running the command below.
-    $ gcloud projects undelete shared-itsm-d30792a7
+    $ gcloud projects undelete shared-itsm-98b3465e
 
 See https://cloud.google.com/resource-manager/docs/creating-managing-projects for information on shutting down projects.
-Deleted [https://cloudresourcemanager.googleapis.com/v1/projects/shared-ec-d30792a7].
+Deleted [https://cloudresourcemanager.googleapis.com/v1/projects/shared-ec-98b3465e].
 
 You can undo this operation for a limited period by running the command below.
-    $ gcloud projects undelete shared-ec-d30792a7
+    $ gcloud projects undelete shared-ec-98b3465e
 
 See https://cloud.google.com/resource-manager/docs/creating-managing-projects for information on shutting down projects.
-Deleted [https://cloudresourcemanager.googleapis.com/v1/projects/shared-billing-d30792a7].
+Deleted [https://cloudresourcemanager.googleapis.com/v1/projects/shared-billing-98b3465e].
 
 You can undo this operation for a limited period by running the command below.
-    $ gcloud projects undelete shared-billing-d30792a7
+    $ gcloud projects undelete shared-billing-98b3465e
 
 See https://cloud.google.com/resource-manager/docs/creating-managing-projects for information on shutting down projects.
-Deleted [https://cloudresourcemanager.googleapis.com/v1/projects/shared-bastion-d30792a7].
+Deleted [https://cloudresourcemanager.googleapis.com/v1/projects/shared-bastion-98b3465e].
 
 You can undo this operation for a limited period by running the command below.
-    $ gcloud projects undelete shared-bastion-d30792a7
+    $ gcloud projects undelete shared-bastion-98b3465e
 
 See https://cloud.google.com/resource-manager/docs/creating-managing-projects for information on shutting down projects.
 
 Deleting shared networking project...
 
-Deleted [https://cloudresourcemanager.googleapis.com/v1/projects/shared-networking-d30792a7].
+Deleted [https://cloudresourcemanager.googleapis.com/v1/projects/shared-networking-98b3465e].
 
 You can undo this operation for a limited period by running the command below.
-    $ gcloud projects undelete shared-networking-d30792a7
+    $ gcloud projects undelete shared-networking-98b3465e
 
 See https://cloud.google.com/resource-manager/docs/creating-managing-projects for information on shutting down projects.
 
-Removing bootstrap service account [bootstrap-sa@bootstrap-b3220878.iam.gserviceaccount.com] as billing account admin...
+Removing bootstrap service account [bootstrap-sa@bootstrap-98b3465e.iam.gserviceaccount.com] as billing account admin...
 Updated IAM policy for account [AB1234-CD1234-EF1234].
-Removing activator service account [activator-dev-sa@shared-ec-d30792a7.iam.gserviceaccount.com] as billing account admin...
+Removing activator service account [activator-dev-sa@shared-ec-98b3465e.iam.gserviceaccount.com] as billing account admin...
 Updated IAM policy for account [AB1234-CD1234-EF1234].
-Removing bootstrap service account [bootstrap-sa@bootstrap-b3220878.iam.gserviceaccount.com] bindings at the project level...
-Updated IAM policy for project [bootstrap-b3220878].
-Updated IAM policy for project [bootstrap-b3220878].
-Removing bootstrap service account [bootstrap-sa@bootstrap-b3220878.iam.gserviceaccount.com] IAM policy bindings for folder [238741628734]...
+Removing bootstrap service account [bootstrap-sa@bootstrap-98b3465e.iam.gserviceaccount.com] bindings at the project level...
+Updated IAM policy for project [bootstrap-98b3465e].
+Updated IAM policy for project [bootstrap-98b3465e].
+Removing bootstrap service account [bootstrap-sa@bootstrap-98b3465e.iam.gserviceaccount.com] IAM policy bindings for folder [238741628734]...
 Updated IAM policy for folder [238741628734].
 Updated IAM policy for folder [238741628734].
 Updated IAM policy for folder [238741628734].
 Updated IAM policy for folder [238741628734].
 Updated IAM policy for folder [238741628734].
 Updated IAM policy for folder [238741628734].
-Removing activator service account [activator-dev-sa@shared-ec-d30792a7.iam.gserviceaccount.com] as billing account admin...
+Removing activator service account [activator-dev-sa@shared-ec-98b3465e.iam.gserviceaccount.com] as billing account admin...
 Updated IAM policy for account [AB1234-CD1234-EF1234].
+
+Deleting bootstrap project...
+Deleted [https://cloudresourcemanager.googleapis.com/v1/projects/bootstrap-98b3465e].
+
+You can undo this operation for a limited period by running the command below.
+    $ gcloud projects undelete bootstrap-98b3465e
+
+See https://cloud.google.com/resource-manager/docs/creating-managing-projects for information on shutting down projects.
 
 Deleting folders...
 Deleted [<Folder
@@ -134,18 +142,11 @@ Deleted [<Folder
  parent: u'folders/698227606755'>].
 Deleted [<Folder
  createTime: u'2020-03-03T10:30:28.704Z'
- displayName: u'Tranquility Base - tbb32208'
+ displayName: u'Tranquility Base - 98b3465e'
  lifecycleState: LifecycleStateValueValuesEnum(DELETE_REQUESTED, 2)
  name: u'folders/698227606755'
  parent: u'folders/238741628734'>].
 
-Deleting bootstrap project...
-Deleted [https://cloudresourcemanager.googleapis.com/v1/projects/bootstrap-b3220878].
-
-You can undo this operation for a limited period by running the command below.
-    $ gcloud projects undelete bootstrap-b3220878
-
-See https://cloud.google.com/resource-manager/docs/creating-managing-projects for information on shutting down projects.
 $
 ```
 
