@@ -1,6 +1,6 @@
 steps:
 
-  - name: gcr.io/cloud-builders/git
+  - name: 'gcr.io/cloud-builders/git'
     args: ['clone', '--single-branch', '--branch', 'issue-127', 'https://github.com/tranquilitybase-io/tb-gcp.git']
 
   - name: 'gcr.io/$PROJECT_ID/ubuntu-python3-gcloud'
