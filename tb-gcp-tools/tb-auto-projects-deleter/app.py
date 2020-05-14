@@ -17,6 +17,7 @@ def main():
     print(client._credentials.service_account_email)
     print(client._credentials.valid)
     print(client.list_projects())
+    print(list(client.list_projects()))
     print(projects_to_delete_list)
 
     for project in projects_to_delete_list:
