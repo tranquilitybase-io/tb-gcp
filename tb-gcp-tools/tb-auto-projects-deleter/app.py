@@ -20,7 +20,7 @@ def main():
         # call_deleter_script_for_project(project.id, BILLING_ACCOUNT, folder_id, PATH_DELETE_SCRIPT)
 
 def filter_non_tb_projects(project):
-    if project.name.startswith(BOOTSTRAP_PREFIX) and NO_DELETE_LABEL not in project.labels:
+    if project.exists() and project.name.startswith(BOOTSTRAP_PREFIX) and NO_DELETE_LABEL not in project.labels:
         return True
     else:
         return False
