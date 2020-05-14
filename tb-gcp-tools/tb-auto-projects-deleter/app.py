@@ -13,7 +13,6 @@ NO_DELETE_LABEL = "no-delete"
 client = resource_manager.Client()
 
 def main():
-
     projects_to_delete_list = \
         list(filter(filter_non_tb_projects, client.list_projects()))
 
