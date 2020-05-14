@@ -11,16 +11,17 @@ NO_DELETE_LABEL = "no-delete"
 client = resource_manager.Client()
 
 def main():
-    projects_to_delete_list = \
-        list(filter(filter_non_tb_projects, client.list_projects()))
+
+    all_projects = list(client.list_projects())
+    projects_to_delete_list = list(filter(filter_non_tb_projects, all_projects))
 
     for project in projects_to_delete_list:
         folder_id = project.parent['id']
         print(project)
-        # call_deleter_script_for_project(project.id, BILLING_ACCOUNT, folder_id, PATH_DELETE_SCRIPT)
+        call_deleter_script_for_project(project.id, BILLING_ACCOUNT, folder_id, PATH_DELETE_SCRIPT)
 
 def filter_non_tb_projects(project):
-    if project.exists() and project.name.startswith(BOOTSTRAP_PREFIX) and NO_DELETE_LABEL not in project.labels:
+    if project.status == 'ACTIVE' and project.name.startswith(BOOTSTRAP_PREFIX) and NO_DELETE_LABEL not in project.labels:
         return True
     else:
         return False
