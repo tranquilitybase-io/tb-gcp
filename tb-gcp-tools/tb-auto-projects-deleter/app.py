@@ -16,6 +16,8 @@ def main():
     projects_to_delete_list = \
         list(filter(filter_non_tb_projects, client.list_projects()))
 
+    print(projects_to_delete_list)
+
     for project in projects_to_delete_list:
         folder_id = project.parent['id']
         give_build_sa_permission_to_delete(PATH_SA_PERMISSION_SCRIPT, project.id, BILLING_ACCOUNT, BUILD_SA_ACCOUNT,
