@@ -35,7 +35,7 @@ def run_bash_command(cmd):
 
 
 def call_deleter_script_for_project(project, billing_account, folder_id, path_to_script):
-    print("DELETING RESOURCES CREATED BY " + project.name + " PROJECT")
+    print("DELETING RESOURCES CREATED BY " + project + " PROJECT")
     random_id = get_random_id_from_project(project)
     cmd = "yes Y | bash {} -r {} -f {} -b {}".format(
         path_to_script, random_id, folder_id, billing_account)
@@ -43,7 +43,7 @@ def call_deleter_script_for_project(project, billing_account, folder_id, path_to
 
 
 def get_random_id_from_project(project):
-    return project.name[-8:]
+    return project[-8:]
 
 
 if __name__ == "__main__":
