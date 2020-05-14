@@ -13,11 +13,11 @@
 # limitations under the License.
 
 output "all_apis_enabled" {
-  value = join(",", [
-    module.host-project.project_id,
-    module.shared_secrets.project_id,
-    module.shared_itsm.project_id,
-    module.shared_ec.project_id,
-    module.bastion.project_id,
+
+  value = join(",", [values(google_project_service.shared_ec)[0].project,
+    values(google_project_service.shared_secrets)[0].project,
+    values(google_project_service.shared_itsm)[0].project,
+    values(google_project_service.bastion)[0].project,
+
   ])
 }
