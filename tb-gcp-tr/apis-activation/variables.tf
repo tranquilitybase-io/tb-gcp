@@ -13,25 +13,26 @@
 # limitations under the License.
 
 variable "host_project_id" {
-  type = string
+  description = "id for the shared vpc project"
+  type        = string
 }
 
-variable "shared_secrets_id" {
-  type = string
+variable "secrets_project_id" {
+  description = "id for the secrets project"
+  type        = string
 }
 
-variable "shared_itsm_id" {
-  type = string
+variable "itsm_project_id" {
+  description = "id for the itsm project"
+  type        = string
 }
 
-variable "shared_ec_id" {
-  type = string
-}
-
-variable "ec_project_id" {
-  type = string
+variable "eagle_console_project_id" {
+  description = "id for the eagle console project"
+  type        = string
 }
 
 variable "bastion_project_id" {
-  type = string
+  description = "id for the bastion project"
+  type        = string
 }
