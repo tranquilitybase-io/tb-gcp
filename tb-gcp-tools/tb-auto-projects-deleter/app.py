@@ -57,4 +57,5 @@ def get_random_id_from_project(project):
 
 
 if __name__ == "__main__":
+    print("DEBUG")
     main()
