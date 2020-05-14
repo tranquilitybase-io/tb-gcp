@@ -58,40 +58,42 @@ locals {
 
 
 resource "google_project_service" "host-project" {
-  project  = var.host_project_id
-  for_each = toset(local.host_project_apis)
-  service  = each.value
+  project                    = var.host_project_id
+  for_each                   = toset(local.host_project_apis)
+  service                    = each.value
+  disable_dependent_services = true
 }
 
 resource "google_project_service" "shared_secrets" {
-  project  = var.shared_secrets_id
-  for_each = toset(local.service_project_apis)
-  service  = each.value
-  depends_on = [
-  google_project_service.host-project]
+  project                    = var.shared_secrets_id
+  for_each                   = toset(local.service_project_apis)
+  service                    = each.value
+  disable_dependent_services = true
+  depends_on                 = [google_project_service.host-project]
 }
 
 resource "google_project_service" "shared_itsm" {
-  project  = var.shared_itsm_id
-  for_each = toset(local.service_project_apis)
-  service  = each.value
-  depends_on = [
-  google_project_service.host-project]
+  project                    = var.shared_itsm_id
+  for_each                   = toset(local.service_project_apis)
+  service                    = each.value
+  disable_dependent_services = true
+  depends_on                 = [google_project_service.host-project]
 }
 
 resource "google_project_service" "shared_ec" {
-  project  = var.shared_ec_id
-  for_each = toset(local.service_project_apis)
-  service  = each.value
-  depends_on = [
-  google_project_service.host-project]
+  project                    = var.shared_ec_id
+  for_each                   = toset(local.service_project_apis)
+  service                    = each.value
+  disable_dependent_services = true
+  depends_on                 = [google_project_service.host-project]
+
 }
 
 resource "google_project_service" "bastion" {
-  project  = var.bastion_project_id
-  for_each = toset(local.bastion_project_apis)
-  service  = each.value
-  depends_on = [
-  google_project_service.host-project]
+  project                    = var.bastion_project_id
+  for_each                   = toset(local.bastion_project_apis)
+  service                    = each.value
+  disable_dependent_services = true
+  depends_on                 = [google_project_service.host-project]
 }
 
