@@ -14,7 +14,6 @@
 
 #SHARED PROJECTS CREATION
 shared_networking_project_name = "shared-networking"
-shared_secrets_project_name    = "shared-secrets"
 shared_telemetry_project_name  = "shared-telemetry"
 shared_itsm_project_name       = "shared-itsm"
 shared_billing_project_name    = "shared-billing"
@@ -22,7 +21,7 @@ shared_bastion_project_name    = "shared-bastion"
 
 #APIs ACTIVATION
 
-service_projects_number = "3"
+service_projects_number = "2"
 
 #SHARED VPC
 shared_vpc_name = "shared-network"
@@ -44,12 +43,6 @@ gke_network_subnets = [
     cidr         = "10.0.2.0/24",
     pod_cidr     = "10.2.0.0/17",
     service_cidr = "10.2.128.0/20"
-  },
-  {
-    name         = "shared-secrets-snet",
-    cidr         = "10.0.3.0/24",
-    pod_cidr     = "10.3.0.0/17",
-    service_cidr = "10.3.128.0/20"
   },
   {
     name         = "activator-project-snet",
@@ -93,29 +86,6 @@ cluster_ec_master_authorized_cidrs = [
 istio_status       = "false"
 ec_repository_name = "EC-activator-tf"
 
-#KUBERNETES SECRETS CLUSTER
-cluster_sec_subnetwork              = "shared-secrets-snet"
-cluster_sec_service_account         = "kubernetes-sec"
-cluster_sec_name                    = "gke-sec"
-cluster_sec_pool_name               = "gke-sec-node-pool"
-cluster_sec_enable_private_nodes    = "true"
-cluster_sec_enable_private_endpoint = false
-cluster_sec_master_cidr             = "172.16.0.16/28"
-cluster_sec_master_authorized_cidrs = [
-  {
-    cidr_block   = "10.0.0.0/8"
-    display_name = "mgmt-1"
-  },
-  {
-    cidr_block   = "10.0.6.0/24"
-    display_name = "proxy-subnet"
-  }
-]
-#cluster_sec_min_master_version = "latest"
-vault-lb-name     = "sec-vault-lb"
-sec-vault-keyring = "vault"
-location          = "EU"
-
 
 #KUBERNETES OPERATIONS CLUSTER
 cluster_opt_subnetwork              = "shared-itsm-snet"
@@ -150,9 +120,3 @@ ec_iam_service_account_roles = [
   "roles/datastore.owner",
   "roles/browser",
 "roles/resourcemanager.projectIamAdmin"]
-
-# Vault deployment
-sec-vault-crypto-key-name = "vault-init"
-sec-lb-name               = "vault-lb"
-cert-common-name          = "tb.vault-ca.local"
-tls-organization          = "TB Vault"
