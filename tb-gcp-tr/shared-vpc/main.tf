@@ -32,13 +32,18 @@ resource "google_compute_network" "shared_network" {
 }
 
 resource "google_compute_subnetwork" "standard" {
-  count            = length(var.standard_network_subnets)
-  name             = var.standard_network_subnets[count.index]["name"]
-  ip_cidr_range    = var.standard_network_subnets[count.index]["cidr"]
-  region           = var.region
-  project          = var.host_project_id
-  network          = google_compute_network.shared_network.name
-  enable_flow_logs = var.enable_flow_logs
+  count         = length(var.standard_network_subnets)
+  name          = var.standard_network_subnets[count.index]["name"]
+  ip_cidr_range = var.standard_network_subnets[count.index]["cidr"]
+  region        = var.region
+  project       = var.host_project_id
+  network       = google_compute_network.shared_network.name
+
+  log_config {
+    aggregation_interval = "INTERVAL_5_SEC"
+    flow_sampling        = 0.5
+    metadata             = "INCLUDE_ALL_METADATA"
+  }
 
   #labels           = "${var.tags}"
   depends_on = [google_compute_network.shared_network]
@@ -52,7 +57,12 @@ resource "google_compute_subnetwork" "gke" {
   private_ip_google_access = true
   project                  = var.host_project_id
   network                  = google_compute_network.shared_network.name
-  enable_flow_logs         = var.enable_flow_logs
+
+  log_config {
+    aggregation_interval = "INTERVAL_5_SEC"
+    flow_sampling        = 0.5
+    metadata             = "INCLUDE_ALL_METADATA"
+  }
 
   #labels           = "${var.tags}"
   depends_on = [google_compute_network.shared_network]
@@ -76,7 +86,13 @@ resource "google_compute_subnetwork" "shared-bastion-subnetwork" {
   private_ip_google_access = true
   project                  = var.host_project_id
   network                  = google_compute_network.shared_network.name
-  enable_flow_logs         = var.enable_flow_logs
+
+  log_config {
+    aggregation_interval = "INTERVAL_5_SEC"
+    flow_sampling        = 0.5
+    metadata             = "INCLUDE_ALL_METADATA"
+  }
+
   depends_on = [
   google_compute_network.shared_network]
 }

@@ -12,32 +12,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-variable "service_projects_number" {
-  type        = string
-  default     = ""
-  description = "Number of service projects attached to shared vpc host"
-}
-
-variable "service_project_ids" {
-  type        = list(string)
-  default     = []
-  description = "Associated service projects to link with the host project."
-}
-
 variable "host_project_id" {
+  description = "id for the shared vpc project"
   type        = string
-  default     = ""
-  description = "Identifier for the host project to be used"
 }
 
-variable "ec_project_id" {
+variable "itsm_project_id" {
+  description = "id for the itsm project"
   type        = string
-  default     = ""
-  description = "Identifier for the host project to be used"
+}
+
+variable "eagle_console_project_id" {
+  description = "id for the eagle console project"
+  type        = string
 }
 
 variable "bastion_project_id" {
+  description = "id for the bastion project"
   type        = string
-  default     = ""
-  description = "Identifier for the host project to be used"
 }

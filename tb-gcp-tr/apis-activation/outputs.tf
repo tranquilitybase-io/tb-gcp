@@ -13,6 +13,10 @@
 # limitations under the License.
 
 output "all_apis_enabled" {
-  value = join(",", google_project_services.project_shared.*.id)
-}
 
+  value = join(",", [values(google_project_service.eagle_console)[0].project,
+    values(google_project_service.itsm)[0].project,
+    values(google_project_service.bastion)[0].project,
+
+  ])
+}
