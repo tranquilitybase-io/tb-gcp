@@ -149,7 +149,6 @@ resources:
         region_zone="{{ zone }}"
         billing_account_id="{{ billingAccountId }}"
         root_id="{{ rootId }}"
-        root_is_org="false"
         tb_discriminator="{{ tbDiscriminator }}"
         terraform_state_bucket_name="{{ bucketName }}"
         clusters_master_whitelist_ip="$(ref.nat-ip-{{ tbDiscriminator }}.address)"
