@@ -40,8 +40,8 @@ resource "google_compute_subnetwork" "standard" {
   network       = google_compute_network.shared_network.name
 
   log_config {
-    aggregation_interval = "INTERVAL_10_MIN"
-    flow_sampling        = 0.5
+    aggregation_interval = "INTERVAL_5_SEC"
+    flow_sampling         = 0.5
     metadata             = "INCLUDE_ALL_METADATA"
   }
 
@@ -59,8 +59,8 @@ resource "google_compute_subnetwork" "gke" {
   network                  = google_compute_network.shared_network.name
 
   log_config {
-    aggregation_interval = "INTERVAL_10_MIN"
-    flow_sampling        = 0.5
+    aggregation_interval = "INTERVAL_5_SEC"
+    flow_sampling         = 0.5
     metadata             = "INCLUDE_ALL_METADATA"
   }
 
@@ -88,8 +88,8 @@ resource "google_compute_subnetwork" "shared-bastion-subnetwork" {
   network                  = google_compute_network.shared_network.name
 
   log_config {
-    aggregation_interval = "INTERVAL_10_MIN"
-    flow_sampling        = 0.5
+    aggregation_interval = "INTERVAL_5_SEC"
+    flow_sampling         = 0.5
     metadata             = "INCLUDE_ALL_METADATA"
   }
 
