@@ -7,7 +7,7 @@ BUILD_PROJECT_ID = sys.argv[1]
 BILLING_ACCOUNT = sys.argv[2]
 PATH_DELETE_SCRIPT = sys.argv[3]
 BOOTSTRAP_PREFIX = "bootstrap-"
-NO_DELETE_LABEL = "no-delete"
+NO_DELETE_LABEL = "dont-delete"
 client = resource_manager.Client()
 
 def main():
@@ -47,5 +47,5 @@ def get_random_id_from_project(project):
 
 
 if __name__ == "__main__":
-    print("DEBUG")
+    print("RUNNING DELETER SCRIPT")
     main()
