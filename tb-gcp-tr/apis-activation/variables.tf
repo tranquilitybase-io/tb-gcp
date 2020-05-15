@@ -17,11 +17,6 @@ variable "host_project_id" {
   type        = string
 }
 
-variable "secrets_project_id" {
-  description = "id for the secrets project"
-  type        = string
-}
-
 variable "itsm_project_id" {
   description = "id for the itsm project"
   type        = string

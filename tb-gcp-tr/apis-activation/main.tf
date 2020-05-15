@@ -64,14 +64,6 @@ resource "google_project_service" "host-project" {
   disable_dependent_services = true
 }
 
-resource "google_project_service" "secrets" {
-  project                    = var.secrets_project_id
-  for_each                   = toset(local.service_project_apis)
-  service                    = each.value
-  disable_dependent_services = true
-  depends_on                 = [google_project_service.host-project]
-}
-
 resource "google_project_service" "itsm" {
   project                    = var.itsm_project_id
   for_each                   = toset(local.service_project_apis)

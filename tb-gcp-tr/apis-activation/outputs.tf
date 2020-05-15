@@ -15,7 +15,6 @@
 output "all_apis_enabled" {
 
   value = join(",", [values(google_project_service.eagle_console)[0].project,
-    values(google_project_service.secrets)[0].project,
     values(google_project_service.itsm)[0].project,
     values(google_project_service.bastion)[0].project,
 

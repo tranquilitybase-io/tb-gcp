@@ -80,7 +80,6 @@ module "apis_activation" {
   ec_project_id            = module.shared_projects.shared_ec_id
   bastion_project_id       = module.shared_projects.shared_bastion_id
   host_project_id          = module.shared_projects.shared_networking_id
-  secrets_project_id       = module.shared_projects.shared_secrets_id
   itsm_project_id          = module.shared_projects.shared_itsm_id
   eagle_console_project_id = module.shared_projects.shared_ec_id
 }
