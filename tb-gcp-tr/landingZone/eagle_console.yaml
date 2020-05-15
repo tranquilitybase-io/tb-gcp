@@ -49,6 +49,22 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  name: gcpdac
+spec:
+  ports:
+    - port: 80
+      targetPort: 3100
+      name: http
+    - port: 443
+      targetPort: 3100
+      name: https
+  selector:
+    app: gcpdac
+  clusterIP: None
+---
+apiVersion: v1
+kind: Service
+metadata:
   name: mysql57
 spec:
   ports:
@@ -133,6 +149,75 @@ spec:
               value: "True"
             - name: SQLALCHEMY_TRACK_MODIFICATIONS
               value: "True"
+      volumes:
+        - name: config-volume
+          configMap:
+            name: ec-config
+        - name: google-cloud-key
+          secret:
+            secretName: ec-service-account
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: gcpdac-v1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: gcpdac
+        version: v1
+    spec:
+      containers:
+        - name: gcpdac
+          image: gcr.io/tranquility-base-images/tb-gcp-dac:landingzone
+          resources:
+            requests:
+              cpu: "100m"
+          imagePullPolicy: IfNotPresent #Always
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/ec-config.yaml
+              subPath: ec-config.yaml
+            - name: google-cloud-key
+              mountPath: /var/secrets/google
+          env:
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /var/secrets/google/ec-service-account-config.json
+            - name: CELERY_BROKER_URL
+              value: redis://redis:6379
+            - name: CELERY_RESULT_BACKEND
+              value: redis://redis:6379
+
+        - name: redis
+          image: redis:alpine
+
+        - name: gcpdacworker
+          image: gcr.io/tranquility-base-images/tb-gcp-dac:landingzone
+          resources:
+            requests:
+              cpu: "100m"
+          imagePullPolicy: IfNotPresent #Always
+          command: celery -E -A celery_worker worker --loglevel=info
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/ec-config.yaml
+              subPath: ec-config.yaml
+            - name: google-cloud-key
+              mountPath: /var/secrets/google
+          env:
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /var/secrets/google/ec-service-account-config.json
+            - name: CELERY_BROKER_URL
+              value: redis://redis:6379
+            - name: CELERY_RESULT_BACKEND
+              value: redis://redis:6379
+
       volumes:
         - name: config-volume
           configMap:

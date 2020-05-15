@@ -36,6 +36,7 @@ data:
     shared_vpc_host_project: ${module.shared_projects.shared_networking_id}
     shared_network_name: ${var.shared_vpc_name}
     shared_networking_id: ${module.shared_projects.shared_networking_id}
+    tb_discriminator: ${var.tb_discriminator}
 FILE
 
 }
