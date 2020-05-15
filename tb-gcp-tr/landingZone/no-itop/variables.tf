@@ -52,11 +52,6 @@ variable "shared_telemetry_project_name" {
   description = "Shared telemetry project name."
 }
 
-variable "shared_itsm_project_name" {
-  type        = string
-  default     = "shared-itsm"
-  description = "Shared itsm project name."
-}
 
 variable "shared_billing_project_name" {
   type        = string

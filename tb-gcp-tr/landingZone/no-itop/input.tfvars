@@ -15,7 +15,6 @@
 #SHARED PROJECTS CREATION
 shared_networking_project_name = "shared-networking"
 shared_telemetry_project_name  = "shared-telemetry"
-shared_itsm_project_name       = "shared-itsm"
 shared_billing_project_name    = "shared-billing"
 shared_bastion_project_name    = "shared-bastion"
 
