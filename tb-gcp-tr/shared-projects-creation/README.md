@@ -1,1 +1,0 @@
-Script responsible for shared projects creation.
