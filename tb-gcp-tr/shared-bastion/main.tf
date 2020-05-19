@@ -201,7 +201,7 @@ resource "google_compute_instance" "tb_kube_proxy" {
   machine_type = "n1-standard-2"
   boot_disk {
     initialize_params {
-      image = "centos-7"
+      image = "centos-cloud/centos-7"
     }
   }
   metadata_startup_script = file("${path.module}/squid_startup.sh")
