@@ -1,9 +1,0 @@
-steps:
-
-  - name: 'gcr.io/cloud-builders/git'
-    args: ['clone', '--single-branch', '--branch', 'issue-127', 'https://github.com/tranquilitybase-io/tb-gcp.git']
-
-  - name: 'gcr.io/$PROJECT_ID/ubuntu-python3-gcloud'
-    entrypoint: 'python3'
-    dir: 'tb-gcp/tb-gcp-tools'
-    args: [ 'tb-auto-projects-deleter/app.py', '$PROJECT_ID', '${_BILLING_ACCOUNT}',  'tb-projects-deleter/tb-projects-deleter']
