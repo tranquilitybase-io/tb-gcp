@@ -201,7 +201,7 @@ spec:
             requests:
               cpu: "100m"
           imagePullPolicy: IfNotPresent #Always
-          command: celery -E -A celery_worker worker --loglevel=info
+          command: ["celery -E -A celery_worker worker --loglevel=info"]
           ports:
             - containerPort: 80
           volumeMounts:
