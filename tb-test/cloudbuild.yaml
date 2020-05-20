@@ -1,4 +1,22 @@
 steps:
+  - # Pre build checks
+    id: Run terraform init
+    name: 'gcr.io/$PROJECT_ID/terraform'
+    args: ['init', '-backend=false']
+    dir: 'tb-gcp-tr/landingZone/no-itop'
+
+  -
+    id: Run terraform validate
+    name: 'gcr.io/$PROJECT_ID/terraform'
+    args: ['validate']
+    dir: 'tb-gcp-tr/landingZone/no-itop'
+
+#  - # Delete terraform files
+#    id: clean up test
+#    name: 'gcr.io/$PROJECT_ID/terraform'
+#    args: ['validate']
+#    dir: 'tb-gcp-tr/landingZone/no-itop'
+
   - # Build Tranquility Base Image
     id: Package image
     name: 'gcr.io/$PROJECT_ID/packer'
