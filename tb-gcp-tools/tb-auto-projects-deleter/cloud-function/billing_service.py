@@ -19,6 +19,4 @@ class BillingService:
 
         # service = __get_cloud_billing_service()
         # https://developers.google.com/resources/api-libraries/documentation/cloudbilling/v1/python/latest/cloudbilling_v1.projects.html#updateBillingInfo
-        billing_info = self.service.projects() \
-            .updateBillingInfo(name='projects/{}'.format(project_id), body={'billingAccountName': ''}).execute()
-        assert 'billingAccountName' not in billing_info
+        billing_info = self.service.projects().updateBillingInfo(name='projects/{}'.format(project_id), body={'billingAccountName': ''}).execute()
