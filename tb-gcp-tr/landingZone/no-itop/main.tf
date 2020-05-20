@@ -221,7 +221,6 @@ resource "null_resource" "get_endpoint" {
       EOF
   }
 
-  #   command = "echo -n 'http://' > ${var.endpoint_file} && kubectl --context=${module.k8s-ec_context.context_name} get svc istio-ingressgateway -n istio-system -o jsonpath='{.status.loadBalancer.ingress[0].ip}' >> ${var.endpoint_file}"
 
   depends_on = [module.SharedServices_ec]
 }
