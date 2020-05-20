@@ -1,8 +1,9 @@
 from oauth2client.client import GoogleCredentials
 
-from api_handlers.billing_service import BillingService
-from api_handlers.folders_service import FoldersService
-from api_handlers.projects_service import ProjectsService
+
+from billing_service import BillingService
+from folders_service import FoldersService
+from projects_service import ProjectsService
 
 
 credentials = GoogleCredentials.get_application_default()
