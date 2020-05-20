@@ -1,22 +1,4 @@
 steps:
-#  - # Pre build checks
-#    id: Run terraform init
-#    name: 'gcr.io/$PROJECT_ID/terraform'
-#    args: ['init', '-backend=false']
-#    dir: 'tb-gcp-tr/landingZone/no-itop'
-#
-#  -
-#    id: Run terraform validate
-#    name: 'gcr.io/$PROJECT_ID/terraform'
-#    args: ['validate']
-#    dir: 'tb-gcp-tr/landingZone/no-itop'
-
-#  - # Delete terraform files
-#    id: clean up test
-#    name: 'gcr.io/$PROJECT_ID/terraform'
-#    args: ['validate']
-#    dir: 'tb-gcp-tr/landingZone/no-itop'
-
   - # Build Tranquility Base Image
     id: Package image
     name: 'gcr.io/$PROJECT_ID/packer'
@@ -62,19 +44,6 @@ steps:
     - |
       chmod +x tb-test/scripts/run-tests.sh
       ./tb-test/scripts/run-tests.sh
-# testing ends here
-
-#  - id: Copy image to Cloud Storage
-#    name: 'gcr.io/cloud-builders/gcloud'
-#    waitFor:
-#      - Run tests
-#    args: ['compute', 'images', 'export', '--image=$_IMAGE_NAME-$BRANCH_NAME','--destination-uri=gs://$_TB_IMAGE_BUCKET/$_IMAGE_NAME-$BRANCH_NAME-$COMMIT_SHA.tar.gz','--project=$PROJECT_ID']
-
-#  - id: Delete Image from project images
-#    name: 'gcr.io/cloud-builders/gcloud'
-#    waitFor:
-#      - Copy image to Cloud Storage
-#    args: ['compute', 'images', 'delete', '$_IMAGE_NAME','--project=$PROJECT_ID','--quiet']
 
 substitutions:
   _TB_IMAGE_BUCKET: tbase-images

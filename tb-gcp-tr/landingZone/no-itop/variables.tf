@@ -58,7 +58,7 @@ variable "shared_itsm_project_name" {
   description = "Shared itsm project name."
 }
 
-variable "dshared_billing_project_name" {
+variable "shared_billing_project_name" {
   type        = string
   default     = "shared-billing"
   description = "Shared billing project name."

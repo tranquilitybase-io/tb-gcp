@@ -87,10 +87,6 @@ npm -v
 unzip -d /usr/local/bin/ terraform_0.12.9_linux_amd64.zip
 rm terraform_0.12.9_linux_amd64.zip
 
-# install kubectl ?
-#export HOME=/root
-#apt-get install -y kubectl
-
 # move TB Repo files from packer's home directory to target /opt/tb/repo directory
 mkdir -p /opt/tb
 mv repo /opt/tb/
@@ -99,7 +95,7 @@ mv tb-gcp-tr /opt/tb/repo
 #Navigate to Landing Zone working dir
 cd /opt/tb/repo/tb-gcp-tr/landingZone/no-itop/
 # Download required terraform providers
-echo "RUNNING TERRAFORM INIT"
 terraform init -backend=false
+# Check terraform syntax
 terraform validate
 pwd
