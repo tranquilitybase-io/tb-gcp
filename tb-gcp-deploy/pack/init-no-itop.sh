@@ -100,4 +100,5 @@ mv tb-gcp-tr /opt/tb/repo
 cd /opt/tb/repo/tb-gcp-tr/landingZone/no-itop/
 # Download required terraform providers
 terraform init -backend=false
+terraform validate
 pwd
