@@ -29,7 +29,7 @@ steps:
       - Label image
     args: ['compute', 'images', 'add-iam-policy-binding', '$_IMAGE_NAME-$BRANCH_NAME','--member=$_IMAGE_MEMBER','--role=$_IMAGE_ROLE']
 
-  # testing starts here
+# Not yet implemented
 # create instance from image. instance starting up creates resources required for tranquility base via terraform or GDM in bootstrap.sh
 # run inspec tests (or other) after bootstrap.sh finished
 # run 'terraform destroy' or 'gdm delete' to clean up resources
