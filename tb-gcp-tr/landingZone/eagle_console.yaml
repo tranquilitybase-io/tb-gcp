@@ -95,22 +95,6 @@ spec:
           imagePullPolicy: IfNotPresent #Always
           ports:
             - containerPort: 80
-          volumeMounts:
-            - name: config-volume
-              mountPath: /app/ec-config.yaml
-              subPath: ec-config.yaml
-            - name: google-cloud-key
-              mountPath: /var/secrets/google
-          env:
-            - name: GOOGLE_APPLICATION_CREDENTIALS
-              value: /var/secrets/google/ec-service-account-config.json
-      volumes:
-        - name: config-volume
-          configMap:
-            name: ec-config
-        - name: google-cloud-key
-          secret:
-            secretName: ec-service-account
 ---
 
 apiVersion: extensions/v1beta1
@@ -134,28 +118,13 @@ spec:
           imagePullPolicy: IfNotPresent #Always
           ports:
             - containerPort: 80
-          volumeMounts:
-            - name: config-volume
-              mountPath: /app/ec-config.yaml
-              subPath: ec-config.yaml
-            - name: google-cloud-key
-              mountPath: /var/secrets/google
           env:
-            - name: GOOGLE_APPLICATION_CREDENTIALS
-              value: /var/secrets/google/ec-service-account-config.json
             - name: SQLALCHEMY_DATABASE_URI
               value: mysql+mysqlconnector://eagle-user:eagle-user-secret-pw@mysql57/eagle_db
             - name: SQLALCHEMY_ECHO
               value: "True"
             - name: SQLALCHEMY_TRACK_MODIFICATIONS
               value: "True"
-      volumes:
-        - name: config-volume
-          configMap:
-            name: ec-config
-        - name: google-cloud-key
-          secret:
-            secretName: ec-service-account
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
