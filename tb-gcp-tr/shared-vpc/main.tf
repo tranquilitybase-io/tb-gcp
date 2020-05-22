@@ -120,6 +120,12 @@ resource "google_compute_router_nat" "simple-nat" {
   nat_ip_allocate_option             = "MANUAL_ONLY"
   nat_ips                            = google_compute_address.static.*.self_link
   source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
+
+  log_config {
+    enable = true
+    filter = "ALL"
+  }
+
 }
 
 
@@ -162,3 +168,4 @@ resource "google_dns_managed_zone" "private-zone" {
     google_compute_shared_vpc_host_project.host
   ]
 }
+
