@@ -1,0 +1,22 @@
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+spec:
+  components:
+    ingressGateways:
+      - name: istio-ingressgateway
+        enabled: true
+        k8s:
+          serviceAnnotations:
+            cloud.google.com/load-balancer-type: "internal"
+        ## ILB on GCP has a maxiumum of 5 ports unless you allow all ports. GKE however doesn't support creating a LB that allows all ports unless created manually: https://cloud.google.com/load-balancing/docs/internal.
+        ## This is a cut down list of ports used by Istio, others may be required.
+          service:
+            ports:
+            - name: status-port
+              port: 15020
+              targetPort: 15020
+            - name: http2
+              port: 80
+              targetPort: 80
+            - name: https
+              port: 443

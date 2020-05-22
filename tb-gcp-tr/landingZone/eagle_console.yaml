@@ -59,6 +59,95 @@ spec:
     app: mysql57
   clusterIP: None
 ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eagleconsole-v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eagleconsole
+  template:
+    metadata:
+      labels:
+        app: eagleconsole
+        version: v1
+    spec:
+      containers:
+        - name: eagleconsole
+          image: gcr.io/tranquility-base-images/tb-eagle-console:integration
+          resources:
+            requests:
+              cpu: "100m"
+          imagePullPolicy: IfNotPresent #Always
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/ec-config.yaml
+              subPath: ec-config.yaml
+            - name: google-cloud-key
+              mountPath: /var/secrets/google
+          env:
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /var/secrets/google/ec-service-account-config.json
+      volumes:
+        - name: config-volume
+          configMap:
+            name: ec-config
+        - name: google-cloud-key
+          secret:
+            secretName: ec-service-account
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: houstonservice-v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: houstonservice
+  template:
+    metadata:
+      labels:
+        app: houstonservice
+        version: v1
+    spec:
+      containers:
+        - name: houstonservice
+          image: gcr.io/tranquility-base-images/tb-houston-service:landingzone
+          resources:
+            requests:
+              cpu: "100m"
+          imagePullPolicy: IfNotPresent #Always
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/ec-config.yaml
+              subPath: ec-config.yaml
+            - name: google-cloud-key
+              mountPath: /var/secrets/google
+          env:
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /var/secrets/google/ec-service-account-config.json
+            - name: SQLALCHEMY_DATABASE_URI
+              value: mysql+mysqlconnector://eagle-user:eagle-user-secret-pw@mysql57/eagle_db
+            - name: SQLALCHEMY_ECHO
+              value: "True"
+            - name: SQLALCHEMY_TRACK_MODIFICATIONS
+              value: "True"
+      volumes:
+        - name: config-volume
+          configMap:
+            name: ec-config
+        - name: google-cloud-key
+          secret:
+            secretName: ec-service-account
+---
 apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
 kind: Deployment
 metadata:
