@@ -43,7 +43,7 @@ resource "google_compute_subnetwork_iam_binding" "bastion_subnet_permission" {
 }
 
 resource "google_compute_firewall" "shared-net-bast" {
-  provider = google-beta
+  provider   = google-beta
   depends_on = [google_service_account.bastion_service_account]
   name       = "allow-iap-ingress-ssh-rdp"
   network    = var.shared_vpc_name
@@ -59,7 +59,7 @@ resource "google_compute_firewall" "shared-net-bast" {
 }
 
 resource "google_compute_firewall" "bast-nat-http" {
-  provider = google-beta
+  provider      = google-beta
   depends_on    = [google_service_account.bastion_service_account]
   name          = "bastion-http-https-allow"
   network       = var.shared_vpc_name
@@ -75,7 +75,7 @@ resource "google_compute_firewall" "bast-nat-http" {
 }
 
 resource "google_compute_firewall" "remote-mgmt-iap" {
-  provider = google-beta
+  provider                = google-beta
   name                    = "remote-mgmt-iap-test"
   network                 = var.shared_vpc_name
   project                 = var.shared_networking_id
@@ -87,7 +87,7 @@ resource "google_compute_firewall" "remote-mgmt-iap" {
     protocol = "tcp"
   }
   enable_logging = true
-  source_ranges = ["35.235.240.0/20"]
+  source_ranges  = ["35.235.240.0/20"]
 }
 
 data "google_compute_image" "debian_image" {
