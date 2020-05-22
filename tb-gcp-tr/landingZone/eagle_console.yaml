@@ -59,12 +59,15 @@ spec:
     app: mysql57
   clusterIP: None
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: eagleconsole-v1
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: eagleconsole
   template:
     metadata:
       labels:
@@ -73,7 +76,7 @@ spec:
     spec:
       containers:
         - name: eagleconsole
-          image: gcr.io/tranquility-base-images/tb-eagle-console:landingzone
+          image: gcr.io/tranquility-base-images/tb-eagle-console:integration
           resources:
             requests:
               cpu: "100m"
@@ -98,12 +101,15 @@ spec:
             secretName: ec-service-account
 ---
 
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: houstonservice-v1
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: houstonservice
   template:
     metadata:
       labels:
