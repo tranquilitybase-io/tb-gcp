@@ -169,25 +169,3 @@ resource "google_dns_managed_zone" "private-zone" {
   ]
 }
 
-###
-# Creating DNS policy for logging
-###
-
-resource "google_dns_policy" "example-policy" {
-  provider = google-beta
-
-  name                      = "shared-vpc-dns-policy"
-  enable_inbound_forwarding = true
-
-  enable_logging = true
-
-  alternative_name_server_config {
-    target_name_servers {
-      ipv4_address = "192.168.1.1"
-    }
-  }
-
-  networks {
-    network_url = google_compute_network.shared_network.id
-  }
-}
