@@ -76,7 +76,7 @@ spec:
     spec:
       containers:
         - name: eagleconsole
-          image: gcr.io/tranquility-base-images/tb-eagle-console:landingzone
+          image: gcr.io/tranquility-base-images/tb-eagle-console:integration
           resources:
             requests:
               cpu: "100m"
