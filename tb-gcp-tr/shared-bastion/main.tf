@@ -43,6 +43,7 @@ resource "google_compute_subnetwork_iam_binding" "bastion_subnet_permission" {
 }
 
 resource "google_compute_firewall" "shared-net-bast" {
+  provider = google-beta
   depends_on = [google_service_account.bastion_service_account]
   name       = "allow-iap-ingress-ssh-rdp"
   network    = var.shared_vpc_name
@@ -54,9 +55,11 @@ resource "google_compute_firewall" "shared-net-bast" {
     protocol = "tcp"
     ports    = ["3389", "22"]
   }
+  enable_logging = true
 }
 
 resource "google_compute_firewall" "bast-nat-http" {
+  provider = google-beta
   depends_on    = [google_service_account.bastion_service_account]
   name          = "bastion-http-https-allow"
   network       = var.shared_vpc_name
@@ -68,9 +71,11 @@ resource "google_compute_firewall" "bast-nat-http" {
     protocol = "tcp"
     ports    = ["80", "443"]
   }
+  enable_logging = true
 }
 
 resource "google_compute_firewall" "remote-mgmt-iap" {
+  provider = google-beta
   name                    = "remote-mgmt-iap-test"
   network                 = var.shared_vpc_name
   project                 = var.shared_networking_id
@@ -81,7 +86,7 @@ resource "google_compute_firewall" "remote-mgmt-iap" {
   allow {
     protocol = "tcp"
   }
-
+  enable_logging = true
   source_ranges = ["35.235.240.0/20"]
 }
 

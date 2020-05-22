@@ -120,6 +120,12 @@ resource "google_compute_router_nat" "simple-nat" {
   nat_ip_allocate_option             = "MANUAL_ONLY"
   nat_ips                            = google_compute_address.static.*.self_link
   source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
+
+  log_config {
+    enable = true
+    filter = "ALL"
+  }
+
 }
 
 
@@ -161,4 +167,27 @@ resource "google_dns_managed_zone" "private-zone" {
   depends_on = [
     google_compute_shared_vpc_host_project.host
   ]
+}
+
+###
+# Creating DNS policy for logging
+###
+
+resource "google_dns_policy" "example-policy" {
+  provider = google-beta
+
+  name                      = "shared-vpc-dns-policy"
+  enable_inbound_forwarding = true
+
+  enable_logging = true
+
+  alternative_name_server_config {
+    target_name_servers {
+      ipv4_address = "192.168.1.1"
+    }
+  }
+
+  networks {
+    network_url = google_compute_network.shared_network.id
+  }
 }
