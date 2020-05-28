@@ -153,7 +153,7 @@ module "gke-ec" {
 
   apis_dependency          = module.apis_activation.all_apis_enabled
   shared_vpc_dependency    = module.shared-vpc.gke_subnetwork_ids
-  istio_status             = "true"
+  istio_status             = var.istio_status
   gke_pod_network_name     = var.gke_pod_network_name
   gke_service_network_name = var.gke_service_network_name
 }
