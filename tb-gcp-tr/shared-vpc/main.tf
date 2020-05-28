@@ -168,7 +168,4 @@ resource "google_dns_managed_zone" "private-zone" {
     google_compute_shared_vpc_host_project.host
   ]
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> c2911f14c725c334a0c2e00150b9407132dc26ec
