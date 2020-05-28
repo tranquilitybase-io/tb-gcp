@@ -273,4 +273,3 @@ spec:
   trafficPolicy:
     loadBalancer:
       simple: LEAST_CONN
-

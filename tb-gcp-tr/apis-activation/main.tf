@@ -52,7 +52,9 @@ locals {
   ]
   bastion_project_apis = [
     "recommender.googleapis.com",
-    "iap.googleapis.com"
+    "iap.googleapis.com",
+    "container.googleapis.com",
+    "serviceusage.googleapis.com"
   ]
 }
 
@@ -64,13 +66,6 @@ resource "google_project_service" "host-project" {
   disable_dependent_services = true
 }
 
-resource "google_project_service" "itsm" {
-  project                    = var.itsm_project_id
-  for_each                   = toset(local.service_project_apis)
-  service                    = each.value
-  disable_dependent_services = true
-  depends_on                 = [google_project_service.host-project]
-}
 
 resource "google_project_service" "eagle_console" {
   project                    = var.eagle_console_project_id

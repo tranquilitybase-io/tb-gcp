@@ -75,10 +75,8 @@ module "shared_projects" {
 
 module "apis_activation" {
   source = "../../apis-activation"
-
   bastion_project_id       = module.shared_projects.shared_bastion_id
   host_project_id          = module.shared_projects.shared_networking_id
-  itsm_project_id          = module.shared_projects.shared_itsm_id
   eagle_console_project_id = module.shared_projects.shared_ec_id
 }
 
@@ -163,8 +161,6 @@ resource "google_sourcerepo_repository" "EC" {
   project    = module.shared_projects.shared_ec_id
   depends_on = [module.apis_activation]
 }
-
-
 
 module "k8s-ec_context" {
   source = "../../k8s-context"
