@@ -12,6 +12,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# DAC Service
+# DAC
+apiVersion: v1
+kind: Service
+metadata:
+  name: dac
+  labels:
+    app: dac
+spec:
+  ports:
+    - port: 80
+      targetPort: 4000
+      name: http
+    - port: 443
+      targetPort: 4000
+      name: https
+  selector:
+    app: eagleconsole
+# DAC
+# DAC
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -185,6 +206,34 @@ spec:
               value: eagle-user-secret-pw
             - name: MYSQL_DATABASE
               value: eagle_db
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dac-v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dac
+  template:
+    metadata:
+      labels:
+        app: dac
+        version: v1
+    spec:
+      containers:
+        - name: dac
+          image: gcr.io/tranquility-base-images/tb-gcp-dac:landingzone
+          resources:
+            requests:
+              cpu: "100m"
+          imagePullPolicy: IfNotPresent #Always
+          ports:
+            - containerPort: 80
+          env:
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /var/secrets/google/ec-service-account-config.json
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
