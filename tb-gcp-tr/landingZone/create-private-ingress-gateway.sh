@@ -8,7 +8,6 @@ service_desc=($(kubectl describe services istio-private-ingressgateway --namespa
 endpoint_ip=${service_desc[2]}
 
 unset HTTPS_PROXY
-
 PROJECT_ID=$(curl -s "http://metadata.google.internal/computeMetadata/v1/project/project-id" -H "Metadata-Flavor: Google")
 TB_DISCRIMINATOR="${PROJECT_ID: -8}"
 SHARED_NETWORKING_PROJECT=shared-networking-${TB_DISCRIMINATOR}
