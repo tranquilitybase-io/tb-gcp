@@ -1,6 +1,6 @@
 export HTTPS_PROXY="localhost:3128"
-kubectl apply -f istio-pvt-ingressgateway-deployment.yaml
-kubectl apply -f istio-pvt-ingressgateway.yaml
+kubectl apply -f /opt/tb/repo/tb-gcp-tr/landingZone/istio-pvt-ingressgateway-deployment.yaml
+kubectl apply -f /opt/tb/repo/tb-gcp-tr/landingZone/istio-pvt-ingressgateway.yaml
 kubectl delete svc istio-ingressgateway --namespace=istio-system
 
 ## record ip with Cloud DNS
