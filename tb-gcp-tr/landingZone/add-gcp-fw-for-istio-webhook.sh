@@ -6,7 +6,11 @@
 export HTTPS_PROXY="localhost:3128"
 
 set -e
- 
+ #Retrieve project ID
+PROJECT_ID=$(curl -s "http://metadata.google.internal/computeMetadata/v1/project/project-id" -H "Metadata-Flavor: Google")
+TB_DISCRIMINATOR="${PROJECT_ID: -8}"
+SHARED_EC_PROJECT=shared-ec-${TB_DISCRIMINATOR}
+SHARED_NETWORKING_PROJECT=shared-networking-${TB_DISCRIMINATOR}
 CLUSTER="gke-ec"
 validationg_svcs=$(kubectl get validatingwebhookconfigurations -ojson | \
     jq -c '.items[].webhooks[].clientConfig.service | del(.path) | select(. != null)')
@@ -33,13 +37,14 @@ rules=${rules:1}
 # Unset so we can make gcloud commands
 unset HTTPS_PROXY
 
-source_ranges=$(gcloud container clusters describe --region=europe-west2 $CLUSTER --format="value(privateClusterConfig.masterIpv4CidrBlock)")
-source_tags=$(gcloud compute instances list --filter="tags.items~^gke-$CLUSTER" --limit=1 --format="value(tags.items[0])")
-gke_network=$(gcloud container clusters describe --region=europe-west2 $CLUSTER --format="value(network)")
+source_ranges=$(gcloud container clusters describe --region=europe-west2 $CLUSTER --format="value(privateClusterConfig.masterIpv4CidrBlock)" --project=$SHARED_EC_PROJECT)
+source_tags=$(gcloud compute instances list --filter="tags.items~^gke-$CLUSTER" --limit=1 --format="value(tags.items[0])" --project=$SHARED_EC_PROJECT)
+gke_network=$(gcloud container clusters describe --region=europe-west2 $CLUSTER --format="value(network)" --project=$SHARED_EC_PROJECT)
 gcloud compute firewall-rules  create ${CLUSTER}-webhooks \
     --action ALLOW --direction INGRESS \
     --source-ranges $source_ranges \
     --target-tags $source_tags \
     --network $gke_network \
-    --rules $rules
+    --rules $rules \
+    --project $SHARED_NETWORKING_PROJECT
  

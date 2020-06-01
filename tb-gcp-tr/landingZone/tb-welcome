@@ -31,6 +31,9 @@ export HOME=/root
 
 #Retrieve project ID
 PROJECT_ID=$(curl -s "http://metadata.google.internal/computeMetadata/v1/project/project-id" -H "Metadata-Flavor: Google")
+TB_DISCRIMINATOR="${PROJECT_ID: -8}"
+SHARED_EC_PROJECT=shared-ec-${TB_DISCRIMINATOR}
+SHARED_NETWORKING_PROJECT=shared-networking-${TB_DISCRIMINATOR}
 #Initialise variables
 SA_NAME="bootstrap-sa"
 SA_EMAIL=${SA_NAME}@${PROJECT_ID}.iam.gserviceaccount.com
