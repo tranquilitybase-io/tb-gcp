@@ -1,5 +1,4 @@
 #!/bin/bash
-export HTTPS_PROXY="localhost:3128"
 
 sp='/-\|'
 sc=0
@@ -51,9 +50,12 @@ curl -L https://istio.io/downloadIstio | sh - > /dev/null 2>&1
 version=`ls -1d istio-1*`
 export PATH="$PATH:$PWD/$version/bin"
 
+export HTTPS_PROXY="localhost:3128"
+
 #Initalise istio
 istioctl operator init > /dev/null 2>&1
 
+sleep 60
 kubectl create ns istio-system
 kubectl apply -f - <<EOF
 apiVersion: install.istio.io/v1alpha1
