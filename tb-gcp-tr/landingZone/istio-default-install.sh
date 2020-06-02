@@ -55,7 +55,7 @@ export HTTPS_PROXY="localhost:3128"
 #Initalise istio
 istioctl operator init > /dev/null 2>&1
 
-sleep 60
+sleep 30
 kubectl create ns istio-system
 kubectl apply -f - <<EOF
 apiVersion: install.istio.io/v1alpha1
