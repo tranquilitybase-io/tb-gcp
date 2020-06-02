@@ -24,7 +24,7 @@ printf "Checking kubectl is installed...\n"
 if ! [ -x "$(command -v kubectl)" ]; then
   case "$OSTYPE" in
   darwin*)  curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl; chmod +x kubectl ; mv kubectl /usr/local/bin/;;
-  linux*)   curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl; chmod +x kubectl ; mv kubectl /usr/local/bin/ ;;
+  linux*)   curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl; chmod +x kubectl ; mv kubectl /usr/local/bin/ ;;
   *)        echo "Unknown OS: $OSTYPE" ;;
 esac
 
@@ -47,7 +47,7 @@ fi
 printf "Downloading and installing Istio...\n"
 # Download Istio binaries
 curl -L https://istio.io/downloadIstio | sh - > /dev/null 2>&1
-version=`ls -1d istio-1*`
+version=$(ls -1d istio-1*)
 export PATH="$PATH:$PWD/$version/bin"
 
 export HTTPS_PROXY="localhost:3128"
@@ -72,7 +72,7 @@ EOF
 count=0
 printf "Waiting for services to come online...\n"
 while true; do
-    count=`kubectl get pods -n istio-system |grep -i running |wc -l`
+    count=$(kubectl get pods -n istio-system |grep -i running |wc -l)
     spin
     sleep 1
     if [[ $count -ne 7 ]]; then
