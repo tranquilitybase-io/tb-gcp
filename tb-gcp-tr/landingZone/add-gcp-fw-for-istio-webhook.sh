@@ -38,7 +38,7 @@ rules=${rules:1}
 unset HTTPS_PROXY
 
 source_ranges=$(gcloud container clusters describe --region=europe-west2 "$CLUSTER" --format="value(privateClusterConfig.masterIpv4CidrBlock)" --project="$SHARED_EC_PROJECT")
-source_tags=$(gcloud compute instances list --filter="tags.items~^gke-"$CLUSTER"" --limit=1 --format="value(tags.items[0])" --project="$SHARED_EC_PROJECT")
+source_tags=$(gcloud compute instances list --filter="tags.items~^gke-$CLUSTER" --limit=1 --format="value(tags.items[0])" --project="$SHARED_EC_PROJECT")
 gke_network=$(gcloud container clusters describe --region=europe-west2 "$CLUSTER" --format="value(network)" --project="$SHARED_EC_PROJECT")
 gcloud compute firewall-rules  create "${CLUSTER}"-webhooks \
     --action ALLOW --direction INGRESS \
