@@ -77,6 +77,7 @@ apt-get -y install zip
 apt-get -y install nodejs
 apt-get -y install git
 apt-get -y install kubectl
+apt-get -y install jq
 curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 apt-get -y install build-essential nodejs
 npm install -g @angular/cli

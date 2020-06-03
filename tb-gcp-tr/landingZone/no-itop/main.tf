@@ -75,7 +75,6 @@ module "shared_projects" {
 
 module "apis_activation" {
   source = "../../apis-activation"
-  
   bastion_project_id       = module.shared_projects.shared_bastion_id
   host_project_id          = module.shared_projects.shared_networking_id
   eagle_console_project_id = module.shared_projects.shared_ec_id
@@ -209,7 +208,7 @@ resource "null_resource" "get_endpoint" {
       echo 'echo -n 'http://' > ${var.endpoint_file}
       for i in $(seq -s " " 1 35); do
         sleep $i
-        ENDPOINT=$(kubectl --context=${module.k8s-ec_context.context_name} get svc istio-ingressgateway -n istio-system -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+        ENDPOINT=$(kubectl --context=${module.k8s-ec_context.context_name} get svc istio-private-ingressgateway -n istio-system -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
         if [ -n "$ENDPOINT" ]; then
           echo "$ENDPOINT" >> ${var.endpoint_file}
           exit 0
