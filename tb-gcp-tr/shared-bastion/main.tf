@@ -233,7 +233,6 @@ resource "google_compute_instance_template" "squid_proxy_template" {
 }
 
 // Create instance group for the squid proxy
-//noinspection MissingProperty
 resource "google_compute_instance_group_manager" "squid_proxy_group" {
   project            = var.shared_bastion_id
   base_instance_name = "tb-kube-proxy"
