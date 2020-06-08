@@ -205,7 +205,6 @@ resource "google_compute_instance_group_manager" "windows_bastion_group" {
 //Create instance template for the Squid Proxy instance
 resource "google_compute_instance_template" "squid_proxy_template" {
   project      = var.shared_bastion_id
-  zone         = var.region_zone
   name         = "tb-kube-proxy-template"
 
   machine_type = "n1-standard-2"
@@ -217,7 +216,7 @@ resource "google_compute_instance_template" "squid_proxy_template" {
 
   // boot disk
   disk {
-    source_image = data.google_compute_image.windows_image.self_link
+    source_image = data.google_compute_image.centos_image.self_link
   }
 
   network_interface {
@@ -251,33 +250,13 @@ resource "google_compute_instance_group_manager" "squid_proxy_group" {
   depends_on = [google_compute_subnetwork_iam_binding.bastion_subnet_permission, google_service_account.bastion_service_account]
 }
 
-//resource "google_compute_instance" "tb_kube_proxy" {
-//  depends_on = [
-//  google_service_account.bastion_service_account]
-//  project      = var.shared_bastion_id
-//  zone         = var.region_zone
-//  name         = "tb-kube-proxy"
-//  machine_type = "n1-standard-2"
-//  boot_disk {
-//    initialize_params {
-//      image = "centos-cloud/centos-7"
-//    }
-//  }
-//  metadata_startup_script = file("${path.module}/squid_startup.sh")
-//  network_interface {
-//    subnetwork = "projects/${var.shared_networking_id}/regions/${var.region}/subnetworks/bastion-subnetwork"
-//  }
-//  service_account {
-//    email  = google_service_account.proxy-sa-res.email
-//    scopes = var.scopes
-//  }
-//}
-
 resource "null_resource" "start-iap-tunnel" {
 
   provisioner "local-exec" {
     command = <<EOF
-echo 'gcloud compute start-iap-tunnel tb-kube-proxy 3128 --local-host-port localhost:3128 --project ${var.shared_bastion_id} --zone ${var.region_zone} > /dev/null 2>&1 &
+echo '
+INSTANCE=$(gcloud compute instance-groups managed list-instances tb-squid-proxy-group --project=${var.shared_bastion_id} --zone ${var.region_zone} --format="value(instance.scope(instances))")
+gcloud compute start-iap-tunnel ${INSTANCE} 3128 --local-host-port localhost:3128 --project ${var.shared_bastion_id} --zone ${var.region_zone} > /dev/null 2>&1 &
 TUNNELPID=$!
 sleep 10
 export HTTPS_PROXY="localhost:3128"' | tee -a /opt/tb/repo/tb-gcp-tr/landingZone/iap-tunnel.sh
