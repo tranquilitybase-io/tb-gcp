@@ -52,7 +52,9 @@ locals {
   ]
   bastion_project_apis = [
     "recommender.googleapis.com",
-    "iap.googleapis.com"
+    "iap.googleapis.com",
+    "container.googleapis.com",
+    "serviceusage.googleapis.com"
   ]
 }
 

@@ -83,7 +83,7 @@ cluster_ec_master_authorized_cidrs = [
   }
 ]
 #cluster_ec_min_master_version = "latest"
-istio_status       = "false"
+istio_status       = "true"
 ec_repository_name = "EC-activator-tf"
 
 

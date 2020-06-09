@@ -76,7 +76,7 @@ spec:
     spec:
       containers:
         - name: eagleconsole
-          image: gcr.io/tranquility-base-images/tb-eagle-console:integration
+          image: gcr.io/tranquility-base-images/tb-eagle-console:landingzone
           resources:
             requests:
               cpu: "100m"
@@ -192,7 +192,7 @@ metadata:
   name: mygateway
 spec:
   selector:
-    istio: ingressgateway # use istio default controller
+    istio: private-ingressgateway # use istio default controller
   servers:
     - port:
         number: 80

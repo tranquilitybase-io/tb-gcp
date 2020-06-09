@@ -95,6 +95,11 @@ data "google_compute_image" "debian_image" {
   project = "debian-cloud"
 }
 
+data "google_compute_image" "centos_image" {
+  family = "centos-7"
+  project = "centos-cloud"
+}
+
 // Create instance template for the linux instance
 resource "google_compute_instance_template" "bastion_linux_template" {
   project     = var.shared_bastion_id
@@ -197,37 +202,64 @@ resource "google_compute_instance_group_manager" "windows_bastion_group" {
   depends_on = [google_compute_subnetwork_iam_binding.bastion_subnet_permission]
 }
 
-resource "google_compute_instance" "tb_kube_proxy" {
-  depends_on = [
-  google_service_account.bastion_service_account]
+//Create instance template for the Squid Proxy instance
+resource "google_compute_instance_template" "squid_proxy_template" {
   project      = var.shared_bastion_id
-  zone         = var.region_zone
-  name         = "tb-kube-proxy"
+  name         = "tb-kube-proxy-template"
+
   machine_type = "n1-standard-2"
-  boot_disk {
-    initialize_params {
-      image = "centos-cloud/centos-7"
-    }
+
+  scheduling {
+    automatic_restart   = true
+    on_host_maintenance = "MIGRATE"
   }
-  metadata_startup_script = file("${path.module}/squid_startup.sh")
+
+  // boot disk
+  disk {
+    source_image = data.google_compute_image.centos_image.self_link
+  }
+
   network_interface {
     subnetwork = "projects/${var.shared_networking_id}/regions/${var.region}/subnetworks/bastion-subnetwork"
   }
+
   service_account {
     email  = google_service_account.proxy-sa-res.email
     scopes = var.scopes
   }
+
+    metadata_startup_script = file("${path.module}/squid_startup.sh")
+
+}
+
+// Create instance group for the squid proxy
+resource "google_compute_instance_group_manager" "squid_proxy_group" {
+  project            = var.shared_bastion_id
+  base_instance_name = "tb-kube-proxy"
+  zone               = var.region_zone
+
+  version {
+    instance_template = google_compute_instance_template.squid_proxy_template.self_link
+    name              = "tb-kube-proxy-template"
+  }
+
+  target_size = 1
+  name        = "tb-squid-proxy-group"
+
+  depends_on = [google_compute_subnetwork_iam_binding.bastion_subnet_permission, google_service_account.bastion_service_account]
 }
 
 resource "null_resource" "start-iap-tunnel" {
 
   provisioner "local-exec" {
     command = <<EOF
-echo 'gcloud compute start-iap-tunnel tb-kube-proxy 3128 --local-host-port localhost:3128 --project ${var.shared_bastion_id} --zone ${var.region_zone} > /dev/null 2>&1 &
+echo '
+INSTANCE=$(gcloud compute instance-groups managed list-instances tb-squid-proxy-group --project=${var.shared_bastion_id} --zone ${var.region_zone} --format="value(instance.scope(instances))")
+gcloud compute start-iap-tunnel $INSTANCE 3128 --local-host-port localhost:3128 --project ${var.shared_bastion_id} --zone ${var.region_zone} > /dev/null 2>&1 &
 TUNNELPID=$!
 sleep 10
 export HTTPS_PROXY="localhost:3128"' | tee -a /opt/tb/repo/tb-gcp-tr/landingZone/iap-tunnel.sh
 EOF
   }
-  depends_on = [google_compute_instance.tb_kube_proxy]
+  depends_on = [google_compute_instance_group_manager.squid_proxy_group]
 }
