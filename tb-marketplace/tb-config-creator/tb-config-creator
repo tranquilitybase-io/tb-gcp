@@ -185,9 +185,9 @@ billing_id_tag=$BILLING_ID | awk '{print tolower($0)}'
 
 echo "Creating project..."
 if [[ -n ${ADMIN}  ]]; then
-  gcloud projects create "${PROJECT_ID}" --folder "${tb_folder_id}" --format=none --labels admin=${ADMIN}, billing_id="${billing_id_tag}", tb_folder_id="${tb_folder_id}"
+  gcloud projects create "${PROJECT_ID}" --folder "${tb_folder_id}" --format=none --labels admin=${ADMIN},billing_id="${billing_id_tag}",tb_folder_id="${tb_folder_id}"
 else
-  gcloud projects create "${PROJECT_ID}" --folder "${tb_folder_id}" --format=none --labels billing_id="${billing_id_tag}", tb_folder_id="${tb_folder_id}"
+  gcloud projects create "${PROJECT_ID}" --folder "${tb_folder_id}" --format=none --labels billing_id="${billing_id_tag}",tb_folder_id="${tb_folder_id}"
 fi
 
 echo "Linking project to billing account..."
