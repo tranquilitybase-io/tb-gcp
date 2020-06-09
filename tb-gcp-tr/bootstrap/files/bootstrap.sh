@@ -35,15 +35,15 @@ cat <<EOF > input.auto.tfvars
 clusters_master_whitelist_ip = "${clusters_master_whitelist_ip}"
 region = "${region}"
 region_zone = "${region_zone}"
-root_id = "${root_id}"
+root_id=$(gcloud projects list --format=value"(labels.tb_folder_id.scope())")
 billing_id=$(gcloud projects list --format=value"(labels.billing_id.scope())")
-tb_discriminator=$(gcloud projects list --format=value"(labels.tb_folder_id.scope())")
+tb_discriminator = "${tb_discriminator}"
 terraform_state_bucket_name = "${terraform_state_bucket_name}"
 
 EOF
 
+sed -i "s/rootId:.*/rootId: '${root_id}'/; s/billingAccountId:.*/billingAccountId: '$billing_id'/" tb-marketplace/tb-dep-manager/test_config.yaml
 
-tb_folder_id
 #Make the IAP and Kubectl command scripts executable
 chmod +x /opt/tb/repo/tb-gcp-tr/landingZone/iap-tunnel.sh
 chmod +x /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh
