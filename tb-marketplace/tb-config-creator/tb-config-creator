@@ -181,12 +181,13 @@ folder_id_entry=$(gcloud resource-manager folders create --display-name="${TBASE
 IFS='/' read -ra split_array <<< "$folder_id_entry"
 tb_folder_id="$(echo ${split_array[1]} | sed 's/[^0-9]*//g')"
 
+billing_id_tag=$BILLING_ID | awk '{print tolower($0)}'
 
 echo "Creating project..."
 if [[ -n ${ADMIN}  ]]; then
-  gcloud projects create "${PROJECT_ID}" --folder "${tb_folder_id}" --format=none --labels admin=${ADMIN} billing_id="${BILLING_ID}" tb_folder_id="${tb_folder_id}"
+  gcloud projects create "${PROJECT_ID}" --folder "${tb_folder_id}" --format=none --labels admin=${ADMIN} billing_id="${billing_id_tag}" tb_folder_id="${tb_folder_id}"
 else
-  gcloud projects create "${PROJECT_ID}" --folder "${tb_folder_id}" --format=none --labels billing_id="${BILLING_ID}" tb_folder_id="${tb_folder_id}"
+  gcloud projects create "${PROJECT_ID}" --folder "${tb_folder_id}" --format=none --labels billing_id="${billing_id_tag}" tb_folder_id="${tb_folder_id}"
 fi
 
 echo "Linking project to billing account..."

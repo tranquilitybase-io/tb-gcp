@@ -36,7 +36,7 @@ clusters_master_whitelist_ip = "${clusters_master_whitelist_ip}"
 region = "${region}"
 region_zone = "${region_zone}"
 root_id=$(gcloud projects list --format=value"(labels.tb_folder_id.scope())")
-billing_id=$(gcloud projects list --format=value"(labels.billing_id.scope())")
+billing_id=$(gcloud projects list --format=value"(labels.billing_id.scope())" | awk '{print toupper($0)}')
 tb_discriminator = "${tb_discriminator}"
 terraform_state_bucket_name = "${terraform_state_bucket_name}"
 
