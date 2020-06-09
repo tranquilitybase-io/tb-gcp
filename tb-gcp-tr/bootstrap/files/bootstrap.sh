@@ -36,12 +36,14 @@ clusters_master_whitelist_ip = "${clusters_master_whitelist_ip}"
 region = "${region}"
 region_zone = "${region_zone}"
 root_id = "${root_id}"
-billing_account_id = "${billing_account_id}"
-tb_discriminator = "${tb_discriminator}"
+billing_id=$(gcloud projects list --format=value"(labels.billing_id.scope())")
+tb_discriminator=$(gcloud projects list --format=value"(labels.tb_folder_id.scope())")
 terraform_state_bucket_name = "${terraform_state_bucket_name}"
 
 EOF
 
+
+tb_folder_id
 #Make the IAP and Kubectl command scripts executable
 chmod +x /opt/tb/repo/tb-gcp-tr/landingZone/iap-tunnel.sh
 chmod +x /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh
