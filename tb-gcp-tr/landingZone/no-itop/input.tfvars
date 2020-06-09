@@ -107,7 +107,13 @@ cluster_opt_master_authorized_cidrs = [
 ]
 
 #EC Deployment
-eagle_console_yaml_path = "/opt/tb/repo/tb-gcp-tr/landingZone/eagle_console.yaml"
+#eagle_console_yaml_path = "/opt/tb/repo/tb-gcp-tr/landingZone/eagle_console.yaml" # commenting out as this has been split into separate files
+sharedservice_namespace_yaml_path = "/opt/tb/repo/tb-gcp-tr/shared-dac/namespaces.yaml"
+sharedservice_jenkinsmaster_yaml_path = "/opt/tb/repo/tb-gcp-tr/shared-dac/JenkinsApp.yaml"
+ssp_eagle_console_yaml_path = "/opt/tb/repo/tb-gcp-tr/shared-dac/eagleconsole.yaml"
+ssp_houstonservice_yaml_path = "/opt/tb/repo/tb-gcp-tr/shared-dac/houstonservice.yaml"
+
+
 ec_ui_source_bucket     = "tranquility-base-ui"
 ec_iam_service_account_roles = [
   "roles/resourcemanager.folderAdmin",

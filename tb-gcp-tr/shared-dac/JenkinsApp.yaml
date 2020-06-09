@@ -1,0 +1,126 @@
+# Copyright 2019 The Tranquility Base Authors
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+## Jenkins App Deployment ####
+#
+### Storage Class for the persistent volume ###
+
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: gold
+provisioner: kubernetes.io/gce-pd
+parameters:
+  type: pd-ssd
+  
+---
+### Persistent Volume Claim ###
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jenkins-master-pv-claim 
+  namespace: cicd
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Gi
+  storageClassName: gold
+
+---
+### Jenkins Service ####
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins-master-svc
+  namespace: cicd
+  annotations:
+    cloud.google.com/load-balancer-type: "Internal"
+  labels:
+    app: jenkins-master
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
+    name: http
+  - port: 50000
+    targetPort: 50000
+    protocol: TCP
+    name: slave
+  selector:
+    app: jenkins-master
+
+---
+
+### Jenkins Deployment ###
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: jenkins-master
+  name: jenkins-master
+  namespace: cicd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jenkins-master
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: jenkins-master
+    spec:
+      imagePullSecrets:
+        - name: "docker-hub"
+      spec:
+      containers:
+       - name: jenkins-master
+         image: gcr.io/jenkins-master-277208/jenkins-master:latest
+         imagePullPolicy: "Always"
+         volumeMounts:
+          - mountPath: /var
+            name: jenkins-home
+            subPath: jenkins_home
+          - name: docker-sock-volume
+            mountPath: /var/run/docker.sock
+         resources:
+           requests:
+             memory: "1024Mi"
+             cpu: "0.5"
+           limits: 
+             memory: "1024Mi"
+             cpu: "0.5"
+         ports:
+           - name: http-port
+             containerPort: 8080
+           - name: jnlp-port
+             containerPort: 50000
+      volumes:
+       - name: jenkins-home
+         persistentVolumeClaim:
+          claimName: jenkins-master-pv-claim
+       - name: docker-sock-volume
+         hostPath:
+           path: /var/run/docker.sock
+status: {}
+

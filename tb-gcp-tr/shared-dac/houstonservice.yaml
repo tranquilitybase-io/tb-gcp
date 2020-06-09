@@ -1,0 +1,231 @@
+# Copyright 2019 The Tranquility Base Authors
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+############################################################################# 
+#
+#### Houston Service App ###
+#
+#
+# houstonservice service
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: houstonservice
+  namespace: ssp
+  labels:
+    app: houstonservice
+spec:
+  ports:
+    - port: 80
+      targetPort: 3000
+      name: http
+    - port: 443
+      targetPort: 3000
+      name: https
+  selector:
+    app: houstonservice
+---
+apiVersion: v1 # Mysql service
+kind: Service
+metadata:
+  name: mysql57
+  namespace: ssp
+spec:
+  ports:
+    - port: 3306
+      targetPort: 3306
+  selector:
+    app: mysql57
+  clusterIP: None
+---
+apiVersion: apps/v1 # Houston deployment
+kind: Deployment
+metadata:
+  name: houstonservice-v1
+  namespace: ssp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: houstonservice
+  template:
+    metadata:
+      labels:
+        app: houstonservice
+        version: v1
+    spec:
+      containers:
+        - name: houstonservice
+          image: gcr.io/tranquility-base-images/tb-houston-service:landingzone
+          resources:
+            requests:
+              cpu: "100m"
+          imagePullPolicy: IfNotPresent #Always
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/ec-config.yaml
+              subPath: ec-config.yaml
+            - name: google-cloud-key
+              mountPath: /var/secrets/google
+          env:
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /var/secrets/google/ec-service-account-config.json
+            - name: SQLALCHEMY_DATABASE_URI
+              value: mysql+mysqlconnector://eagle-user:eagle-user-secret-pw@mysql57/eagle_db
+            - name: SQLALCHEMY_ECHO
+              value: "True"
+            - name: SQLALCHEMY_TRACK_MODIFICATIONS
+              value: "True"
+      volumes:
+        - name: config-volume
+          configMap:
+            name: ec-config
+        - name: google-cloud-key
+          secret:
+            secretName: ec-service-account
+---
+# Mysql database deployment
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: mysql57
+  namespace: ssp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql57
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mysql57
+    spec:
+      containers:
+        - name: mysql57
+          image: gcr.io/tranquility-base-images/tb-houston-mysql57:landingzone
+          resources:
+            requests:
+              cpu: "100m"
+          imagePullPolicy: IfNotPresent #Always
+          ports:
+            - name: mysql57
+              containerPort: 3306
+          env:
+            # Use secret in real usage
+            - name: MYSQL_ROOT_PASSWORD
+              value: my-secret-pw
+            - name: MYSQL_USER
+              value: eagle-user
+            # Use secret in real usage
+            - name: MYSQL_PASSWORD
+              value: eagle-user-secret-pw
+            - name: MYSQL_DATABASE
+              value: eagle_db
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: mygateway
+  namespace: ssp
+spec:
+  selector:
+    istio: private-ingressgateway # use istio default controller
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - "*"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: houstonservice
+  namespace: ssp
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - mygateway
+  http:
+    - match:
+        - uri:
+            prefix: /api
+      route:
+        - destination:
+            host: houstonservice
+            port:
+              number: 80
+      corsPolicy:
+        allowOrigin:
+          - "*"
+        allowMethods:
+          - POST
+          - GET
+          - OPTIONS
+          - PUT
+          - PATCH
+          - DELETE
+        allowHeaders:
+          - "*"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: eagleconsole
+  namespace: ssp
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - mygateway
+  http:
+    - route:
+        - destination:
+            host: eagleconsole
+            port:
+              number: 80
+
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: eagleconsole
+  namespace: ssp
+  annotations:
+    cloud.google.com/load-balancer-type: "Internal"
+spec:
+  host: eagleconsole
+  trafficPolicy:
+    loadBalancer:
+      simple: LEAST_CONN
+
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: houstonservice
+  namespace: ssp
+  annotations:
+    cloud.google.com/load-balancer-type: "Internal"
+spec:
+  host: houstonservice
+  trafficPolicy:
+    loadBalancer:
+      simple: LEAST_CONN

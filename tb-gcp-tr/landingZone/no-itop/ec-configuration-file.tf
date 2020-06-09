@@ -23,7 +23,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: ec-config
-  namespace: default
+  namespace: ssp 
 data:
   ec-config.yaml: |
     activator_folder_id: ${module.folder_structure.activators_id}

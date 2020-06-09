@@ -171,17 +171,36 @@ module "k8s-ec_context" {
   dependency_var  = module.gke-ec.node_id
 }
 
+## Creating the ssp and cicd namespaces in the shared services cluster ## depends on the k8-ec_content module 
+module "SharedServices_namespace_creation" {
+  source = "../../../tb-common-tr/start_service"
+
+  k8s_template_file = var.sharedservice_namespace_yaml_path
+  cluster_context   = module.k8s-ec_context.context_name
+  dependency_var    = module.k8s-ec_context.k8s-context_id
+}
+
+## Creating the Jenkins service ## depends on the shared namespace module
+module "SharedServices_jenkinsmaster_creation" {
+  source = "../../../tb-common-tr/start_service"
+
+  k8s_template_file = var.sharedservice_jenkinsmaster_yaml_path
+  cluster_context   = module.k8s-ec_context.context_name
+  dependency_var    = module.SharedServices_namespace_creation.id
+}
+
+## Creating the service account for the eagle console in the ssp namespace ## trigger once the shared namespace module is applied
 resource "null_resource" "kubernetes_service_account_key_secret" {
   triggers = {
-    content = module.k8s-ec_context.k8s-context_id
+    content = module.SharedServices_namespace_creation.id
   }
 
   provisioner "local-exec" {
-    command = "echo 'kubectl --context=${module.k8s-ec_context.context_name} create secret generic ec-service-account --from-file=${local_file.ec_service_account_key.filename}' | tee -a /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh"
+    command = "echo 'kubectl --context=${module.k8s-ec_context.context_name} create secret generic ec-service-account --from-file=${local_file.ec_service_account_key.filename} -n ssp' | tee -a /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh"
   }
 
   provisioner "local-exec" {
-    command = "echo 'kubectl --context=${module.k8s-ec_context.context_name} delete secret ec-service-account' | tee -a /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh"
+    command = "echo 'kubectl --context=${module.k8s-ec_context.context_name} delete secret ec-service-account -n ssp' | tee -a /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh"
     when    = destroy
   }
 }
@@ -194,13 +213,42 @@ module "SharedServices_configuration_file" {
   dependency_var    = null_resource.kubernetes_service_account_key_secret.id
 }
 
-module "SharedServices_ec" {
+# commenting the old eagle console deploy which is part of a single file
+#module "SharedServices_ec" {
+#  source = "../../../tb-common-tr/start_service"
+#
+#  k8s_template_file = var.eagle_console_yaml_path
+#  cluster_context   = module.k8s-ec_context.context_name
+#  dependency_var    = module.SharedServices_configuration_file.id
+#}
+
+## Creating the eagle console ui depends on the config map module###
+module "SharedServices_eagleconsole_creation" {
   source = "../../../tb-common-tr/start_service"
 
-  k8s_template_file = var.eagle_console_yaml_path
+  k8s_template_file = var.ssp_eagle_console_yaml_path
   cluster_context   = module.k8s-ec_context.context_name
   dependency_var    = module.SharedServices_configuration_file.id
 }
+
+## Creating the houston service app depends on the eagle console module##
+module "SharedServices_houstonservice_creation" {
+  source = "../../../tb-common-tr/start_service"
+
+  k8s_template_file = var.ssp_houstonservice_yaml_path
+  cluster_context   = module.k8s-ec_context.context_name
+  dependency_var    = module.SharedServices_eagleconsole_creation.id
+}
+
+## Creating the DAC service app will be enabled in the future##
+#module "SharedServices_dacservice_creation" {
+#  source = "../../../tb-common-tr/start_service"
+
+#  k8s_template_file = var.ssp_dac_yaml_path
+#  cluster_context   = module.k8s-ec_context.context_name
+#  dependency_var    = module.SharedServices_configuration_file.id
+#}
+
 
 resource "null_resource" "get_endpoint" {
   provisioner "local-exec" {
@@ -221,7 +269,7 @@ resource "null_resource" "get_endpoint" {
 
   #   command = "echo -n 'http://' > ${var.endpoint_file} && kubectl --context=${module.k8s-ec_context.context_name} get svc istio-ingressgateway -n istio-system -o jsonpath='{.status.loadBalancer.ingress[0].ip}' >> ${var.endpoint_file}"
 
-  depends_on = [module.SharedServices_ec]
+  depends_on = [module.SharedServices_houstonservice_creation]
 }
 
 resource "google_sourcerepo_repository" "activator-terraform-code-store" {

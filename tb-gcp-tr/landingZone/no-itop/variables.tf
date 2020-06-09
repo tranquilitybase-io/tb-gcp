@@ -251,10 +251,11 @@ variable "istio_status" {
 }
 
 # EC Deployment
-variable "eagle_console_yaml_path" {
-  description = "Path to the yaml file describing the eagle console resources"
-  type        = string
-}
+# Commenting it out as the eagle console deploy has been split into separate files
+#variable "eagle_console_yaml_path" {
+#  description = "Path to the yaml file describing the eagle console resources"
+#  type        = string
+#}
 
 variable "ec_repository_name" {
   type        = string
@@ -272,6 +273,32 @@ variable "ec_iam_service_account_roles" {
   description = "Roles attached to service account"
 }
 
+## DAC Services ##########
+# Namespace creations
+variable "sharedservice_namespace_yaml_path" {
+  description = "Path to the yaml file to create namespaces on the shared gke-ec cluster"
+  type        = string
+}
+
+# Jenkins install 
+variable "sharedservice_jenkinsmaster_yaml_path" {
+  description = "Path to the yaml file to deploy Jenkins on the shared gke-ec cluster"
+  type        = string
+}
+
+# Eagle Console ui deployment 
+variable "ssp_eagle_console_yaml_path" {
+  description = "Path to the yaml file to deploy Eagle console ui on shared gke-ec cluster"
+  type        = string
+}
+
+# Houston Service deployment 
+variable "ssp_houstonservice_yaml_path" {
+  description = "Path to the yaml file to deploy Houston service on the shared gke-ec cluster"
+  type        = string
+}
+
+#############################
 
 #iTop deployment
 variable "itop_database_user_name" {
