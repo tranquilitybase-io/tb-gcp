@@ -181,6 +181,7 @@ folder_id_entry=$(gcloud resource-manager folders create --display-name="${TBASE
 IFS='/' read -ra split_array <<< "$folder_id_entry"
 tb_folder_id="$(echo ${split_array[1]} | sed 's/[^0-9]*//g')"
 
+# Tags must be lowercase
 billing_id_tag=$BILLING_ID | awk '{print tolower($0)}'
 
 echo "Creating project..."
@@ -189,6 +190,9 @@ if [[ -n ${ADMIN}  ]]; then
 else
   gcloud projects create "${PROJECT_ID}" --folder "${tb_folder_id}" --format=none --labels billing_id="${billing_id_tag}",tb_folder_id="${tb_folder_id}"
 fi
+
+# Insert billing_id and folder_id
+sed -i "s/rootId:.*/rootId: '${tb_folder_id}'/; s/billingAccountId:.*/billingAccountId: '$BILLING_ID'/" tb-marketplace/tb-dep-manager/test_config.yaml
 
 echo "Linking project to billing account..."
 gcloud alpha billing projects link "${PROJECT_ID}" --billing-account "${BILLING_ID}" --format=none

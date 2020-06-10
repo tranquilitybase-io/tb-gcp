@@ -42,8 +42,6 @@ terraform_state_bucket_name = "${terraform_state_bucket_name}"
 
 EOF
 
-sed -i "s/rootId:.*/rootId: '${root_id}'/; s/billingAccountId:.*/billingAccountId: '$billing_id'/" tb-marketplace/tb-dep-manager/test_config.yaml
-
 #Make the IAP and Kubectl command scripts executable
 chmod +x /opt/tb/repo/tb-gcp-tr/landingZone/iap-tunnel.sh
 chmod +x /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh
