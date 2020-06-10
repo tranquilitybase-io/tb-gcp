@@ -23,6 +23,7 @@ source input.auto.tfvars
 
 # Create TF state bucket
 sudo gsutil mb "gs://${terraform_state_bucket_name}/"
+sudo gsutil versioning set on "gs://${terraform_state_bucket_name}/"
 
 MAX_ATTEMPTS=10
 MAX_ATTEMPTS_INIT=3
