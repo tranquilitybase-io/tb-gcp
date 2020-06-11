@@ -22,7 +22,10 @@ cd /opt/tb/repo/tb-gcp-tr/landingZone/no-itop
 source input.auto.tfvars
 
 # Create TF state bucket
+buckets=$(sudo gsutil list | grep ${terraform_state_bucket_name})
+if [ -z "$buckets"]; then 
 sudo gsutil mb "gs://${terraform_state_bucket_name}/"
+fi
 
 MAX_ATTEMPTS=10
 MAX_ATTEMPTS_INIT=3
@@ -99,7 +102,12 @@ done
 
 # Commit current TB terraform code to GCR
 cd /tmp
+# Check for repo existence
+RepoList=$(sudo gcloud source repos list | grep tb-terraform-code)
+if [ -z "$RepoList"]; then
 sudo gcloud source repos create tb-terraform-code
+fi
+
 sudo gcloud source repos clone tb-terraform-code
 cd /tmp/tb-terraform-code
 rsync -a /opt/tb/repo/ .
