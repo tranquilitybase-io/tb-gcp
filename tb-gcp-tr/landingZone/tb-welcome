@@ -21,8 +21,8 @@ cd /opt/tb/repo/tb-gcp-tr/landingZone/no-itop
 #Retrieve terraform vars
 source input.auto.tfvars
 
-# Create TF state bucket and set versioning on.
-sudo gsutil mb "gs://${terraform_state_bucket_name}/" | sudo gsutil versioning set on "gs://${terraform_state_bucket_name}/"
+# Create TF state bucket
+sudo gsutil mb "gs://${terraform_state_bucket_name}/"
 
 MAX_ATTEMPTS=10
 MAX_ATTEMPTS_INIT=3
@@ -96,6 +96,10 @@ apply_failures=$((apply_failures + 1))
 echo "Retry #$apply_failures starting in $DELAY_BETWEEN_ATTEMPTS seconds."
 sleep $DELAY_BETWEEN_ATTEMPTS
 done
+
+# Set versioning on for tf state bucket.
+
+sudo gsutil versioning set on "gs://${terraform_state_bucket_name}/"
 
 # Commit current TB terraform code to GCR
 cd /tmp
