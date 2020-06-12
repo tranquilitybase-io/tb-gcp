@@ -49,7 +49,7 @@ resource "google_project" "activator" {
   name                = local.activator_project_name
   project_id          = local.activator_project_name
   folder_id           = replace(var.activator_folder_id, "folders/", "")
-  auto_create_network = false
+ 
   billing_account     = var.billing_account
   labels = {
     review-date            = "20190321"
@@ -119,7 +119,7 @@ resource "google_project" "workspace" {
   name                = local.workspace_project_name
   project_id          = local.workspace_project_name
   folder_id           = replace(var.activator_folder_id, "folders/", "")
-  auto_create_network = false
+  
   billing_account     = var.billing_account
   labels = {
     review-date            = "20190321"

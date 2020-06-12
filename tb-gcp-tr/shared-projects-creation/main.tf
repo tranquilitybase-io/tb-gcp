@@ -18,7 +18,7 @@ resource "google_project" "shared_networking" {
   project_id          = "${var.shared_networking_project_name}-${var.tb_discriminator}"
   folder_id           = var.root_id
   billing_account     = var.billing_account_id
-  auto_create_network = false
+
 }
 
 resource "google_project" "shared_itsm" {
@@ -26,7 +26,7 @@ resource "google_project" "shared_itsm" {
   project_id          = "${var.shared_itsm_project_name}-${var.tb_discriminator}"
   folder_id           = var.root_id
   billing_account     = var.billing_account_id
-  auto_create_network = false
+  
   depends_on          = [google_project.shared_networking]
 }
 
@@ -35,7 +35,7 @@ resource "google_project" "shared_telemetry" {
   project_id          = "${var.shared_telemetry_project_name}-${var.tb_discriminator}"
   folder_id           = var.root_id
   billing_account     = var.billing_account_id
-  auto_create_network = false
+ 
   depends_on          = [google_project.shared_networking]
 }
 
@@ -44,7 +44,7 @@ resource "google_project" "shared_billing" {
   project_id          = "${var.shared_billing_project_name}-${var.tb_discriminator}"
   folder_id           = var.root_id
   billing_account     = var.billing_account_id
-  auto_create_network = false
+ 
 }
 
 resource "google_project" "shared_ec" {
@@ -52,7 +52,7 @@ resource "google_project" "shared_ec" {
   project_id          = "${var.shared_ec_project_name}-${var.tb_discriminator}"
   folder_id           = var.root_id
   billing_account     = var.billing_account_id
-  auto_create_network = false
+  
   depends_on          = [google_project.shared_networking]
 }
 
@@ -61,6 +61,6 @@ resource "google_project" "shared_bastion" {
   project_id          = "${var.shared_bastion_project_name}-${var.tb_discriminator}"
   folder_id           = var.root_id
   billing_account     = var.billing_account_id
-  auto_create_network = false
+  
   depends_on          = [google_project.shared_networking]
 }
