@@ -124,7 +124,7 @@ spec:
               cpu: "100m"
           imagePullPolicy: IfNotPresent #Always
           ports:
-            - containerPort: 80
+            - containerPort: 3000
           env:
             - name: SQLALCHEMY_DATABASE_URI
               value: mysql+mysqlconnector://eagle-user:eagle-user-secret-pw@mysql57/eagle_db
@@ -132,6 +132,8 @@ spec:
               value: "True"
             - name: SQLALCHEMY_TRACK_MODIFICATIONS
               value: "True"
+            - name:  GCP_DAC_URL
+              value: gcp-dac:3100
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -156,7 +158,7 @@ spec:
               cpu: "100m"
           imagePullPolicy: IfNotPresent #Always
           ports:
-            - containerPort: 80
+            - containerPort: 3100
           volumeMounts:
             - name: config-volume
               mountPath: /app/ec-config.yaml
@@ -180,7 +182,7 @@ spec:
             requests:
               cpu: "100m"
           imagePullPolicy: IfNotPresent #Always
-          command: ["celery -E -A celery_worker worker --loglevel=info"]
+          command: ['celery', '-E', '-A', 'celery_worker', 'worker', '--loglevel=info']
           ports:
             - containerPort: 80
           volumeMounts:
@@ -188,7 +190,7 @@ spec:
               mountPath: /app/ec-config.yaml
               subPath: ec-config.yaml
             - name: google-cloud-key
-              mountPath: /credentials.json
+              mountPath: /var/secrets/google
           env:
             - name: GOOGLE_APPLICATION_CREDENTIALS
               value: /var/secrets/google/ec-service-account-config.json
