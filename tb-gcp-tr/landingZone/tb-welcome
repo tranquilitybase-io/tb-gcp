@@ -98,7 +98,7 @@ sleep $DELAY_BETWEEN_ATTEMPTS
 done
 
 # Set versioning on for tf state bucket.
-#sudo gsutil versioning set on "gs://${terraform_state_bucket_name}/"
+sudo gsutil versioning set on "gs://${terraform_state_bucket_name}/"
 
 # Commit current TB terraform code to GCR
 cd /tmp
