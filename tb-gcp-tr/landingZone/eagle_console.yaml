@@ -296,6 +296,37 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
+  name: gcpdacservice
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - mygateway
+  http:
+    - match:
+        - uri:
+            prefix: /api
+      route:
+        - destination:
+            host: gcpdacservice
+            port:
+              number: 80
+      corsPolicy:
+        allowOrigin:
+          - "*"
+        allowMethods:
+          - POST
+          - GET
+          - OPTIONS
+          - PUT
+          - PATCH
+          - DELETE
+        allowHeaders:
+          - "*"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
   name: eagleconsole
 spec:
   hosts:
@@ -331,6 +362,18 @@ metadata:
     cloud.google.com/load-balancer-type: "Internal"
 spec:
   host: houstonservice
+  trafficPolicy:
+    loadBalancer:
+      simple: LEAST_CONN
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: gcpdacservice
+  annotations:
+    cloud.google.com/load-balancer-type: "Internal"
+spec:
+  host: gcpdacservice
   trafficPolicy:
     loadBalancer:
       simple: LEAST_CONN
