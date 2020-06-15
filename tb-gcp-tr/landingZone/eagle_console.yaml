@@ -132,8 +132,8 @@ spec:
               value: "True"
             - name: SQLALCHEMY_TRACK_MODIFICATIONS
               value: "True"
-            - name:  GCP_DAC_URL
-              value: gcp-dac:3100
+            - name: GCP_DAC_URL
+              value: 'gcpdac:3100'
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -172,6 +172,8 @@ spec:
               value: redis://redis:6379
             - name: CELERY_RESULT_BACKEND
               value: redis://redis:6379
+            - name: HOUSTON_SERVICE_URL
+              value: 'houstonservice:3000'
 
         - name: redis
           image: redis:alpine
