@@ -161,7 +161,7 @@ spec:
     spec:
       containers:
         - name: redis
-          image: redis:alpine
+          image: gcr.io/tranquility-base-images/redis:alpine
 ---
 apiVersion: apps/v1
 kind: Deployment
