@@ -49,7 +49,7 @@ resource "google_project" "activator" {
   name                = local.activator_project_name
   project_id          = local.activator_project_name
   folder_id           = replace(var.activator_folder_id, "folders/", "")
- 
+  auto_create_network = true
   billing_account     = var.billing_account
   labels = {
     review-date            = "20190321"
@@ -98,7 +98,7 @@ module gke-activator {
   region               = var.region
   sharedvpc_project_id = var.shared_vpc_host_project
   sharedvpc_network    = var.vpc_name
-
+  
   cluster_project_id              = google_project.activator.id
   cluster_subnetwork              = var.activator_cluster_subnetwork
   cluster_service_account         = var.cluster_service_account
@@ -119,7 +119,7 @@ resource "google_project" "workspace" {
   name                = local.workspace_project_name
   project_id          = local.workspace_project_name
   folder_id           = replace(var.activator_folder_id, "folders/", "")
-  
+  auto_create_network = true
   billing_account     = var.billing_account
   labels = {
     review-date            = "20190321"
