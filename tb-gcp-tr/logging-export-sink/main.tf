@@ -60,15 +60,5 @@ resource "google_logging_folder_sink" "folder_sink" {
   folder                 = "folders/"
   destination            = "storage.googleapis.com/${google_storage_bucket.shared_services_log_bucket.name}"
   filter                 = var.log_filter
-  #unique_writer_identity = true
   include_children       = true
-}
-
-# Because our sink uses a unique_writer, we must grant that writer access to the bucket.
-resource "google_project_iam_binding" "log_writer" {
-  role = "roles/storage.objectCreator"
-
-  members = [
-    google_logging_folder_sink.folder_sink.writer_identity
-  ]
 }

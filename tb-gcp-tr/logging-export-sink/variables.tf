@@ -1,13 +1,9 @@
 
-variable "project" {
-  type    = string
-  default = "tf-associate-prep"
-}
 
 variable "bucket_uid_name" {
   type        = string
   description = "Bucket name"
-  default     = "oiasjd-8374dfsdfttttnsa"
+  default     = ""
 }
 
 variable "aggregated_export_sink_name" {
