@@ -46,7 +46,7 @@ EOF
 chmod +x /opt/tb/repo/tb-gcp-tr/landingZone/iap-tunnel.sh
 chmod +x /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh
 
-terraform init -backend-config="bucket=${terraform_state_bucket_name}" -backend-config="prefix=landingZone"
+terraform init -backend-config="bucket=${terraform_state_bucket_name}" -backend-config="prefix=landingZone" -upgrade
 
 apply_failures=0
 while [ $apply_failures -lt $MAX_ATTEMPTS ]; do
