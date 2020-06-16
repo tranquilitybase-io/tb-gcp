@@ -72,7 +72,17 @@ spec:
       targetPort: 3306
   selector:
     app: mysql57
-  clusterIP: None
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+spec:
+  ports:
+    - port: 6379
+      targetPort: 6379
+  selector:
+    app: redis
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -137,6 +147,25 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: redis-v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+        version: v1
+    spec:
+      containers:
+        - name: redis
+          image: redis:alpine
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
   name: gcpdac-v1
 spec:
   replicas: 1
@@ -174,9 +203,6 @@ spec:
             - name: HOUSTON_SERVICE_URL
               value: 'houstonservice:80'
 
-        - name: redis
-          image: redis:alpine
-
         - name: gcpdacworker
           image: gcr.io/tranquility-base-images/tb-gcp-dac:landingzone
           resources:
@@ -199,6 +225,8 @@ spec:
               value: redis://redis:6379
             - name: CELERY_RESULT_BACKEND
               value: redis://redis:6379
+            - name: HOUSTON_SERVICE_URL
+              value: 'houstonservice:80'
 
       volumes:
         - name: config-volume
@@ -295,7 +323,7 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: gcpdacservice
+  name: gcpdac
 spec:
   hosts:
     - "*"
@@ -307,7 +335,7 @@ spec:
             prefix: /api
       route:
         - destination:
-            host: gcpdacservice
+            host: gcpdac
             port:
               number: 80
       corsPolicy:
@@ -341,6 +369,23 @@ spec:
 
 ---
 apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: redis
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - mygateway
+  http:
+    - route:
+        - destination:
+            host: redis
+            port:
+              number: 6379
+
+---
+apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
   name: eagleconsole
@@ -368,11 +413,23 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
-  name: gcpdacservice
+  name: gcpdac
   annotations:
     cloud.google.com/load-balancer-type: "Internal"
 spec:
-  host: gcpdacservice
+  host: gcpdac
+  trafficPolicy:
+    loadBalancer:
+      simple: LEAST_CONN
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: redis
+  annotations:
+    cloud.google.com/load-balancer-type: "Internal"
+spec:
+  host: redis
   trafficPolicy:
     loadBalancer:
       simple: LEAST_CONN
