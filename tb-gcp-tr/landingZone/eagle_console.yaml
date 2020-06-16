@@ -61,7 +61,6 @@ spec:
       name: https
   selector:
     app: gcpdac
-  clusterIP: None
 ---
 apiVersion: v1
 kind: Service
@@ -133,7 +132,7 @@ spec:
             - name: SQLALCHEMY_TRACK_MODIFICATIONS
               value: "True"
             - name: GCP_DAC_URL
-              value: 'gcpdac:3100'
+              value: 'gcpdac:80'
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -173,7 +172,7 @@ spec:
             - name: CELERY_RESULT_BACKEND
               value: redis://redis:6379
             - name: HOUSTON_SERVICE_URL
-              value: 'houstonservice:3000'
+              value: 'houstonservice:80'
 
         - name: redis
           image: redis:alpine
