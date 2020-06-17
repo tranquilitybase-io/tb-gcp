@@ -1,14 +1,24 @@
 
+variable "project" {
+  type    = string
+  default = "tf-associate-prep"
+}
 
-variable "bucket_uid_name" {
+variable "applications_log_bucket" {
   type        = string
   description = "Bucket name"
-  default     = ""
+  default     = "applicationslogging-8374dfsdfttttnsa"
+}
+
+variable "shared_services_log_bucket" {
+type        = string
+  description = "Bucket name"
+  default     = "sharedserviceslogging-8374dfsdfttttnsa"
 }
 
 variable "aggregated_export_sink_name" {
-  type    = string
-  default = "folder_sink"
+  type    = list(string)
+  default = ["applications_logging","shared_services_loggging"]
 }
 
 variable "availability_zone_names" {
