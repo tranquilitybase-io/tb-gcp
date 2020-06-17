@@ -1,9 +1,4 @@
 
-variable "project" {
-  type    = string
-  default = "tf-associate-prep"
-}
-
 variable "applications_log_bucket" {
   type        = string
   description = "Bucket name"

@@ -51,7 +51,6 @@ resource "google_storage_bucket" "applications_log_bucket" {
   }
 }
 
-
 resource "google_logging_folder_sink" "applications_sink" {
   name                   = var.aggregated_export_sink_name[0]
   folder                 = "Applications"
