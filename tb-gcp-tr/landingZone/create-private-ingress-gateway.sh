@@ -17,10 +17,10 @@ gcloud beta dns --project="${SHARED_NETWORKING_PROJECT}" record-sets transaction
 gcloud beta dns --project="${SHARED_NETWORKING_PROJECT}" record-sets transaction execute --zone=private-shared
 
 ## create certificates and keys
-sudo mkdir /tmp/certs
-openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 -subj '/O=TB Inc./CN=private.landing-zone.com' -keyout /tmp/certs/private.landing-zone.com.key -out /tmp/certs/private.landing-zone.com.crt
-openssl req -out /tmp/certs/eagle-console.private.landing-zone.com.csr -newkey rsa:2048 -nodes -keyout /tmp/certs/eagle-console.private.landing-zone.com.key -subj "/CN=eagle-console.private.landing-zone.com/O=eagle-console organization"
-openssl x509 -req -days 365 -CA /tmp/certs/private.landing-zone.com.crt -CAkey /tmp/certs/private.landing-zone.com.key -set_serial 0 -in /tmp/certs/eagle-console.private.landing-zone.com.csr -out /tmp/certs/eagle-console.private.landing-zone.com.crt
+#sudo mkdir /tmp/certs
+#sudo openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 -subj '/O=TB Inc./CN=private.landing-zone.com' -keyout /tmp/certs/private.landing-zone.com.key -out /tmp/certs/private.landing-zone.com.crt
+#sudo openssl req -out /tmp/certs/eagle-console.private.landing-zone.com.csr -newkey rsa:2048 -nodes -keyout /tmp/certs/eagle-console.private.landing-zone.com.key -subj "/CN=eagle-console.private.landing-zone.com/O=eagle-console organization"
+#sudo openssl x509 -req -days 365 -CA /tmp/certs/private.landing-zone.com.crt -CAkey /tmp/certs/private.landing-zone.com.key -set_serial 0 -in /tmp/certs/eagle-console.private.landing-zone.com.csr -out /tmp/certs/eagle-console.private.landing-zone.com.crt
 
 ## create secret
-kubectl create -n istio-system secret tls ec-tls-credential --key=/tmp/certs/eagle-console.private.landing-zone.com.key --cert=/tmp/certs/eagle-console.private.landing-zone.com.crt
+kubectl create -n istio-system secret tls ec-tls-credential --key=/opt/certs/eagle-console.private.landing-zone.com.key --cert=/opt/certs/eagle-console.private.landing-zone.com.crt

@@ -199,8 +199,8 @@ spec:
         name: https
         protocol: HTTPS
       tls:
-      mode: SIMPLE
-      credentialName: ec-tls-credential
+        mode: SIMPLE
+        credentialName: ec-tls-credential
       hosts:
         - "*"
 ---
