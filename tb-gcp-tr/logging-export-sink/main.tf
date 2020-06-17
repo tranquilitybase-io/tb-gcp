@@ -1,6 +1,6 @@
 resource "google_storage_bucket" "shared_services_log_bucket" {
   name     = var.shared_services_log_bucket
-  location = "europe-west1"
+  location = var.region
 
   storage_class = var.storage_class[0]
 
@@ -26,7 +26,7 @@ resource "google_storage_bucket" "shared_services_log_bucket" {
 
 resource "google_storage_bucket" "applications_log_bucket" {
   name     = var.applications_log_bucket
-  location = "europe-west1"
+  location = var.region
 
 
   storage_class = var.storage_class[0]
