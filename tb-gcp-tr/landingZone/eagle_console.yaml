@@ -161,7 +161,7 @@ spec:
     spec:
       containers:
         - name: redis
-          image: gcr.io/tranquility-base-images/redis:alpine
+          image: redis:alpine
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -184,7 +184,7 @@ spec:
           resources:
             requests:
               cpu: "100m"
-          imagePullPolicy: IfNotPresent #Always
+          imagePullPolicy: Always
           ports:
             - containerPort: 3100
           volumeMounts:
@@ -332,7 +332,7 @@ spec:
   http:
     - match:
         - uri:
-            prefix: /api
+            prefix: /dac
       route:
         - destination:
             host: gcpdac
