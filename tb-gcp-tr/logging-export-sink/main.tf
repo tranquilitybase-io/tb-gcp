@@ -1,8 +1,21 @@
+
+resource "random_id" "log_bucket" {
+  keepers = {
+    bucket_id = "${var.bucket_id}"
+  }
+  byte_length = 16
+}
+
+
 resource "google_storage_bucket" "shared_services_log_bucket" {
-  name     = var.shared_services_log_bucket
+  name     = "sharedserviceslogs""${random_id.log_bucket.keepers.bucket_id}"
   location = var.region
 
   storage_class = var.storage_class[0]
+
+  labels = {
+    bucket_function = var.bucket_function[0]
+  }
 
   lifecycle_rule {
     condition {
@@ -25,11 +38,15 @@ resource "google_storage_bucket" "shared_services_log_bucket" {
 }
 
 resource "google_storage_bucket" "applications_log_bucket" {
-  name     = var.applications_log_bucket
+  name     = "applicationslogs""${random_id.log_bucket.keepers.bucket_id}"
   location = var.region
 
 
   storage_class = var.storage_class[0]
+
+    labels = {
+    bucket_function = var.bucket_function[1]
+  }
 
   lifecycle_rule {
     condition {
@@ -57,6 +74,7 @@ resource "google_logging_folder_sink" "applications_sink" {
   destination            = "storage.googleapis.com/${google_storage_bucket.applications_log_bucket.name}"
   filter                 = var.log_filter
   include_children       = true
+  depends_on             = applications_log_bucket
 }
 
 resource "google_logging_folder_sink" "shared_services_sink" {
@@ -65,4 +83,5 @@ resource "google_logging_folder_sink" "shared_services_sink" {
   destination            = "storage.googleapis.com/${google_storage_bucket.shared_services_log_bucket.name}"
   filter                 = var.log_filter
   include_children       = true
+  depends_on             = shared_services_log_bucket
 }

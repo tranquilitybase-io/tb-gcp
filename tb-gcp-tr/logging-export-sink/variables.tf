@@ -1,28 +1,7 @@
 
-variable "applications_log_bucket" {
-  type        = string
-  description = "Bucket name"
-  default     = "applicationslogging-8374dfsdfttttnsa"
-}
-
-variable "shared_services_log_bucket" {
-type        = string
-  description = "Bucket name"
-  default     = "sharedserviceslogging-8374dfsdfttttnsa"
-}
-
 variable "aggregated_export_sink_name" {
   type    = list(string)
   default = ["applications_logging","shared_services_loggging"]
-}
-
-variable "availability_zone_names" {
-  type = map
-  default = {
-    europe-west1 = "europe-west1-b"
-    us-central1  = "us-central1-b"
-    asia-east2   = "asia-east2-c"
-  }
 }
 
 variable "lr_actions" {
@@ -30,6 +9,11 @@ variable "lr_actions" {
   default = ["Delete", "SetStorageClass"]
 }
 
+variable "bucket_function" {
+  type list(string)
+  default = ["sharedservicesloggging","applicationslogging"]
+  
+}
 
 variable "age" {
   type = map
