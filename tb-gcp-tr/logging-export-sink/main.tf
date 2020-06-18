@@ -8,7 +8,7 @@ resource "random_id" "log_bucket" {
 
 
 resource "google_storage_bucket" "shared_services_log_bucket" {
-  name     = "sharedserviceslogs ${random_id.log_bucket.keepers.bucket_id}"
+  name     = "sharedserviceslogs${random_id.log_bucket.keepers.bucket_id}"
   location = var.region
 
   storage_class = var.storage_class[0]
