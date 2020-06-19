@@ -1,14 +1,6 @@
 
-resource "random_id" "log_bucket" {
-  keepers = {
-    bucket_id = "${var.bucket_id}"
-  }
-  byte_length = 16
-}
-
-
 resource "google_storage_bucket" "shared_services_log_bucket" {
-  name     = "sharedserviceslogs${random_id.log_bucket.keepers.bucket_id}"
+  name     = "sharedserviceslogs${var.tb_discriminator}"
   location = var.region
   project = "shared-telemetry"
 
@@ -39,7 +31,7 @@ resource "google_storage_bucket" "shared_services_log_bucket" {
 }
 
 resource "google_storage_bucket" "applications_log_bucket" {
-  name     = "applicationslogs""${random_id.log_bucket.keepers.bucket_id}"
+  name     = "applicationslogs""${var.tb_discriminator}"
   location = var.region
   project = "shared-telemetry"
 
