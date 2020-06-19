@@ -19,7 +19,7 @@ provider "google" {
 
 provider "google-beta" {
   alias   = "shared-vpc"
-  version = "~> 2.0"
+  version = "~> 2.9"
 }
 
 # create compute service account for kubernetes cluster
