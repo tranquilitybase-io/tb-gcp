@@ -58,7 +58,7 @@ echo "Terraform init"
 sleep $DELAY_BETWEEN_ATTEMPTS
 apply_failures=0
 while [ $apply_failures -lt $MAX_ATTEMPTS_INIT ]; do
-terraform init -backend-config="bucket=${terraform_state_bucket_name}" -backend-config="prefix=landingZone"
+terraform init -backend-config="bucket=${terraform_state_bucket_name}" -backend-config="prefix=landingZone" -upgrade
 if [ $? -eq 0 ]; then
 echo "Terraform initialised successfully"
 break
