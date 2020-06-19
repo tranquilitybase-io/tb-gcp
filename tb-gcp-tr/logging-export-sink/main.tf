@@ -10,6 +10,7 @@ resource "random_id" "log_bucket" {
 resource "google_storage_bucket" "shared_services_log_bucket" {
   name     = "sharedserviceslogs${random_id.log_bucket.keepers.bucket_id}"
   location = var.region
+  project = "shared-telemetry"
 
   storage_class = var.storage_class[0]
 
@@ -40,7 +41,7 @@ resource "google_storage_bucket" "shared_services_log_bucket" {
 resource "google_storage_bucket" "applications_log_bucket" {
   name     = "applicationslogs""${random_id.log_bucket.keepers.bucket_id}"
   location = var.region
-
+  project = "shared-telemetry"
 
   storage_class = var.storage_class[0]
 
