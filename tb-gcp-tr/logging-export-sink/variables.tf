@@ -10,7 +10,7 @@ variable "lr_actions" {
 }
 
 variable "bucket_function" {
-  type list(string)
+  type = list(string)
   default = ["sharedservicesloggging","applicationslogging"]
   
 }

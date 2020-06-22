@@ -1,6 +1,6 @@
 
 resource "google_storage_bucket" "shared_services_log_bucket" {
-  name     = "sharedserviceslogs${var.tb_discriminator}"
+  name     = "sharedserviceslogs"
   location = var.region
   project = "shared-telemetry"
 
@@ -31,7 +31,7 @@ resource "google_storage_bucket" "shared_services_log_bucket" {
 }
 
 resource "google_storage_bucket" "applications_log_bucket" {
-  name     = "applicationslogs""${var.tb_discriminator}"
+  name     = "applicationslogs"
   location = var.region
   project = "shared-telemetry"
 
@@ -67,7 +67,7 @@ resource "google_logging_folder_sink" "applications_sink" {
   destination            = "storage.googleapis.com/${google_storage_bucket.applications_log_bucket.name}"
   filter                 = var.log_filter
   include_children       = true
-  depends_on             = applications_log_bucket
+  depends_on             = [applications_log_bucket]
 }
 
 resource "google_logging_folder_sink" "shared_services_sink" {
@@ -76,5 +76,5 @@ resource "google_logging_folder_sink" "shared_services_sink" {
   destination            = "storage.googleapis.com/${google_storage_bucket.shared_services_log_bucket.name}"
   filter                 = var.log_filter
   include_children       = true
-  depends_on             = shared_services_log_bucket
+  depends_on             = [shared_services_log_bucket]
 }
