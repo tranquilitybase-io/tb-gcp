@@ -43,5 +43,10 @@ variable "region" {
   default = "europe-west1"
 }
 
+variable "tb_discriminator" {
+  type = string
+}
+
+
 
 
