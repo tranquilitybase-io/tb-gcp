@@ -50,6 +50,21 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  name: gcpdac
+spec:
+  ports:
+    - port: 80
+      targetPort: 3100
+      name: http
+    - port: 443
+      targetPort: 3100
+      name: https
+  selector:
+    app: gcpdac
+---
+apiVersion: v1
+kind: Service
+metadata:
   name: mysql57
 spec:
   ports:
@@ -57,7 +72,17 @@ spec:
       targetPort: 3306
   selector:
     app: mysql57
-  clusterIP: None
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+spec:
+  ports:
+    - port: 6379
+      targetPort: 6379
+  selector:
+    app: redis
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -83,22 +108,6 @@ spec:
           imagePullPolicy: IfNotPresent #Always
           ports:
             - containerPort: 80
-          volumeMounts:
-            - name: config-volume
-              mountPath: /app/ec-config.yaml
-              subPath: ec-config.yaml
-            - name: google-cloud-key
-              mountPath: /var/secrets/google
-          env:
-            - name: GOOGLE_APPLICATION_CREDENTIALS
-              value: /var/secrets/google/ec-service-account-config.json
-      volumes:
-        - name: config-volume
-          configMap:
-            name: ec-config
-        - name: google-cloud-key
-          secret:
-            secretName: ec-service-account
 ---
 
 apiVersion: apps/v1
@@ -124,6 +133,84 @@ spec:
               cpu: "100m"
           imagePullPolicy: IfNotPresent #Always
           ports:
+            - containerPort: 3000
+          env:
+            - name: SQLALCHEMY_DATABASE_URI
+              value: mysql+mysqlconnector://eagle-user:eagle-user-secret-pw@mysql57/eagle_db
+            - name: SQLALCHEMY_ECHO
+              value: "True"
+            - name: SQLALCHEMY_TRACK_MODIFICATIONS
+              value: "True"
+            - name: GCP_DAC_URL
+              value: 'gcpdac:80'
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+        version: v1
+    spec:
+      containers:
+        - name: redis
+          image: redis:alpine
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gcpdac-v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gcpdac
+  template:
+    metadata:
+      labels:
+        app: gcpdac
+        version: v1
+    spec:
+      containers:
+        - name: gcpdac
+          image: gcr.io/tranquility-base-images/tb-gcp-dac:landingzone
+          resources:
+            requests:
+              cpu: "100m"
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3100
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/ec-config.yaml
+              subPath: ec-config.yaml
+            - name: google-cloud-key
+              mountPath: /var/secrets/google
+          env:
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /var/secrets/google/ec-service-account-config.json
+            - name: CELERY_BROKER_URL
+              value: redis://redis:6379
+            - name: CELERY_RESULT_BACKEND
+              value: redis://redis:6379
+            - name: HOUSTON_SERVICE_URL
+              value: 'houstonservice:80'
+
+        - name: gcpdacworker
+          image: gcr.io/tranquility-base-images/tb-gcp-dac:landingzone
+          resources:
+            requests:
+              cpu: "100m"
+          imagePullPolicy: IfNotPresent #Always
+          command: ['celery', '-E', '-A', 'celery_worker', 'worker', '--loglevel=info']
+          ports:
             - containerPort: 80
           volumeMounts:
             - name: config-volume
@@ -134,12 +221,13 @@ spec:
           env:
             - name: GOOGLE_APPLICATION_CREDENTIALS
               value: /var/secrets/google/ec-service-account-config.json
-            - name: SQLALCHEMY_DATABASE_URI
-              value: mysql+mysqlconnector://eagle-user:eagle-user-secret-pw@mysql57/eagle_db
-            - name: SQLALCHEMY_ECHO
-              value: "True"
-            - name: SQLALCHEMY_TRACK_MODIFICATIONS
-              value: "True"
+            - name: CELERY_BROKER_URL
+              value: redis://redis:6379
+            - name: CELERY_RESULT_BACKEND
+              value: redis://redis:6379
+            - name: HOUSTON_SERVICE_URL
+              value: 'houstonservice:80'
+
       volumes:
         - name: config-volume
           configMap:
@@ -238,6 +326,37 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
+  name: gcpdac
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - mygateway
+  http:
+    - match:
+        - uri:
+            prefix: /dac
+      route:
+        - destination:
+            host: gcpdac
+            port:
+              number: 80
+      corsPolicy:
+        allowOrigin:
+          - "*"
+        allowMethods:
+          - POST
+          - GET
+          - OPTIONS
+          - PUT
+          - PATCH
+          - DELETE
+        allowHeaders:
+          - "*"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
   name: eagleconsole
 spec:
   hosts:
@@ -250,6 +369,23 @@ spec:
             host: eagleconsole
             port:
               number: 443
+
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: redis
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - mygateway
+  http:
+    - route:
+        - destination:
+            host: redis
+            port:
+              number: 6379
 
 ---
 apiVersion: networking.istio.io/v1alpha3
@@ -273,6 +409,30 @@ metadata:
     cloud.google.com/load-balancer-type: "Internal"
 spec:
   host: houstonservice
+  trafficPolicy:
+    loadBalancer:
+      simple: LEAST_CONN
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: gcpdac
+  annotations:
+    cloud.google.com/load-balancer-type: "Internal"
+spec:
+  host: gcpdac
+  trafficPolicy:
+    loadBalancer:
+      simple: LEAST_CONN
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: redis
+  annotations:
+    cloud.google.com/load-balancer-type: "Internal"
+spec:
+  host: redis
   trafficPolicy:
     loadBalancer:
       simple: LEAST_CONN
