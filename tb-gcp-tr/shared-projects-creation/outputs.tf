@@ -47,3 +47,11 @@ output "shared_bastion_project_number" {
   description = "number of the bastion project."
   value       = google_project.shared_bastion.number
 }
+
+output "tb_discriminator" {
+  description = "unique tb id"
+  value       = google_project.shared_bastion.tb_discriminator
+}
+
+
+
