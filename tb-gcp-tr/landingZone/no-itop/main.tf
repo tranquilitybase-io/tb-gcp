@@ -243,6 +243,8 @@ resource "google_sourcerepo_repository_iam_binding" "terraform-code-store-admin-
 
   module "logging_export_sink" {
     source = "../../logging-export-sink"
-    tb_discriminator = module.shared_bastion.tb_discriminator
+    
+    tb_discriminator = var.tb_discriminator
+    
 
 }
