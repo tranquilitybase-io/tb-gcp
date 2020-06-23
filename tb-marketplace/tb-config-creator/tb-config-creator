@@ -26,7 +26,7 @@ function print_help {
   echo "  Either parent-folder-id or organization-id is REQUIRED"
   echo "Example:"
   echo "  $ ./tb-config-creator -f 705953663545 -b F9C122-73127B-50AE5B"
-  echo "  $ ./tb-config-creator -0 123953123545 -b F9C122-73127B-50AE5B"
+  echo "  $ ./tb-config-creator -o 123953123545 -b F9C122-73127B-50AE5B"
 
 }
 
