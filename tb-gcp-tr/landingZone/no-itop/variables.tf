@@ -244,6 +244,11 @@ variable "cluster_ec_min_master_version" {
   type        = string
 }
 
+variable "cluster_ec_default_max_pods_per_node" {
+  description = "The maximum number of pods to schedule per node"
+  default     = null
+}
+
 variable "istio_status" {
   type    = string
   default = "true"
