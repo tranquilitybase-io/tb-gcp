@@ -46,6 +46,9 @@ resource "google_container_cluster" "gke" {
   # use latest version, unless a specific version requested
   min_master_version = var.cluster_min_master_version
 
+  # setting the default maximum number of pods per node in this cluster.
+  default_max_pods_per_node = var.cluster_default_max_pods_per_node
+
   # specifying node_config here causes terraform to re-create the cluster on EVERY execution
 
   master_authorized_networks_config {

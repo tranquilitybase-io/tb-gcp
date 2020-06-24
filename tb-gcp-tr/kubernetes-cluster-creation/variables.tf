@@ -156,3 +156,7 @@ variable "gke_service_network_name" {
   description = "Name for the gke service network"
 }
 
+variable "cluster_default_max_pods_per_node" {
+  description = "The maximum number of pods to schedule per node"
+  default     = null
+}
