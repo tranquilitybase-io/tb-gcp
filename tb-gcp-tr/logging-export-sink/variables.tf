@@ -47,6 +47,10 @@ variable "tb_discriminator" {
   type = string
 }
 
+variable "shared_telemetry_project_name" {
+  type = string
+}
+
 
 
 
