@@ -306,3 +306,16 @@ variable "private_dns_domain_name" {
   default     = ""
   description = "Domain name for private DNS in the shared vpc network"
 }
+## DAC Services ##########
+# Namespace creations
+variable "sharedservice_namespace_yaml_path" {
+  description = "Path to the yaml file to create namespaces on the shared gke-ec cluster"
+  type        = string
+}
+
+# Jenkins install 
+variable "sharedservice_jenkinsmaster_yaml_path" {
+  description = "Path to the yaml file to deploy Jenkins on the shared gke-ec cluster"
+  type        = string
+}
+
