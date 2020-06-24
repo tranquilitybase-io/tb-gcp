@@ -241,10 +241,10 @@ resource "google_sourcerepo_repository_iam_binding" "terraform-code-store-admin-
   depends_on = [google_sourcerepo_repository.activator-terraform-code-store]
 }
 
-  module "logging_export_sink" {
-    source = "../../logging-export-sink"
+module "logging_export_sink" {
+  source = "../../logging-export-sink"
     
-    tb_discriminator = var.tb_discriminator
-    shared_telemetry_project_name = var.shared_telemetry_project_name
+  tb_discriminator = var.tb_discriminator
+  shared_telemetry_project_name = var.shared_telemetry_project_name
 
 }
