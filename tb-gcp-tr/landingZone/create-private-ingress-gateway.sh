@@ -4,6 +4,10 @@ kubectl apply -f /opt/tb/repo/tb-gcp-tr/landingZone/istio-pvt-ingressgateway-dep
 kubectl apply -f /opt/tb/repo/tb-gcp-tr/landingZone/istio-pvt-ingressgateway.yaml
 kubectl delete svc istio-ingressgateway --namespace=istio-system
 
+## create secret
+kubectl create -n istio-system secret tls ec-tls-credential --key=/opt/certs/eagle-console.private.landing-zone.com.key --cert=/opt/certs/eagle-console.private.landing-zone.com.crt
+
+
 ## record ip with Cloud DNS
 service_desc=($(kubectl describe services istio-private-ingressgateway --namespace=istio-system | grep 'LoadBalancer Ingress:'))
 endpoint_ip=${service_desc[2]}
