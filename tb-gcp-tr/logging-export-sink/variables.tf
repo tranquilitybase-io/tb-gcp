@@ -48,7 +48,9 @@ variable "tb_discriminator" {
 }
 
 variable "shared_telemetry_project_name" {
-  type = string
+  type        = string
+  default     = "shared-telemetry"
+  description = "Shared telemetry project name."
 }
 
 
