@@ -114,6 +114,13 @@ module "bastion-security" {
   shared_bastion_project_number = module.shared_projects.shared_bastion_project_number
 }
 
+module "logging_export_sink" {
+  source = "../../logging-export-sink"
+  tb_discriminator = var.tb_discriminator
+  shared_telemetry_project_name = var.shared_telemetry_project_name
+
+}
+
 module "gke-ec" {
   source = "../../kubernetes-cluster-creation"
 
@@ -239,12 +246,4 @@ resource "google_sourcerepo_repository_iam_binding" "terraform-code-store-admin-
     local.service_account_name,
   ]
   depends_on = [google_sourcerepo_repository.activator-terraform-code-store]
-}
-
-module "logging_export_sink" {
-  source = "../../logging-export-sink"
-    
-  tb_discriminator = var.tb_discriminator
-  shared_telemetry_project_name = var.shared_telemetry_project_name
-
 }
