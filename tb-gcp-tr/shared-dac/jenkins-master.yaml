@@ -19,7 +19,7 @@ spec:
   resources:
     requests:
       storage: 50Gi
-    storageClassName: gold
+  storageClassName: gold
 ---
 ### Jenkins Service ###
 apiVersion: v1
