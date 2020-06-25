@@ -15,6 +15,6 @@
 provider "google" {
   region  = var.region
   zone    = var.region_zone
-  version = "~> 2.9"
+  version = "~> 2.5"
 }
 
