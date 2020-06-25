@@ -118,8 +118,8 @@ module "logging_export_sink" {
   source = "../../logging-export-sink"
   tb_discriminator              = var.tb_discriminator
   shared_telemetry_project_name = var.shared_telemetry_project_name
-  shared_services_id            = module.google_folder.shared_services_id
-  activators_id                 = module.google_folder.activators_id
+  shared_services_id            = module.folder_structure.shared_services_id
+  activators_id                 = module.folder_structure.applications_id
 }
 
 module "gke-ec" {
