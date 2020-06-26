@@ -254,7 +254,7 @@ spec:
     spec:
       containers:
         - name: mysql57
-          image: gcr.io/tranquility-base-images/tb-houston-mysql57:landingzone
+          image: gcr.io/tranquility-base-images/tb-db:landingzone
           resources:
             requests:
               cpu: "100m"
