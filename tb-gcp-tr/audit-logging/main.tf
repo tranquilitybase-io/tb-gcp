@@ -21,7 +21,7 @@ resource "random_id" "logging" {
 ###create the log bucket
 resource "google_storage_bucket" "log-bucket" {
   project  = var.logging_project_id
-  name     = concat([var.bucketprefix, ${random_id.logging.hex]})
+  name     = join("", [var.bucketprefix, random_id.logging.hex])
   location = var.region
 
   lifecycle_rule {
