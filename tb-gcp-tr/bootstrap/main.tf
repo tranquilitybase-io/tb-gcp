@@ -104,6 +104,7 @@ resource "google_storage_bucket" "terraform-state-bucket-res" {
   name       = "terraform-state-bucket-${random_id.project.hex}"
   location   = "EU"
   depends_on = [google_project_services.bootstrap_project_apis]
+  
 }
 
 #CREATE-BOOTSTRAP-TERRAFORM-SERVER
