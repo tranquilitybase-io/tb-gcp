@@ -56,17 +56,13 @@ resource "google_logging_folder_sink" "log_sink" {
   # export to log bucket
   destination = "storage.googleapis.com/${google_storage_bucket.log-bucket.name}"
 
-  # Use a unique writer (creates a unique service account used for writing)
-  unique_writer_identity = true
-}
-
 ###gives the log writer permissions to bucket
 resource "google_project_iam_binding" "log-writer" {
   project = var.logging_project_id
   role    = "roles/storage.objectCreator"
 
   members = [
-    google_logging_project_sink.log_sink.writer_identity,
+      google_logging_folder_sink.log-sink.writer_identity
   ]
 }
 
