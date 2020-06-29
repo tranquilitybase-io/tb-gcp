@@ -21,7 +21,7 @@ resource "random_id" "logging" {
 ###create the log bucket
 resource "google_storage_bucket" "log-bucket" {
   project  = var.shared_telemetry_project_id
-  name     = "audit-log-bucket-${random_id.project.hex}"
+  name     = "audit-log-bucket-${random_id.logging.hex}"
   location = var.region
 
   lifecycle_rule {
@@ -66,7 +66,7 @@ resource "google_project_iam_binding" "log-writer" {
   role    = "roles/storage.objectCreator"
 
   members = [
-    google_logging_project_sink.log_sink.writer_identity,
+    google_logging_project_sink.audit_log_sink.writer_identity,
   ]
 }
 
