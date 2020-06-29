@@ -46,7 +46,7 @@ variable "labelfuction" {
     default = "bucket_to_store_logs"
 }
 variable "sinkname" {
-    default = "log-sink"
+    default = "log_sink"
 }
 variable "randomidlen" {
     default = "6"

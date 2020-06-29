@@ -63,7 +63,7 @@ resource "google_project_iam_binding" "log-writer" {
   role    = "roles/storage.objectCreator"
 
   members = [
-      google_logging_folder_sink.log-sink.writer_identity
+      google_logging_folder_sink.log_sink.writer_identity
   ]
 }
 
