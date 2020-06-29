@@ -181,6 +181,16 @@ folder_id_entry=$(gcloud resource-manager folders create --display-name="${TBASE
 IFS='/' read -ra split_array <<< "$folder_id_entry"
 tb_folder_id="$(echo ${split_array[1]} | sed 's/[^0-9]*//g')"
 
+#Add auditing to at folder level
+gcloud resource-manager folders get-iam-policy "${tb_folder_id}" > rootfolderiampolicy.yaml
+sed -i "1 i\auditConfigs:" rootfolderiampolicy.yaml
+sed -i "2 i\- auditLogConfigs:" rootfolderiampolicy.yaml
+sed -i "3 i\  - logType: ADMIN_READ" rootfolderiampolicy.yaml
+sed -i "4 i\  - logType: DATA_WRITE" rootfolderiampolicy.yaml
+sed -i "5 i\  - logType: DATA_READ" rootfolderiampolicy.yaml
+sed -i "6 i\  service: allServices" rootfolderiampolicy.yaml
+gcloud resource-manager folders set-iam-policy "${tb_folder_id}" rootfolderiampolicy.yaml 
+rm rootfolderiampolicy.yaml
 
 echo "Creating project..."
 if [[ -n ${ADMIN}  ]]; then
