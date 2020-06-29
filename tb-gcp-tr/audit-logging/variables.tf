@@ -48,6 +48,6 @@ variable "labelfuction" {
 variable "sinkname" {
     default = "log-sink"
 }
-variabe "randomidlen" {
+variable "randomidlen" {
     default = "6"
 }
