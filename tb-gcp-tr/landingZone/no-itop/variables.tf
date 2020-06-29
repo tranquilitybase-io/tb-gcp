@@ -429,3 +429,64 @@ variable "iam_members_bindings" {
     member = "group:cloud-storage-analytics@google.com"
   }]
 }
+
+##### Audit logging #####
+
+### Audit Bucket ###
+
+variable "tb_folder_admin_rw_audit_log_bucket_location" {
+  description = "location for tb folder admin read/write bucket audit logs"
+  type        = "string"
+  default     = "europe-west2"
+}
+variable "tb_folder_admin_rw_audit_log_bucket_storage_class" {
+  description = "storage class for tb folder admin read/write bucket audit logs"
+  type        = "string"
+  default     = "REGIONAL"
+}
+variable "tb_folder_admin_rw_audit_log_bucket_name" {
+  description = "bucket name for tb folder admin read/write bucket audit logs"
+  type        = string
+  default     = "tb-folder-admin-rw-audit-logs"
+}
+variable "tb_folder_admin_rw_audit_log_bucket_labels" {
+  description = "labels for tb folder admin read/write bucket audit logs"
+  type        = map(string)
+  default     = { "function" = "bucket-to-store-root-folder-admin-rw-audit-logs" }
+}
+variable "tb_folder_admin_rw_audit_log_bucket_lifecycle_rules" {
+  description = "lifecycle rules for tb folder admin read/write bucket audit logs. Defaults to moving from standard to nearline after 30 days and deleting after 365."
+  default = [
+    {
+      action = {
+        type          = "SetStorageClass"
+        storage_class = "NEARLINE"
+      },
+      condition = {
+        age = "30"
+      }
+    },
+    {
+      action = {
+        type = "Delete"
+        storage_class = ""
+      },
+      condition = {
+        age = "365"
+      }
+    }
+  ]
+}
+
+### Audit Folder Log Sink Creator ###
+
+variable "tb_folder_admin_rw_audit_log_sink_name" {
+  description = "log sink name for tb folder admin read/write bucket audit logs"
+  default     = "tb-folder-admin-rw-audit-log-sink"
+  type        = string
+}
+variable "include_children" {
+  description = "include logs for folders and project below the tb folder"
+  default     = true
+  type        = bool
+}

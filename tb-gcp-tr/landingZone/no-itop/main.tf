@@ -125,6 +125,35 @@ module "shared-vpc" {
   private_dns_domain_name  = var.private_dns_domain_name
 }
 
+##### Audit logging #####
+
+module "audit-log-bucket" {
+  source = "github.com/tranquilitybase-io/terraform-google-cloud-storage.git//modules/simple_bucket?ref=logging"
+
+  project_id      = module.shared_projects.shared_telemetry_id
+  name            = "${var.tb_folder_admin_rw_audit_log_bucket_name}-${var.tb_discriminator}"
+  location        = var.tb_folder_admin_rw_audit_log_bucket_location
+  storage_class   = var.tb_folder_admin_rw_audit_log_bucket_storage_class
+  labels          = var.tb_folder_admin_rw_audit_log_bucket_labels
+  lifecycle_rules = var.tb_folder_admin_rw_audit_log_bucket_lifecycle_rules
+}
+
+resource "google_logging_folder_sink" "audit-log-sink" {
+  folder           = var.root_id
+  name             = var.tb_folder_admin_rw_audit_log_sink_name
+  destination      = "storage.googleapis.com/${module.audit-log-bucket.name}"
+  filter           = "logName:(/logs/cloudaudit.googleapis.com%2Factivity OR /logs/cloudaudit.googleapis.com%2Fdata_access OR /logs/cloudaudit.googleapis.com%2Fsystem_event)"
+  include_children = var.include_children
+}
+
+resource "google_storage_bucket_iam_binding" "audit-bucket-iam-binding" {
+  bucket  = module.audit-log-bucket.name
+  role    = "roles/storage.objectCreator"
+  members = [google_logging_folder_sink.audit-log-sink.writer_identity]
+}
+
+#####
+
 module "bastion-security" {
   source = "../../shared-bastion"
 
