@@ -15,7 +15,7 @@
 variable "region" {
     default = ""
 }
-variable "rootid" {
+variable "root_id" {
     default = ""
 }
 variable "shared_telemetry_project_id" {
