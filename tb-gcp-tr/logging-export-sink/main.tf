@@ -78,7 +78,7 @@ resource "google_logging_folder_sink" "shared_services_sink" {
   include_children       = true
   depends_on             = [google_storage_bucket.shared_services_log_bucket]
 }
-
+#this is a test
 resource "google_project_iam_binding" "log-writer" {
   role = "roles/storage.objectCreator"
 

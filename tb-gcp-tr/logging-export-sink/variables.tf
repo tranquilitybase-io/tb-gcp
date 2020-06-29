@@ -21,7 +21,7 @@ variable "age" {
     Delete          = "365"
     SetStorageClass = "30"
   }
-}
+}#
 
 variable "storage_class" {
   type    = list(string)
