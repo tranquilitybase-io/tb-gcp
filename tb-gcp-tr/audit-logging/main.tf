@@ -55,6 +55,7 @@ resource "google_logging_folder_sink" "log_sink" {
 
   # export to log bucket
   destination = "storage.googleapis.com/${google_storage_bucket.log-bucket.name}"
+}  
 
 ###gives the log writer permissions to bucket
 resource "google_project_iam_binding" "log-writer" {
