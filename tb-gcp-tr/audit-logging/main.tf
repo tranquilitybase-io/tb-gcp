@@ -58,7 +58,7 @@ resource "google_logging_folder_sink" "log_sink" {
 }  
 
 ###gives the log writer permissions to bucket
-resource "google_project_iam_binding" "log-writer" {
+resource "google_project_iam_binding" "log_writer" {
   project = var.logging_project_id
   role    = "roles/storage.objectCreator"
 
