@@ -19,7 +19,7 @@ resource "random_id" "logging" {
 }
 
 ###create the log bucket
-resource "google_storage_bucket" "log-bucket" {
+resource "google_storage_bucket" "log_bucket" {
   project  = var.logging_project_id
   name     = join("", [var.bucketprefix, random_id.logging.hex])
   location = var.region
@@ -44,7 +44,7 @@ resource "google_storage_bucket" "log-bucket" {
   }
 
   labels = {
-    Fuction = var.labelfuction
+    fuction = var.labelfuction
   }
 }
 
@@ -54,7 +54,7 @@ resource "google_logging_folder_sink" "log_sink" {
   name    = var.sinkname
 
   # export to log bucket
-  destination = "storage.googleapis.com/${google_storage_bucket.log-bucket.name}"
+  destination = "storage.googleapis.com/${google_storage_bucket.log_bucket.name}"
 }  
 
 ###gives the log writer permissions to bucket
