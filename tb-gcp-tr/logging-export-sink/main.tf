@@ -80,13 +80,13 @@ resource "google_logging_folder_sink" "shared_services_sink" {
 }
 
 resource "google_storage_bucket_iam_binding" "applications_log_sink_bucket_objectCreators" {
-  bucket = google_storage_bucket.applications_log_sink_bucket.name
+  bucket = google_storage_bucket.applications_log_bucket.name
   members = [google_logging_folder_sink.shared_services_log_sink.writer_identity]
   role = "roles/storage.objectCreator"
 }
 
 resource "google_storage_bucket_iam_binding" "shared_services_log_sink_bucket_objectCreators" {
-  bucket = google_storage_bucket.shared_services_log_sink_bucket.name
+  bucket = google_storage_bucket.shared_services_log_bucket.name
   members = [google_logging_folder_sink.shared_services_log_sink.writer_identity]
   role = "roles/storage.objectCreator"
 }
