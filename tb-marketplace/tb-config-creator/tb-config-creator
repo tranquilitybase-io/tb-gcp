@@ -189,11 +189,22 @@ TBASE_FOLDER_NAME="${TBASE_FOLDER_PREFIX}${RND}"
 #Explicit labelling is required here because Terraform has not been applied.
 ACTIVE_ACCOUNT="$(gcloud config list account --format "value(core.account)" | cut -d@ -f1)"
 echo "Resources will be labelled with the owner: ${ACTIVE_ACCOUNT}"
-sed -i "s/created_by:.*/created_by: '${ACTIVE_ACCOUNT}'/" $(dirname ${BASH_SOURCE[0]})/../tb-dep-manager/test_config.yaml
+sed -i "s/created-by:.*/created-by: '${ACTIVE_ACCOUNT}'/" $(dirname ${BASH_SOURCE[0]})/../tb-dep-manager/test_config.yaml
 # Create Tbase folder to store bootstrap project, involves parsing the output of the glcoud command to get the folder id
 folder_id_entry=$(gcloud resource-manager folders create --display-name="${TBASE_FOLDER_NAME}" --"${parent_type}"="${parent_id}" --format="value(name)")
 IFS='/' read -ra split_array <<< "$folder_id_entry"
 tb_folder_id="$(echo ${split_array[1]} | sed 's/[^0-9]*//g')"
+
+#Add auditing to at folder level
+gcloud resource-manager folders get-iam-policy "${tb_folder_id}" > rootfolderiampolicy.yaml
+cat >> rootfolderiampolicy.yaml <<EOF
+auditConfigs:
+- auditLogConfigs:
+  - logType: ADMIN_READ
+  service: allServices
+EOF
+gcloud resource-manager folders set-iam-policy "${tb_folder_id}" rootfolderiampolicy.yaml
+rm rootfolderiampolicy.yaml
 
 echo "Creating project..."
 gcloud projects create "${PROJECT_ID}" --folder "${tb_folder_id}" --format=none --labels created_by="${ACTIVE_ACCOUNT}","${LABELS}"
@@ -226,6 +237,7 @@ gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --membe
 gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/cloudkms.admin --format=none
 gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/logging.logWriter --format=none
 gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/logging.configWriter --format=none
+
 # Add permissions at the billing level
 echo "Adding permissions at the billing account level..."
 gcloud beta billing accounts get-iam-policy "${BILLING_ID}" > billing.yaml
