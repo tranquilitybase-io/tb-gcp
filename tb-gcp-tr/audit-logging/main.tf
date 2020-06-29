@@ -15,13 +15,13 @@
 #CREATE-AUDIT-LOGGING
 
 resource "random_id" "logging" {
-  byte_length = 4
+  byte_length = var.randomidlen
 }
 
 ###create the log bucket
 resource "google_storage_bucket" "log-bucket" {
-  project  = var.shared_telemetry_project_id
-  name     = "audit-log-bucket-${random_id.logging.hex}"
+  project  = var.logging_project_id
+  name     = concat([var.bucketprefix, ${random_id.logging.hex]})
   location = var.region
 
   lifecycle_rule {
@@ -44,14 +44,14 @@ resource "google_storage_bucket" "log-bucket" {
   }
 
   labels = {
-    purpose = "sends_to_collect_admin_read_data_write_data_read_audit_logs"
+    Fuction = var.labelfuction
   }
 }
 
-###create sink to push logs to bucket in telemtry project
-resource "google_logging_folder_sink" "audit_log_sink" {
+###create sink to push logs to bucket in the logging project
+resource "google_logging_folder_sink" "log_sink" {
   folder = var.root_id
-  name    = "audit_log_sink"
+  name    = var.sinkname
 
   # export to log bucket
   destination = "storage.googleapis.com/${google_storage_bucket.log-bucket.name}"
@@ -60,13 +60,13 @@ resource "google_logging_folder_sink" "audit_log_sink" {
   unique_writer_identity = true
 }
 
-#Gives the log writer permissions to bucket
+###gives the log writer permissions to bucket
 resource "google_project_iam_binding" "log-writer" {
-  project = var.shared_telemetry_project_id
+  project = var.logging_project_id
   role    = "roles/storage.objectCreator"
 
   members = [
-    google_logging_project_sink.audit_log_sink.writer_identity,
+    google_logging_project_sink.log_sink.writer_identity,
   ]
 }
 

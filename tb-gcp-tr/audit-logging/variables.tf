@@ -18,7 +18,7 @@ variable "region" {
 variable "root_id" {
     default = ""
 }
-variable "shared_telemetry_project_id" {
+variable "logging_project_id" {
     default = ""
 }
 variable "logprojectid" {
@@ -38,4 +38,16 @@ variable "storageclass" {
 }
 variable "deleteage" {
     default = "365"
+}
+variable "bucketprefix" {
+    default = ""
+}
+variable "labelfuction {
+    default = ""
+}"
+variable "sinkname" {
+    default = ""
+}
+variabe "randomidlen" {
+    default = ""
 }
