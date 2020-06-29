@@ -40,14 +40,14 @@ variable "deleteage" {
     default = "365"
 }
 variable "bucketprefix" {
-    default = ""
+    default = "logbucket-"
 }
-variable "labelfuction {
-    default = ""
-}"
+variable "labelfuction" {
+    default = "bucket_to_store_logs"
+}
 variable "sinkname" {
-    default = ""
+    default = "log-sink"
 }
 variabe "randomidlen" {
-    default = ""
+    default = "6"
 }
