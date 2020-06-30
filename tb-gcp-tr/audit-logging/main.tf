@@ -64,18 +64,3 @@ resource "google_storage_bucket_iam_binding" "bucket_audit_log_writer" {
   members = [google_logging_folder_sink.audit_log_sink.writer_identity]
   role = "roles/storage.objectCreator"
 }
-
-
-###gives the log writer permissions to bucket
-#resource "google_project_iam_binding" "audit_log_writer" {
- # project = var.logging_project_id
-  #role    = "roles/storage.objectCreator"
-
-  #members = [
-  #    google_logging_folder_sink.audit_log_sink.writer_identity
- # ]
-#}
-
-
-
-
