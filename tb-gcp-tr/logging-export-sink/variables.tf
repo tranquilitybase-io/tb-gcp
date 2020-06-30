@@ -1,7 +1,7 @@
 
 variable "aggregated_export_sink_name" {
   type    = list(string)
-  default = ["applications_logging","shared_services_loggging"]
+  default = ["applications_logging", "shared_services_loggging"]
 }
 
 variable "lr_actions" {
@@ -10,9 +10,9 @@ variable "lr_actions" {
 }
 
 variable "bucket_function" {
-  type = list(string)
-  default = ["sharedservicesloggging","applicationslogging"]
-  
+  type    = list(string)
+  default = ["sharedservicesloggging", "applicationslogging"]
+
 }
 
 variable "age" {
@@ -21,7 +21,7 @@ variable "age" {
     Delete          = "365"
     SetStorageClass = "30"
   }
-}#
+} #
 
 variable "storage_class" {
   type    = list(string)
@@ -49,7 +49,6 @@ variable "tb_discriminator" {
 
 variable "shared_telemetry_project_name" {
   type        = string
-  default     = "shared-telemetry"
   description = "Shared telemetry project name."
 }
 
