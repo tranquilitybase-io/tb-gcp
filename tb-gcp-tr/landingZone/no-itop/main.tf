@@ -117,7 +117,7 @@ module "bastion-security" {
 module "logging_export_sink" {
   source = "../../logging-export-sink"
   tb_discriminator              = var.tb_discriminator
-  shared_telemetry_project_name = module.folder_structure.shared_telemetry_id
+  shared_telemetry_project_name = module.shared_projects.shared_telemetry_id
   shared_services_id            = module.folder_structure.shared_services_id.name
   applications_id                 = module.folder_structure.activators_id.name
 }
