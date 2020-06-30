@@ -50,11 +50,11 @@ variable "deleteage" {
 }
 variable "bucketprefix" {
     type    = "string"
-    default = "logbucket-"
+    default = "auditlogbucket-"
 }
 variable "labelfuction" {
     type    = "string"
-    default = "bucket_to_store_logs"
+    default = "bucket_to_store_root_folder_audit_logs"
 }
 variable "sinkname" {
     type    = "string"
