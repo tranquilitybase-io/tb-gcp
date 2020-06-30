@@ -64,3 +64,7 @@ variable "randomidlen" {
     type    = "string"
     default = "6"
 }
+variable "bucketlock" {
+    type = "string"
+    default = "true"
+}
