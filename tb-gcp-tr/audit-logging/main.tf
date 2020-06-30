@@ -26,6 +26,7 @@ resource "google_storage_bucket" "audit_log_bucket" {
 
   retention_policy {
     is_locked = var.bucketlock
+    retention_period = var.retentionperiod
   }
 
   lifecycle_rule {

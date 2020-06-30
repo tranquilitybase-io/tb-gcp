@@ -64,3 +64,7 @@ variable "bucketlock" {
     type = "string"
     default = "true"
 }
+variable "retentionperiod" {
+    type = "string"
+    default = "30"
+}
