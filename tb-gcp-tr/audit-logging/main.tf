@@ -19,7 +19,7 @@ resource "random_id" "logging" {
 }
 
 ###create the log bucket
-resource "google_storage_bucket" "log_bucket" {
+resource "google_storage_bucket" "audit_log_bucket" {
   project  = var.logging_project_id
   name     = join("", [var.bucketprefix, random_id.logging.hex])
   location = var.region
@@ -49,23 +49,31 @@ resource "google_storage_bucket" "log_bucket" {
 }
 
 ###create sink to push logs to bucket in the logging project
-resource "google_logging_folder_sink" "log_sink" {
+resource "google_logging_folder_sink" "audit_log_sink" {
   folder = var.root_id
   name    = var.sinkname
 
   # export to log bucket
-  destination = "storage.googleapis.com/${google_storage_bucket.log_bucket.name}"
+  destination = "storage.googleapis.com/${google_storage_bucket.audit_log_bucket.name}"
 }  
 
-###gives the log writer permissions to bucket
-resource "google_project_iam_binding" "log_writer" {
-  project = var.logging_project_id
-  role    = "roles/storage.objectCreator"
-
-  members = [
-      google_logging_folder_sink.log_sink.writer_identity
-  ]
+###give service account permissions to bucket
+resource "google_storage_bucket_iam_binding" "bucket_audit_log_writer" {
+  bucket = google_storage_bucket.audit_log_bucket.name
+  members = [google_logging_folder_sink.audit_log_sink.writer_identity]
+  role = "roles/storage.objectCreator"
 }
+
+
+###gives the log writer permissions to bucket
+#resource "google_project_iam_binding" "audit_log_writer" {
+ # project = var.logging_project_id
+  #role    = "roles/storage.objectCreator"
+
+  #members = [
+  #    google_logging_folder_sink.audit_log_sink.writer_identity
+ # ]
+#}
 
 
 
