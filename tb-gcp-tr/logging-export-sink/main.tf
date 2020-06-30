@@ -59,11 +59,19 @@ resource "google_storage_bucket" "applications_log_bucket" {
       storage_class = var.storage_class[0]
     }
   }
+
+    dynamic "life_cycle_rules" {
+    for_each = var.settings
+    content {
+      condition = setting.value["namespace"]
+      action =  setting.value["name"]
+    }
+  }
 }
 
 resource "google_logging_folder_sink" "applications_sink" {
   name                   = var.aggregated_export_sink_name[0]
-  folder                 = "Applications/${var.activators_id}"
+  folder                 = var.applications_folder_id
   destination            = "storage.googleapis.com/${google_storage_bucket.applications_log_bucket.name}"
   filter                 = var.log_filter
   include_children       = true
@@ -72,7 +80,7 @@ resource "google_logging_folder_sink" "applications_sink" {
 
 resource "google_logging_folder_sink" "shared_services_sink" {
   name                   = var.aggregated_export_sink_name[1]
-  folder                 = "Shared Services/${var.shared_services_id}"
+  folder                 = var.shared_services_folder_id
   destination            = "storage.googleapis.com/${google_storage_bucket.shared_services_log_bucket.name}"
   filter                 = var.log_filter
   include_children       = true
@@ -89,4 +97,16 @@ resource "google_storage_bucket_iam_binding" "shared_services_log_sink_bucket_ob
   bucket = google_storage_bucket.shared_services_log_bucket.name
   members = [google_logging_folder_sink.shared_services_sink.writer_identity]
   role = "roles/storage.objectCreator"
+}
+
+resource "google_folder_iam_member" "applications_folder_loggingConfigWriter_to_bootstrap-sa" {
+  folder = var.applications_folder_id
+  member = format("serviceAccount:bootstrap-sa@bootstrap-%s.iam.gserviceaccount.com", var.random_id)
+  role   = "roles/logging.configWriter"
+}
+
+resource "google_folder_iam_member" "shared_services_folder_loggingConfigWriter_to_bootstrap-sa" {
+  folder = var.shared_services_folder_id
+  member = format("serviceAccount:bootstrap-sa@bootstrap-%s.iam.gserviceaccount.com", var.random_id)
+  role   = "roles/logging.configWriter"
 }
