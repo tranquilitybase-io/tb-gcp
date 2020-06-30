@@ -23,7 +23,10 @@ resource "google_storage_bucket" "audit_log_bucket" {
   project  = var.logging_project_id
   name     = join("", [var.bucketprefix, random_id.logging.hex])
   location = var.region
-  is_locked = var.bucketlock
+
+  retention_policy {
+    is_locked = var.bucketlock
+  }
 
   lifecycle_rule {
     condition {
