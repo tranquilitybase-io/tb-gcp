@@ -92,13 +92,13 @@ resource "google_storage_bucket_iam_binding" "shared_services_log_sink_bucket_ob
 }
 
 resource "google_folder_iam_member" "applications_folder_loggingConfigWriter_to_bootstrap-sa" {
-  folder = var.applications_folder_id
+  folder = var.applications_id
   member = format("serviceAccount:bootstrap-sa@bootstrap-%s.iam.gserviceaccount.com", var.tb_discriminator)
   role   = "roles/logging.configWriter"
 }
 
 resource "google_folder_iam_member" "shared_services_folder_loggingConfigWriter_to_bootstrap-sa" {
-  folder = var.shared_services_folder_id
+  folder = var.shared_services_id
   member = format("serviceAccount:bootstrap-sa@bootstrap-%s.iam.gserviceaccount.com", var.tb_discriminator)
   role   = "roles/logging.configWriter"
 }
