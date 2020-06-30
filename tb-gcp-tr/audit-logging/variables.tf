@@ -65,6 +65,5 @@ variable "bucketlock" {
     default = "true"
 }
 variable "retentionperiod" {
-    type = "string"
-    default = "365d"
+    default = "31536000" #365 days
 }
