@@ -24,10 +24,6 @@ variable "logging_project_id" {
     type    = "string"
     default = ""
 }
-variable "logprojectid" {
-    type    = "string"
-    default = ""
-}
 variable "services" {
     type    = "string"
     default = "allServices"
