@@ -53,11 +53,11 @@ variable "shared_telemetry_project_name" {
   description = "Shared telemetry project name."
 }
 
-variable "shared_services_id" {
+variable "shared_services_folder_id" {
   type = string
 }
 
-variable "activators_id" {
+variable "applications_folder_id" {
   type = string
 }
 
