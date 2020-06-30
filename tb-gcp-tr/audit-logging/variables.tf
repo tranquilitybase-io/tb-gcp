@@ -13,41 +13,54 @@
 # limitations under the License.
 
 variable "region" {
+    type    = "string"
     default = ""
 }
 variable "root_id" {
+    type    = "string"
     default = ""
 }
 variable "logging_project_id" {
+    type    = "string"
     default = ""
 }
 variable "logprojectid" {
+    type    = "string"
     default = ""
 }
 variable "services" {
+    type    = "string"
     default = "allServices"
 }
 variable "location" {
+    type    = "string"
     default = "EUROPE-WEST2"
 }
 variable "changestorageage" {
+    type    = "string"
     default = "30"
 }
 variable "storageclass" {
+    type    = "string"
     default = "NEARLINE"
 }
 variable "deleteage" {
+    type    = "string"
     default = "365"
 }
 variable "bucketprefix" {
+    type    = "string"
     default = "logbucket-"
 }
 variable "labelfuction" {
+    type    = "string"
     default = "bucket_to_store_logs"
 }
 variable "sinkname" {
+    type    = "string"
     default = "log_sink"
 }
 variable "randomidlen" {
+    type    = "string"
     default = "6"
 }
