@@ -56,7 +56,7 @@ variable "shared_services_id" {
   type = string
 }
 
-variable "applications_id" {
+variable "activators_id" {
   type = string
 }
 
