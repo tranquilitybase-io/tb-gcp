@@ -60,6 +60,8 @@ resource "google_logging_folder_sink" "audit_log_sink" {
 
   # export to log bucket
   destination = "storage.googleapis.com/${google_storage_bucket.audit_log_bucket.name}"
+
+  filter = "folders/769716832916/logs/cloudaudit.googleapis.com" 
 }  
 
 ###give service account permissions to bucket
