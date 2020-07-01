@@ -60,10 +60,3 @@ variable "randomidlen" {
     type    = "string"
     default = "6"
 }
-variable "bucketlock" {
-    type = "string"
-    default = "true"
-}
-variable "retentionperiod" {
-    default = "31536000" #365 days
-}

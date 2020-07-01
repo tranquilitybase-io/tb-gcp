@@ -24,11 +24,6 @@ resource "google_storage_bucket" "audit_log_bucket" {
   name     = join("", [var.bucketprefix, random_id.logging.hex])
   location = var.region
 
-  retention_policy {
-    is_locked = var.bucketlock
-    retention_period = var.retentionperiod
-  }
-
   lifecycle_rule {
     condition {
       age = var.changestorageage
@@ -61,7 +56,7 @@ resource "google_logging_folder_sink" "audit_log_sink" {
   # export to log bucket
   destination = "storage.googleapis.com/${google_storage_bucket.audit_log_bucket.name}"
 
-  filter = "logName:folders/769716832916/logs/cloudaudit.googleapis.com" 
+  filter      = "logName=(cloudaudit.googleapis.com%2Factivity OR cloudaudit.googleapis.com%2Fdata_access OR cloudaudit.googleapis.com%2Fsystem_event)" 
 }  
 
 ###give service account permissions to bucket
