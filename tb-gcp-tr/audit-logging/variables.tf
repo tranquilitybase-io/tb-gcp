@@ -54,7 +54,7 @@ variable "labelfuction" {
 }
 variable "sinkname" {
     type    = "string"
-    default = "log_sink"
+    default = "log_sink_1"
 }
 variable "randomidlen" {
     type    = "string"
