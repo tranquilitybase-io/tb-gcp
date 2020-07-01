@@ -56,7 +56,7 @@ resource "google_logging_folder_sink" "audit_log_sink" {
   # export to log bucket
   destination = "storage.googleapis.com/${google_storage_bucket.audit_log_bucket.name}"
 
-  filter      = "logName=folders/${root_id}/logs/cloudaudit.googleapis.com%2Factivity OR folders/${root_id}/logs/cloudaudit.googleapis.com%2Fdata_access OR folders/${root_id}/logs/cloudaudit.googleapis.com%2Fsystem_event" 
+  filter      = "logName=(folders/${root_id}/logs/cloudaudit.googleapis.com%2Factivity OR folders/${root_id}/logs/cloudaudit.googleapis.com%2Fdata_access OR folders/${root_id}/logs/cloudaudit.googleapis.com%2Fsystem_event)" 
 }  
 
 ###give service account permissions to bucket
