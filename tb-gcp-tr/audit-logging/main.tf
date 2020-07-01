@@ -60,8 +60,10 @@ resource "google_logging_folder_sink" "audit_log_sink" {
 }  
 
 ###give service account permissions to bucket
-resource "google_storage_bucket_iam_binding" "bucket_audit_log_writer" {
-  bucket = google_storage_bucket.audit_log_bucket.name
+resource "google_project_iam_binding" "bucket_audit_log_writer" {
+  project = var.logging_project_id
   members = [google_logging_folder_sink.audit_log_sink.writer_identity]
   role = "roles/storage.objectCreator"
+
+  depends_on = [google_logging_folder_sink.audit_log_sink]
 }
