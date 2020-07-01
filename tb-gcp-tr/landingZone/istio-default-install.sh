@@ -92,3 +92,5 @@ kubectl get pods -n istio-system
 printf "Enabling Istio Injection...\n"
 kubectl label namespace default istio-injection=enabled > /dev/null 2>&1
 kubectl describe namespace default |grep -i labels
+
+kubectl delete svc istio-ingressgateway --namespace=istio-system
