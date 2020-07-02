@@ -79,7 +79,7 @@ while true; do
     count=$(kubectl get pods -n istio-system |grep -i running |wc -l)
     spin
     sleep 1
-    if [[ $count -ne 7 ]]; then
+    if [[ $count -ne 6 ]]; then
       sleep 0.2
     else
       break
