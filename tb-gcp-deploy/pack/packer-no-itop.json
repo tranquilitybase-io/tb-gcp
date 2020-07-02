@@ -141,6 +141,11 @@
       "destination": "repo/"
     },
     {
+      "type": "file",
+      "source": "{{user `tb_repos_root_path`}}/tb-gcp-tr/labelling",
+      "destination": "repo/"
+    },
+    {
       "type": "shell",
       "script": "{{user `tb_repos_root_path`}}/tb-gcp-deploy/pack/init-no-itop.sh",
       "execute_command": "echo 'packer' | sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
