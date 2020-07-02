@@ -103,6 +103,7 @@ resource "google_storage_bucket" "terraform-state-bucket-res" {
   project    = google_project.bootstrap-res.project_id
   name       = "terraform-state-bucket-${random_id.project.hex}"
   location   = "EU"
+  bucket_policy_only = var.bucket_policy_only_setting
   depends_on = [google_project_services.bootstrap_project_apis]
 }
 

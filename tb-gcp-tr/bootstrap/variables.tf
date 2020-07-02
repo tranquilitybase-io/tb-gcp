@@ -115,3 +115,9 @@ variable "main_iam_service_account_roles" {
   description = "Roles attached to service account"
 }
 
+#TERRAFORM STATE BUCKET
+variable "bucket_policy_only_setting" {
+  type    = string
+  default = "true"
+  description = "defines whether to enable uniform bucket-level access and disregard bucket acls"
+}
