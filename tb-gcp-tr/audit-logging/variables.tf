@@ -13,50 +13,50 @@
 # limitations under the License.
 
 variable "region" {
-    type    = "string"
-    default = ""
+  type    = "string"
+  default = ""
 }
 variable "root_id" {
-    type    = "string"
-    default = ""
+  type    = "string"
+  default = ""
 }
 variable "logging_project_id" {
-    type    = "string"
-    default = ""
+  type    = "string"
+  default = ""
 }
 variable "services" {
-    type    = "string"
-    default = "allServices"
+  type    = "string"
+  default = "allServices"
 }
 variable "location" {
-    type    = "string"
-    default = "EUROPE-WEST2"
+  type    = "string"
+  default = "EUROPE-WEST2"
 }
 variable "changestorageage" {
-    type    = "string"
-    default = "30"
+  type    = "string"
+  default = "30"
 }
 variable "storageclass" {
-    type    = "string"
-    default = "NEARLINE"
+  type    = "string"
+  default = "NEARLINE"
 }
 variable "deleteage" {
-    type    = "string"
-    default = "365"
+  type    = "string"
+  default = "365"
 }
 variable "bucketprefix" {
-    type    = "string"
-    default = "auditlogbucket-"
+  type    = "string"
+  default = "auditlogbucket-"
 }
 variable "labelfuction" {
-    type    = "string"
-    default = "bucket_to_store_root_folder_audit_logs"
+  type    = "string"
+  default = "bucket_to_store_root_folder_audit_logs"
 }
 variable "sinkname" {
-    type    = "string"
-    default = "log_sink_1"
+  type    = "string"
+  default = "log_sink_1"
 }
 variable "randomidlen" {
-    type    = "string"
-    default = "6"
+  type    = "string"
+  default = "6"
 }

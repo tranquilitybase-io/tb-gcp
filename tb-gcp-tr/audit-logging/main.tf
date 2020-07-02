@@ -51,19 +51,19 @@ resource "google_storage_bucket" "audit_log_bucket" {
 ###create sink to push logs to bucket in the logging project
 resource "google_logging_folder_sink" "audit_log_sink" {
   folder = var.root_id
-  name    = var.sinkname
+  name   = var.sinkname
 
   # export to log bucket
   destination = "storage.googleapis.com/${google_storage_bucket.audit_log_bucket.name}"
 
-  filter      = "logName=(folders/${var.root_id}/logs/cloudaudit.googleapis.com%2Factivity OR folders/${var.root_id}/logs/cloudaudit.googleapis.com%2Fdata_access OR folders/${var.root_id}/logs/cloudaudit.googleapis.com%2Fsystem_event)" 
-}  
+  filter = "logName=(folders/${var.root_id}/logs/cloudaudit.googleapis.com%2Factivity OR folders/${var.root_id}/logs/cloudaudit.googleapis.com%2Fdata_access OR folders/${var.root_id}/logs/cloudaudit.googleapis.com%2Fsystem_event)"
+}
 
 ###give service account permissions to bucket
 resource "google_project_iam_binding" "bucket_audit_log_writer" {
   project = var.logging_project_id
   members = [google_logging_folder_sink.audit_log_sink.writer_identity]
-  role = "roles/storage.objectCreator"
+  role    = "roles/storage.objectCreator"
 
   depends_on = [google_logging_folder_sink.audit_log_sink]
 }
