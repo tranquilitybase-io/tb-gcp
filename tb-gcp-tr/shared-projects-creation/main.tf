@@ -19,7 +19,7 @@ resource "google_project" "shared_networking" {
   folder_id           = var.root_id
   billing_account     = var.billing_account_id
   auto_create_network = false
-  labels              = module.labels.rendered
+  labels              = var.labels
 }
 
 resource "google_project" "shared_itsm" {
@@ -29,7 +29,7 @@ resource "google_project" "shared_itsm" {
   billing_account     = var.billing_account_id
   auto_create_network = false
   depends_on          = [google_project.shared_networking]
-  labels              = module.labels.rendered
+  labels              = var.labels
 }
 
 resource "google_project" "shared_telemetry" {
@@ -39,7 +39,7 @@ resource "google_project" "shared_telemetry" {
   billing_account     = var.billing_account_id
   auto_create_network = false
   depends_on          = [google_project.shared_networking]
-  labels              = module.labels.rendered
+  labels              = var.labels
 }
 
 
@@ -49,7 +49,7 @@ resource "google_project" "shared_billing" {
   folder_id           = var.root_id
   billing_account     = var.billing_account_id
   auto_create_network = false
-  labels              = module.labels.rendered
+  labels              = var.labels
 }
 
 resource "google_project" "shared_ec" {
@@ -59,7 +59,7 @@ resource "google_project" "shared_ec" {
   billing_account     = var.billing_account_id
   auto_create_network = false
   depends_on          = [google_project.shared_networking]
-  labels              = module.labels.rendered
+  labels              = var.labels
 }
 
 
@@ -70,6 +70,6 @@ resource "google_project" "shared_bastion" {
   billing_account     = var.billing_account_id
   auto_create_network = false
   depends_on          = [google_project.shared_networking]
-  labels              = module.labels.rendered
+  labels              = var.labels
 }
 
