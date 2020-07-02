@@ -41,7 +41,7 @@ resource "google_project" "shared_telemetry" {
   depends_on          = [google_project.shared_networking]
   labels              = module.labels.rendered
 }
-}
+
 
 resource "google_project" "shared_billing" {
   name                = "${var.shared_billing_project_name}-${var.tb_discriminator}"
