@@ -63,3 +63,9 @@ variable "shared_bastion_project_name" {
   description = "Bastion project name."
 }
 
+variable "labels" {
+  type        = string
+  description = "Owner and Organization labels"
+}
+
+
