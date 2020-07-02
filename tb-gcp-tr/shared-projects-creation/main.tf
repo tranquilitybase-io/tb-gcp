@@ -51,7 +51,6 @@ resource "google_project" "shared_billing" {
   auto_create_network = false
   labels              = module.labels.rendered
 }
-}
 
 resource "google_project" "shared_ec" {
   name                = "${var.shared_ec_project_name}-${var.tb_discriminator}"
@@ -62,7 +61,7 @@ resource "google_project" "shared_ec" {
   depends_on          = [google_project.shared_networking]
   labels              = module.labels.rendered
 }
-}
+
 
 resource "google_project" "shared_bastion" {
   name                = "${var.shared_bastion_project_name}-${var.tb_discriminator}"
@@ -73,4 +72,4 @@ resource "google_project" "shared_bastion" {
   depends_on          = [google_project.shared_networking]
   labels              = module.labels.rendered
 }
-}
+
