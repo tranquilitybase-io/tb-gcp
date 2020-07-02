@@ -260,7 +260,7 @@ resource "google_sourcerepo_repository_iam_binding" "terraform-code-store-admin-
 }
 
 module "labels" {
-  source = "../labelling"
+  source = "../../labelling"
   organization           = var.organization
   deploy_owner           = var.deploy_owner
 }
