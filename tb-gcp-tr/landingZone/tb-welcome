@@ -42,6 +42,9 @@ echo "Folder is ${FOLDER_ID}"
 BILLING_ID=${billing_account_id}
 echo "Billing Id is ${BILLING_ID}"
 
+export TF_VAR_deploy_owner=$(gcloud config list account --format "value(core.account)")
+export TF_VAR_organization="Tranquility-Base"
+
 # The deployment will be done using the bootstrap SA
 echo "Setting [${SA_EMAIL}] as active account"
 sudo gcloud config set account ${SA_EMAIL}
