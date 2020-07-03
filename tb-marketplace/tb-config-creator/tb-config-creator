@@ -186,9 +186,7 @@ gcloud resource-manager folders get-iam-policy "${tb_folder_id}" > rootfolderiam
 sed -i "1 i\auditConfigs:" rootfolderiampolicy.yaml
 sed -i "2 i\- auditLogConfigs:" rootfolderiampolicy.yaml
 sed -i "3 i\  - logType: ADMIN_READ" rootfolderiampolicy.yaml
-sed -i "4 i\  - logType: DATA_WRITE" rootfolderiampolicy.yaml
-sed -i "5 i\  - logType: DATA_READ" rootfolderiampolicy.yaml
-sed -i "6 i\  service: allServices" rootfolderiampolicy.yaml
+sed -i "4 i\  service: allServices" rootfolderiampolicy.yaml
 gcloud resource-manager folders set-iam-policy "${tb_folder_id}" rootfolderiampolicy.yaml 
 rm rootfolderiampolicy.yaml
 
