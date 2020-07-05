@@ -24,22 +24,21 @@ resource "google_storage_bucket" "audit_log_bucket" {
   name     = join("", [var.bucketprefix, random_id.logging.hex])
   location = var.region
 
-  lifecycle_rule {
-    condition {
-      age = var.changestorageage
-    }
-    action {
-      type          = "SetStorageClass"
-      storage_class = var.storageclass
-    }
-  }
+  dynamic "lifecycle_rule" {
+    for_each = [for c in var.lifecyclerule : {
+      age           = c.age
+      type          = c.type
+      storage_class = c.storage_class
+    }]
 
-  lifecycle_rule {
-    condition {
-      age = var.deleteage
-    }
-    action {
-      type = "Delete"
+    content {
+      action {
+        type          = lifecycle_rule.value.type
+        storage_class = lifecycle_rule.value.storage_class
+      }
+      condition {
+        age = lifecycle_rule.value.age
+      }
     }
   }
 

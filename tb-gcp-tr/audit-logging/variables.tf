@@ -32,18 +32,6 @@ variable "location" {
   type    = "string"
   default = "EUROPE-WEST2"
 }
-variable "changestorageage" {
-  type    = "string"
-  default = "30"
-}
-variable "storageclass" {
-  type    = "string"
-  default = "NEARLINE"
-}
-variable "deleteage" {
-  type    = "string"
-  default = "365"
-}
 variable "bucketprefix" {
   type    = "string"
   default = "auditlogbucket-"
@@ -59,4 +47,20 @@ variable "sinkname" {
 variable "randomidlen" {
   type    = "string"
   default = "6"
+}
+variable "lifecyclerule" {
+  type = list(map(string))
+
+  default = [
+    {
+      type          = "SetStorageClass"
+      storage_class = "NEARLINE"
+      age           = "30"
+    },
+    {
+      type          = "Delete"
+      storage_class = ""
+      age           = "365"
+    }
+  ]
 }
