@@ -69,6 +69,7 @@ spec:
     ingressGateways:
       - name: istio-ingressgateway
         enabled: false
+    
 EOF
 
 

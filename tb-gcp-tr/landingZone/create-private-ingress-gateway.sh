@@ -1,8 +1,10 @@
 #!/bin/bash
 export HTTPS_PROXY="localhost:3128"
+kubectl apply -f /opt/tb/repo/tb-gcp-tr/landingZone/istio-pvt-service-account.yaml
 kubectl apply -f /opt/tb/repo/tb-gcp-tr/landingZone/istio-pvt-ingressgateway-deployment.yaml
 kubectl apply -f /opt/tb/repo/tb-gcp-tr/landingZone/istio-pvt-ingressgateway.yaml
-kubectl delete svc istio-ingressgateway --namespace=istio-system
+
+
 
 ## create secret
 kubectl create -n istio-system secret tls ec-tls-credential --key=/opt/certs/eagle-console.private.landing-zone.com.key --cert=/opt/certs/eagle-console.private.landing-zone.com.crt
