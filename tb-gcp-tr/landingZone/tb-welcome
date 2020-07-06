@@ -103,6 +103,9 @@ done
 # Set versioning on for tf state bucket.
 sudo gsutil versioning set on "gs://${terraform_state_bucket_name}/"
 
+# Set uniform bucket level access on tf state bucket.
+sudo gsutil uniformbucketlevelaccess set on "gs://${terraform_state_bucket_name}/"
+
 # Commit current TB terraform code to GCR
 cd /tmp
 # Check for repo existence
