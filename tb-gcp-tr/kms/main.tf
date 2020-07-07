@@ -1,5 +1,6 @@
 #CREATE-KEY-RING-FOR-USE-WITH-BUCKETS
 resource "google_kms_key_ring" "bucket_key_ring" {
+  project  = var.kms_key_ring_project_id
   name     = var.kms_key_ring_name
   location = var.kms_key_ring_location
 }
