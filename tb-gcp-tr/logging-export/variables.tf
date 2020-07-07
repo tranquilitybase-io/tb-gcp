@@ -33,14 +33,6 @@ variable "lifecyclerule" {
   ]
 }
 
-variable "age" {
-  type = map
-  default = {
-    Delete          = "365"
-    SetStorageClass = "30"
-  }
-} #
-
 variable "storage_class" {
   type    = list(string)
   default = ["REGIONAL", "NEARLINE"]
