@@ -64,3 +64,8 @@ variable "include_children" {
   default = true
   
 }
+
+variable "bucket_function"{
+  type = string
+  default = "log_export"
+}
