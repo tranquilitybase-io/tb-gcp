@@ -364,3 +364,28 @@ variable "sharedservice_jenkinsmaster_yaml_path" {
   description = "Path to the yaml file to deploy Jenkins on the shared gke-ec cluster"
   type        = string
 }
+
+### Bucket KMS Key ###
+variable "random_num_len" {
+  type = string
+  default = "6"
+}
+variable "kms_ring_location" {
+  type = string
+  default = "europe"
+}
+variable "kms_key_rotation_period" {
+  type = string
+  default = "2592000s" #1 month
+}
+variable "kms_key_purpose" {
+  type = string
+  default = "ENCRYPT_DECRYPT" #symmetric key
+}
+variable "kms_key_algorithm" {
+  type = string
+  default = "GOOGLE_SYMMETRIC_ENCRYPTION" #uses AES256
+}
+variable "kms_key_protection_level" {
+  type = string
+}
