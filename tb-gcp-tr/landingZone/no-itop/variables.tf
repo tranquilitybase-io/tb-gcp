@@ -325,13 +325,17 @@ variable "sharedservice_jenkinsmaster_yaml_path" {
 }
 
 ### Bucket KMS Key ###
-variable "random_num_len" {
+variable "kms_key_ring_name" {
   type = string
-  default = "6"
+  default = "tf-state-bucket-keyring"
 }
-variable "kms_ring_location" {
+variable "kms_key_ring_location" {
   type = string
   default = "europe"
+}
+variable "kms_key_name" {
+  type = string
+  default = "tf-state-bucket-key"
 }
 variable "kms_key_rotation_period" {
   type = string

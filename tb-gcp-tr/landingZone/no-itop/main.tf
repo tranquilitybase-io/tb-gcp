@@ -83,8 +83,9 @@ module "apis_activation" {
 module "bucket_kms_key" {
   source = "../../kms"
 
-  random_num_len           = var.random_num_len
-  kms_ring_location        = var.kms_ring_location
+  kms_key_ring_name        = var.kms_key_ring_name
+  kms_key_ring_location    = var.kms_key_ring_location
+  kms_key_name             = var.kms_key_name
   kms_key_rotation_period  = var.kms_key_rotation_period
   kms_key_purpose          = var.kms_key_purpose
   kms_key_algorithm        = var.kms_key_algorithm

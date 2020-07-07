@@ -1,7 +1,10 @@
-variable "random_num_len" {
+variable "kms_key_ring_name" {
   type = string
 }
-variable "kms_ring_location" {
+variable "kms_key_ring_location" {
+  type = string
+}
+variable "kms_key_name" {
   type = string
 }
 variable "kms_key_rotation_period" {
