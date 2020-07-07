@@ -2,7 +2,7 @@ variable "kms_key_ring_project_id" {
   type = string
 }
 variable "kms_key_ring_name" {
-  type = stringd
+  type = string
 }
 variable "kms_key_ring_location" {
   type = string
