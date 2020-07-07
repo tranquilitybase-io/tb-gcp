@@ -325,6 +325,9 @@ variable "sharedservice_jenkinsmaster_yaml_path" {
 }
 
 ### Bucket KMS Key ###
+variable "kms_key_ring_project_id" {
+  type = string
+}
 variable "kms_key_ring_name" {
   type = string
   default = "tf-state-bucket-keyring"
