@@ -113,6 +113,7 @@ module "bastion-security" {
   root_id                       = var.root_id
   shared_bastion_project_number = module.shared_projects.shared_bastion_project_number
 }
+
 module "logging_export" {
   source = "../../logging-export"
   tb_discriminator              = var.tb_discriminator

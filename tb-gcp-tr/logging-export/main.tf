@@ -33,7 +33,7 @@ resource "google_storage_bucket" "applications_log_bucket" {
   project  = var.shared_telemetry_project_name
 
   labels = {
-    bucket_function = var.shared_services_sink_name
+    bucket_function = format(var.shared_services_sink_name)
   }
 
   dynamic "lifecycle_rule" {
