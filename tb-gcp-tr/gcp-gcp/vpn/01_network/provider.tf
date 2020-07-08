@@ -1,11 +1,11 @@
 provider "google" {
  version     = "~> 3.24"
- project     = var.gcp_project_id
  region      = var.gcp_region
+ project     = "${var.gcp_project_id}-${var.tb_discriminator}"
 }
 
 provider "google-beta" {
  version     = "~> 3.24"
- project     = var.gcp_project_id
  region      = var.gcp_region
+ project     = "${var.gcp_project_id}-${var.tb_discriminator}"
 }

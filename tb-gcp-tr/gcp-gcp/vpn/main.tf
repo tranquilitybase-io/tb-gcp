@@ -1,0 +1,40 @@
+module "network" {
+  source = "./01_network"
+
+  gcp_region = var.gcp_region
+  net1_sub = var.net1_sub
+  net1_sub_cidr = var.net1_sub_cidr
+  net2_sub = var.net2_sub
+  net2_sub_cidr = var.net2_sub_cidr
+  gcp_project_id = var.gcp_project_id
+  gcp_asn_one = var.gcp_asn_one
+  gcp_asn_two = var.gcp_asn_two
+  gcp_vpc_one = var.gcp_vpc_one
+  gcp_vpc_two = var.gcp_vpc_two
+  bgp_peer_1 = var.bgp_peer_1
+  bgp_peer_2 = var.bgp_peer_2
+  bgp_peer_3 = var.bgp_peer_3
+  bgp_peer_4 = var.bgp_peer_4
+  cloud_router_one = var.cloud_router_one
+  cloud_router_two = var.cloud_router_two
+  router1_int0 = var.router1_int0
+  router1_int1 = var.router1_int1
+  router2_int0 = var.router2_int0
+  router2_int1 = var.router2_int1
+  tunnel0 = var.tunnel0
+  tunnel1 = var.tunnel1
+  tunnel2 = var.tunnel2
+  tunnel3 = var.tunnel3
+  vpn_gw_one = var.vpn_gw_one
+  vpn_gw_two = var.vpn_gw_two
+  router1_inside1 = var.router1_inside1
+  router1_inside2 = var.router1_inside2
+  router1_peer1 = var.router1_peer1
+  router1_peer2 = var.router1_peer2
+  router2_inside1 = var.router2_inside1
+  router2_inside2 = var.router2_inside2
+  router2_peer1 = var.router2_peer1
+  router2_peer2 = var.router2_peer2
+  tb_discriminator = var.tb_discriminator
+}
+
