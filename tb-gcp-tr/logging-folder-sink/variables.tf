@@ -25,11 +25,6 @@ variable "folder_id" {
   type        = string
 }
 
-variable "parent_resource_type" {
-  description = "The GCP resource in which you create the log sink. The value must not be computed, and must be one of the following: 'project', 'folder', 'billing_account', or 'organization'."
-  type        = string
-  default     = "project"
-}
 
 variable "unique_writer_identity" {
   description = "Whether or not to create a unique identity associated with this sink. If false (the default), then the writer_identity used is serviceAccount:cloud-logs@system.gserviceaccount.com. If true, then a unique service account is created and used for the logging sink."
