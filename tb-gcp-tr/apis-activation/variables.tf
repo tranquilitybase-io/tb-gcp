@@ -27,3 +27,8 @@ variable "bastion_project_id" {
   description = "id for the bastion project"
   type        = string
 }
+
+variable "telemetry_project_id" {
+  description = "id for the bastion project"
+  type        = string
+}

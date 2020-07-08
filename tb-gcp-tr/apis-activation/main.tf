@@ -56,6 +56,8 @@ locals {
     "container.googleapis.com",
     "serviceusage.googleapis.com"
   ]
+  telemetry_project_apis = [
+    "cloudkms.googleapis.com"]
 }
 
 
@@ -79,6 +81,14 @@ resource "google_project_service" "eagle_console" {
 resource "google_project_service" "bastion" {
   project                    = var.bastion_project_id
   for_each                   = toset(local.bastion_project_apis)
+  service                    = each.value
+  disable_dependent_services = true
+  depends_on                 = [google_project_service.host-project]
+}
+
+resource "google_project_service" "telemetry" {
+  project                    = var.telemetry_project_id
+  for_each                   = toset(local.telemetry_project_apis)
   service                    = each.value
   disable_dependent_services = true
   depends_on                 = [google_project_service.host-project]
