@@ -64,7 +64,7 @@ variable "shared_bastion_project_name" {
 }
 
 variable "labels" {
-  type        = string
+  type        = map(string)
   description = "Owner and Organization labels"
 }
 
