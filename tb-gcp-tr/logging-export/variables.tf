@@ -34,7 +34,7 @@ variable "log_type" {
 
 variable "log_filter" {
   type    = string
-  default = "NOT logName=logs/cloudaudit.googleapis.com%2Factivity AND logs/cloudaudit.googleapis.com%2Fsystem_event"
+  default = "NOT (logName=logs/cloudaudit.googleapis.com%2Fdata_access) NOT (logName=logs/cloudaudit.googleapis.com%2Factivity)  NOT (logs/cloudaudit.googleapis.com%2Fsystem_event)"
 }
 
 variable "region" {
