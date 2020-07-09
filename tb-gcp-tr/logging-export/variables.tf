@@ -1,16 +1,23 @@
+variable "bucket_location" {
+  description = ""
+  type        = string
+  description = "Region the bucket will be created in"
+}
 
-
-variable "shared_services_sink_name"{
-  type = string
+variable "shared_services_sink_name" {
+  description = ""
+  type    = string
   default = "SharedServicesSink"
 }
 
-variable "applications_sink_name"{
-  type = string
+variable "applications_sink_name" {
+  description = ""
+  type    = string
   default = "ApplicationsSink"
 }
 
-variable "lifecyclerule" {
+variable "lifecycle_rule" {
+  description = ""
   type = list(map(string))
 
   default = [
@@ -34,16 +41,12 @@ variable "log_type" {
 
 variable "log_filter" {
   type    = string
-  default = "NOT (logName=logs/cloudaudit.googleapis.com%2Fdata_access) NOT (logName=logs/cloudaudit.googleapis.com%2Factivity)  NOT (logs/cloudaudit.googleapis.com%2Fsystem_event)"
-}
-
-variable "region" {
-  type    = string
-  default = "europe-west1"
+  default = "NOT (logName=logs/cloudaudit.googleapis.com%2Fdata_access) NOT (logName=logs/cloudaudit.googleapis.com%2Factivity)  NOT (logName=logs/cloudaudit.googleapis.com%2Fsystem_event)"
 }
 
 variable "tb_discriminator" {
   type = string
+  description = ""
 }
 
 variable "shared_telemetry_project_name" {
@@ -53,19 +56,22 @@ variable "shared_telemetry_project_name" {
 
 variable "shared_services_id" {
   type = string
+  description = ""
 }
 
 variable "applications_id" {
   type = string
+  description = ""
 }
 
 variable "include_children" {
-  type = bool
+  type    = bool
   default = true
-  
+  description = ""
 }
 
-variable "bucket_function"{
-  type = string
+variable "bucket_function" {
+  type    = string
   default = "log_export"
+  description = ""
 }

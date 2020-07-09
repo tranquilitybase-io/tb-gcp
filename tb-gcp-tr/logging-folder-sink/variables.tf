@@ -1,5 +1,6 @@
 
-variable "name" {
+variable "sink_name" {
+  description = ""
   type = string
 }
 
@@ -14,33 +15,13 @@ variable "filter" {
   default     = ""
 }
 
-variable "include_children" {
-  description = "Only valid if 'organization' or 'folder' is chosen as var.parent_resource.type. Determines whether or not to include children organizations/folders in the sink export. If true, logs associated with child projects are also exported; otherwise only logs relating to the provided organization/folder are included."
-  type        = bool
-  default     = false
-}
-
 variable "folder_id" {
   description = "The ID of the GCP resource in which you create the log sink. If var.parent_resource_type is set to 'project', then this is the Project ID (and etc)."
   type        = string
 }
 
-
-variable "unique_writer_identity" {
-  description = "Whether or not to create a unique identity associated with this sink. If false (the default), then the writer_identity used is serviceAccount:cloud-logs@system.gserviceaccount.com. If true, then a unique service account is created and used for the logging sink."
-  type        = bool
-  default     = false
-}
-
-variable "tb_discriminator" {
-  type = string
-}
-
-variable "applications_id" {
-  type = string
-}
-
 variable "shared_services_id" {
+  description = ""
   type = string
 }
 

@@ -1,7 +1,7 @@
 
 resource "google_storage_bucket" "shared_services_log_bucket" {
   name     = "sharedserviceslogs-${var.tb_discriminator}"
-  location = var.region
+  location = var.bucket_location
   project  = var.shared_telemetry_project_name
 
   labels = {
@@ -9,7 +9,7 @@ resource "google_storage_bucket" "shared_services_log_bucket" {
   }
 
   dynamic "lifecycle_rule" {
-    for_each = [for c in var.lifecyclerule : {
+    for_each = [for c in var.lifecycle_rule : {
       age           = c.age
       type          = c.type
       storage_class = c.storage_class
@@ -29,7 +29,7 @@ resource "google_storage_bucket" "shared_services_log_bucket" {
 
 resource "google_storage_bucket" "applications_log_bucket" {
   name     = "applicationslogs-${var.tb_discriminator}"
-  location = var.region
+  location = var.bucket_location
   project  = var.shared_telemetry_project_name
 
   labels = {
@@ -37,7 +37,7 @@ resource "google_storage_bucket" "applications_log_bucket" {
   }
 
   dynamic "lifecycle_rule" {
-    for_each = [for c in var.lifecyclerule : {
+    for_each = [for c in var.lifecycle_rule : {
       age           = c.age
       type          = c.type
       storage_class = c.storage_class
@@ -58,39 +58,25 @@ resource "google_storage_bucket" "applications_log_bucket" {
 module "applications_sink" {
   source = "../logging-folder-sink"
 
-  name             = var.applications_sink_name
-  folder_id        = var.applications_id
-  filter           = var.log_filter
-  include_children = var.include_children
-  destination      = "storage.googleapis.com/${google_storage_bucket.applications_log_bucket.name}"
-  tb_discriminator = var.tb_discriminator
-  shared_services_id = var.shared_services_id
-  applications_id = var.applications_id
+  name               = var.applications_sink_name
+  folder_id          = var.applications_id
+  filter             = var.log_filter
+  include_children   = var.include_children
+  destination        = "storage.googleapis.com/${google_storage_bucket.applications_log_bucket.name}"
+  tb_discriminator   = var.tb_discriminator
+  
 }
 
 module "shared_services_sink" {
   source = "../logging-folder-sink"
 
-  name             = var.shared_services_sink_name
-  folder_id        = var.shared_services_id
-  filter           = var.log_filter
-  include_children = var.include_children
-  destination      = "storage.googleapis.com/${google_storage_bucket.shared_services_log_bucket.name}"
-  tb_discriminator = var.tb_discriminator
-  applications_id  = var.applications_id
-  shared_services_id = var.shared_services_id
+  name               = var.shared_services_sink_name
+  folder_id          = var.shared_services_id
+  filter             = var.log_filter
+  include_children   = var.include_children
+  destination        = "storage.googleapis.com/${google_storage_bucket.shared_services_log_bucket.name}"
+  tb_discriminator   = var.tb_discriminator
 }
 
-resource "google_storage_bucket_iam_binding" "applications_log_sink_bucket_objectCreators" {
-  bucket  = google_storage_bucket.applications_log_bucket.name
-  members = [module.applications_sink.applications_writer_identity]
-  role    = "roles/storage.objectCreator"
-}
-
-resource "google_storage_bucket_iam_binding" "shared_services_log_sink_bucket_objectCreators" {
-  bucket  = google_storage_bucket.shared_services_log_bucket.name
-  members = [module.shared_services_sink.shared_services_writer_identity]
-  role    = "roles/storage.objectCreator"
-}
 
 
