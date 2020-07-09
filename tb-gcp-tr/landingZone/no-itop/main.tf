@@ -83,6 +83,8 @@ module "apis_activation" {
 
 module "bucket_kms_key" {
   source = "../../kms"
+
+  apis_dependency          = module.apis_activation.all_apis_enabled
   kms_key_ring_project_id  = module.shared_projects.shared_telemetry_id
   kms_key_ring_name        = var.kms_key_ring_name
   kms_key_ring_location    = var.kms_key_ring_location
