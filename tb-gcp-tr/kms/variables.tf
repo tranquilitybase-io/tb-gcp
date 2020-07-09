@@ -1,3 +1,7 @@
+variable "apis_dependency" {
+  type        = string
+  description = "Creates dependency on apis-activation module"
+}
 variable "kms_key_ring_project_id" {
   type = string
   default = ""
