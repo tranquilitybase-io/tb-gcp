@@ -57,7 +57,8 @@ locals {
     "serviceusage.googleapis.com"
   ]
   telemetry_project_apis = [
-    "cloudkms.googleapis.com"]
+    "cloudkms.googleapis.com"
+  ]
 }
 
 
