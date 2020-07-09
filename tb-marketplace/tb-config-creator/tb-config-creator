@@ -177,7 +177,7 @@ TBASE_FOLDER_PREFIX="Tranquility Base - "
 TBASE_FOLDER_NAME="${TBASE_FOLDER_PREFIX}${RND}"
 
 #Explicit labelling is required here because bootstrap has not yet been created.
-ACTIVE_ACCOUNT=$(gcloud config list account --format "value(core.account)")
+ACTIVE_ACCOUNT=$(gcloud config list account --format "value(core.account)") | sed 's/^|\(.*\)|$/\1/'
 CLIENT_LABEL="Tranquility-Base"
 
 # Create Tbase folder to store bootstrap project, involves parsing the output of the glcoud command to get the folder id
