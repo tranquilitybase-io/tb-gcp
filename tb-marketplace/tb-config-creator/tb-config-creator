@@ -181,7 +181,7 @@ ACTIVE_ACCOUNT=$(gcloud config list account --format "value(core.account)")
 CLIENT_LABEL="Tranquility-Base"
 
 # Create Tbase folder to store bootstrap project, involves parsing the output of the glcoud command to get the folder id
-folder_id_entry=$(gcloud resource-manager folders create --display-name="${TBASE_FOLDER_NAME}" --"${parent_type}"="${parent_id}" --format="value(name)" --labels created_by=${ACTIVE_ACCOUNT},client=${CLIENT_LABEL})
+folder_id_entry=$(gcloud resource-manager folders create --display-name="${TBASE_FOLDER_NAME}" --"${parent_type}"="${parent_id}" --format="value(name)" --labels created_by="${ACTIVE_ACCOUNT}",client="${CLIENT_LABEL}")
 IFS='/' read -ra split_array <<< "$folder_id_entry"
 tb_folder_id="$(echo ${split_array[1]} | sed 's/[^0-9]*//g')"
 
