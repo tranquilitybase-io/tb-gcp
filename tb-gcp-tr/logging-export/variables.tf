@@ -34,7 +34,7 @@ variable "log_type" {
 
 variable "log_filter" {
   type    = string
-  default = "NOT proto_payload.@type=\"type.googleapis.com/google.cloud.audit.AuditLog\" OR proto_payload.@type=\"type.googleapis.com/google.cloud.audit.SystemLog\""
+  default = "proto_payload.@type=\"type.googleapis.com/google.cloud.audit.AuditLog\" OR \"folders/${var.tb_discriminator}/logs/cloudaudit.googleapis.com%2Fdata_access)\"
 }
 
 variable "region" {
