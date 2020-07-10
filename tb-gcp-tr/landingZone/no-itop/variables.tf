@@ -396,4 +396,5 @@ variable "kms_key_algorithm" {
 }
 variable "kms_key_protection_level" {
   type = string
+  default = "SOFTWARE"
 }
