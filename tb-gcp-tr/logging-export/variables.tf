@@ -1,7 +1,3 @@
-variable "bucket_location" {
-  description = "Location that the bucket is created in."
-  type        = string
-}
 
 variable "shared_services_sink_name" {
   description = "Name of the shared services sink."
@@ -73,5 +69,5 @@ variable "bucket_function" {
 
 variable "region"{
   type = string
-  description = "Region for"
+  description = "Region for GCS Bucket"
 }

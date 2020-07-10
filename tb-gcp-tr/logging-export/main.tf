@@ -1,7 +1,7 @@
 
 resource "google_storage_bucket" "shared_services_log_bucket" {
   name     = "sharedserviceslogs-${var.tb_discriminator}"
-  location = var.bucket_location
+  location = var.region
   project  = var.shared_telemetry_project_name
 
   labels = {
@@ -29,7 +29,7 @@ resource "google_storage_bucket" "shared_services_log_bucket" {
 
 resource "google_storage_bucket" "applications_log_bucket" {
   name     = "applicationslogs-${var.tb_discriminator}"
-  location = var.bucket_location
+  location = var.region
   project  = var.shared_telemetry_project_name
 
   labels = {
