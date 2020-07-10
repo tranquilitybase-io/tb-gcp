@@ -70,3 +70,8 @@ variable "bucket_function" {
   default     = "log_export"
   description = "Purpose of the bucket for label."
 }
+
+variable "region"{
+  type = string
+  description = "Region for"
+}
