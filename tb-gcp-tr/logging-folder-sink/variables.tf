@@ -1,5 +1,5 @@
 
-variable "sink_name" {
+variable "name" {
   description = "Name of the sink being deployed."
   type        = string
 }
@@ -12,7 +12,6 @@ variable "destination" {
 variable "filter" {
   description = "The filter to apply when exporting logs. Only log entries that match the filter are exported. Default is '' which exports all logs."
   type        = string
-  default     = ""
 }
 
 variable "folder_id" {

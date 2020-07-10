@@ -58,7 +58,7 @@ resource "google_storage_bucket" "applications_log_bucket" {
 module "applications_sink" {
   source = "../logging-folder-sink"
 
-  sink_name        = var.applications_sink_name
+  name             = var.applications_sink_name
   folder_id        = var.applications_id
   filter           = var.log_filter
   include_children = var.include_children
@@ -68,7 +68,7 @@ module "applications_sink" {
 module "shared_services_sink" {
   source = "../logging-folder-sink"
 
-  sink_name        = var.shared_services_sink_name
+  name             = var.shared_services_sink_name
   folder_id        = var.shared_services_id
   filter           = var.log_filter
   include_children = var.include_children

@@ -36,7 +36,6 @@ variable "lifecycle_rule" {
 
 variable "log_filter" {
   type        = string
-  default     = "NOT (logName=folders/logs/cloudaudit.googleapis.com%2Fdata_access) AND (logName=logs/cloudaudit.googleapis.com%2Factivity)  AND (logName=logs/cloudaudit.googleapis.com%2Fsystem_event)"
   description = "Filter used for the logging sink."
 }
 
