@@ -54,7 +54,7 @@ locals {
     "recommender.googleapis.com",
     "iap.googleapis.com",
     "container.googleapis.com",
-    "serviceusage.googleapis.com"
+    "serviceusage.googleapis.com",
   ]
   telemetry_project_apis = [
     "cloudkms.googleapis.com"
