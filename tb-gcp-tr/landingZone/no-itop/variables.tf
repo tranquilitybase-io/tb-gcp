@@ -82,7 +82,12 @@ variable "standard_network_subnets" {
     name = string
     cidr = string
   }))
-  default     = []
+  default = [
+    {
+      name = "shared-network-snet",
+      cidr = "10.0.0.0/24"
+  }]
+
   description = "cidr ranges for standard (non-gke) subnetworks"
 }
 
@@ -105,8 +110,32 @@ variable "gke_network_subnets" {
     pod_cidr     = string
     service_cidr = string
   }))
-  default     = []
   description = "cidr ranges for gke subnetworks"
+  default = [
+    {
+      name         = "shared-ec-snet",
+      cidr         = "10.0.1.0/24",
+      pod_cidr     = "10.1.0.0/17",
+      service_cidr = "10.1.128.0/20"
+    },
+    {
+      name         = "shared-itsm-snet",
+      cidr         = "10.0.2.0/24",
+      pod_cidr     = "10.2.0.0/17",
+      service_cidr = "10.2.128.0/20"
+    },
+    {
+      name         = "activator-project-snet",
+      cidr         = "10.0.4.0/24",
+      pod_cidr     = "10.4.0.0/17",
+      service_cidr = "10.4.128.0/20"
+    },
+    {
+      name         = "workspace-project-snet",
+      cidr         = "10.0.5.0/24",
+      pod_cidr     = "10.5.0.0/17",
+      service_cidr = "10.5.128.0/20"
+  }]
 }
 
 variable "gke_pod_network_name" {
@@ -164,7 +193,6 @@ variable "cluster_ec_subnetwork" {
   description = "The subnetwork to host the cluster in"
 }
 
-
 variable "cluster_opt_subnetwork" {
   description = "The subnetwork to host the cluster in"
 }
@@ -172,7 +200,6 @@ variable "cluster_opt_subnetwork" {
 variable "cluster_ec_name" {
   description = "The cluster name"
 }
-
 
 variable "cluster_opt_name" {
   description = "The cluster name"
@@ -182,7 +209,6 @@ variable "cluster_ec_pool_name" {
   description = "The cluster pool name"
 }
 
-
 variable "cluster_opt_pool_name" {
   description = "The cluster pool name"
 }
@@ -190,7 +216,6 @@ variable "cluster_opt_pool_name" {
 variable "cluster_opt_enable_private_nodes" {
   type = string
 }
-
 
 variable "cluster_ec_enable_private_nodes" {
   type = string
@@ -201,19 +226,14 @@ variable "cluster_opt_enable_private_endpoint" {
   type = bool
 }
 
-
 #Bool input for whether ec cluster has private endpoint or not.
 variable "cluster_ec_enable_private_endpoint" {
   type = bool
 }
 
 variable "cluster_ec_master_cidr" {
-  type = string
-}
-
-
-variable "cluster_opt_master_cidr" {
-  type = string
+  type    = string
+  default = "172.16.0.0/28"
 }
 
 variable "cluster_ec_master_authorized_cidrs" {
@@ -221,14 +241,38 @@ variable "cluster_ec_master_authorized_cidrs" {
     cidr_block   = string
     display_name = string
   }))
+  default = [
+    {
+      cidr_block   = "10.0.0.0/8",
+      display_name = "mgmt-1"
+    },
+    {
+      cidr_block   = "10.0.6.0/24",
+      display_name = "proxy-subnet"
+    }
+  ]
 }
 
+variable "cluster_opt_master_cidr" {
+  type    = string
+  default = "172.16.0.32/28"
+}
 
 variable "cluster_opt_master_authorized_cidrs" {
   type = list(object({
     cidr_block   = string
     display_name = string
   }))
+  default = [
+    {
+      cidr_block   = "10.0.0.0/8",
+      display_name = "mgmt-1"
+    },
+    {
+      cidr_block   = "10.0.6.0/24",
+      display_name = "proxy-subnet"
+    }
+  ]
 }
 
 variable "cluster_opt_min_master_version" {
@@ -236,7 +280,6 @@ variable "cluster_opt_min_master_version" {
   description = "Master node minimal version"
   type        = string
 }
-
 
 variable "cluster_ec_min_master_version" {
   default     = "latest"
@@ -277,14 +320,12 @@ variable "ec_iam_service_account_roles" {
   description = "Roles attached to service account"
 }
 
-
 #iTop deployment
 variable "itop_database_user_name" {
   description = "iTop's database user account name"
   default     = "itop"
   type        = string
 }
-
 
 variable "terraform_state_bucket_name" {
   type = string
@@ -322,6 +363,7 @@ variable "sharedservice_namespace_yaml_path" {
 variable "sharedservice_jenkinsmaster_yaml_path" {
   description = "Path to the yaml file to deploy Jenkins on the shared gke-ec cluster"
   type        = string
+<<<<<<< HEAD
 }
 
 ### Bucket KMS Key ###
@@ -356,4 +398,6 @@ variable "kms_key_algorithm" {
 variable "kms_key_protection_level" {
   type = string
   default = "SOFTWARE"
+=======
+>>>>>>> f7d3923b60cf9404afb642eb183bf5ed53473b8b
 }
