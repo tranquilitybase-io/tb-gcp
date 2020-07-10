@@ -33,7 +33,6 @@ variable "lifecycle_rule" {
 variable "log_filter" {
   type        = string
   description = "Filter used for the logging sink." 
-
 }
 
 variable "tb_discriminator" {
