@@ -1,24 +1,23 @@
 variable "bucket_location" {
-  description = ""
+  description = "Location that the bucket is created in."
   type        = string
-  description = "Region the bucket will be created in"
 }
 
 variable "shared_services_sink_name" {
-  description = ""
-  type    = string
-  default = "SharedServicesSink"
+  description = "Name of the shared services sink."
+  type        = string
+  default     = "SharedServicesSink"
 }
 
 variable "applications_sink_name" {
-  description = ""
-  type    = string
-  default = "ApplicationsSink"
+  description = "Name of the applications sink"
+  type        = string
+  default     = "ApplicationsSink"
 }
 
 variable "lifecycle_rule" {
-  description = ""
-  type = list(map(string))
+  description = "Time bound rules for moving and deleting the bucket."
+  type        = list(map(string))
 
   default = [
     {
@@ -34,19 +33,16 @@ variable "lifecycle_rule" {
   ]
 }
 
-variable "log_type" {
-  type    = string
-  default = "Logging"
-}
 
 variable "log_filter" {
-  type    = string
-  default = "NOT (logName=logs/cloudaudit.googleapis.com%2Fdata_access) NOT (logName=logs/cloudaudit.googleapis.com%2Factivity)  NOT (logName=logs/cloudaudit.googleapis.com%2Fsystem_event)"
+  type        = string
+  default     = "NOT (logName=folders/logs/cloudaudit.googleapis.com%2Fdata_access) AND (logName=logs/cloudaudit.googleapis.com%2Factivity)  AND (logName=logs/cloudaudit.googleapis.com%2Fsystem_event)"
+  description = "Filter used for the logging sink."
 }
 
 variable "tb_discriminator" {
-  type = string
-  description = ""
+  type        = string
+  description = "Random Id assigned to the deployment."
 }
 
 variable "shared_telemetry_project_name" {
@@ -55,23 +51,23 @@ variable "shared_telemetry_project_name" {
 }
 
 variable "shared_services_id" {
-  type = string
-  description = ""
+  type        = string
+  description = "Shared Services Folder Id"
 }
 
 variable "applications_id" {
-  type = string
-  description = ""
+  type        = string
+  description = "Applications Folder Id"
 }
 
 variable "include_children" {
-  type    = bool
-  default = true
-  description = ""
+  type        = bool
+  default     = true
+  description = "Whether to include logs from child resources."
 }
 
 variable "bucket_function" {
-  type    = string
-  default = "log_export"
-  description = ""
+  type        = string
+  default     = "log_export"
+  description = "Purpose of the bucket for label."
 }

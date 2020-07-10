@@ -1,11 +1,11 @@
 
 variable "sink_name" {
-  description = ""
-  type = string
+  description = "Name of the sink being deployed."
+  type        = string
 }
 
 variable "destination" {
-  description = "The self_link URI of the destination resource (This is available as an output coming from one of the destination submodules)"
+  description = "The bucket to store the logs in."
   type        = string
 }
 
@@ -20,8 +20,9 @@ variable "folder_id" {
   type        = string
 }
 
-variable "shared_services_id" {
-  description = ""
-  type = string
+variable "include_children" {
+  type        = bool
+  default     = true
+  description = "Whether to include logs from child resources."
 }
 

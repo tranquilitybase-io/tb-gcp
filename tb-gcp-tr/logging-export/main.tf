@@ -58,24 +58,21 @@ resource "google_storage_bucket" "applications_log_bucket" {
 module "applications_sink" {
   source = "../logging-folder-sink"
 
-  name               = var.applications_sink_name
-  folder_id          = var.applications_id
-  filter             = var.log_filter
-  include_children   = var.include_children
-  destination        = "storage.googleapis.com/${google_storage_bucket.applications_log_bucket.name}"
-  tb_discriminator   = var.tb_discriminator
-  
+  sink_name        = var.applications_sink_name
+  folder_id        = var.applications_id
+  filter           = var.log_filter
+  include_children = var.include_children
+  destination      = "storage.googleapis.com/${google_storage_bucket.applications_log_bucket.name}"
 }
 
 module "shared_services_sink" {
   source = "../logging-folder-sink"
 
-  name               = var.shared_services_sink_name
-  folder_id          = var.shared_services_id
-  filter             = var.log_filter
-  include_children   = var.include_children
-  destination        = "storage.googleapis.com/${google_storage_bucket.shared_services_log_bucket.name}"
-  tb_discriminator   = var.tb_discriminator
+  sink_name        = var.shared_services_sink_name
+  folder_id        = var.shared_services_id
+  filter           = var.log_filter
+  include_children = var.include_children
+  destination      = "storage.googleapis.com/${google_storage_bucket.shared_services_log_bucket.name}"
 }
 
 
