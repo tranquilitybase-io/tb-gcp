@@ -1,0 +1,32 @@
+FROM jenkins/jenkins:lts
+
+# this is just a tempoary hack until we get the slaves up and running
+COPY terraform /usr/local/bin/terraform 
+
+USER root
+
+RUN apt-get update
+RUN apt-get install -y python-pip 
+
+RUN  pip install awscli --upgrade --user 
+# RUN pip install --upgrade gcloud
+
+# Setup initial user
+
+ENV JENKINS_USER = "administrator"
+ENV JENKINS_PASS = "qazwsxedc123"
+
+ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
+COPY jenkins.init/create_user.groovy /usr/share/jenkins/ref/init.groovy.d/
+
+# ENV JENKINS_UC_DOWNLOAD http://jenkins-updates.cloudbees.com/download
+
+# # back to proper install
+
+USER jenkins
+
+COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
+COPY jenkins.yaml /usr/share/jenkins/ref/jenkins.yaml
+RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
+
+
