@@ -32,7 +32,8 @@ variable "lifecycle_rule" {
 
 variable "log_filter" {
   type        = string
-  description = "Filter used for the logging sink." 
+  description = "Filter used for the logging sink."
+  default     = ""
 }
 
 variable "tb_discriminator" {
@@ -67,7 +68,7 @@ variable "bucket_function" {
   description = "Purpose of the bucket for label."
 }
 
-variable "region"{
-  type = string
+variable "region" {
+  type        = string
   description = "Region for GCS Bucket"
 }
