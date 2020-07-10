@@ -117,11 +117,6 @@
     },
     {
       "type": "file",
-      "source": "{{user `tb_repos_root_path`}}/tb-gcp-tr/kms",
-      "destination": "tb-gcp-tr/"
-    },
-    {
-      "type": "file",
       "source": "{{user `tb_repos_root_path`}}/tb-gcp-tr/.gitignore",
       "destination": "tb-gcp-tr/"
     },
