@@ -60,7 +60,7 @@ module "applications_sink" {
 
   name             = var.applications_sink_name
   folder_id        = var.applications_id
-  filter           = var.log_filter
+  filter           = "NOT (logName=folders/${var.shared_services_id}/logs/cloudaudit.googleapis.com%2Fdata_access) AND (logName=folders/${var.shared_services_id}/logs/cloudaudit.googleapis.com%2Factivity)  AND (logName=folders/${var.shared_services_id}logs/cloudaudit.googleapis.com%2Fsystem_event) AND (logName=folders/${var.applications_id}/logs/cloudaudit.googleapis.com%2Fdata_access) AND (logName=folders/${var.applications_id}/logs/cloudaudit.googleapis.com%2Factivity)  AND (logName=folders/${var.applications_id}logs/cloudaudit.googleapis.com%2Fsystem_event)"
   include_children = var.include_children
   destination      = "storage.googleapis.com/${google_storage_bucket.applications_log_bucket.name}"
 }
@@ -70,7 +70,7 @@ module "shared_services_sink" {
 
   name             = var.shared_services_sink_name
   folder_id        = var.shared_services_id
-  filter           = var.log_filter
+  filter           = "NOT (logName=folders/${var.shared_services_id}/logs/cloudaudit.googleapis.com%2Fdata_access) AND (logName=folders/${var.shared_services_id}/logs/cloudaudit.googleapis.com%2Factivity)  AND (logName=folders/${var.shared_services_id}logs/cloudaudit.googleapis.com%2Fsystem_event) AND (logName=folders/${var.applications_id}/logs/cloudaudit.googleapis.com%2Fdata_access) AND (logName=folders/${var.applications_id}/logs/cloudaudit.googleapis.com%2Factivity)  AND (logName=folders/${var.applications_id}logs/cloudaudit.googleapis.com%2Fsystem_event)"
   include_children = var.include_children
   destination      = "storage.googleapis.com/${google_storage_bucket.shared_services_log_bucket.name}"
 }
