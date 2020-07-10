@@ -15,9 +15,10 @@ RUN  pip install awscli --upgrade --user
 
 ENV JENKINS_USER = "administrator"
 ENV JENKINS_PASS = "qazwsxedc123"
+ENV REPO = https://github.com/jenkinsci/job-dsl-plugin.git
 
 ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
-COPY jenkins.init/create_user.groovy /usr/share/jenkins/ref/init.groovy.d/
+COPY jenkins.init/* /usr/share/jenkins/ref/init.groovy.d/
 
 # ENV JENKINS_UC_DOWNLOAD http://jenkins-updates.cloudbees.com/download
 

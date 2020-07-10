@@ -74,6 +74,7 @@ javadoc:1.5
 jdk-tool:1.4
 jenkins-design-language:1.23.2
 jira:3.1.1
+job-dsl:latest
 jquery-detached:1.2.1
 jsch:0.1.55.2
 junit:1.29

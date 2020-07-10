@@ -37,6 +37,24 @@ jenkins:
       name: "all"
   viewsTabBar: "standard"
 unclassified:
+  globalLibraries:
+    libraries:
+    - name: "Sandbox"
+    - defaultVersion: "master"
+      implicit: true
+      name: "sandbox"
+      retriever:
+        modernSCM:
+          scm:
+            git:
+              id: "sandbox-repo"
+              remote: "https://github.com/Tirano2150/jenkins-casc.git"
+              traits:
+              - cloneOptionTrait:
+                  extension:
+                    depth: 1
+                    noTags: true
+                    shallow: true
   bitbucketEndpointConfiguration:
     endpoints:
     - bitbucketCloudEndpoint:
@@ -91,3 +109,20 @@ tool:
     triggerDownstreamUponResultNotBuilt: false
     triggerDownstreamUponResultSuccess: true
     triggerDownstreamUponResultUnstable: false
+jobs:
+  - script: >
+      pipelineJob('Create Jobs Pipeline') {
+        quietPeriod(0)
+        concurrentBuild(false)
+        logRotator {
+          numToKeep(10)
+        }
+        triggers {
+          cron("H/15 * * * *")
+        }
+        definition {
+          cps {
+            script('createJobs()')
+          }
+        }
+      }
