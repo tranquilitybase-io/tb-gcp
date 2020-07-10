@@ -212,7 +212,6 @@ gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --membe
 gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/billing.projectManager --format=none
 gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.networkAdmin --format=none
 gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.xpnAdmin --format=none
-gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/roles/logging.configWriter --format=none
 gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/logging.logWriter --format=none
 # Add permissions at the billing level
 echo "Adding permissions at the billing account level..."
