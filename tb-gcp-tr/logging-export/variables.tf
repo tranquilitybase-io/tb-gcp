@@ -10,7 +10,7 @@ variable "shared_services_sink_name" {
 }
 
 variable "applications_sink_name" {
-  description = "Name of the applications sink"
+  description = "Name of the applications sink."
   type        = string
   default     = "ApplicationsSink"
 }
