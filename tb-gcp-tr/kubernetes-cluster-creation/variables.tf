@@ -39,7 +39,7 @@ variable "cluster_pool_name" {
 
 variable "cluster_machine_type" {
   type    = string
-  default = "n1-standard-2"
+  default = "n1-standard-4"
 }
 
 variable "cluster_enable_private_nodes" {
@@ -110,7 +110,7 @@ variable "cluster_daily_maintenance_start" {
 
 variable "cluster_node_disk_size" {
   type    = string
-  default = "10"
+  default = "30"
 }
 
 variable "cluster_oauth_scopes" {
@@ -156,3 +156,7 @@ variable "gke_service_network_name" {
   description = "Name for the gke service network"
 }
 
+variable "cluster_default_max_pods_per_node" {
+  description = "The maximum number of pods to schedule per node"
+  default     = null
+}

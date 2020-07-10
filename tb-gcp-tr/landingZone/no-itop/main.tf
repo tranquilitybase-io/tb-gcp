@@ -78,6 +78,21 @@ module "apis_activation" {
   bastion_project_id       = module.shared_projects.shared_bastion_id
   host_project_id          = module.shared_projects.shared_networking_id
   eagle_console_project_id = module.shared_projects.shared_ec_id
+  telemetry_project_id     = module.shared_projects.shared_telemetry_id
+}
+
+module "bucket_kms_key" {
+  source = "../../kms"
+
+  apis_dependency          = module.apis_activation.all_apis_enabled
+  kms_key_ring_project_id  = module.shared_projects.shared_telemetry_id
+  kms_key_ring_name        = var.kms_key_ring_name
+  kms_key_ring_location    = var.kms_key_ring_location
+  kms_key_name             = var.kms_key_name
+  kms_key_rotation_period  = var.kms_key_rotation_period
+  kms_key_purpose          = var.kms_key_purpose
+  kms_key_algorithm        = var.kms_key_algorithm
+  kms_key_protection_level = var.kms_key_protection_level
 }
 
 module "shared-vpc" {
@@ -157,6 +172,7 @@ module "gke-ec" {
     ],
   )
   cluster_min_master_version = var.cluster_ec_min_master_version
+  cluster_default_max_pods_per_node = var.cluster_ec_default_max_pods_per_node
 
   apis_dependency          = module.apis_activation.all_apis_enabled
   shared_vpc_dependency    = module.shared-vpc.gke_subnetwork_ids

@@ -103,6 +103,9 @@ done
 # Set versioning on for tf state bucket.
 sudo gsutil versioning set on "gs://${terraform_state_bucket_name}/"
 
+# Encrypt TF state bucket using CMEK
+sudo gsutil kms encryption -p ${PROJECT_ID} -k projects/"shared-telemetry-${tb_discriminator}"/locations/us/keyRings/tf-state-bucket-keyring/cryptoKeys/tf-state-bucket-key "gs://${terraform_state_bucket_name}"
+
 # Commit current TB terraform code to GCR
 cd /tmp
 # Check for repo existence
