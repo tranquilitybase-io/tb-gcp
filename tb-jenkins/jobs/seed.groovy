@@ -1,4 +1,4 @@
-      pipelineJob('Create Jobs Pipeline 2') {
+      pipelineJob('Create Jobs Pipeline') {
         quietPeriod(0)
         concurrentBuild(false)
         logRotator {

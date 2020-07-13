@@ -19,6 +19,7 @@ ENV REPO https://github.com/Tirano2150/jenkins-casc.git
 
 ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
 COPY jenkins.init/* /usr/share/jenkins/ref/init.groovy.d/
+COPY jobs/* /usr/share/jenkins/ref/jobs/
 
 # ENV JENKINS_UC_DOWNLOAD http://jenkins-updates.cloudbees.com/download
 

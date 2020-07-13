@@ -110,19 +110,5 @@ tool:
     triggerDownstreamUponResultSuccess: true
     triggerDownstreamUponResultUnstable: false
 jobs:
-  - script: >
-      pipelineJob('Create Jobs Pipeline') {
-        quietPeriod(0)
-        concurrentBuild(false)
-        logRotator {
-          numToKeep(10)
-        }
-        triggers {
-          cron("H/15 * * * *")
-        }
-        definition {
-          cps {
-            script('createJobs()')
-          }
-        }
-      }
+  - file: /usr/share/jenkins/ref/jobs/seed.groovy
+  - file: /usr/share/jenkins/ref/jobs/build.groovy
