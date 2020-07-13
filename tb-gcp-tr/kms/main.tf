@@ -1,8 +1,16 @@
+resource "null_resource" "api_enabled" {
+  triggers = {
+    dependency = var.apis_dependency
+  }
+}
+
 #CREATE-KEY-RING-FOR-USE-WITH-BUCKETS
 resource "google_kms_key_ring" "bucket_key_ring" {
   project  = var.kms_key_ring_project_id
   name     = var.kms_key_ring_name
   location = var.kms_key_ring_location
+
+  depends_on = [null_resource.api_enabled]
 }
 
 #CREATE-CRYPTO-KEY-FOR-USE-WITH-BUCKETS
@@ -16,4 +24,6 @@ resource "google_kms_crypto_key" "bucket_key" {
     algorithm = var.kms_key_algorithm
     protection_level = var.kms_key_protection_level
   }
+
+  depends_on = [null_resource.api_enabled]
 }
