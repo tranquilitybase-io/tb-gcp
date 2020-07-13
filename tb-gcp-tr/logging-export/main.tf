@@ -66,7 +66,7 @@ module "applications_sink" {
 
   name             = var.applications_sink_name
   folder_id        = var.applications_id
-  filter           = var.filter != "" ? var.filter : local.log_filter
+  filter           = var.log_filter != "" ? var.log_filter : local.log_filter
   include_children = var.include_children
   destination      = "storage.googleapis.com/${google_storage_bucket.applications_log_bucket.name}"
 }
