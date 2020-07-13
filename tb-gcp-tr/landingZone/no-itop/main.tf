@@ -78,7 +78,6 @@ module "apis_activation" {
   bastion_project_id       = module.shared_projects.shared_bastion_id
   host_project_id          = module.shared_projects.shared_networking_id
   eagle_console_project_id = module.shared_projects.shared_ec_id
-  telemetry_project_id     = module.shared_projects.shared_telemetry_id
 }
 
 
