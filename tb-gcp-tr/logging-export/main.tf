@@ -59,12 +59,14 @@ resource "google_storage_bucket" "applications_log_bucket" {
   }
 }
 
+
+
 module "applications_sink" {
   source = "../logging-folder-sink"
 
   name             = var.applications_sink_name
   folder_id        = var.applications_id
-  filter           = local.log_filter
+  filter           = var.filter != "" ? var.filter : local.log_filter
   include_children = var.include_children
   destination      = "storage.googleapis.com/${google_storage_bucket.applications_log_bucket.name}"
 }
@@ -74,7 +76,7 @@ module "shared_services_sink" {
 
   name             = var.shared_services_sink_name
   folder_id        = var.shared_services_id
-  filter           = local.log_filter
+  filter           = var.filter != "" ? var.filter : local.log_filter
   include_children = var.include_children
   destination      = "storage.googleapis.com/${google_storage_bucket.shared_services_log_bucket.name}"
 }
