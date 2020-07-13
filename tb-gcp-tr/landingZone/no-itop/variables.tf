@@ -376,7 +376,7 @@ variable "kms_key_ring_name" {
 }
 variable "kms_key_ring_location" {
   type = string
-  default = "europe"
+  default = "us"
 }
 variable "kms_key_name" {
   type = string
