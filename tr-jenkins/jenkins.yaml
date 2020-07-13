@@ -26,7 +26,7 @@ jenkins:
       allowsSignup: false
       users:
         - id: "admin"
-          password: "somethingsecret"   # Not the most secure way to do this, use a env var / secrets manager
+          password: ${JENKINS_PASS}   # Not the most secure way to do this, use a env var / secrets manager
   slaveAgentPort: 50000
   updateCenter:
     sites:
@@ -48,7 +48,7 @@ unclassified:
           scm:
             git:
               id: "sandbox-repo"
-              remote: "https://github.com/Tirano2150/jenkins-casc.git"
+              remote: ${REPO}
               traits:
               - cloneOptionTrait:
                   extension:
