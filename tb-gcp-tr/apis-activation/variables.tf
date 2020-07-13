@@ -28,7 +28,3 @@ variable "bastion_project_id" {
   type        = string
 }
 
-variable "telemetry_project_id" {
-  description = "id for the telemetry project"
-  type        = string
-}
