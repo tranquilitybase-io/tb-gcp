@@ -188,9 +188,9 @@ tb_folder_id="$(echo ${split_array[1]} | sed 's/[^0-9]*//g')"
 
 echo "Creating project..."
 if [[ -n ${ADMIN}  ]]; then
-  gcloud projects create "${PROJECT_ID}" --folder "${tb_folder_id}" --format=none --labels admin=${ADMIN},created_by="${ACTIVE_ACCOUNT}"
+  gcloud alpha projects create "${PROJECT_ID}" --folder "${tb_folder_id}" --format=none --labels admin=${ADMIN},created_by="${ACTIVE_ACCOUNT}"
 else
-  gcloud projects create "${PROJECT_ID}" --folder "${tb_folder_id}" --format=none --labels created_by="${ACTIVE_ACCOUNT}"
+  gcloud alpha projects create "${PROJECT_ID}" --folder "${tb_folder_id}" --format=none --labels created_by="${ACTIVE_ACCOUNT}"
 fi
 
 echo "Linking project to billing account..."
