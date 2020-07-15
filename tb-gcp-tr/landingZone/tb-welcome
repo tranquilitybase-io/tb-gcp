@@ -41,10 +41,8 @@ FOLDER_ID=${root_id}
 echo "Folder is ${FOLDER_ID}"
 BILLING_ID=${billing_account_id}
 echo "Billing Id is ${BILLING_ID}"
-
 deploy_owner=$(gcloud config list account --format "value(core.account)" | cut -d@ -f1)
-organization="Tranquility-Base"
-
+organization=$("Tranquility-Base")
 "deploy_owner = ${deploy_owner}" >> input.tfvars
 "organization = ${organization}" >> input.tfvars
 
