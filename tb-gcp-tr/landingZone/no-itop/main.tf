@@ -73,8 +73,15 @@ module "shared_projects" {
   shared_bastion_project_name    = var.shared_bastion_project_name
 }
 
+module "gcs_bucket_access_storage_logs" {
+  source = "../..gcp-storage-bucket"
+
+  name       = var.gcs_log_bucket_name
+  project_id = module.shared_projects.shared_telemetry_id
+}
+
 module "apis_activation" {
-  source = "../../apis-activation"
+  source                   = "../../apis-activation"
   bastion_project_id       = module.shared_projects.shared_bastion_id
   host_project_id          = module.shared_projects.shared_networking_id
   eagle_console_project_id = module.shared_projects.shared_ec_id
@@ -147,7 +154,7 @@ module "gke-ec" {
       ),
     ],
   )
-  cluster_min_master_version = var.cluster_ec_min_master_version
+  cluster_min_master_version        = var.cluster_ec_min_master_version
   cluster_default_max_pods_per_node = var.cluster_ec_default_max_pods_per_node
 
   apis_dependency          = module.apis_activation.all_apis_enabled

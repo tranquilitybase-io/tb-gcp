@@ -364,3 +364,10 @@ variable "sharedservice_jenkinsmaster_yaml_path" {
   description = "Path to the yaml file to deploy Jenkins on the shared gke-ec cluster"
   type        = string
 }
+
+#GCS Bucket logging
+variable "gcs_log_bucket_name" {
+  description = "Name of the log bucket to create."
+  type        = string
+  default     = "tb-bucket-access-storage-logs"
+}

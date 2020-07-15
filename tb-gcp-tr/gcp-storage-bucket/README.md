@@ -28,14 +28,16 @@ This module is meant for use with Terraform >=0.12.
 
 Basic usage of this module is as follows:
 
-Remember to ensure that you always create a separate bucket in TB to allow GCS bucket logging no matter how complex the bucket configuration. This is needed to comply with CIS/NIST/PCI/ISO.
+If the "tb-bucket-access-storage-logs" bucket does not already exist then remember to ensure you create a separate bucket in TB with this name. It is required to allow GCS bucket logging no matter how complex the bucket configuration. This is needed to comply with CIS/NIST/PCI/ISO.
+
+Example with log bucket not existing
 
 ```hcl
-# create a bucket for the access logs
-module "gcs_bucket_access_logs" {
+# create a bucket for the access & storage logs
+module "gcs_bucket_access_storage_logs" {
   source     = "../../modules/simple_bucket"
  
-  name      = format("%s-access-logs", var.bucket_name)
+  name       = "tb-bucket-access-storage-logs"
   project_id = module.shared_projects.shared_telemetry_id
 }
 
@@ -43,18 +45,30 @@ module "gcs_bucket_access_logs" {
 module "gcs_bucket" {
   source  = "../../modules/simple_bucket"
 
-  name       = var.bucket_name
+  name       = "a-globally-unique-name-zi01farm"
   project_id = module.shared_projects.shared_telemetry_id
-  log_bucket = module.gcs_bucket_access_logs.name
+  log_bucket = module.gcs_bucket_access_storage_logs.name
+}
+```
+Example with log bucket existing
+
+```hcl
+# create the main bucket and use the other bucket for its access & storage logs
+module "gcs_bucket" {
+  source  = "../../modules/simple_bucket"
+
+  name       = "a-globally-unique-name-zi01farm"
+  project_id = module.shared_projects.shared_telemetry_id
+  log_bucket = "tb-bucket-access-storage-logs"
 }
 ```
 Example with more features - the bucket features are not mutually exclusive so you can, of course, mix and match. For example:
 ```hcl
-# create a bucket for the access logs
-module "gcs_bucket_access_logs" {
+# create a bucket for the access & storage logs
+module "gcs_bucket_access_storage_logs" {
   source     = "../../modules/simple_bucket"
  
-  name      = format("%s-access-logs", var.bucket_name)
+  name       = "tb-bucket-access-storage-logs"
   project_id = module.shared_projects.shared_telemetry_id
 }
 
@@ -64,7 +78,7 @@ module "gcs_bucket" {
   
   name               = "a-globally-unique-name-zi01farm" 
   project_id         = module.shared_projects.shared_telemetry_id
-  log_bucket         = module.gcs_bucket_access_logs.name
+  log_bucket         = module.gcs_bucket_access_storage_logs.name
   location           = "europe-west2"
   storage_class      = "REGIONAL"
   force_destroy      = false

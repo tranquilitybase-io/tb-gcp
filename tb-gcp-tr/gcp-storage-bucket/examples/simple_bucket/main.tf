@@ -12,11 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# create a bucket for the access logs
-module "gcs_bucket_access_logs" {
+# create a bucket for the access & storage logs
+module "gcs_bucket_access_storage_logs" {
   source = "../.."
 
-  name       = format("%s-access-logs", "a-globally-unique-name-zi01farm")
+  name       = var.gcs_log_bucket_name
   project_id = module.shared_projects.shared_telemetry_id
 }
 
@@ -26,7 +26,7 @@ module "gcs_bucket" {
 
   name       = "a-globally-unique-name-zi01farm"
   project_id = module.shared_projects.shared_telemetry_id
-  log_bucket = module.gcs_bucket_access_logs.name
+  log_bucket = module.gcs_bucket_access_storage_logs.name
 
   lifecycle_rules = [{
     action = {

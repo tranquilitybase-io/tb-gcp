@@ -27,17 +27,17 @@ output "url" {
   value       = module.gcs_bucket.url
 }
 
-output "gcs_bucket_access_logs_name" {
+output "gcs_bucket_access_storage_logs_name" {
   description = "The name of the bucket created by this module"
-  value       = module.gcs_bucket_access_logs.name
+  value       = module.gcs_bucket_access_storage_logs.name
 }
 
-output "gcs_bucket_access_logs_name_self_link" {
+output "gcs_bucket_access_storage_logs_name_self_link" {
   description = "The self link of the bucket created by this module"
-  value       = module.gcs_bucket.self_link
+  value       = module.gcs_bucket_access_storage_logs.self_link
 }
 
-output "gcs_bucket_access_logs_url" {
+output "gcs_bucket_access_storage_logs_url" {
   description = "The name of the bucket created by this module"
-  value       = module.gcs_bucket_access_logs.url
+  value       = module.gcs_bucket_access_storage_logs.url
 }

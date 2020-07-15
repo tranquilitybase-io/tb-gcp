@@ -23,3 +23,9 @@ variable "name" {
   type        = string
   default     = ""
 }
+
+variable "gcs_log_bucket_name" {
+  description = "Name of the log bucket to create."
+  type        = string
+  default     = "tb-bucket-access-storage-logs"
+}
