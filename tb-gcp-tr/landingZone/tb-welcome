@@ -24,7 +24,7 @@ source input.auto.tfvars
 # Create TF state bucket
 buckets=$(sudo gsutil list | grep ${terraform_state_bucket_name})
 if [ -z "$buckets"]; then 
-sudo gsutil mb "gs://${terraform_state_bucket_name}/"
+sudo gsutil mb -b on "gs://${terraform_state_bucket_name}/"
 fi
 
 MAX_ATTEMPTS=10
