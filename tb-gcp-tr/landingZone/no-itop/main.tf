@@ -74,7 +74,7 @@ module "shared_projects" {
 }
 
 module "gcs_bucket_access_storage_logs" {
-  source = "../..gcp-storage-bucket"
+  source = "../../gcp-storage-bucket"
 
   name       = var.gcs_log_bucket_name
   project_id = module.shared_projects.shared_telemetry_id
