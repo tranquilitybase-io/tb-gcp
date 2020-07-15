@@ -1,6 +1,6 @@
 # Terraform Module Google Cloud Storage Bucket 
 
-A Terraform module for creating GCS buckets which makes it easy to create a GCS bucket, and assign basic permissions on it to arbitrary users.
+A Terraform module for creating a GCS bucket.
 
 This module:
 
@@ -39,6 +39,7 @@ module "gcs_bucket_access_storage_logs" {
  
   name       = "tb-bucket-access-storage-logs"
   project_id = module.shared_projects.shared_telemetry_id
+  iam_members = var.iam_members_bindings
 }
 
 # create the main bucket and use the other bucket for its access logs
@@ -70,6 +71,7 @@ module "gcs_bucket_access_storage_logs" {
  
   name       = "tb-bucket-access-storage-logs"
   project_id = module.shared_projects.shared_telemetry_id
+  iam_members = var.iam_members_bindings
 }
 
 # create the main bucket and use the other bucket for its access logs

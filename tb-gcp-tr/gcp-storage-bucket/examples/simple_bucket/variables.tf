@@ -29,3 +29,15 @@ variable "gcs_log_bucket_name" {
   type        = string
   default     = "tb-bucket-access-storage-logs"
 }
+
+variable "iam_members_bindings" {
+  description = "The list of IAM members to grant permissions on the bucket."
+  type = list(object({
+    role   = string,
+    member = string
+  }))
+  default = [{
+    role   = "roles/storage.legacyBucketWriter",
+    member = "group:cloud-storage-analytics@google.com"
+  }]
+}

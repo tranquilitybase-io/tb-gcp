@@ -16,8 +16,9 @@
 module "gcs_bucket_access_storage_logs" {
   source = "../.."
 
-  name       = var.gcs_log_bucket_name
-  project_id = module.shared_projects.shared_telemetry_id
+  name        = var.gcs_log_bucket_name
+  project_id  = module.shared_projects.shared_telemetry_id
+  iam_members = var.iam_members_bindings
 }
 
 # create the main bucket and use the other bucket for its access logs
