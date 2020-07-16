@@ -18,6 +18,14 @@ exec 2> >(tee -ia "/var/log/bootstrap.log" >&2)
 date=$(date '+%Y-%m-%d %H:%M:%S')
 echo "Time start: ${date}"
 cd /opt/tb/repo/tb-gcp-tr/landingZone/no-itop
+
+#Need to parse gcloud json to get deploy owner account.
+deploy_owner=$(deploy_owner=gcloud projects list --filter PROJECT_ID=${PROJECT_ID} --format="json(labels.created_by)" | sed -E 's/\},\s*\{/\},\n\{/g' ${deploy_owner} | grep  '"created_by"' | cut -d ":" -f2)
+organization="Tranquility-Base"
+
+owner_label=$("deploy_owner = ${deploy_owner}") >> input.auto.tfvars
+org_label=$("organization = ${organization}") >> input.auto.tfvars
+
 #Retrieve terraform vars
 source input.auto.tfvars
 
@@ -41,13 +49,6 @@ FOLDER_ID=${root_id}
 echo "Folder is ${FOLDER_ID}"
 BILLING_ID=${billing_account_id}
 echo "Billing Id is ${BILLING_ID}"
-
-#Need to parse gcloud json to get deploy owner account.
-deploy_owner=$(deploy_owner= gcloud projects list --filter PROJECT_ID=${PROJECT_ID} --format="json(labels.created_by)" | sed -E 's/\},\s*\{/\},\n\{/g' ${deploy_owner} | grep  '"created_by"' | cut -d ":" -f2)
-organization="Tranquility-Base"
-
-owner_label=$("deploy_owner = ${deploy_owner}") >> input.tfvars
-org_label=$("organization = ${organization}") >> input.tfvars
 
 # The deployment will be done using the bootstrap SA
 echo "Setting [${SA_EMAIL}] as active account"
