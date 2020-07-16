@@ -20,11 +20,11 @@ echo "Time start: ${date}"
 cd /opt/tb/repo/tb-gcp-tr/landingZone/no-itop
 
 #Need to parse gcloud json to get deploy owner account.
-deploy_owner=$(deploy_owner=gcloud projects list --filter PROJECT_ID=${PROJECT_ID} --format="json(labels.created_by)" | sed -E 's/\},\s*\{/\},\n\{/g' ${deploy_owner} | grep  '"created_by"' | cut -d ":" -f2)
+deploy_owner=$(gcloud projects list --filter PROJECT_ID=${PROJECT_ID} --format="json(labels.created_by)" | sed -E 's/\},\s*\{/\},\n\{/g' ${deploy_owner} | grep  '"created_by"' | cut -d ":" -f2)
 organization="Tranquility-Base"
 
-owner_label=$("deploy_owner = ${deploy_owner}") >> input.auto.tfvars
-org_label=$("organization = ${organization}") >> input.auto.tfvars
+echo "deploy_owner = ${deploy_owner}" >> input.auto.tfvars
+echo "organization = ${organization}" >> input.auto.tfvars
 
 #Retrieve terraform vars
 source input.auto.tfvars
