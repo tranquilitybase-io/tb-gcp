@@ -23,8 +23,8 @@ cd /opt/tb/repo/tb-gcp-tr/landingZone/no-itop
 deploy_owner=$(gcloud projects list --filter PROJECT_ID=${PROJECT_ID} --format="json(labels.created_by)" | sed -E 's/\},\s*\{/\},\n\{/g' ${deploy_owner} | grep  '"created_by"' | cut -d ":" -f2)
 organization="Tranquility-Base"
 
-echo "deploy_owner = ${deploy_owner}" >> input.auto.tfvars
-echo "organization = ${organization}" >> input.auto.tfvars
+echo "deploy_owner = ${deploy_owner}" >> input.tfvars
+echo "organization = ${organization}" >> input.tfvars
 
 #Retrieve terraform vars
 source input.auto.tfvars
