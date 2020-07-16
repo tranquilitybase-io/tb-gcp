@@ -24,7 +24,7 @@ PROJECT_ID=$(curl -s "http://metadata.google.internal/computeMetadata/v1/project
 
 #Need to parse gcloud json to get deploy owner account.
 deploy_owner=$(gcloud projects list --filter PROJECT_ID=${PROJECT_ID} --format="json(labels.created_by)" | sed -E 's/\},\s*\{/\},\n\{/g' ${deploy_owner} | grep  '"created_by"' | cut -d ":" -f2)
-organization="Tranquility-Base"
+organization="tranquility-base"
 
 echo "deploy_owner = ${deploy_owner}" >> input.tfvars
 echo "organization = ${organization}" >> input.tfvars
