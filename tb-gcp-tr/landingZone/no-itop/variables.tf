@@ -319,12 +319,12 @@ variable "sharedservice_jenkinsmaster_yaml_path" {
   type        = string
 }
 
-variable "deploy_owner" {
-  type    = string
-  default = ""
+variable "label_keys" {
+  type = list(string)
+  default = [" "]
 }
 
-variable "organization" {
-  type    = string
-  default = ""
+variable "label_vals" {
+  type = list(string)
+  default = [" "]
 }
