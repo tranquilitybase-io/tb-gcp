@@ -1,9 +1,7 @@
-variable "deploy_owner" {
-  type = string
-  default = ""
+variable "label_keys" {
+  type = list(string)
 }
 
-variable "organization" {
-  type = string
-  default = ""
+variable "label_vals" {
+  type = list(string)
 }
