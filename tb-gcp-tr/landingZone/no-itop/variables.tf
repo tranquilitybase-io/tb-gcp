@@ -363,18 +363,12 @@ variable "sharedservice_namespace_yaml_path" {
 variable "sharedservice_jenkinsmaster_yaml_path" {
   description = "Path to the yaml file to deploy Jenkins on the shared gke-ec cluster"
   type        = string
-<<<<<<< HEAD
 }
 
 variable "label_keys" {
   type = list(string)
-  default = [" "]
 }
 
 variable "label_vals" {
   type = list(string)
-  default = [" "]
 }
-=======
-}
->>>>>>> f615a5490daad1223c5a2bfefccbe33da7912f15
