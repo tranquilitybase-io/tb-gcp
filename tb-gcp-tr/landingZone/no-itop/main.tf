@@ -75,7 +75,7 @@ module "shared_projects" {
 }
 
 module "apis_activation" {
-  source = "../../apis-activation"
+  source                   = "../../apis-activation"
   bastion_project_id       = module.shared_projects.shared_bastion_id
   host_project_id          = module.shared_projects.shared_networking_id
   eagle_console_project_id = module.shared_projects.shared_ec_id
@@ -261,7 +261,7 @@ resource "google_sourcerepo_repository_iam_binding" "terraform-code-store-admin-
 }
 
 module "labels" {
-  source = "../../labelling"
-  organization           = var.organization
-  deploy_owner           = var.deploy_owner
+  source     = "../../labelling"
+  label_keys = var.label_keys
+  label_vals = var.label_vals
 }

@@ -320,11 +320,11 @@ variable "sharedservice_jenkinsmaster_yaml_path" {
 }
 
 variable "deploy_owner" {
-  type = string
+  type    = string
   default = ""
 }
 
 variable "organization" {
-  type = string
+  type    = string
   default = ""
 }

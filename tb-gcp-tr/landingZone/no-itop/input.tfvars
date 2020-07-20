@@ -122,5 +122,5 @@ ec_iam_service_account_roles = [
 "roles/resourcemanager.projectIamAdmin"]
 
 #DAC Services
-sharedservice_namespace_yaml_path = "/opt/tb/repo/tb-gcp-tr/shared-dac/namespaces.yaml"
+sharedservice_namespace_yaml_path     = "/opt/tb/repo/tb-gcp-tr/shared-dac/namespaces.yaml"
 sharedservice_jenkinsmaster_yaml_path = "/opt/tb/repo/tb-gcp-tr/shared-dac/jenkins-master.yaml"
