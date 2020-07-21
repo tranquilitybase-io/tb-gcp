@@ -51,7 +51,6 @@ resource "google_project" "shared_telemetry" {
   }
 }
 
-
 resource "google_project" "shared_billing" {
   name                = "${var.shared_billing_project_name}-${var.tb_discriminator}"
   project_id          = "${var.shared_billing_project_name}-${var.tb_discriminator}"
@@ -77,7 +76,6 @@ resource "google_project" "shared_ec" {
   }
 }
 
-
 resource "google_project" "shared_bastion" {
   name                = "${var.shared_bastion_project_name}-${var.tb_discriminator}"
   project_id          = "${var.shared_bastion_project_name}-${var.tb_discriminator}"
@@ -90,4 +88,3 @@ resource "google_project" "shared_bastion" {
     ignore_changes = [labels]
   }
 }
-

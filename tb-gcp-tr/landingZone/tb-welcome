@@ -28,8 +28,6 @@ organization="tranquility-base"
 
 echo "label_keys = [\"deploy_owner\",\"organization\"]" >> input.tfvars
 echo "label_vals = [${deploy_owner},\"${organization}\"]" >> input.tfvars
-
-
 #Retrieve terraform vars
 source input.auto.tfvars
 
@@ -131,4 +129,3 @@ git push -u origin master
 
 date=$(date '+%Y-%m-%d %H:%M:%S')
 echo "Time end: ${date}"
-

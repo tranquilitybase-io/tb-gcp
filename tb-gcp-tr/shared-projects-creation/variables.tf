@@ -67,5 +67,3 @@ variable "labels" {
   type        = map(string)
   description = "Owner and Organization labels"
 }
-
-
