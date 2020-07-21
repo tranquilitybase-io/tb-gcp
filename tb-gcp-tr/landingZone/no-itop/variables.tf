@@ -364,3 +364,22 @@ variable "sharedservice_jenkinsmaster_yaml_path" {
   description = "Path to the yaml file to deploy Jenkins on the shared gke-ec cluster"
   type        = string
 }
+
+#GCS log bucket
+variable "gcs_log_bucket_name" {
+  description = "Name of the log bucket to create"
+  type        = string
+  default     = "tb-bucket-access-storage-logs"
+}
+
+variable "iam_members_bindings" {
+  description = "The list of IAM members to grant permissions on the log bucket"
+  type = list(object({
+    role   = string,
+    member = string
+  }))
+  default = [{
+    role   = "roles/storage.legacyBucketWriter",
+    member = "group:cloud-storage-analytics@google.com"
+  }]
+}
