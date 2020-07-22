@@ -76,9 +76,11 @@ variable "region" {
 variable "shared_services_bucket_name" {
   type        = string
   description = "Name of the shared services bucket."
+  default     = "shared_services_folder_logs"
 }
 
 variable "applications_bucket_name" {
   type        = string
   description = "Name of the applications bucket."
+  default     = "applications_folder_logs"
 }
