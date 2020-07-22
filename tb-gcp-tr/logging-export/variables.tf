@@ -72,3 +72,13 @@ variable "region" {
   type        = string
   description = "Region for GCS Bucket"
 }
+
+variable "shared_services_bucket_name" {
+  type        = string
+  description = "Name of the shared services bucket."
+}
+
+variable "applications_bucket_name" {
+  type        = string
+  description = "Name of the applications bucket."
+}
