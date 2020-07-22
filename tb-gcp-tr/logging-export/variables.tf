@@ -22,7 +22,7 @@ variable "lifecycle_rule" {
   default = [{
     action = {
       type          = "SetStorageClass"
-      storage_class = "NEARLINE"
+      storage_class = ["NEARLINE"]
       age           = "30"
     }
     condition = {
