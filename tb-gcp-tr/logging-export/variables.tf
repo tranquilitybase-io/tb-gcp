@@ -13,25 +13,33 @@ variable "applications_sink_name" {
 
 variable "lifecycle_rule" {
   description = "Time bound rules for moving and deleting the bucket."
+
   type = set(object({
-    action = map(string)
+    action    = map(string)
     condition = map(string)
   }))
 
-  default = [
-    {
+  default = [{
+    action = {
       type          = "SetStorageClass"
       storage_class = "NEARLINE"
       age           = "30"
+    }
+    condition = {
+      age        = 365
+      with_state = "ANY"
+    }
     },
     {
-      type          = "Delete"
-      storage_class = ""
-      age           = "365"
-    }
-  ]
+      action = {
+        type = "Delete"
+      }
+      condition = {
+        age        = 365
+        with_state = "ANY"
+      }
+  }]
 }
-
 
 variable "log_filter" {
   type        = string
