@@ -9,24 +9,7 @@ module "shared_services_log_bucket" {
   name       = "${var.shared_services_bucket_name}-${var.tb_discriminator}"
   project_id = var.shared_telemetry_project_name
   location   = var.region
-
-  dynamic "lifecycle_rule" {
-    for_each = [for c in var.lifecycle_rule : {
-      age           = c.age
-      type          = c.type
-      storage_class = c.storage_class
-    }]
-
-    content {
-      action {
-        type          = lifecycle_rule.value.type
-        storage_class = lifecycle_rule.value.storage_class
-      }
-      condition {
-        age = lifecycle_rule.value.age
-      }
-    }
-  }
+  lifecycle_rules = var.lifecycle_rules
 }
 
 module "applications_log_bucket" {
@@ -35,24 +18,7 @@ module "applications_log_bucket" {
   name       = "${var.applications_bucket_name}-${var.tb_discriminator}"
   project_id = var.shared_telemetry_project_name
   location   = var.region
-
-  dynamic "lifecycle_rule" {
-    for_each = [for c in var.lifecycle_rule : {
-      age           = c.age
-      type          = c.type
-      storage_class = c.storage_class
-    }]
-
-    content {
-      action {
-        type          = lifecycle_rule.value.type
-        storage_class = lifecycle_rule.value.storage_class
-      }
-      condition {
-        age = lifecycle_rule.value.age
-      }
-    }
-  }
+  lifecycle_rules = var.lifecycle_rules
 }
 
 module "applications_sink" {
