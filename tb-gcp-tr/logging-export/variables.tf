@@ -13,6 +13,10 @@ variable "applications_sink_name" {
 
 variable "lifecycle_rule" {
   description = "Time bound rules for moving and deleting the bucket."
+  type = set(object({
+    action = map(string)
+    condition = map(string)
+  }))
 
   default = [
     {
