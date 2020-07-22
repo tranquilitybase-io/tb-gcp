@@ -9,7 +9,7 @@ module "shared_services_log_bucket" {
   name       = "${var.shared_services_bucket_name}-${var.tb_discriminator}"
   project_id = var.shared_telemetry_project_name
   location   = var.region
-  lifecycle_rule = var.lifecycle_rule
+  lifecycle_rules = var.lifecycle_rule
 }
 
 module "applications_log_bucket" {
@@ -18,7 +18,7 @@ module "applications_log_bucket" {
   name       = "${var.applications_bucket_name}-${var.tb_discriminator}"
   project_id = var.shared_telemetry_project_name
   location   = var.region
-  lifecycle_rule = var.lifecycle_rule
+  lifecycle_rules = var.lifecycle_rule
 }
 
 module "applications_sink" {
