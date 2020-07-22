@@ -9,7 +9,7 @@ module "shared_services_log_bucket" {
   name       = "${var.shared_services_bucket_name}-${var.tb_discriminator}"
   project_id = var.shared_telemetry_project_name
   location   = var.region
-  lifecycle_rules = var.lifecycle_rules
+  lifecycle_rule = var.lifecycle_rule
 }
 
 module "applications_log_bucket" {
@@ -18,7 +18,7 @@ module "applications_log_bucket" {
   name       = "${var.applications_bucket_name}-${var.tb_discriminator}"
   project_id = var.shared_telemetry_project_name
   location   = var.region
-  lifecycle_rules = var.lifecycle_rules
+  lifecycle_rule = var.lifecycle_rule
 }
 
 module "applications_sink" {
@@ -28,7 +28,7 @@ module "applications_sink" {
   folder_id        = var.applications_id
   filter           = var.log_filter != "" ? var.log_filter : local.log_filter
   include_children = var.include_children
-  destination      = "storage.googleapis.com/${google_storage_bucket.applications_log_bucket.name}"
+  destination      = "storage.googleapis.com/${applications_log_bucket.name}"
 }
 
 module "shared_services_sink" {
@@ -38,7 +38,7 @@ module "shared_services_sink" {
   folder_id        = var.shared_services_id
   filter           = var.log_filter != "" ? var.log_filter : local.log_filter
   include_children = var.include_children
-  destination      = "storage.googleapis.com/${google_storage_bucket.shared_services_log_bucket.name}"
+  destination      = "storage.googleapis.com/${shared_services_log_bucket.name}"
 }
 
 
