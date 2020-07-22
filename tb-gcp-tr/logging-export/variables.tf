@@ -2,18 +2,17 @@
 variable "shared_services_sink_name" {
   description = "Name of the shared services sink."
   type        = string
-  default     = "SharedServicesSink"
+  default     = "shared_services_sink"
 }
 
 variable "applications_sink_name" {
   description = "Name of the applications sink."
   type        = string
-  default     = "ApplicationsSink"
+  default     = "applications_sink"
 }
 
 variable "lifecycle_rule" {
   description = "Time bound rules for moving and deleting the bucket."
-  type        = list(map(string))
 
   default = [
     {
