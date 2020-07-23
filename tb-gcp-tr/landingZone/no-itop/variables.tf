@@ -365,15 +365,15 @@ variable "sharedservice_jenkinsmaster_yaml_path" {
   type        = string
 }
 
-#GCS log bucket
-variable "gcs_log_bucket_name" {
-  description = "Name of the log bucket to create"
+#GCS bucket logging
+variable "gcs_logs_bucket_prefix" {
+  description = "Prefix of the access logs & storage logs storage bucket"
   type        = string
   default     = "tb-bucket-access-storage-logs"
 }
 
 variable "iam_members_bindings" {
-  description = "The list of IAM members to grant permissions on the log bucket"
+  description = "The list of IAM members to grant permissions for the logs bucket"
   type = list(object({
     role   = string,
     member = string

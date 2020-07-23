@@ -74,9 +74,9 @@ module "shared_projects" {
 }
 
 module "gcs_bucket_logging" {
-  source = "github.com/tranquilitybase-io/terraform-google-cloud-storage.git//modules/simple_bucket?ref=v1.7.0"
+  source = "github.com/tranquilitybase-io/terraform-google-cloud-storage.git//modules/simple_bucket?ref=v1.6.0-logging"
 
-  name        = "${var.gcs_log_bucket_name}-${var.tb_discriminator}"
+  name        = "${var.gcs_logs_bucket_prefix}-${var.tb_discriminator}"
   project_id  = module.shared_projects.shared_telemetry_id
   iam_members = var.iam_members_bindings
   location    = var.region
