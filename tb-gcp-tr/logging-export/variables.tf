@@ -16,7 +16,6 @@ variable "lifecycle_rule" {
 
   type = set(object({
     action    = map(string)
-    condition = map(string)
   }))
 
   default = [{
@@ -27,7 +26,7 @@ variable "lifecycle_rule" {
     }
     condition = {
       age                   = 30
-      matches_storage_class = list("MULTI_REGIONAL,STANDARD,DURABLE_REDUCED_AVAILABILITY")
+      matches_storage_class = ["MULTI_REGIONAL,STANDARD,DURABLE_REDUCED_AVAILABILITY"]
     }
     },
     {
