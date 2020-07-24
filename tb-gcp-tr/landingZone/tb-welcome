@@ -25,9 +25,8 @@ PROJECT_ID=$(curl -s "http://metadata.google.internal/computeMetadata/v1/project
 #Need to parse gcloud json to get deploy owner account and organization labels.
 deployed_by=$(gcloud projects list --filter PROJECT_ID=${PROJECT_ID} --format="json(labels.created_by)" | sed -E 's/\},\s*\{/\},\n\{/g' ${deployed_by} | grep  '"created_by"' | cut -d ":" -f2)
 client=$(gcloud projects list --filter PROJECT_ID=${PROJECT_ID} --format="json(labels.client)" | sed -E 's/\},\s*\{/\},\n\{/g' ${client} | grep  '"client"' | cut -d ":" -f2)
-sed -i "s/dbv/${client}/g" input.tfvars
-sed -i "s/clv/${client}/g" input.tfvars
-
+sed -i "s/\"dbv\"/${created_by}/g" input.tfvars
+sed -i "s/\"clv\"/${client}/g" input.tfvars
 
 #Retrieve terraform vars
 source input.auto.tfvars
