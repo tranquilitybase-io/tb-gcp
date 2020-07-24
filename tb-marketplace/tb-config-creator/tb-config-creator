@@ -177,7 +177,7 @@ TBASE_FOLDER_PREFIX="Tranquility Base - "
 TBASE_FOLDER_NAME="${TBASE_FOLDER_PREFIX}${RND}"
 
 #Explicit labelling is required here because Terraform has not been appllied.
-ACTIVE_ACCOUNT="$(gcloud config list account --format "value(core.account)" | cut -a@ -f1)"
+ACTIVE_ACCOUNT="$(gcloud config list account --format "value(core.account)" | cut -d@ -f1)"
 CLIENT="$(gcloud organizations list --format "value(displayName)")"
 echo "Resources will be labelled with the owner: ${ACTIVE_ACCOUNT}"
 
