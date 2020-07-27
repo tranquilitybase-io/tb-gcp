@@ -19,7 +19,7 @@ locals {
   log_filter = "NOT (logName=folders/${var.shared_services_id}/logs/cloudaudit.googleapis.com%2Factivity)  AND (logName=folders/${var.shared_services_id}logs/cloudaudit.googleapis.com%2Fsystem_event) AND (logName=folders/${var.applications_id}/logs/cloudaudit.googleapis.com%2Factivity)  AND (logName=folders/${var.applications_id}logs/cloudaudit.googleapis.com%2Fsystem_event)"
 }
 
-module "gcs_buckets" {
+module "logging_buckets" {
   source     = "terraform-google-modules/cloud-storage/google"
   version    = "~> 1.6"
   project_id = var.shared_telemetry_project_name
@@ -34,7 +34,7 @@ module "applications_sink" {
   folder_id        = var.applications_id
   filter           = var.log_filter != "" ? var.log_filter : local.log_filter
   include_children = var.include_children
-  destination      = "storage.googleapis.com/${module.applications_log_bucket.name}"
+  destination      = module.logging_buckets.urls_list[0].name
 }
 
 module "shared_services_sink" {
@@ -44,5 +44,5 @@ module "shared_services_sink" {
   folder_id        = var.shared_services_id
   filter           = var.log_filter != "" ? var.log_filter : local.log_filter
   include_children = var.include_children
-  destination      = "storage.googleapis.com/${module.shared_services_log_bucket.name}"
+  destination      = module.logging_buckets.urls_list[0].name
 }
