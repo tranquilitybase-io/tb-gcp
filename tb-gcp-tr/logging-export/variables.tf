@@ -24,10 +24,10 @@ variable "lifecycle_rule" {
       storage_class = null
     }
     condition = {
-      age = "365"
+      age                   = "365"
       matches_storage_class = null
     }
-}]
+  }]
 }
 
 variable "log_filter" {
