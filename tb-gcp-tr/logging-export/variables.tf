@@ -16,6 +16,7 @@ variable "lifecycle_rule" {
 
   type = set(object({
     action = map(string)
+    condition  = map(string)
   }))
 
   default = [{
