@@ -15,30 +15,31 @@ variable "lifecycle_rule" {
   description = "Time bound rules for moving and deleting the bucket."
 
   type = set(object({
-    action    = map(string)
+    action = map(string)
   }))
 
   default = [{
     action = {
-      type          = "SetStorageClass"
-      storage_class = "NEARLINE"
-      age           = "30"
+      type          = "Delete"
+      storage_class = null
     }
     condition = {
-      age                   = 30
-      matches_storage_class = "STANDARD"
+      age = 365
     }
     },
     {
       action = {
-        type = "Delete"
+        type          = "SetStorageClass"
+        storage_class = "NEARLINE"
       }
       condition = {
-        age        = 365
-        with_state = "ANY"
+        age = 30
       }
   }]
 }
+
+
+
 
 variable "log_filter" {
   type        = string
