@@ -4,7 +4,7 @@ locals {
 }
 
 module "shared_services_log_bucket" {
-  source = "github.com/tranquilitybase-io/terraform-google-cloud-storage.git//modules/simple_bucket?ref=v1.7.0"
+  source = "github.com/tranquilitybase-io/terraform-google-cloud-storage.git//modules/simple_bucket?ref=v1.6.0-logging"
 
   name            = "${var.shared_services_bucket_name}-${var.tb_discriminator}"
   project_id      = var.shared_telemetry_project_name
@@ -13,7 +13,7 @@ module "shared_services_log_bucket" {
 }
 
 module "applications_log_bucket" {
-  source = "github.com/tranquilitybase-io/terraform-google-cloud-storage.git//modules/simple_bucket?ref=v1.7.0"
+  source = "github.com/tranquilitybase-io/terraform-google-cloud-storage.git//modules/simple_bucket?ref=v1.6.0-logging"
 
   name            = "${var.applications_bucket_name}-${var.tb_discriminator}"
   project_id      = var.shared_telemetry_project_name
