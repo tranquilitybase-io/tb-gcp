@@ -26,8 +26,8 @@ variable "lifecycle_rule" {
     condition = {
       age = "365"
       matches_storage_class = null
-    }]
-}
+    }
+}]
 }
 
 variable "log_filter" {
