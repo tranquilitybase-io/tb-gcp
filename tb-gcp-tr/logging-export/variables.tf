@@ -1,4 +1,3 @@
-
 variable "shared_services_sink_name" {
   description = "Name of the shared services sink."
   type        = string
@@ -15,14 +14,15 @@ variable "lifecycle_rule" {
   description = "Time bound rules for moving and deleting the bucket."
 
   type = set(object({
-    action = map(string)
-    condition  = map(string)
+    action    = map(string)
+    condition = map(string)
   }))
 
   default = [{
     action = {
-      type          = "Delete"
-      storage_class = null
+      type                  = "Delete"
+      storage_class         = null
+      matches_storage_class = null
     }
     condition = {
       age = "365"
@@ -30,17 +30,15 @@ variable "lifecycle_rule" {
     },
     {
       action = {
-        type          = "SetStorageClass"
-        storage_class = "NEARLINE"  
+        type                  = "SetStorageClass"
+        storage_class         = "NEARLINE"
+        matches_storage_class = "MULTI_REGIONAL,STANDARD,DURABLE_REDUCED_AVAILABILITY"
       }
       condition = {
         age = "30"
       }
   }]
 }
-
-
-
 
 variable "log_filter" {
   type        = string
