@@ -34,7 +34,7 @@ module "applications_sink" {
   folder_id        = var.applications_id
   filter           = var.log_filter != "" ? var.log_filter : local.log_filter
   include_children = var.include_children
-  destination      = module.logging_buckets.urls_list[0]
+  destination      = "storage.googleapis.com/${module.logging_buckets.urls_list[0]}"
 }
 
 module "shared_services_sink" {
@@ -44,5 +44,5 @@ module "shared_services_sink" {
   folder_id        = var.shared_services_id
   filter           = var.log_filter != "" ? var.log_filter : local.log_filter
   include_children = var.include_children
-  destination      = module.logging_buckets.urls_list[1]
+  destination      = "storage.googleapis.com/${module.logging_buckets.urls_list[1]}"
 }
