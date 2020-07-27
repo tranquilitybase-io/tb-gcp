@@ -33,7 +33,7 @@ variable "lifecycle_rule" {
       action = {
         type          = "SetStorageClass"
         storage_class = "NEARLINE"
-        matches_storage_class = "MULTI_REGIONAL,STANDARD,DURABLE_REDUCED_AVAILABILITY"
+        matches_storage_class = null 
       }
       condition = {
         age = "30"
