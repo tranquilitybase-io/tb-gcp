@@ -20,9 +20,8 @@ variable "lifecycle_rule" {
 
   default = [{
     action = {
-      type                  = "Delete"
-      storage_class         = null
-      matches_storage_class = null
+      type          = "Delete"
+      storage_class = null
     }
     condition = {
       age = "365"
@@ -30,9 +29,8 @@ variable "lifecycle_rule" {
     },
     {
       action = {
-        type                  = "SetStorageClass"
-        storage_class         = "NEARLINE"
-        matches_storage_class = "MULTI_REGIONAL,STANDARD,DURABLE_REDUCED_AVAILABILITY"
+        type          = "SetStorageClass"
+        storage_class = "NEARLINE"
       }
       condition = {
         age = "30"
