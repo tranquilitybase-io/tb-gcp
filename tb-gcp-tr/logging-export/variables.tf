@@ -26,7 +26,7 @@ variable "lifecycle_rule" {
       matches_storage_class = null
     }
     condition = {
-      age = 365
+      age = "365"
     }
     },
     {
@@ -36,7 +36,7 @@ variable "lifecycle_rule" {
         matches_storage_class = "MULTI_REGIONAL,STANDARD,DURABLE_REDUCED_AVAILABILITY"
       }
       condition = {
-        age = 30
+        age = "30"
       }
   }]
 }
