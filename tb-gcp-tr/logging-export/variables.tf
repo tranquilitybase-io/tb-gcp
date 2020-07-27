@@ -26,18 +26,8 @@ variable "lifecycle_rule" {
     condition = {
       age = "365"
       matches_storage_class = null
-    }
-    },
-    {
-      action = {
-        type          = "SetStorageClass"
-        storage_class = "NEARLINE"
-      }
-      condition = {
-        age = "30"
-        matches_storage_class = ["STANDARD"]
-      }
-  }]
+    }]
+}
 }
 
 variable "log_filter" {
