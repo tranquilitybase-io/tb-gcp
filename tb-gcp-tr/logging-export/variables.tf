@@ -23,7 +23,6 @@ variable "lifecycle_rule" {
     action = {
       type          = "Delete"
       storage_class = null
-      matches_storage_class = null
     }
     condition = {
       age = "365"
@@ -32,8 +31,7 @@ variable "lifecycle_rule" {
     {
       action = {
         type          = "SetStorageClass"
-        storage_class = "NEARLINE"
-        matches_storage_class = null 
+        storage_class = "NEARLINE"  
       }
       condition = {
         age = "30"
