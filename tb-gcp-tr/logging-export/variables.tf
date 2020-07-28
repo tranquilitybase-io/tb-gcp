@@ -93,3 +93,14 @@ variable "storage_class" {
   description = "Storage class for the bucket."
   default     = "REGIONAL"
 }
+
+variable "prefix" {
+  type        = string
+  description = "Prefix of the buckets to be created."
+  default     = "logging"
+}
+
+variable "location" {
+  type        = string
+  description = "Zone or region that the bucket will be created in."
+}

@@ -9,9 +9,10 @@ module "logging_buckets" {
   version         = "~> 1.6"
   project_id      = var.shared_telemetry_project_name
   names           = [local.applications_bucket_id, local.shared_services_bucket_id]
-  prefix          = "logging"
+  prefix          = var.prefix
   storage_class   = var.storage_class
   lifecycle_rules = var.lifecycle_rule
+  location        = var.region
 }
 
 module "applications_sink" {
