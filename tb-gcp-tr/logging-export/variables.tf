@@ -89,3 +89,9 @@ variable "applications_bucket_name" {
   description = "Name of the applications bucket."
   default     = "applications_folder_logs"
 }
+
+variable "storage_class" {
+  type        = string
+  description = "Storage class for the bucket."
+  default     = "REGIONAL"
+}
