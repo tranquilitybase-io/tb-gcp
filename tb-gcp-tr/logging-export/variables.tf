@@ -27,16 +27,16 @@ variable "lifecycle_rule" {
       age                   = "365"
       matches_storage_class = null
     }
-  },
-  {
-    action = {
-      type          = "SetStorageClass"
-      storage_class = "NEARLINE"
-    }
-    condition = {
-      age                   = "30"
-      matches_storage_class = null
-    }
+    },
+    {
+      action = {
+        type          = "SetStorageClass"
+        storage_class = "NEARLINE"
+      }
+      condition = {
+        age                   = "30"
+        matches_storage_class = null
+      }
   }]
 }
 
