@@ -78,11 +78,6 @@ variable "bucket_function" {
   description = "Purpose of the bucket for label."
 }
 
-variable "region" {
-  type        = string
-  description = "Region for GCS Bucket"
-}
-
 variable "shared_services_bucket_name" {
   type        = string
   description = "Name of the shared services bucket."

@@ -10,7 +10,6 @@ module "logging_buckets" {
   project_id = var.shared_telemetry_project_name
   names      = [local.applications_bucket_id, local.shared_services_bucket_id]
   prefix     = "logging"
-  location   = var.region
 }
 
 module "applications_sink" {
