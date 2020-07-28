@@ -24,8 +24,7 @@ variable "lifecycle_rule" {
       storage_class = null
     }
     condition = {
-      age                   = "365"
-      matches_storage_class = null
+      age = "365"
     }
     },
     {
@@ -34,8 +33,7 @@ variable "lifecycle_rule" {
         storage_class = "NEARLINE"
       }
       condition = {
-        age                   = "30"
-        matches_storage_class = null
+        age = "30"
       }
   }]
 }
