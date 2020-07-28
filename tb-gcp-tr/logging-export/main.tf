@@ -12,7 +12,7 @@ module "logging_buckets" {
   prefix          = var.prefix
   storage_class   = var.storage_class
   lifecycle_rules = var.lifecycle_rule
-  location        = var.location
+  location        = "europe-west2-b"
 }
 
 module "applications_sink" {
