@@ -16,7 +16,7 @@ provider "google" {
   project = var.host_project_id
   region  = var.region
   zone    = var.region_zone
-  version = "~> 2.5"
+  version = "~> 3.3"
 }
 
 provider "kubernetes" {

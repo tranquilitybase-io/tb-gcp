@@ -96,7 +96,7 @@ data "google_compute_image" "debian_image" {
 }
 
 data "google_compute_image" "centos_image" {
-  family  = "centos-7"
+  family = "centos-7"
   project = "centos-cloud"
 }
 
@@ -204,8 +204,8 @@ resource "google_compute_instance_group_manager" "windows_bastion_group" {
 
 //Create instance template for the Squid Proxy instance
 resource "google_compute_instance_template" "squid_proxy_template" {
-  project = var.shared_bastion_id
-  name    = "tb-kube-proxy-template"
+  project      = var.shared_bastion_id
+  name         = "tb-kube-proxy-template"
 
   machine_type = "n1-standard-2"
 
@@ -228,7 +228,7 @@ resource "google_compute_instance_template" "squid_proxy_template" {
     scopes = var.scopes
   }
 
-  metadata_startup_script = file("${path.module}/squid_startup.sh")
+    metadata_startup_script = file("${path.module}/squid_startup.sh")
 
 }
 
