@@ -24,8 +24,8 @@ shared_bastion_project_name    = "shared-bastion"
 service_projects_number = "2"
 
 #SHARED VPC
-shared_vpc_name  = "shared-network"
-enable_flow_logs = "false"
+shared_vpc_name          = "shared-network"
+enable_flow_logs         = "false"
 gke_pod_network_name     = "gke-pods-snet"
 gke_service_network_name = "gke-services-snet"
 

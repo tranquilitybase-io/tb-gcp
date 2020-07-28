@@ -372,3 +372,21 @@ variable "label_keys" {
 variable "label_vals" {
   type = list(string)
 }
+#GCS bucket logging
+variable "gcs_logs_bucket_prefix" {
+  description = "Prefix of the access logs & storage logs storage bucket"
+  type        = string
+  default     = "tb-bucket-access-storage-logs"
+}
+
+variable "iam_members_bindings" {
+  description = "The list of IAM members to grant permissions for the logs bucket"
+  type = list(object({
+    role   = string,
+    member = string
+  }))
+  default = [{
+    role   = "roles/storage.legacyBucketWriter",
+    member = "group:cloud-storage-analytics@google.com"
+  }]
+}
