@@ -269,9 +269,3 @@ resource "google_sourcerepo_repository_iam_binding" "terraform-code-store-admin-
   ]
   depends_on = [google_sourcerepo_repository.activator-terraform-code-store]
 }
-
-module "labels" {
-  source     = "../../labelling"
-  label_keys = var.label_keys
-  label_vals = var.label_vals
-}
