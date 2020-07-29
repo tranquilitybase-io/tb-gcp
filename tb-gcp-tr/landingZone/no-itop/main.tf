@@ -71,7 +71,7 @@ module "shared_projects" {
   shared_itsm_project_name       = var.shared_itsm_project_name
   shared_billing_project_name    = var.shared_billing_project_name
   shared_bastion_project_name    = var.shared_bastion_project_name
-  labels                         = module.labels.rendered
+  labels                         = var.labels
 }
 
 module "gcs_bucket_logging" {
