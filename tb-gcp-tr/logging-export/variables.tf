@@ -103,4 +103,5 @@ variable "prefix" {
 variable "location" {
   type        = string
   description = "Zone or region that the bucket will be created in."
+  default     = "EUROPE-WEST2"
 }
