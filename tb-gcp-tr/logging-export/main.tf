@@ -1,5 +1,5 @@
 locals {
-  log_filter                = "NOT (projects/${var.shared_telemetry_project_name}/logs/cloudaudit.googleapis.com%2Fsystem_event)"
+  log_filter                = "logName=(folders/${var.root_id}/logs/cloudaudit.googleapis.com%2Factivity OR folders/${var.root_id}/logs/cloudaudit.googleapis.com%2Fdata_access)"
   applications_bucket_id    = "${var.applications_bucket_name}-${var.tb_discriminator}"
   shared_services_bucket_id = "${var.shared_services_bucket_name}-${var.tb_discriminator}"
 }
