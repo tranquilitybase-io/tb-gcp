@@ -1,5 +1,5 @@
 locals {
-  log_filter                = "logName=(folders/${var.applications_id}/logs/cloudaudit.googleapis.com%2Factivity OR projects/${var.applications_id}/logs/cloudaudit.googleapis.com%2Fsystem_event OR folders/${var.shared_services_id}/logs/cloudaudit.googleapis.com%2Factivity OR projects/${var.shared_services_id}/logs/cloudaudit.googleapis.com%2Fsystem_event))"
+  log_filter                = "logName=(folders/${var.applications_id}/logs/cloudaudit.googleapis.com%2Factivity OR projects/${var.applications_id}/logs/cloudaudit.googleapis.com%2Fsystem_event OR folders/${var.shared_services_id}/logs/cloudaudit.googleapis.com%2Factivity OR projects/${var.shared_services_id}/logs/cloudaudit.googleapis.com%2Fsystem_event)"
   applications_bucket_id    = "${var.applications_bucket_name}-${var.tb_discriminator}"
   shared_services_bucket_id = "${var.shared_services_bucket_name}-${var.tb_discriminator}"
 }
