@@ -20,7 +20,7 @@ module "applications_sink" {
 
   name             = var.applications_sink_name
   folder_id        = var.applications_id
-  filter           = var.log_filter != "" ? var.log_filter : local.log_filter
+  filter           = var.log_filter != "" ? var.log_filter : null
   include_children = var.include_children
   destination      = "storage.googleapis.com/${module.logging_buckets.names_list[0]}"
 }
@@ -30,7 +30,7 @@ module "shared_services_sink" {
 
   name             = var.shared_services_sink_name
   folder_id        = var.shared_services_id
-  filter           = var.log_filter != "" ? var.log_filter : local.log_filter
+  filter           = var.log_filter != "" ? var.log_filter : null
   include_children = var.include_children
   destination      = "storage.googleapis.com/${module.logging_buckets.names_list[1]}"
 }
