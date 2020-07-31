@@ -10,7 +10,7 @@ variable "destination" {
 }
 
 variable "filter" {
-  description = "The filter to apply when exporting logs. Only log entries that match the filter are exported. Default is '' which exports all logs."
+  description = "The filter to apply when exporting logs. Only log entries that match the filter are exported. Default is '' which exports nothing"
   type        = string
 }
 
