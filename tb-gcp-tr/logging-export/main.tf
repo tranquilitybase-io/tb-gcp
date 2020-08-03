@@ -1,5 +1,5 @@
 locals {
-  log_filter                = "logName=(folders/${var.shared_services_id}/logs/cloudaudit.googleapis.com%2data_access OR folders/${var.applications_id}/logs/cloudaudit.googleapis.com%2data_access)"
+  log_filter                = "logName=(NOT folders/${var.applications_id}/logs/cloudaudit.googleapis.com%2Fdata_access OR folders/${var.applications_id}/logs/cloudaudit.googleapis.com%2Factivity)"
   applications_bucket_id    = "${var.applications_bucket_name}-${var.tb_discriminator}"
   shared_services_bucket_id = "${var.shared_services_bucket_name}-${var.tb_discriminator}"
 }
