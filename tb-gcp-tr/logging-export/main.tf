@@ -18,8 +18,8 @@ module "logging_buckets" {
 module "audit-log-writer-binding" {
   source = "../project-iam-binding-creator"
 
-  project = module.shared_projects.shared_telemetry_id
-  members = module.logging-folder-sink.unique-writer-identity
+  project = var.shared_telemetry_project_name
+  members = [module.applications_sink.unique-writer-identity,module.shared_services_sink.unique-writer-identity]
   role    = var.audit_iam_role
 }
 
