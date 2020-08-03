@@ -23,10 +23,20 @@ cd /opt/tb/repo/tb-gcp-tr/landingZone/no-itop
 PROJECT_ID=$(curl -s "http://metadata.google.internal/computeMetadata/v1/project/project-id" -H "Metadata-Flavor: Google")
 
 #Need to parse gcloud json to get deploy owner account and organization labels.
-deployed_by=$(gcloud projects list --filter PROJECT_ID=${PROJECT_ID} --format="json(labels.deployed_by)" | sed -E 's/\},\s*\{/\},\n\{/g' ${deployed_by} | grep  '"deployed_by"' | cut -d ":" -f2)
-client=$(gcloud projects list --filter PROJECT_ID=${PROJECT_ID} --format="json(labels.client)" | sed -E 's/\},\s*\{/\},\n\{/g' ${client} | grep  '"client"' | cut -d ":" -f2)
-sed -i "s/\"dbv\"/${deployed_by}/g" input.tfvars
-sed -i "s/\"clv\"/${client}/g" input.tfvars
+deployed_by=$(gcloud projects describe ${PROJECT_ID} --format='value(labels.deployed_by)')
+client=$(gcloud projects describe ${PROJECT_ID} --format='value(labels.client)')
+
+cat > labels.auto.tfvars <<EOF
+deployed_by = ${deployed_by}
+client = ${client}
+created_by = ""
+cost_centre = ""
+business_unit = ""
+solution_id = ""
+team = "" 
+tranquilitybase = "" 
+environment = ""
+EOF
 
 #Retrieve terraform vars
 source input.auto.tfvars
