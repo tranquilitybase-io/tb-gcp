@@ -8,3 +8,5 @@ resources:
     zone: 'europe-west2-a'
     rootId: '1234567890'
     billingAccountId: 'F9C122-73127B-50AE5B'
+    deployed_by: 'deployed_by'
+    client: 'client'

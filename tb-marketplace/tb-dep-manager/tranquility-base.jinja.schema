@@ -24,6 +24,8 @@ required:
   - zone
   - billingAccountId
   - rootId
+  - deployed_by
+  - client
 
 properties:
   zone:
@@ -36,6 +38,13 @@ properties:
   billingAccountId:
     type: string
     pattern: ^[A-F0-9]{6}\-[A-F0-9]{6}\-[A-F0-9]{6}$
+  deployed_by:
+    type = string
+    pattern: ^[a-z,0-9]{1,63}$
+  client:
+    type = string
+    pattern: ^[a-z,0-9]{1,63}$
+
 
 outputs:
   deployment:
