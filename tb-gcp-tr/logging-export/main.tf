@@ -1,5 +1,5 @@
 locals {
-  log_filter                = "logName=(folders/${var.shared_services_id}/logs/cloudaudit.googleapis.com%2data_access)"
+  log_filter                = "logName=(folders/${var.shared_services_id}/logs/cloudaudit.googleapis.com%2data_access) OR logName=(folders/${var.applications_id}/logs/cloudaudit.googleapis.com%2data_access)"
   applications_bucket_id    = "${var.applications_bucket_name}-${var.tb_discriminator}"
   shared_services_bucket_id = "${var.shared_services_bucket_name}-${var.tb_discriminator}"
 }
@@ -20,7 +20,7 @@ module "applications_sink" {
 
   name             = var.applications_sink_name
   folder_id        = var.applications_id
-  filter           = var.log_filter != "" ? var.log_filter : null
+  filter           = var.log_filter != "" ? var.log_filter : local.log_filter
   include_children = var.include_children
   destination      = "storage.googleapis.com/${module.logging_buckets.names_list[0]}"
 }
@@ -30,7 +30,7 @@ module "shared_services_sink" {
 
   name             = var.shared_services_sink_name
   folder_id        = var.shared_services_id
-  filter           = var.log_filter != "" ? var.log_filter : null
+  filter           = var.log_filter != "" ? var.log_filter : local.log_filter
   include_children = var.include_children
   destination      = "storage.googleapis.com/${module.logging_buckets.names_list[1]}"
 }

@@ -20,3 +20,5 @@ override.tf.json
 # Backup files
 *.bak
 *.old
+# Local .terraform directories
+**/.terratest/*
