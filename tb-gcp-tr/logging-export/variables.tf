@@ -105,3 +105,8 @@ variable "location" {
   description = "Zone or region that the bucket will be created in."
   default     = "EUROPE-WEST2"
 }
+
+variable "audit_iam_role" {
+  description = "Give log writer permissions to create logs in project"
+  default     = "roles/storage.objectCreator"
+}

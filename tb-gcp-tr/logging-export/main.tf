@@ -15,6 +15,14 @@ module "logging_buckets" {
   location        = var.location
 }
 
+module "audit-log-writer-binding" {
+  source = "../project-iam-binding-creator"
+
+  project = module.shared_projects.shared_telemetry_id
+  members = module.logging-folder-sink.unique-writer-identity
+  role    = var.audit_iam_role
+}
+
 module "applications_sink" {
   source = "../logging-folder-sink"
 
