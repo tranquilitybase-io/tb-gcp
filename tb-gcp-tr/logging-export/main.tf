@@ -19,7 +19,15 @@ module "audit-log-writer-binding" {
   source = "../project-iam-binding-creator"
 
   project = var.shared_telemetry_project_name
-  members = [module.applications_sink.unique-writer-identity,module.shared_services_sink.unique-writer-identity]
+  members = module.applications_sink.unique-writer-identity
+  role    = var.audit_iam_role
+}
+
+module "audit-log-writer-binding" {
+  source = "../project-iam-binding-creator"
+
+  project = var.shared_telemetry_project_name
+  members = module.shared_services_sink.unique-writer-identity
   role    = var.audit_iam_role
 }
 
