@@ -39,7 +39,7 @@ provider "google-beta" {
 
 provider "kubernetes" {
   alias   = "k8s"
-  version = "~> 1.11"
+  version = "~> 1.12"
 }
 
 terraform {
