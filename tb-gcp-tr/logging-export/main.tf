@@ -15,7 +15,7 @@ module "logging_buckets" {
   location        = var.location
 }
 
-module "audit-log-writer-binding" {
+module "audit-log-writer-binding_apps" {
   source = "../project-iam-binding-creator"
 
   project = var.shared_telemetry_project_name
@@ -23,7 +23,7 @@ module "audit-log-writer-binding" {
   role    = var.audit_iam_role
 }
 
-module "audit-log-writer-binding" {
+module "audit-log-writer-binding_shared" {
   source = "../project-iam-binding-creator"
 
   project = var.shared_telemetry_project_name
