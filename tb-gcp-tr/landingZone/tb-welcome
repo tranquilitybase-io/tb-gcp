@@ -26,16 +26,12 @@ PROJECT_ID=$(curl -s "http://metadata.google.internal/computeMetadata/v1/project
 deployed_by=$(gcloud projects describe ${PROJECT_ID} --format='value(labels.deployed_by)')
 client=$(gcloud projects describe ${PROJECT_ID} --format='value(labels.client)')
 
-cat > labels.auto.tfvars <<EOF
-deployed_by = ${deployed_by}
-client = ${client}
-created_by = ""
-cost_centre = ""
-business_unit = ""
-solution_id = ""
-team = "" 
-tranquilitybase = "" 
-environment = ""
+echo “labels = {“ > labels.auto.tfvars 
+cat custom_labels.txt >> labels.auto.tfvars 
+cat >> labels.auto.tfvars <<EOF
+created_by = “${deployed_by}”
+client     = "${client}"
+}
 EOF
 
 #Retrieve terraform vars
@@ -43,7 +39,7 @@ source input.auto.tfvars
 
 # Create TF state bucket
 buckets=$(sudo gsutil list | grep ${terraform_state_bucket_name})
-if [ -z "$buckets"]; then 
+if [ -z "$buckets" ]; then 
 sudo gsutil mb -b on "gs://${terraform_state_bucket_name}/"
 fi
 
@@ -125,7 +121,7 @@ sudo gsutil versioning set on "gs://${terraform_state_bucket_name}/"
 cd /tmp
 # Check for repo existence
 RepoList=$(sudo gcloud source repos list | grep tb-terraform-code)
-if [ -z "$RepoList"]; then
+if [ -z "$RepoList" ]; then
 sudo gcloud source repos create tb-terraform-code
 fi
 
