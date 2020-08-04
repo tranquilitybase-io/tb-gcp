@@ -71,5 +71,3 @@ ec_iam_service_account_roles = [
 #DAC Services
 sharedservice_namespace_yaml_path     = "/opt/tb/repo/tb-gcp-tr/shared-dac/namespaces.yaml"
 sharedservice_jenkinsmaster_yaml_path = "/opt/tb/repo/tb-gcp-tr/shared-dac/jenkins-master.yaml"
-
-labels={"deployed_by":"dbv","client":"clv","created_by":"","cost_centre":"","business_unit":"","solution_id":"","team":"tranquilitybase","environment":""}
