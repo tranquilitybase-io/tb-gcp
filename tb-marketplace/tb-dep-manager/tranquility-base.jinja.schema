@@ -40,8 +40,6 @@ properties:
     pattern: ^[A-F0-9]{6}\-[A-F0-9]{6}\-[A-F0-9]{6}$
   deployed_by:
     type: string
-  client:
-    type: string
 
 
 outputs:
