@@ -29,7 +29,7 @@ echo labels = { > labels.auto.tfvars
 cat custom_labels.txt >> labels.auto.tfvars 
 cat "\n" >> labels.auto.tfvars
 cat >> labels.auto.tfvars <<-EOF
-created_by = "${deployed_by}"
+,created_by = "${deployed_by}"
 }
 EOF
 
