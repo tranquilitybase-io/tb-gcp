@@ -25,7 +25,6 @@ required:
   - billingAccountId
   - rootId
   - deployed_by
-  - client
 
 properties:
   zone:
