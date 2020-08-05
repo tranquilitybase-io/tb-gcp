@@ -190,15 +190,6 @@ module "SharedServices_namespace_creation" {
   dependency_var    = module.k8s-ec_context.k8s-context_id
 }
 
-## Creating the Jenkins service ## depends on the shared namespace module
-module "SharedServices_jenkinsmaster_creation" {
-  source = "../../../tb-common-tr/start_service"
-
-  k8s_template_file = var.sharedservice_jenkinsmaster_yaml_path
-  cluster_context   = module.k8s-ec_context.context_name
-  dependency_var    = module.SharedServices_namespace_creation.id
-}
-
 resource "null_resource" "kubernetes_service_account_key_secret" {
   triggers = {
     content = module.SharedServices_namespace_creation.id
