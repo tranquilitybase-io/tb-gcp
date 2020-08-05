@@ -42,11 +42,11 @@ data "google_iam_policy" "object_creator" {
 }
 
 resource "google_storage_bucket_iam_policy" "apps_bucket_object_creator_policy" {
-  bucket      = local.applications_bucket_id
+  bucket      = "storage.googleapis.com/${module.logging_buckets.names_list[0]}"
   policy_data = data.google_iam_policy.object_creator.policy_data
 }
 resource "google_storage_bucket_iam_policy" "ss_bucket_object_creator_policy" {
-  bucket      = local.shared_services_bucket_id
+  bucket      = "storage.googleapis.com/${module.logging_buckets.names_list[1]}"
   policy_data = data.google_iam_policy.object_creator.policy_data
 }
 
