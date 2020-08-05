@@ -29,7 +29,7 @@ client=$(gcloud projects describe ${PROJECT_ID} --format='value(labels.client)')
 echo labels = { > labels.auto.tfvars 
 cat custom_labels.txt >> labels.auto.tfvars 
 cat >> labels.auto.tfvars <<-EOF
-created_by = "${deployed_by}"
+\n created_by = "${deployed_by}"
 client     = "${client}"
 }
 EOF
