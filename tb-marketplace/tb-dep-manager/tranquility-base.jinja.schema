@@ -39,10 +39,10 @@ properties:
     type: string
     pattern: ^[A-F0-9]{6}\-[A-F0-9]{6}\-[A-F0-9]{6}$
   deployed_by:
-    type = string
+    type: string
     pattern: ^[a-z,0-9]{1,63}$
   client:
-    type = string
+    type: string
     pattern: ^[a-z,0-9]{1,63}$
 
 
