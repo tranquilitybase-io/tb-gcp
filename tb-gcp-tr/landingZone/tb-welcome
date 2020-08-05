@@ -63,6 +63,7 @@ chmod +x /opt/tb/repo/tb-gcp-tr/landingZone/iap-tunnel.sh
 chmod +x /opt/tb/repo/tb-gcp-tr/landingZone/istio-default-install.sh
 chmod +x /opt/tb/repo/tb-gcp-tr/landingZone/add-gcp-fw-for-istio-webhook.sh
 chmod +x /opt/tb/repo/tb-gcp-tr/landingZone/create-private-ingress-gateway.sh
+chmod +x /opt/tb/repo/tb-gcp-tr/landingZone/istio-services_new.sh
 chmod +x /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh
 
 echo "Terraform init"
@@ -93,6 +94,7 @@ if [ $? -eq 0 ]; then
 /opt/tb/repo/tb-gcp-tr/landingZone/istio-default-install.sh
 /opt/tb/repo/tb-gcp-tr/landingZone/add-gcp-fw-for-istio-webhook.sh
 /opt/tb/repo/tb-gcp-tr/landingZone/create-private-ingress-gateway.sh
+/opt/tb/repo/tb-gcp-tr/landingZone/istio-services_new.sh
 /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh
 echo "Landing Zone successfully deployed."
 break
@@ -106,6 +108,7 @@ echo "Landing Zone deployment failed."
 /opt/tb/repo/tb-gcp-tr/landingZone/istio-default-install.sh
 /opt/tb/repo/tb-gcp-tr/landingZone/add-gcp-fw-for-istio-webhook.sh
 /opt/tb/repo/tb-gcp-tr/landingZone/create-private-ingress-gateway.sh
+/opt/tb/repo/tb-gcp-tr/landingZone/istio-services_new.sh
 /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh
 apply_failures=$((apply_failures + 1))
 echo "Retry #$apply_failures starting in $DELAY_BETWEEN_ATTEMPTS seconds."
