@@ -40,10 +40,10 @@ properties:
     pattern: ^[A-F0-9]{6}\-[A-F0-9]{6}\-[A-F0-9]{6}$
   deployed_by:
     type: string
-    pattern: ^[a-z,0-9,-,_]{1,63}$
+    pattern: ^[a-z,0-9][-,_]{1,63}$
   client:
     type: string
-    pattern: ^[a-z,0-9,-,_]{1,63}$
+    pattern: ^[a-z,0-9][-,_]{1,63}$
 
 
 outputs:
