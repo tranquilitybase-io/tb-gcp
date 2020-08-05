@@ -161,4 +161,3 @@ spec:
           - DELETE
         allowHeaders:
           - "*"
----
