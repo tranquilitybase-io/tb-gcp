@@ -107,6 +107,6 @@ variable "location" {
 }
 
 variable "audit_iam_role" {
-  description = "Give log writer permissions to create logs in bucket"
-  default     = "roles/storage.legacyBucketOwner"
+  description = "Give log writer permissions to create logs in bucket."
+  default     = "roles/storage.objectCreator"
 }
