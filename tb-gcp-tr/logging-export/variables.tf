@@ -108,5 +108,5 @@ variable "location" {
 
 variable "audit_iam_role" {
   description = "Give log writer permissions to create logs in project"
-  default     = "roles/storage.objectCreator"
+  default     = "roles/storage.admin"
 }
