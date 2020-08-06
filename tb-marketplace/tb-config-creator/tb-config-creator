@@ -186,7 +186,6 @@ folder_id_entry=$(gcloud resource-manager folders create --display-name="${TBASE
 IFS='/' read -ra split_array <<< "$folder_id_entry"
 tb_folder_id="$(echo ${split_array[1]} | sed 's/[^0-9]*//g')"
 
-
 echo "Creating project..."
 if [[ -n ${ADMIN}  ]]; then
   gcloud projects create "${PROJECT_ID}" --folder "${tb_folder_id}" --format=none --labels admin=${ADMIN},deployed_by="${ACTIVE_ACCOUNT}"
