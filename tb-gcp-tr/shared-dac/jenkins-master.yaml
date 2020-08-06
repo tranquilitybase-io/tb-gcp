@@ -82,6 +82,11 @@ spec:
             subPath: jenkins_home
           - name: docker-sock-volume
             mountPath: /var/run/docker.sock
+          - name: google-cloud-key
+            mountPath: /var/secrets/google
+         env:
+          - name: GOOGLE_APPLICATION_CREDENTIALS
+            value: /var/secrets/google/ec-service-account-config.json
          resources:
            requests:
              memory: "1024Mi"
@@ -95,6 +100,12 @@ spec:
            - name: jnlp-port
              containerPort: 50000
       volumes:
+       - name: config-volume
+         configMap:
+           name: ec-config
+       - name: google-cloud-key
+         secret:
+           secretName: ec-service-account
        - name: jenkins-home
          persistentVolumeClaim:
           claimName: jenkins-master-pv-claim
@@ -150,5 +161,3 @@ spec:
           - DELETE
         allowHeaders:
           - "*"
----
-

@@ -105,7 +105,7 @@ spec:
           resources:
             requests:
               cpu: "100m"
-          imagePullPolicy: IfNotPresent #Always
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
 ---
@@ -131,7 +131,7 @@ spec:
           resources:
             requests:
               cpu: "100m"
-          imagePullPolicy: IfNotPresent #Always
+          imagePullPolicy: Always
           ports:
             - containerPort: 3000
           env:
@@ -143,6 +143,8 @@ spec:
               value: "True"
             - name: GCP_DAC_URL
               value: 'gcpdac:80'
+            - name: CLIENT_ID
+              value: '576108226578-m876jb0mjk5gjsenvifthut89gna3j8o.apps.googleusercontent.com'
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -202,13 +204,15 @@ spec:
               value: redis://redis:6379
             - name: HOUSTON_SERVICE_URL
               value: 'houstonservice:80'
+            - name: JENKINS_BASE_URL
+              value: 'jenkins-master-svc.cicd'
 
         - name: gcpdacworker
           image: gcr.io/tranquility-base-images/tb-gcp-dac:landingzone
           resources:
             requests:
               cpu: "100m"
-          imagePullPolicy: IfNotPresent #Always
+          imagePullPolicy: Always
           command: ['celery', '-E', '-A', 'celery_worker', 'worker', '--loglevel=info']
           ports:
             - containerPort: 80
@@ -227,6 +231,8 @@ spec:
               value: redis://redis:6379
             - name: HOUSTON_SERVICE_URL
               value: 'houstonservice:80'
+            - name: JENKINS_BASE_URL
+              value: 'jenkins-master-svc.cicd'
 
       volumes:
         - name: config-volume
@@ -258,7 +264,7 @@ spec:
           resources:
             requests:
               cpu: "100m"
-          imagePullPolicy: IfNotPresent #Always
+          imagePullPolicy: Always
           ports:
             - name: mysql57
               containerPort: 3306
