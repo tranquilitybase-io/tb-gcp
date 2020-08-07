@@ -28,7 +28,7 @@ deployed_by=$(gcloud projects describe ${PROJECT_ID} --format='value(labels.depl
 echo labels = { > labels.auto.tfvars 
 cat custom_labels.txt >> labels.auto.tfvars 
 cat >> labels.auto.tfvars <<-EOF
-,created_by = "${deployed_by}"
+,deployed_by = "${deployed_by}"
 }
 EOF
 
