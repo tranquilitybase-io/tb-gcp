@@ -180,9 +180,13 @@ find ${path}/tb-marketplace/tb-dep-manager -name test_config.yaml -exec sed -i "
 folder_id_entry=$(gcloud resource-manager folders create --display-name="${TBASE_FOLDER_NAME}" --"${parent_type}"="${parent_id}" --format="value(name)")
 IFS='/' read -ra split_array <<< "$folder_id_entry"
 tb_folder_id="$(echo ${split_array[1]} | sed 's/[^0-9]*//g')"
-
+custom_labels_path="$(${path}/tb-gcp-tr/landingZone/no-itop/custom_labels.txt)"
+cost_centre="$(head -1 ${custom_labels_path})
+business_unit="$(head -2 ${custom_labels_path})
+team="$(head -3 ${custom_labels_path})
+environment="$(head -4 ${custom_labels_path}) 
 echo "Creating project..."
-gcloud projects create "${PROJECT_ID}" --folder "${tb_folder_id}" --format=none --labels created_by="${ACTIVE_ACCOUNT}"
+gcloud projects create "${PROJECT_ID}" --folder "${tb_folder_id}" --format=none --labels created_by="${ACTIVE_ACCOUNT}",cost_centre="${cost_centre}",business_unit="${business_unit}",team="${team}",environment="${environment}"
 
 echo "Linking project to billing account..."
 gcloud alpha billing projects link "${PROJECT_ID}" --billing-account "${BILLING_ID}" --format=none
