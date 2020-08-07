@@ -365,8 +365,8 @@ variable "sharedservice_jenkinsmaster_yaml_path" {
   type        = string
 }
 
-variable "labels"{
-  type = map(string)
+variable "labels" {
+  type        = map(string)
   description = "Labels to assign to resources."
 }
 
