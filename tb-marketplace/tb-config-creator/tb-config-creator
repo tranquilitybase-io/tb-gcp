@@ -185,7 +185,7 @@ custom_labels_path="$(echo tb-gcp-tr/landingZone/no-itop/custom_labels.txt)"
 custom_labels_number= wc -l < ${custom_labels_path}
 custom_labels_list=","
 while read p; do
-  custom_labels_list=$custom_labels_list "$p ,"
+  $custom_labels_list=$custom_labels_list "$p ,"
 done <$custom_labels_path
 
 echo "Creating project..."
