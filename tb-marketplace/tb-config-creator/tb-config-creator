@@ -186,9 +186,9 @@ custom_labels_number="$(wc -l ${custom_labels_path})"
 custom_labels_list=""
 for label in $custom_labels_number
 do
-  custom_labels_list=$custome_labels_list head -$label ${custom_labels_path}{","}
+  custom_labels_list=$custome_labels_list head -$label ${custom_labels_path}
 done
-
+echo $custom_labels_list
 echo "Creating project..."
 gcloud projects create "${PROJECT_ID}" --folder "${tb_folder_id}" --format=none --labels created_by="${ACTIVE_ACCOUNT}"
 
