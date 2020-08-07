@@ -73,7 +73,7 @@ module "shared_projects" {
   shared_bastion_project_name    = var.shared_bastion_project_name
 }
 
-  module "gcs_bucket_logging" {
+module "gcs_bucket_logging" {
   source = "github.com/tranquilitybase-io/terraform-google-cloud-storage.git//modules/simple_bucket?ref=v1.6.0-logging"
 
   name        = "${var.gcs_logs_bucket_prefix}-${var.tb_discriminator}"
@@ -81,9 +81,9 @@ module "shared_projects" {
   iam_members = var.iam_members_bindings
   location    = var.region
 }
-  
-  module "apis_activation" {
-  source = "../../apis-activation"
+
+module "apis_activation" {
+  source                   = "../../apis-activation"
   bastion_project_id       = module.shared_projects.shared_bastion_id
   host_project_id          = module.shared_projects.shared_networking_id
   eagle_console_project_id = module.shared_projects.shared_ec_id
@@ -156,7 +156,7 @@ module "gke-ec" {
       ),
     ],
   )
-  cluster_min_master_version = var.cluster_ec_min_master_version
+  cluster_min_master_version        = var.cluster_ec_min_master_version
   cluster_default_max_pods_per_node = var.cluster_ec_default_max_pods_per_node
 
   apis_dependency          = module.apis_activation.all_apis_enabled
