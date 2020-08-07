@@ -1,5 +1,4 @@
-# Change the label values if needed:
-  cost_centre = ""
-  business_unit = ""
-  team = ""
-  environment = ""
+cost_centre = ""
+business_unit = ""
+team = ""
+environment = ""
