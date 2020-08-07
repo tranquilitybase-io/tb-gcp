@@ -187,7 +187,7 @@ function join_by { local IFS="$1"; shift; echo "$*"; }
 custom_labels_list="$(join_by ',' customLabels)"
 
 echo "Creating project..."
-gcloud projects create "${PROJECT_ID}" --folder "${tb_folder_id}" --format=none --labels created_by="${ACTIVE_ACCOUNT}" ${custom_labels_list}
+gcloud projects create "${PROJECT_ID}" --folder "${tb_folder_id}" --format=none --labels created_by="${ACTIVE_ACCOUNT}", ${custom_labels_list}
 
 echo "Linking project to billing account..."
 gcloud alpha billing projects link "${PROJECT_ID}" --billing-account "${BILLING_ID}" --format=none
