@@ -33,7 +33,6 @@ function print_help {
 PARENT_FOLDER_ID=""
 BILLING_ID=""
 ORG_ID=""
-ADMIN=""
 
 while (( "$#" )); do
   case "$1" in
@@ -47,10 +46,6 @@ while (( "$#" )); do
       ;;
     -b|--billing-account-id)
       BILLING_ID=$2
-      shift 2
-      ;;
-    -a|--admin-name)
-      ADMIN=$2
       shift 2
       ;;
     -h|--help)
@@ -187,11 +182,7 @@ IFS='/' read -ra split_array <<< "$folder_id_entry"
 tb_folder_id="$(echo ${split_array[1]} | sed 's/[^0-9]*//g')"
 
 echo "Creating project..."
-if [[ -n ${ADMIN}  ]]; then
-  gcloud projects create "${PROJECT_ID}" --folder "${tb_folder_id}" --format=none --labels admin=${ADMIN},deployed_by="${ACTIVE_ACCOUNT}"
-else
-  gcloud projects create "${PROJECT_ID}" --folder "${tb_folder_id}" --format=none --labels deployed_by="${ACTIVE_ACCOUNT}"
-fi
+gcloud projects create "${PROJECT_ID}" --folder "${tb_folder_id}" --format=none --labels deployed_by="${ACTIVE_ACCOUNT}"
 
 echo "Linking project to billing account..."
 gcloud alpha billing projects link "${PROJECT_ID}" --billing-account "${BILLING_ID}" --format=none
