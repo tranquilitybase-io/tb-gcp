@@ -175,14 +175,14 @@ TBASE_FOLDER_NAME="${TBASE_FOLDER_PREFIX}${RND}"
 ACTIVE_ACCOUNT="$(gcloud config list account --format "value(core.account)" | cut -d@ -f1)"
 echo "Resources will be labelled with the owner: ${ACTIVE_ACCOUNT}"
 path="$(pwd)"
-find ${path}/tb-marketplace/tb-dep-manager -name test_config.yaml -exec sed -i "s/deployed_by:.*/deployed_by: '${ACTIVE_ACCOUNT}'/" '{}' \;
+find ${path}/tb-marketplace/tb-dep-manager -name test_config.yaml -exec sed -i "s/created_by:.*/created_by: '${ACTIVE_ACCOUNT}'/" '{}' \;
 # Create Tbase folder to store bootstrap project, involves parsing the output of the glcoud command to get the folder id
 folder_id_entry=$(gcloud resource-manager folders create --display-name="${TBASE_FOLDER_NAME}" --"${parent_type}"="${parent_id}" --format="value(name)")
 IFS='/' read -ra split_array <<< "$folder_id_entry"
 tb_folder_id="$(echo ${split_array[1]} | sed 's/[^0-9]*//g')"
 
 echo "Creating project..."
-gcloud projects create "${PROJECT_ID}" --folder "${tb_folder_id}" --format=none --labels deployed_by="${ACTIVE_ACCOUNT}"
+gcloud projects create "${PROJECT_ID}" --folder "${tb_folder_id}" --format=none --labels created_by="${ACTIVE_ACCOUNT}"
 
 echo "Linking project to billing account..."
 gcloud alpha billing projects link "${PROJECT_ID}" --billing-account "${BILLING_ID}" --format=none

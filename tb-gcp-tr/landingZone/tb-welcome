@@ -23,12 +23,12 @@ cd /opt/tb/repo/tb-gcp-tr/landingZone/no-itop
 PROJECT_ID=$(curl -s "http://metadata.google.internal/computeMetadata/v1/project/project-id" -H "Metadata-Flavor: Google")
 
 #Need to parse gcloud json to get deploy owner account and organization labels.
-deployed_by=$(gcloud projects describe ${PROJECT_ID} --format='value(labels.deployed_by)')
+created_by=$(gcloud projects describe ${PROJECT_ID} --format='value(labels.created_by)')
 
 echo labels = { > labels.auto.tfvars 
 cat custom_labels.txt >> labels.auto.tfvars 
 cat >> labels.auto.tfvars <<-EOF
-,deployed_by = "${deployed_by}"
+,created_by = "${created_by}"
 }
 EOF
 

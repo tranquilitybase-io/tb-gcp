@@ -37,7 +37,7 @@ properties:
   billingAccountId:
     type: string
     pattern: ^[A-F0-9]{6}\-[A-F0-9]{6}\-[A-F0-9]{6}$
-  deployed_by:
+  created_by:
     type: string
 
 
