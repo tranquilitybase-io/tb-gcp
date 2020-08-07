@@ -19,14 +19,14 @@
 provider "google" {
   region  = var.region
   zone    = var.region_zone
-  version = "~> 2.5"
+  version = "~> 3.3"
 }
 
 provider "google" {
   alias   = "vault"
   region  = var.region
   zone    = var.region_zone
-  version = "~> 2.5"
+  version = "~> 3.3"
 }
 
 provider "google-beta" {
@@ -34,12 +34,12 @@ provider "google-beta" {
   region  = var.region
   zone    = var.region_zone
   project = module.shared_projects.shared_networking_id
-  version = "~> 2.5"
+  version = "~> 3.3"
 }
 
 provider "kubernetes" {
   alias   = "k8s"
-  version = "~> 1.10.0"
+  version = "~> 1.12"
 }
 
 terraform {

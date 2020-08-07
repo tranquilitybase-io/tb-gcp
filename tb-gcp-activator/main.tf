@@ -13,7 +13,7 @@
 # limitations under the License.
 
 provider "google" {
-  version = "~> 2.5"
+  version = "~> 3.3"
   region  = var.region
 }
 
@@ -22,7 +22,7 @@ provider "google-beta" {
   region  = var.region
   zone    = var.zone
   project = var.shared_vpc_host_project
-  version = "~> 2.5"
+  version = "~> 3.3"
   //project = "${google_project.activator.id}"
 }
 
