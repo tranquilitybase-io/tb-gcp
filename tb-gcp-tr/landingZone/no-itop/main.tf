@@ -73,8 +73,17 @@ module "shared_projects" {
   shared_bastion_project_name    = var.shared_bastion_project_name
 }
 
+module "gcs_bucket_logging" {
+  source = "github.com/tranquilitybase-io/terraform-google-cloud-storage.git//modules/simple_bucket?ref=v1.6.0-logging"
+
+  name        = "${var.gcs_logs_bucket_prefix}-${var.tb_discriminator}"
+  project_id  = module.shared_projects.shared_telemetry_id
+  iam_members = var.iam_members_bindings
+  location    = var.region
+}
+
 module "apis_activation" {
-  source = "../../apis-activation"
+  source                   = "../../apis-activation"
   bastion_project_id       = module.shared_projects.shared_bastion_id
   host_project_id          = module.shared_projects.shared_networking_id
   eagle_console_project_id = module.shared_projects.shared_ec_id
@@ -157,7 +166,7 @@ module "gke-ec" {
       ),
     ],
   )
-  cluster_min_master_version = var.cluster_ec_min_master_version
+  cluster_min_master_version        = var.cluster_ec_min_master_version
   cluster_default_max_pods_per_node = var.cluster_ec_default_max_pods_per_node
 
   apis_dependency          = module.apis_activation.all_apis_enabled
@@ -191,15 +200,6 @@ module "SharedServices_namespace_creation" {
   dependency_var    = module.k8s-ec_context.k8s-context_id
 }
 
-## Creating the Jenkins service ## depends on the shared namespace module
-module "SharedServices_jenkinsmaster_creation" {
-  source = "../../../tb-common-tr/start_service"
-
-  k8s_template_file = var.sharedservice_jenkinsmaster_yaml_path
-  cluster_context   = module.k8s-ec_context.context_name
-  dependency_var    = module.SharedServices_namespace_creation.id
-}
-
 resource "null_resource" "kubernetes_service_account_key_secret" {
   triggers = {
     content = module.SharedServices_namespace_creation.id
@@ -215,6 +215,34 @@ resource "null_resource" "kubernetes_service_account_key_secret" {
   }
 }
 
+### Jenkins service account file ######
+
+resource "null_resource" "kubernetes_jenkins_service_account_key_secret" {
+  triggers = {
+    content = module.SharedServices_namespace_creation.id
+  }
+
+  provisioner "local-exec" {
+    command = "echo 'kubectl --context=${module.k8s-ec_context.context_name} create secret generic ec-service-account -n cicd --from-file=${local_file.ec_service_account_key.filename}' | tee -a /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh"
+  }
+
+  provisioner "local-exec" {
+    command = "echo 'kubectl --context=${module.k8s-ec_context.context_name} delete secret ec-service-account' -n cicd | tee -a /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh"
+    when    = destroy
+  }
+}
+
+### Jenkins Deployment Depends on the ec-service-account secret creation####
+
+module "SharedServices_jenkinsmaster_creation" {
+  source = "../../../tb-common-tr/start_service"
+
+  k8s_template_file = var.sharedservice_jenkinsmaster_yaml_path
+  cluster_context   = module.k8s-ec_context.context_name
+  dependency_var    = null_resource.kubernetes_jenkins_service_account_key_secret.id
+}
+  
+  
 module "SharedServices_configuration_file" {
   source = "../../../tb-common-tr/start_service"
 

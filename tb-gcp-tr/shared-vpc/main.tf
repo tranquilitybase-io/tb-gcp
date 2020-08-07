@@ -32,13 +32,13 @@ resource "google_compute_network" "shared_network" {
 }
 
 resource "google_compute_subnetwork" "standard" {
-  count         = length(var.standard_network_subnets)
-  name          = var.standard_network_subnets[count.index]["name"]
-  ip_cidr_range = var.standard_network_subnets[count.index]["cidr"]
-  region        = var.region
+  count                    = length(var.standard_network_subnets)
+  name                     = var.standard_network_subnets[count.index]["name"]
+  ip_cidr_range            = var.standard_network_subnets[count.index]["cidr"]
+  region                   = var.region
   private_ip_google_access = true
-  project       = var.host_project_id
-  network       = google_compute_network.shared_network.name
+  project                  = var.host_project_id
+  network                  = google_compute_network.shared_network.name
 
   log_config {
     aggregation_interval = "INTERVAL_5_SEC"
