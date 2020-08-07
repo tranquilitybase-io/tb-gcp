@@ -42,14 +42,14 @@ module "logging_buckets" {
 # }
 
 resource "google_storage_bucket_iam_binding" "applications_binding" {
-  bucket = "storage.googleapis.com/${module.logging_buckets.names_list[0]}"
+  bucket = module.logging_buckets.names_list[0]
   role = var.audit_iam_role
   members = [
     module.applications_sink.unique-writer-identity
   ]
 }
 resource "google_storage_bucket_iam_binding" "shared_services_binding" {
-  bucket = "storage.googleapis.com/${module.logging_buckets.names_list[1]}"
+  bucket = module.logging_buckets.names_list[1]
   role = var.audit_iam_role
   members = [
     module.shared_services_sink.unique-writer-identity
