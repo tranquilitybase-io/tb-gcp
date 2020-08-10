@@ -182,7 +182,7 @@ IFS='/' read -ra split_array <<< "$folder_id_entry"
 tb_folder_id="$(echo ${split_array[1]} | sed 's/[^0-9]*//g')"
 
 custom_labels_path="$(echo tb-gcp-tr/landingZone/no-itop/custom_labels.txt)"
-mapfile -t customLabels < <$custom_labels_path
+mapfile -t customLabels < $custom_labels_path
 function join_by { local IFS="$1"; shift; echo "$*"; }
 custom_labels_list="$(join_by , $customLabels)"
 echo $customLabels
