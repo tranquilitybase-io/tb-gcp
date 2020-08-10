@@ -1,4 +1,4 @@
-cost_centre="cost_centre"
-business_unit="business_unit"
-team="team"
-environment="environment"
+cost_centre=cost_centre
+business_unit=business_unit
+team=team
+environment=environment
