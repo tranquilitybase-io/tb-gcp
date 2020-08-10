@@ -186,7 +186,7 @@ mapfile -t customLabels < $custom_labels_path
 function join_by { local IFS="$1"; shift; echo "$*"; }
 custom_labels_list="$(join_by , $customLabels)"
 echo $customLabels
-echo $custom_labels_list
+$custom_labels_list | sed 's/\[//g' | sed 's/\]//g'
 
 echo "Creating project..."
 gcloud projects create "${PROJECT_ID}" --folder "${tb_folder_id}" --format=none --labels created_by="${ACTIVE_ACCOUNT}","${custom_labels_list}"
