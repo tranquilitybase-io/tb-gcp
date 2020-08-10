@@ -186,7 +186,7 @@ custom_labels_path="tb-gcp-tr/landingZone/no-itop/custom_labels.txt"
 IFS=' ' read -ra customLabels < "$custom_labels_path"
 echo "The custom labels to be applied are:  "${customLabels[@]}
 function join_by { local IFS="$1"; shift; echo "$*"; }
-custom_labels_list="$(join_by ' ' ${customLabels[@]})"
+custom_labels_list="$(join_by ',' ${customLabels[@]})"
 
 echo "Creating project..."
 gcloud projects create "${PROJECT_ID}" --folder "${tb_folder_id}" --format=none --labels created_by="${ACTIVE_ACCOUNT}","${custom_labels_list[@]}"
