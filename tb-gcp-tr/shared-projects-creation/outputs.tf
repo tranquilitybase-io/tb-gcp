@@ -39,8 +39,8 @@ output "shared_ec_name" {
 }
 
 output "shared_bastion_id" {
-  description = "identifier for the tab_bastion project."
-  value       = google_project.shared_bastion.id
+  description = "identifier for the shared_bastion project."
+  value       = google_project.shared_bastion.project_id
 }
 
 output "shared_bastion_project_number" {

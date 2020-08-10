@@ -15,7 +15,7 @@
 provider "google" {
   region  = var.region
   zone    = var.region_zone
-  version = "~> 2.5"
+  version = "~> 3.3"
 }
 
 #CREATE-BOOTSTRAP-PROJECT

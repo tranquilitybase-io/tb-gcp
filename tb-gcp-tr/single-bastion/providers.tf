@@ -25,7 +25,7 @@ provider "google" {
   project     = var.bastion_project_id
   region      = var.region
   credentials = file(var.credentials_file)
-  version     = "~> 2.5"
+  version     = "~> 3.3"
 }
 
 # separate provider needed for creation of firewall rules in sharedvpc project
@@ -34,6 +34,6 @@ provider "google" {
   project     = var.sharedvpc_project_id
   region      = var.region
   credentials = file(var.credentials_file)
-  version     = "~> 2.5"
+  version     = "~> 3.3"
 }
 

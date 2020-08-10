@@ -14,12 +14,12 @@
 
 # separate google-beta provider needed to assign sharedvpc networkUser permissions
 provider "google" {
-  version = "~> 2.5"
+  version = "~> 3.3"
 }
 
 provider "google-beta" {
   alias   = "shared-vpc"
-  version = "~> 2.5"
+  version = "~> 3.3"
 }
 
 # create compute service account for kubernetes cluster
