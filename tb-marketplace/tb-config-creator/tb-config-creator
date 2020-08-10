@@ -185,7 +185,7 @@ custom_labels_path="$(echo tb-gcp-tr/landingZone/no-itop/custom_labels.txt)"
 mapfile -t customLabels < $custom_labels_path
 function join_by { local IFS="$1"; shift; echo "$*"; }
 custom_labels_list="$(join_by , $customLabels)"
-echo $custom_labels
+echo $customLabels
 echo $custom_labels_list
 
 echo "Creating project..."
