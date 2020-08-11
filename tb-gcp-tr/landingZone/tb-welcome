@@ -30,13 +30,13 @@ then
     echo labels = { > labels.auto.tfvars 
     cat custom_labels.txt >> labels.auto.tfvars 
     cat >> labels.auto.tfvars <<-EOF
-,created_by = "${created_by}"
+created_by = "${created_by}"
 }
 EOF
 else
     echo labels = { > labels.auto.tfvars 
     cat >> labels.auto.tfvars <<-EOF
-,created_by = "${created_by}"
+created_by = "${created_by}"
 }
 EOF
 fi
