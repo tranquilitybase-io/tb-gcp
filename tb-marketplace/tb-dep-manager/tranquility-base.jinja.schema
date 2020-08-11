@@ -24,7 +24,7 @@ required:
   - zone
   - billingAccountId
   - rootId
-  - deployed_by
+  - created_by
 
 properties:
   zone:
