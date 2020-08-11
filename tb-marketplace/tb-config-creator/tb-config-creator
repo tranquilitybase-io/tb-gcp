@@ -184,7 +184,7 @@ tb_folder_id="$(echo ${split_array[1]} | sed 's/[^0-9]*//g')"
 
 custom_labels_path="tb-gcp-tr/landingZone/no-itop/custom_labels.txt"
 custom_labels_check=$(cut -c1 < "$custom_labels_path")
-if [[ custom_labels_check == '#' ]] 
+if [[ custom_labels_check != '#' ]] 
 then
   IFS=' ' read -ra customLabels < "$custom_labels_path"
   echo "The custom labels to be applied are:  "${customLabels[@]}
