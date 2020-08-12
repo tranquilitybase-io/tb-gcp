@@ -89,6 +89,7 @@ module "apis_activation" {
   eagle_console_project_id = module.shared_projects.shared_ec_id
 }
 
+
 module "shared-vpc" {
   source = "../../shared-vpc"
 
@@ -121,6 +122,15 @@ module "bastion-security" {
   nat_static_ip                 = module.shared-vpc.nat_static_ip
   root_id                       = var.root_id
   shared_bastion_project_number = module.shared_projects.shared_bastion_project_number
+}
+
+module "logging_export" {
+  source = "../../logging-export"
+  tb_discriminator              = var.tb_discriminator
+  shared_telemetry_project_name = module.shared_projects.shared_telemetry_id
+  shared_services_id            = module.folder_structure.shared_services_id
+  applications_id               = module.folder_structure.activators_id
+  location                      = var.region
 }
 
 module "gke-ec" {

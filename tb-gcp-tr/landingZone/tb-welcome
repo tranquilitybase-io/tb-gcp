@@ -110,7 +110,7 @@ sudo gsutil versioning set on "gs://${terraform_state_bucket_name}/"
 cd /tmp
 # Check for repo existence
 RepoList=$(sudo gcloud source repos list | grep tb-terraform-code)
-if [ -z "$RepoList"]; then
+if [ -z "$RepoList" ]; then
 sudo gcloud source repos create tb-terraform-code
 fi
 

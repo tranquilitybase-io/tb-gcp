@@ -84,3 +84,5 @@ resource "google_project_service" "bastion" {
   depends_on                 = [google_project_service.host-project]
 }
 
+
+
