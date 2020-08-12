@@ -25,7 +25,8 @@ PROJECT_ID=$(curl -s "http://metadata.google.internal/computeMetadata/v1/project
 #Need to parse gcloud json to get deploy owner account label.
 custom_labels=$(gcloud projects describe ${PROJECT_ID} --format='value(labels)')
 custom_labels=$(echo $custom_labels | sed 's/;/,/g')
-IFS=',' read -ra custom_labels_array < "$custom_labels"
+cat $custom_labels > custom_labels.txt
+IFS=',' read -ra custom_labels_array < custom_labels.txt
 function join_by { local IFS="$1"; shift; echo "$*"; }
 custom_labels_list="$(join_by ',' ${custom_labels_array[@]})"
     echo labels = { > labels.auto.tfvars 
