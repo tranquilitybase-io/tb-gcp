@@ -30,7 +30,7 @@ function join_by { local IFS="$1"; shift; echo "$*"; }
 custom_labels_list="$(join_by ',' ${custom_labels_array[@]})"
     echo labels = { > labels.auto.tfvars 
     echo $custom_labels_list >> labels.auto.tfvars 
-    cat "}" >> labels.auto.tfvars 
+    echo "}" >> labels.auto.tfvars 
     
 
 #Retrieve terraform vars
