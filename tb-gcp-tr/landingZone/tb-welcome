@@ -28,11 +28,10 @@ custom_labels=$(echo $custom_labels | sed 's/;/,/g')
 echo $custom_labels > "./custom_labels.txt"
 read -ra custom_labels_array < "./custom_labels.txt"
 custom_labels_list=$(printf " %q" "${custom_labels_array[@]}")
-custom_labels_list=$(echo $custom_labels_list | sed 's/=/="/g')
-custom_labels_list=$(echo $custom_labels_list | sed 's/\\/"/g')'"'
-    echo labels = { > labels.auto.tfvars 
-    echo $custom_labels_list >> labels.auto.tfvars 
-    echo "}" >> labels.auto.tfvars 
+custom_labels_list=$(echo $custom_labels_list | sed 's/=/="/g' | sed 's/\\/"/g')'"'
+echo labels = { > labels.auto.tfvars 
+echo $custom_labels_list >> labels.auto.tfvars 
+echo "}" >> labels.auto.tfvars 
     
 #Retrieve terraform vars
 source input.auto.tfvars
