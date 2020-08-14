@@ -189,7 +189,7 @@ resources:
   - name : keyRing
     type: gcp-types/cloudkms-v1:projects.locations.keyRings
     properties:
-      parent: projects//{{ project }}/locations/{{ region }}
+      parent: projects/{{ project }}/locations/{{ region }}
       keyRingId: test-3432919595432-keyRing
   - name: cryptoKey
     type: gcp-types/cloudkms-v1:projects.locations.keyRings.cryptoKeys
