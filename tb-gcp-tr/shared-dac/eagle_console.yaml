@@ -16,6 +16,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: eagleconsole
+  namespace: ssp
   labels:
     app: eagleconsole
 spec:
@@ -88,6 +89,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: eagleconsole-v1
+  namespace: ssp
 spec:
   replicas: 1
   selector:
@@ -364,6 +366,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
   name: eagleconsole
+  namespace: ssp
 spec:
   hosts:
     - "*"
@@ -398,6 +401,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
   name: eagleconsole
+  namespace: ssp
   annotations:
     cloud.google.com/load-balancer-type: "Internal"
 spec:
