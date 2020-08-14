@@ -1,0 +1,48 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: grafana-gateway
+  namespace: istio-system
+spec:
+  selector:
+    istio: private-ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http-grafana
+      protocol: HTTP
+    hosts:
+    - "*"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: grafana-vs
+  namespace: istio-system
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - grafana-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: grafana
+        port:
+          number: 3000
+    rewrite:
+      uri: /
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: grafana
+  namespace: istio-system
+spec:
+  host: grafana
+  trafficPolicy:
+    tls:
+      mode: DISABLE
