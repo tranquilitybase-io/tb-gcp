@@ -23,18 +23,18 @@ cd /opt/tb/repo/tb-gcp-tr/landingZone/no-itop
 PROJECT_ID=$(curl -s "http://metadata.google.internal/computeMetadata/v1/project/project-id" -H "Metadata-Flavor: Google")
 
 #Need to parse gcloud json to get deploy owner account label.
+created_by=$(gcloud projects describe ${PROJECT_ID} --format='value(labels.created_by)')
 custom_labels=$(gcloud projects describe ${PROJECT_ID} --format='value(labels)')
 custom_labels=$(echo $custom_labels | sed 's/;/,/g')
 echo $custom_labels > "./custom_labels.txt"
 read -ra custom_labels_array < "./custom_labels.txt"
-function join_by { local IFS="$1"; shift; echo "$*"; }
-custom_labels_list="$(join_by ',' ${custom_labels_array[@]})"
-custom_labels_list=$(printf ""%s" " "${custom_labels_array[@]}")
+custom_labels_list=$(printf " %q" "${custom_labels_array[@]}")
+custom_labels_list=$(echo $custom_labels_list | sed 's/=/="/g')
+custom_labels_list=$(echo $custom_labels_list | sed 's/\\/"/g')
     echo labels = { > labels.auto.tfvars 
     echo $custom_labels_list >> labels.auto.tfvars 
     echo "}" >> labels.auto.tfvars 
     
-
 #Retrieve terraform vars
 source input.auto.tfvars
 
