@@ -33,6 +33,7 @@ custom_labels_list=$(echo $custom_labels_list | sed 's/=/="/g')
 custom_labels_list=$(echo $custom_labels_list | sed 's/\\/"/g')
     echo labels = { > labels.auto.tfvars 
     echo $custom_labels_list >> labels.auto.tfvars 
+    echo '"' >> labels.auto.tfvars
     echo "}" >> labels.auto.tfvars 
     
 #Retrieve terraform vars
