@@ -186,6 +186,17 @@ resources:
           ports: ["1-65535"]
         - IPProtocol: ICMP
 
+  - name : keyRing
+    type: gcp-types/cloudkms-v1:projects.locations.keyRings
+    properties:
+      parent: projects//{{ project }}/locations/{{ region }}
+      keyRingId: test-3432919595432-keyRing
+  - name: cryptoKey
+    type: gcp-types/cloudkms-v1:projects.locations.keyRings.cryptoKeys
+    properties:
+        parent: $(ref.keyRing.name)
+        cryptoKeyId: test-3432919595432-cryptoKey
+        purpose: ENCRYPT_DECRYPT
 outputs:
   - name: deployment
     value: {{ deployment }}
