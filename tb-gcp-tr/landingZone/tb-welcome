@@ -36,7 +36,7 @@ PROJECT_ID=$(curl -s "http://metadata.google.internal/computeMetadata/v1/project
 buckets=$(sudo gsutil list | grep ${terraform_state_bucket_name})
 if [ -z "$buckets"]; then 
 sudo gsutil mb -b on "gs://${terraform_state_bucket_name}/"
-gsutil kms encryption -k projects/${PROJECT_ID}/locations/${region}/keyRings/${kms_key_ring}/cryptoKeys/${kms_key} "gs://${terraform_state_bucket_name}/"
+gsutil kms encryption -k projects/${PROJECT_ID}/locations/us/keyRings/${kms_key_ring}/cryptoKeys/${kms_key} "gs://${terraform_state_bucket_name}/"
 fi
 
 MAX_ATTEMPTS=10
