@@ -388,3 +388,14 @@ variable "iam_members_bindings" {
     member = "group:cloud-storage-analytics@google.com"
   }]
 }
+
+#tf state bucket encryption
+variable "kms_key_ring" {
+  description = "kms keyring used to encrypt tf state bucket"
+  default = ""
+}
+
+variable "kms_key" {
+  description = "kms key used to encrypt tf state bucket"
+  default = ""
+}
