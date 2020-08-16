@@ -6,6 +6,8 @@
 {% set tbDiscriminator = "%s" %  env["project"][-8:] %}
 {% set name = "%s-bootstrap-vm-tmpl" % env["name"] %}
 {% set instanceName = "tf-server-%s" % tbDiscriminator %}
+{% set kmskeyring = "state-bucket-kmskeyring-%s" % tbDiscriminator %}
+{% set kmskey = "state-bucket-kmskey-%s" % tbDiscriminator %}
 {% set cloudStorageBucket = "tf-state-%s" % tbDiscriminator %}
 {% set natGateway = "nat-gateway-%s" % tbDiscriminator %}
 {% set zone = properties["zone"] %}
@@ -151,6 +153,8 @@ resources:
         root_id="{{ rootId }}"
         tb_discriminator="{{ tbDiscriminator }}"
         terraform_state_bucket_name="{{ bucketName }}"
+        kms_key_ring="{{ kmskeyring }}"
+        kms_key="{{ kmskey }}"
         clusters_master_whitelist_ip="$(ref.nat-ip-{{ tbDiscriminator }}.address)"
         EOF
 
