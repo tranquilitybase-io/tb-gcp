@@ -194,12 +194,12 @@ resources:
     type: gcp-types/cloudkms-v1:projects.locations.keyRings
     properties:
       parent: projects/{{ project }}/locations/{{ region }}
-      keyRingId: test-3432919595432-keyRing
+      keyRingId: {{ kmskeyring }}
   - name: cryptoKey
     type: gcp-types/cloudkms-v1:projects.locations.keyRings.cryptoKeys
     properties:
         parent: $(ref.keyRing.name)
-        cryptoKeyId: test-3432919595432-cryptoKey
+        cryptoKeyId: kmskey
         purpose: ENCRYPT_DECRYPT
 outputs:
   - name: deployment
