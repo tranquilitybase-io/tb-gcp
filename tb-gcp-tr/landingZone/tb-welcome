@@ -43,6 +43,9 @@ export HOME=/root
 #Retrieve project ID
 PROJECT_ID=$(curl -s "http://metadata.google.internal/computeMetadata/v1/project/project-id" -H "Metadata-Flavor: Google")
 
+#Enable encryption on tf state bucket
+sudo gsutil kms encryption -p ${PROJECT_ID} -k projects/"bootstrap-${tb_discriminator}"/locations/us/keyRings/${kms_key_ring}/cryptoKeys/${kms_key} "gs://${terraform_state_bucket_name}"
+
 #Initialise variables
 SA_NAME="bootstrap-sa"
 SA_EMAIL=${SA_NAME}@${PROJECT_ID}.iam.gserviceaccount.com
@@ -114,9 +117,6 @@ done
 
 # Set versioning on for tf state bucket.
 sudo gsutil versioning set on "gs://${terraform_state_bucket_name}/"
-
-#Enable encryption on tf state bucket
-sudo gsutil kms encryption -p ${PROJECT_ID} -k projects/"bootstrap-${tb_discriminator}"/locations/us/keyRings/${kms_key_ring}/cryptoKeys/${kms_key} "gs://${terraform_state_bucket_name}"
 
 # Commit current TB terraform code to GCR
 cd /tmp
