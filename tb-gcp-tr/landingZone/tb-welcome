@@ -55,10 +55,6 @@ echo "Billing Id is ${BILLING_ID}"
 echo "Setting [${SA_EMAIL}] as active account"
 sudo gcloud config set account ${SA_EMAIL}
 
-#Enable encryption on tf state bucket
-sudo gsutil kms authorize -k projects/${PROJECT_ID}/locations/us/keyRings/${kms_key_ring}/cryptoKeys/${kms_key}
-sudo gsutil kms encryption -k projects/${PROJECT_ID}/locations/us/keyRings/${kms_key_ring}/cryptoKeys/${kms_key} "gs://${terraform_state_bucket_name}/"
-
 #Make the IAP and Kubectl command scripts executable
 chmod +x /opt/tb/repo/tb-gcp-tr/landingZone/iap-tunnel.sh
 chmod +x /opt/tb/repo/tb-gcp-tr/landingZone/istio-default-install.sh
@@ -118,6 +114,9 @@ done
 
 # Set versioning on for tf state bucket.
 sudo gsutil versioning set on "gs://${terraform_state_bucket_name}/"
+
+#Enable encryption on tf state bucket
+sudo gsutil kms encryption -k projects/${PROJECT_ID}/locations/us/keyRings/${kms_key_ring}/cryptoKeys/${kms_key} "gs://${terraform_state_bucket_name}/"
 
 # Commit current TB terraform code to GCR
 cd /tmp
