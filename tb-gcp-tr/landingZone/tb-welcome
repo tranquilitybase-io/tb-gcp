@@ -29,21 +29,19 @@ echo "}" >> labels.auto.tfvars
 #Retrieve terraform vars
 source input.auto.tfvars
 
-#Retrieve project ID
-PROJECT_ID=$(curl -s "http://metadata.google.internal/computeMetadata/v1/project/project-id" -H "Metadata-Flavor: Google")
-
 # Create TF state bucket
 buckets=$(sudo gsutil list | grep ${terraform_state_bucket_name})
 if [ -z "$buckets"]; then 
 sudo gsutil mb -b on "gs://${terraform_state_bucket_name}/"
-sudo gsutil kms authorize -k projects/${PROJECT_ID}/locations/us/keyRings/${kms_key_ring}/cryptoKeys/${kms_key}
-sudo gsutil kms encryption -k projects/${PROJECT_ID}/locations/us/keyRings/${kms_key_ring}/cryptoKeys/${kms_key} "gs://${terraform_state_bucket_name}/"
 fi
 
 MAX_ATTEMPTS=10
 MAX_ATTEMPTS_INIT=3
 DELAY_BETWEEN_ATTEMPTS=60
 export HOME=/root
+
+#Retrieve project ID
+PROJECT_ID=$(curl -s "http://metadata.google.internal/computeMetadata/v1/project/project-id" -H "Metadata-Flavor: Google")
 
 #Initialise variables
 SA_NAME="bootstrap-sa"
@@ -56,6 +54,10 @@ echo "Billing Id is ${BILLING_ID}"
 # The deployment will be done using the bootstrap SA
 echo "Setting [${SA_EMAIL}] as active account"
 sudo gcloud config set account ${SA_EMAIL}
+
+#Enable encryption on tf state bucket
+sudo gsutil kms authorize -k projects/${PROJECT_ID}/locations/us/keyRings/${kms_key_ring}/cryptoKeys/${kms_key}
+sudo gsutil kms encryption -k projects/${PROJECT_ID}/locations/us/keyRings/${kms_key_ring}/cryptoKeys/${kms_key} "gs://${terraform_state_bucket_name}/"
 
 #Make the IAP and Kubectl command scripts executable
 chmod +x /opt/tb/repo/tb-gcp-tr/landingZone/iap-tunnel.sh
