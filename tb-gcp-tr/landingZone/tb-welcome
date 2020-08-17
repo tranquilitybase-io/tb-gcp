@@ -116,10 +116,7 @@ done
 sudo gsutil versioning set on "gs://${terraform_state_bucket_name}/"
 
 #Enable encryption on tf state bucket
-echo "KMS key ring is ${kms_key_ring}"
-echo "KMS key is ${kms_key}"
-echo "PROJECT ID is ${PROJECT_ID}"
-sudo gsutil kms encryption -k projects/${PROJECT_ID}/locations/us/keyRings/${kms_key_ring}/cryptoKeys/${kms_key} "gs://${terraform_state_bucket_name}/"
+sudo gsutil kms encryption -p ${PROJECT_ID} -k projects/"bootstrap-${tb_discriminator}"/locations/us/keyRings/${kms_key_ring}/cryptoKeys/${kms_key} "gs://${terraform_state_bucket_name}"
 
 # Commit current TB terraform code to GCR
 cd /tmp
