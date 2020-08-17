@@ -6,8 +6,8 @@
 {% set tbDiscriminator = "%s" %  env["project"][-8:] %}
 {% set name = "%s-bootstrap-vm-tmpl" % env["name"] %}
 {% set instanceName = "tf-server-%s" % tbDiscriminator %}
-{% set kmskeyring = "state-bucket-kmskeyring-%s" % tbDiscriminator %}
-{% set kmskey = "state-bucket-kmskey-%s" % tbDiscriminator %}
+{% set kmskeyring = "bucket-kmskeyring-%s" % tbDiscriminator %}
+{% set kmskey = "bucket-kmskey-%s" % tbDiscriminator %}
 {% set cloudStorageBucket = "tf-state-%s" % tbDiscriminator %}
 {% set natGateway = "nat-gateway-%s" % tbDiscriminator %}
 {% set zone = properties["zone"] %}
