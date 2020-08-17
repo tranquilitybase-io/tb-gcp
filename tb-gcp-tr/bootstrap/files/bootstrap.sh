@@ -39,8 +39,7 @@ root_id = "${root_id}"
 billing_account_id = "${billing_account_id}"
 tb_discriminator = "${tb_discriminator}"
 terraform_state_bucket_name = "${terraform_state_bucket_name}"
-organization = "${organization}"
-deploy_owner = "${deploy_owner}"
+labels = "${labels}"
 
 EOF
 
