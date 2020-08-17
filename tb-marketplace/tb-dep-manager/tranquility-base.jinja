@@ -152,7 +152,6 @@ resources:
         tb_discriminator="{{ tbDiscriminator }}"
         terraform_state_bucket_name="{{ bucketName }}"
         clusters_master_whitelist_ip="$(ref.nat-ip-{{ tbDiscriminator }}.address)"
-        created_by="{{ created_by }}"
         EOF
 
         echo "STARTUP COMPLETE"
