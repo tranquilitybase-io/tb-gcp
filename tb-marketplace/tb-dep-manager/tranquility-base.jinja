@@ -198,9 +198,9 @@ resources:
   - name: cryptoKey
     type: gcp-types/cloudkms-v1:projects.locations.keyRings.cryptoKeys
     properties:
-        parent: $(ref.keyRing.name)
-        cryptoKeyId: kmskey
-        purpose: ENCRYPT_DECRYPT
+      parent: $(ref.keyRing.name)
+      cryptoKeyId: {{ kmskey }}
+      purpose: ENCRYPT_DECRYPT
 outputs:
   - name: deployment
     value: {{ deployment }}
