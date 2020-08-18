@@ -407,7 +407,7 @@ variable telemetry_kms_location {
   default = "europe"
 }
 
-variable "telemetry_kms_keyring_name" {
+variable "telemetry_kms_keyring" {
   type = string
   description = ""
   default = "telemetry-keyring"

@@ -80,7 +80,7 @@ module "telemetry-storage-kms-key" {
 
   project_id         = module.shared_projects.shared_telemetry_id
   location           = var.telemetry_kms_location
-  keyring            = var.telemetry_kms_keyring_name
+  keyring            = var.telemetry_kms_keyring
   keys               = var.telemetry_kms_keys
 }
 
