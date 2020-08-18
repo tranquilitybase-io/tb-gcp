@@ -125,12 +125,19 @@ module "bastion-security" {
 }
 
 module "logging_export" {
-  source = "../../logging-export"
+  source                        = "../../logging-export"
   tb_discriminator              = var.tb_discriminator
   shared_telemetry_project_name = module.shared_projects.shared_telemetry_id
   shared_services_id            = module.folder_structure.shared_services_id
   applications_id               = module.folder_structure.activators_id
   location                      = var.region
+}
+
+module "organization-policy" {
+  source = "../../org-policy"
+  #organization = var. root_id
+  folder_id  = var.root_id
+  project_id = var.project_id
 }
 
 module "gke-ec" {
@@ -241,8 +248,8 @@ module "SharedServices_jenkinsmaster_creation" {
   cluster_context   = module.k8s-ec_context.context_name
   dependency_var    = null_resource.kubernetes_jenkins_service_account_key_secret.id
 }
-  
-  
+
+
 module "SharedServices_configuration_file" {
   source = "../../../tb-common-tr/start_service"
 
