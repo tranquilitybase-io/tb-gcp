@@ -134,8 +134,8 @@ module "logging_export" {
 }
 
 module "organization-policy" {
-  source       = "../../org-policy"
-  
+  source       = "../../gcp-org-policies"
+
   org_id     = var.organization_id
   folder_id  = var.root_id
   project_id = var.tb_discriminator
