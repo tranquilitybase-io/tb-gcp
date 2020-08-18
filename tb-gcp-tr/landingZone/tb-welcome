@@ -44,7 +44,7 @@ export HOME=/root
 PROJECT_ID=$(curl -s "http://metadata.google.internal/computeMetadata/v1/project/project-id" -H "Metadata-Flavor: Google")
 
 #Enable encryption on tf state bucket
-sudo gsutil kms encryption -p ${PROJECT_ID} -k projects/"bootstrap-${tb_discriminator}"/locations/us/keyRings/${kms_key_ring}/cryptoKeys/${kms_key} "gs://${terraform_state_bucket_name}"
+sudo gsutil kms encryption -p ${PROJECT_ID} -k projects/"bootstrap-${tb_discriminator}"/locations/eu/keyRings/${kms_key_ring}/cryptoKeys/${kms_key} "gs://${terraform_state_bucket_name}"
 
 #Initialise variables
 SA_NAME="bootstrap-sa"

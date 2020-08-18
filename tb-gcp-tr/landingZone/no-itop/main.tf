@@ -81,7 +81,7 @@ module "gcs_bucket_logging" {
   project_id  = module.shared_projects.shared_telemetry_id
   iam_members = var.iam_members_bindings
   location    = var.region
-  encryption  = {default_kms_key_name = "projects/bootstrap-${var.tb_discriminator}/locations/us/keyRings/bucket-kmskeyring/cryptoKeys/bucket-kmskey"}
+  encryption  = {default_kms_key_name = "projects/bootstrap-${var.tb_discriminator}/locations/eu/keyRings/bucket-kmskeyring/cryptoKeys/bucket-kmskey"}
 }
 
 module "apis_activation" {
@@ -133,6 +133,7 @@ module "logging_export" {
   shared_services_id            = module.folder_structure.shared_services_id
   applications_id               = module.folder_structure.activators_id
   location                      = var.region
+  encryption_key_names          = {name = "projects/bootstrap-${var.tb_discriminator}/locations/eu/keyRings/bucket-kmskeyring/cryptoKeys/bucket-kmskey"}
 }
 
 module "gke-ec" {
