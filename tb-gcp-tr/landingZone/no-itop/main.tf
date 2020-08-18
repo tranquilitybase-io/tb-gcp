@@ -81,7 +81,9 @@ module "gcs_bucket_logging" {
   project_id  = module.shared_projects.shared_telemetry_id
   iam_members = var.iam_members_bindings
   location    = var.region
-  encryption  = [{default_kms_key_name = "projects/bootstrap-${var.tb_discriminator}/locations/us/keyRings/bucket-kmskeyring/cryptoKeys/bucket-kmskey"}]
+  encryption  = object([
+    {default_kms_key_name = "projects/bootstrap-${var.tb_discriminator}/locations/us/keyRings/bucket-kmskeyring/cryptoKeys/bucket-kmskey"}
+  ])
 }
 
 module "apis_activation" {
