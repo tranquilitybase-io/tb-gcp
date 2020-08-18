@@ -401,11 +401,6 @@ variable "kms_key" {
 }
 
 #telemetry kms
-variable telemetry_kms_location {
-  type = string
-  description = ""
-  default = "europe"
-}
 
 variable "telemetry_kms_keyring" {
   type = string

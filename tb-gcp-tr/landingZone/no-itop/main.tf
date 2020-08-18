@@ -79,7 +79,7 @@ module "telemetry-storage-kms-key" {
   version = "~> 1.2"
 
   project_id         = module.shared_projects.shared_telemetry_id
-  location           = var.telemetry_kms_location
+  location           = var.region
   keyring            = var.telemetry_kms_keyring
   keys               = var.telemetry_kms_keys
 }
@@ -91,7 +91,7 @@ module "gcs_bucket_logging" {
   project_id  = module.shared_projects.shared_telemetry_id
   iam_members = var.iam_members_bindings
   location    = var.region
-  encryption  = {default_kms_key_name = "projects/telemetry-${var.tb_discriminator}/locations/${var.telemetry_kms_location}/keyRings/${var.telemetry_kms_keyring}/cryptoKeys/${element(var.telemetry_kms_keys, 0)}"}
+  encryption  = {default_kms_key_name = "projects/telemetry-${var.tb_discriminator}/locations/${var.region}/keyRings/${var.telemetry_kms_keyring}/cryptoKeys/${element(var.telemetry_kms_keys, 0)}"}
 }
 
 module "apis_activation" {
@@ -144,7 +144,7 @@ module "logging_export" {
   shared_services_id            = module.folder_structure.shared_services_id
   applications_id               = module.folder_structure.activators_id
   location                      = var.region
-  encryption_key_names          = {default_kms_key_name = "projects/telemetry-${var.tb_discriminator}/locations/${var.telemetry_kms_location}/keyRings/${var.telemetry_kms_keyring}/cryptoKeys/${element(var.telemetry_kms_keys, 0)}"}
+  encryption_key_names          = {default_kms_key_name = "projects/telemetry-${var.tb_discriminator}/locations/${var.region}/keyRings/${var.telemetry_kms_keyring}/cryptoKeys/${element(var.telemetry_kms_keys, 0)}"}
 }
 
 module "gke-ec" {
