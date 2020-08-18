@@ -171,7 +171,7 @@ SA_EMAIL="${SA_NAME}@${PROJECT_ID}.iam.gserviceaccount.com"
 TBASE_FOLDER_PREFIX="Tranquility Base - "
 TBASE_FOLDER_NAME="${TBASE_FOLDER_PREFIX}${RND}"
 
-#Explicit labelling is required here because Terraform has not been appllied.
+#Explicit labelling is required here because Terraform has not been applied.
 ACTIVE_ACCOUNT="$(gcloud config list account --format "value(core.account)" | cut -d@ -f1)"
 echo "Resources will be labelled with the owner: ${ACTIVE_ACCOUNT}"
 path="$(pwd)"
@@ -186,7 +186,7 @@ custom_labels_path="tb-gcp-tr/landingZone/no-itop/custom_labels.txt"
 custom_labels_check=$(head -c1 < "$custom_labels_path")
 if [[ ${custom_labels_check} != '#' ]] 
 then
-  IFS=' ' read -ra customLabels < "$custom_labels_path"
+  IFS=',' read -ra customLabels < "$custom_labels_path"
   echo "The custom labels to be applied are:  "${customLabels[@]}
   function join_by { local IFS="$1"; shift; echo "$*"; }
   custom_labels_list="$(join_by ',' ${customLabels[@]})"
