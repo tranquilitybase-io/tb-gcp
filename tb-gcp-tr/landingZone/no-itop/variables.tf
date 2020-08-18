@@ -399,3 +399,10 @@ variable "kms_key" {
   description = "kms key used to encrypt tf state bucket"
   default = ""
 }
+
+variable "bucket_kms_encrypt_key" {
+  description = "kms key used to encrypt all buckets"
+  default = [{
+    default_kms_key_name = "projects/bootstrap-4c762101/locations/us/keyRings/bucket-kmskeyring/cryptoKeys/bucket-kmskey"
+  }]
+}
