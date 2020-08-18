@@ -20,9 +20,6 @@ resource "google_project" "shared_networking" {
   billing_account     = var.billing_account_id
   auto_create_network = false
   labels              = var.labels
-  lifecycle {
-    ignore_changes = [labels]
-  }
 }
 
 resource "google_project" "shared_itsm" {
@@ -33,9 +30,6 @@ resource "google_project" "shared_itsm" {
   auto_create_network = false
   depends_on          = [google_project.shared_networking]
   labels              = var.labels
-  lifecycle {
-    ignore_changes = [labels]
-  }
 }
 
 resource "google_project" "shared_telemetry" {
@@ -46,9 +40,6 @@ resource "google_project" "shared_telemetry" {
   auto_create_network = false
   depends_on          = [google_project.shared_networking]
   labels              = var.labels
-  lifecycle {
-    ignore_changes = [labels]
-  }
 }
 
 resource "google_project" "shared_billing" {
@@ -58,9 +49,6 @@ resource "google_project" "shared_billing" {
   billing_account     = var.billing_account_id
   auto_create_network = false
   labels              = var.labels
-  lifecycle {
-    ignore_changes = [labels]
-  }
 }
 
 resource "google_project" "shared_ec" {
@@ -71,9 +59,6 @@ resource "google_project" "shared_ec" {
   auto_create_network = false
   depends_on          = [google_project.shared_networking]
   labels              = var.labels
-  lifecycle {
-    ignore_changes = [labels]
-  }
 }
 
 resource "google_project" "shared_bastion" {
@@ -84,7 +69,4 @@ resource "google_project" "shared_bastion" {
   auto_create_network = false
   depends_on          = [google_project.shared_networking]
   labels              = var.labels
-  lifecycle {
-    ignore_changes = [labels]
-  }
 }
