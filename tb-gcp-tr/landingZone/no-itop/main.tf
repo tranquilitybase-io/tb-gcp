@@ -89,6 +89,7 @@ module "apis_activation" {
   bastion_project_id       = module.shared_projects.shared_bastion_id
   host_project_id          = module.shared_projects.shared_networking_id
   eagle_console_project_id = module.shared_projects.shared_ec_id
+  telemetry_project_id     = module.shared_projects.shared_telemetry_id
 }
 
 
@@ -126,6 +127,16 @@ module "bastion-security" {
   shared_bastion_project_number = module.shared_projects.shared_bastion_project_number
 }
 
+module "telemetry-storage-kms-key" {
+  source  = "terraform-google-modules/kms/google"
+  version = "~> 1.2"
+
+  project_id         = module.shared_projects.shared_telemetry_id
+  location           = var.telemetry_kms_location
+  keyring            = var.telemetry_kms_keyring_name
+  keys               = var.telemetry_kms_keys
+}
+
 module "logging_export" {
   source = "../../logging-export"
   tb_discriminator              = var.tb_discriminator
@@ -133,7 +144,8 @@ module "logging_export" {
   shared_services_id            = module.folder_structure.shared_services_id
   applications_id               = module.folder_structure.activators_id
   location                      = var.region
-  encryption_key_names          = {name = "projects/bootstrap-${var.tb_discriminator}/locations/eu/keyRings/bucket-kmskeyring/cryptoKeys/bucket-kmskey"}
+  keyring                       = module.telemetry-storage-kms-key.keyring
+  encryption_key_names          = module.telemetry-storage-kms-key.keys[1]
 }
 
 module "gke-ec" {

@@ -110,8 +110,15 @@ variable "audit_iam_role" {
   description = "Give log writer permissions to create logs in bucket."
   default     = "roles/storage.admin"
 }
-variable "encryption_key_names" {
-  type        = map
+
+variable "keyring" {
+  type = string
   description = ""
-  default     = {}
+  default = ""
+}
+
+variable "keys" {
+  type        = list(string)
+  description = ""
+  default     = []
 }

@@ -400,3 +400,23 @@ variable "kms_key" {
   default = ""
 }
 
+#telemetry kms
+variable telemetry_kms_location {
+  type = string
+  description = ""
+  default = "europe"
+}
+
+variable "telemetry_kms_keyring_name" {
+  type = string
+  description = ""
+  default = "telemetry-keyring"
+}
+
+variable "telemetry_kms_keys" {
+  type = list(string)
+  description = ""
+  default = ["telemetry-key"]
+}
+
+

@@ -6,8 +6,8 @@
 {% set tbDiscriminator = "%s" %  env["project"][-8:] %}
 {% set name = "%s-bootstrap-vm-tmpl" % env["name"] %}
 {% set instanceName = "tf-server-%s" % tbDiscriminator %}
-{% set kmskeyring = "bucket-kmskeyring" %}
-{% set kmskey = "bucket-kmskey" %}
+{% set kmskeyring = "tf-state-bucket-kmskeyring" %}
+{% set kmskey = "tf-state-bucket-kmskey" %}
 {% set cloudStorageBucket = "tf-state-%s" % tbDiscriminator %}
 {% set natGateway = "nat-gateway-%s" % tbDiscriminator %}
 {% set zone = properties["zone"] %}
@@ -193,7 +193,7 @@ resources:
   - name : keyRing
     type: gcp-types/cloudkms-v1:projects.locations.keyRings
     properties:
-      parent: projects/{{ project }}/locations/eu
+      parent: projects/{{ project }}/locations/us
       keyRingId: {{ kmskeyring }}
   - name: cryptoKey
     type: gcp-types/cloudkms-v1:projects.locations.keyRings.cryptoKeys

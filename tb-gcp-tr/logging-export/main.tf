@@ -13,7 +13,8 @@ module "logging_buckets" {
   storage_class        = var.storage_class
   lifecycle_rules      = var.lifecycle_rule
   location             = var.location
-  encryption_key_names = var.encryption_key_names
+  keyring              = var.keyring
+  keys                 = var.keys
 }
 
 resource "google_storage_bucket_iam_binding" "applications_binding" {
