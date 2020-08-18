@@ -30,7 +30,7 @@ spec:
         prefix: /kiali
     route:
     - destination:
-        host: kiali
+        host: kiali.istio-system.svc.cluster.local
         port:
           number: 20001
 ---
@@ -40,7 +40,7 @@ metadata:
   name: kiali
   namespace: istio-system
 spec:
-  host: kiali
+  host: kiali.istio-system.svc.cluster.local
   trafficPolicy:
     tls:
       mode: DISABLE
