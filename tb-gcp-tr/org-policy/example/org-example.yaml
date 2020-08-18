@@ -1,0 +1,60 @@
+---
+org_boolean_constraints:
+  - appengine.disableCodeDownload
+  - compute.disableGuestAttributesAccess
+  - compute.disableNestedVirtualization
+  - compute.disableSerialPortAccess
+  - compute.disableSerialPortLogging
+  - compute.requireOsLogin
+  - compute.restrictXpnProjectLienRemoval
+  - compute.skipDefaultNetworkCreation
+  - sql.restrictAuthorizedNetworks
+  - sql.disableDefaultEncryptionCreation
+  - sql.restrictPublicIp
+  - storage.uniformBucketLevelAccess
+
+org_list_policies:
+  compute.restrictSharedVpcHostProjects:
+    list_policy:
+      deny:
+        all: true
+  compute.restrictSharedVpcSubnetworks:
+    list_policy:
+      deny:
+        all: true
+  compute.restrictVpcPeering:
+    list_policy:
+      deny:
+        all: true
+  compute.storageResourceUseRestrictions:
+    list_policy:
+      deny:
+        all: true
+  compute.trustedImageProjects:
+    list_policy:
+      deny:
+        all: true
+  compute.vmCanIpForward:
+    list_policy:
+      deny:
+        all: true
+  iam.allowedPolicyMemberDomains:
+    list_policy:
+      allow:
+        all: true
+  gcp.resourceLocations:
+    list_policy:
+      allow:
+        values:
+          - in:europe-west2-locations
+  serviceuser.services:
+    list_policy:
+      deny:
+        values:
+          - deploymentmanager.googleapis.com
+          - resourceviews.googleapis.com
+          - doubleclicksearch.googleapis.com
+  compute.vmExternalIpAccess:
+    list_policy:
+      deny:
+        all: true

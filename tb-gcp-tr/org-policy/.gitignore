@@ -1,0 +1,38 @@
+# Local gcloud
+**/.gcloud/*
+# Local IDE directories
+**/.idea/*
+# Local VSCode directories
+**/.vscode/*
+# Local .terraform directories
+**/.terraform/*
+# Terraform state
+*.tfstate
+*.tfstate.*
+**/terraform.tfstate.d/*
+# Terraform plan outputs
+*.out
+# Local tfvars
+local.tfvars
+# bootstrap tfvars
+bootstrap.tfvars
+# Workspace tfvars
+ws-*.tfvars
+# Crash log files
+crash.log
+# Ignore override files as they are usually used to override resources locally and so
+# are not checked in
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+# Backup files
+*.bak
+*.old
+# Python cache
+*.pyc
+**/__pycache__/*
+# Local config folders
+**/keys/*
+**/.ssh/*
+**/.config/*
