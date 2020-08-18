@@ -113,5 +113,5 @@ variable "audit_iam_role" {
 variable "encryption_key_names" {
   type        = map
   description = ""
-  default     = []
+  default     = {}
 }
