@@ -325,7 +325,7 @@ spec:
             prefix: /api
       route:
         - destination:
-            host: houstonservice
+            host: houstonservice.ssp.svc.cluster.local
             port:
               number: 80
       corsPolicy:
@@ -357,7 +357,7 @@ spec:
             prefix: /dac
       route:
         - destination:
-            host: gcpdac
+            host: gcpdac.ssp.svc.cluster.local
             port:
               number: 80
       corsPolicy:
@@ -386,7 +386,7 @@ spec:
   http:
     - route:
         - destination:
-            host: eagleconsole
+            host: eagleconsole.ssp.svc.cluster.local
             port:
               number: 443
 
@@ -404,7 +404,7 @@ spec:
   http:
     - route:
         - destination:
-            host: redis
+            host: redis.ssp.svc.cluster.local
             port:
               number: 6379
 
@@ -417,7 +417,7 @@ metadata:
   annotations:
     cloud.google.com/load-balancer-type: "Internal"
 spec:
-  host: eagleconsole
+  host: eagleconsole.ssp.svc.cluster.local
   trafficPolicy:
     loadBalancer:
       simple: LEAST_CONN
@@ -431,7 +431,7 @@ metadata:
   annotations:
     cloud.google.com/load-balancer-type: "Internal"
 spec:
-  host: houstonservice
+  host: houstonservice.ssp.svc.cluster.local
   trafficPolicy:
     loadBalancer:
       simple: LEAST_CONN
@@ -444,7 +444,7 @@ metadata:
   annotations:
     cloud.google.com/load-balancer-type: "Internal"
 spec:
-  host: gcpdac
+  host: gcpdac.ssp.svc.cluster.local
   trafficPolicy:
     loadBalancer:
       simple: LEAST_CONN
@@ -457,7 +457,7 @@ metadata:
   annotations:
     cloud.google.com/load-balancer-type: "Internal"
 spec:
-  host: redis
+  host: redis.ssp.svc.cluster.local
   trafficPolicy:
     loadBalancer:
       simple: LEAST_CONN
