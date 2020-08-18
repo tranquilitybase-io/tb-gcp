@@ -74,6 +74,16 @@ module "shared_projects" {
   labels                         = var.labels
 }
 
+module "telemetry-storage-kms-key" {
+  source  = "terraform-google-modules/kms/google"
+  version = "~> 1.2"
+
+  project_id         = module.shared_projects.shared_telemetry_id
+  location           = var.telemetry_kms_location
+  keyring            = var.telemetry_kms_keyring_name
+  keys               = var.telemetry_kms_keys
+}
+
 module "gcs_bucket_logging" {
   source = "github.com/tranquilitybase-io/terraform-google-cloud-storage.git//modules/simple_bucket?ref=v1.6.0-logging"
 
@@ -81,7 +91,7 @@ module "gcs_bucket_logging" {
   project_id  = module.shared_projects.shared_telemetry_id
   iam_members = var.iam_members_bindings
   location    = var.region
-  encryption  = {default_kms_key_name = "projects/bootstrap-${var.tb_discriminator}/locations/eu/keyRings/bucket-kmskeyring/cryptoKeys/bucket-kmskey"}
+  encryption  = {default_kms_key_name = "projects/telemetry-${var.tb_discriminator}/locations/${var.telemetry_kms_location}/keyRings/${var.telemetry_kms_keyring_name}/cryptoKeys/${var.telemetry_kms_keys[1]}"}
 }
 
 module "apis_activation" {
@@ -125,16 +135,6 @@ module "bastion-security" {
   nat_static_ip                 = module.shared-vpc.nat_static_ip
   root_id                       = var.root_id
   shared_bastion_project_number = module.shared_projects.shared_bastion_project_number
-}
-
-module "telemetry-storage-kms-key" {
-  source  = "terraform-google-modules/kms/google"
-  version = "~> 1.2"
-
-  project_id         = module.shared_projects.shared_telemetry_id
-  location           = var.telemetry_kms_location
-  keyring            = var.telemetry_kms_keyring_name
-  keys               = var.telemetry_kms_keys
 }
 
 module "logging_export" {
