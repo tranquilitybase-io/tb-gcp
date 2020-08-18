@@ -134,10 +134,10 @@ module "logging_export" {
 }
 
 module "organization-policy" {
-  source = "../../org-policy"
-  #organization = var. root_id
-  folder_id  = var.root_id
-  project_id = var.project_id
+  source       = "../../org-policy"
+  organization = var.root_id
+  folder_id    = var.root_id
+  project_id   = var.project_id
 }
 
 module "gke-ec" {
