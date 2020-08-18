@@ -21,6 +21,8 @@ cd /opt/tb/repo/tb-gcp-tr/landingZone/no-itop
 #Retrieve terraform vars
 source input.auto.tfvars
 
+export TF_VAR_organization_id=$(gcloud organizations list --format 'value(ID)')
+
 # Create TF state bucket
 buckets=$(sudo gsutil list | grep ${terraform_state_bucket_name})
 if [ -z "$buckets"]; then 

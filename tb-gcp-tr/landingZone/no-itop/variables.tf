@@ -383,3 +383,8 @@ variable "iam_members_bindings" {
     member = "group:cloud-storage-analytics@google.com"
   }]
 }
+
+variable "organization_id"{
+  description = "Organization ID"
+  type = string
+}
