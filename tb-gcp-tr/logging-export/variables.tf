@@ -111,12 +111,6 @@ variable "audit_iam_role" {
   default     = "roles/storage.admin"
 }
 
-variable "keyring" {
-  type = string
-  description = ""
-  default = ""
-}
-
 variable "keys" {
   type        = list(string)
   description = ""
