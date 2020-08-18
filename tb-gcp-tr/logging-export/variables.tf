@@ -111,7 +111,7 @@ variable "audit_iam_role" {
   default     = "roles/storage.admin"
 }
 
-variable "keys" {
+variable "encryption_key_names" {
   type        = list(string)
   description = ""
   default     = []
