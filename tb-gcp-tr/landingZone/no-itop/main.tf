@@ -200,17 +200,19 @@ module "SharedServices_namespace_creation" {
   dependency_var    = module.k8s-ec_context.k8s-context_id
 }
 
+## Creates service account for eagle console in the ssp namespace ##
+
 resource "null_resource" "kubernetes_service_account_key_secret" {
   triggers = {
     content = module.SharedServices_namespace_creation.id
   }
 
   provisioner "local-exec" {
-    command = "echo 'kubectl --context=${module.k8s-ec_context.context_name} create secret generic ec-service-account --from-file=${local_file.ec_service_account_key.filename}' | tee -a /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh"
+    command = "echo 'kubectl --context=${module.k8s-ec_context.context_name} create secret generic ec-service-account -n ssp --from-file=${local_file.ec_service_account_key.filename}' | tee -a /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh"
   }
 
   provisioner "local-exec" {
-    command = "echo 'kubectl --context=${module.k8s-ec_context.context_name} delete secret ec-service-account' | tee -a /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh"
+    command = "echo 'kubectl --context=${module.k8s-ec_context.context_name} delete secret ec-service-account' -n ssp | tee -a /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh"
     when    = destroy
   }
 }

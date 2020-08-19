@@ -30,7 +30,7 @@ spec:
         prefix: /
     route:
     - destination:
-        host: grafana
+        host: grafana.istio-system.svc.cluster.local
         port:
           number: 3000
     rewrite:
@@ -42,7 +42,7 @@ metadata:
   name: grafana
   namespace: istio-system
 spec:
-  host: grafana
+  host: grafana.istio-system.svc.cluster.local
   trafficPolicy:
     tls:
       mode: DISABLE

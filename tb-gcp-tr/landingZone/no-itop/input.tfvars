@@ -54,7 +54,7 @@ cluster_opt_enable_private_nodes    = "true"
 cluster_opt_enable_private_endpoint = false
 
 #EC Deployment
-eagle_console_yaml_path = "/opt/tb/repo/tb-gcp-tr/landingZone/eagle_console.yaml"
+eagle_console_yaml_path = "/opt/tb/repo/tb-gcp-tr/shared-dac/eagle_console.yaml"
 ec_ui_source_bucket     = "tranquility-base-ui"
 ec_iam_service_account_roles = [
   "roles/resourcemanager.folderAdmin",
