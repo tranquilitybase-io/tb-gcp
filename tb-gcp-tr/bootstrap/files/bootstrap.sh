@@ -39,7 +39,6 @@ root_id = "${root_id}"
 billing_account_id = "${billing_account_id}"
 tb_discriminator = "${tb_discriminator}"
 terraform_state_bucket_name = "${terraform_state_bucket_name}"
-
 EOF
 
 #Make the IAP and Kubectl command scripts executable
