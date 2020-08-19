@@ -1,3 +1,9 @@
+resource "null_resource" "api_enabled" {
+  triggers = {
+    vpc_name = var.apis_dependency
+  }
+}
+
 locals {
   log_filter                = "-unicorn (-Fdata_access) AND -unicorn (-Factivity) AND -unicorn (-Fsystem_event)"
   applications_bucket_id    = "${var.applications_bucket_name}-${var.tb_discriminator}"
@@ -6,6 +12,7 @@ locals {
 
 module "logging_buckets" {
   source               = "terraform-google-modules/cloud-storage/google"
+
   version              = "~> 1.6"
   project_id           = var.shared_telemetry_project_name
   names                = [local.applications_bucket_id, local.shared_services_bucket_id]
@@ -14,6 +21,7 @@ module "logging_buckets" {
   lifecycle_rules      = var.lifecycle_rule
   location             = var.location
   encryption_key_names = var.encryption_key_names
+
 }
 
 resource "google_storage_bucket_iam_binding" "applications_binding" {

@@ -69,7 +69,6 @@ resource "google_project_service" "host-project" {
   disable_dependent_services = true
 }
 
-
 resource "google_project_service" "eagle_console" {
   project                    = var.eagle_console_project_id
   for_each                   = toset(local.service_project_apis)

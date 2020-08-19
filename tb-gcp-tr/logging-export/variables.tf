@@ -115,3 +115,8 @@ variable "encryption_key_names" {
   description = ""
   default     = {}
 }
+
+variable "apis_dependency" {
+  type        = string
+  description = "Creates dependency on apis-activation module"
+}
