@@ -63,3 +63,7 @@ variable "shared_bastion_project_name" {
   description = "Bastion project name."
 }
 
+variable "labels" {
+  type        = map(string)
+  description = "Labels to assign to resources."
+}

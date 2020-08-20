@@ -132,6 +132,7 @@ resource "google_compute_instance" "bootstrap_terraform_server" {
     tb_discriminator             = var.tb_discriminator
     terraform_state_bucket_name  = google_storage_bucket.terraform-state-bucket-res.name
     enable_itop                  = var.enable_itop
+    labels                       = var.labels
   })
 
   service_account {

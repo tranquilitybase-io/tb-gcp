@@ -18,12 +18,20 @@ exec 2> >(tee -ia "/var/log/bootstrap.log" >&2)
 date=$(date '+%Y-%m-%d %H:%M:%S')
 echo "Time start: ${date}"
 cd /opt/tb/repo/tb-gcp-tr/landingZone/no-itop
+
+#Retrieve project ID
+PROJECT_ID=$(curl -s "http://metadata.google.internal/computeMetadata/v1/project/project-id" -H "Metadata-Flavor: Google")
+
+echo labels = { > labels.auto.tfvars 
+gcloud projects describe ${PROJECT_ID} --format='value[delimiter=","](labels)' | tr -s "," "\n" | awk -F '=' '{ print $1 "=\"" $2 "\""}' >> labels.auto.tfvars
+echo "}" >> labels.auto.tfvars 
+    
 #Retrieve terraform vars
 source input.auto.tfvars
 
 # Create TF state bucket
 buckets=$(sudo gsutil list | grep ${terraform_state_bucket_name})
-if [ -z "$buckets"]; then 
+if [ -z "$buckets" ]; then 
 sudo gsutil mb -b on "gs://${terraform_state_bucket_name}/"
 fi
 
@@ -32,8 +40,6 @@ MAX_ATTEMPTS_INIT=3
 DELAY_BETWEEN_ATTEMPTS=60
 export HOME=/root
 
-#Retrieve project ID
-PROJECT_ID=$(curl -s "http://metadata.google.internal/computeMetadata/v1/project/project-id" -H "Metadata-Flavor: Google")
 #Initialise variables
 SA_NAME="bootstrap-sa"
 SA_EMAIL=${SA_NAME}@${PROJECT_ID}.iam.gserviceaccount.com
@@ -124,4 +130,3 @@ git push -u origin master
 
 date=$(date '+%Y-%m-%d %H:%M:%S')
 echo "Time end: ${date}"
-

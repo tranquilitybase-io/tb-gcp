@@ -365,6 +365,11 @@ variable "sharedservice_jenkinsmaster_yaml_path" {
   type        = string
 }
 
+variable "labels" {
+  type        = map(string)
+  description = "Labels to assign to resources."
+}
+
 #GCS bucket logging
 variable "gcs_logs_bucket_prefix" {
   description = "Prefix of the access logs & storage logs storage bucket"
