@@ -118,6 +118,12 @@ To set the active account, run:
 Example execution
 -----------------
 
+---
+Optional Step - Labelling.
+
+Labels can be applied to deployments by editing the file at 'tb-gcp\tb-marketplace\tb-config-creator\custom_labels.txt'
+Labels must be added to this file before running tb-config-creator.
+
 ```
 ./tb-config-creator -f 705953663545 -b F9C122-73127B-50AE5B
   Found project my-service-account.
