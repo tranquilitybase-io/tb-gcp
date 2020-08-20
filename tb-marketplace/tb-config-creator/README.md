@@ -121,7 +121,8 @@ Example execution
 ---
 Optional Step - Labelling.
 
-Labels can be applied to deployments by editing the file at 'tb-gcp\tb-marketplace\tb-config-creator\custom_labels.txt'
+Labels can be applied to deployments by editing the file at 
+`tb-gcp\tb-marketplace\tb-config-creator\custom_labels.txt`
 Labels must be added to this file before running tb-config-creator.
 
 ```
