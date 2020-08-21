@@ -174,7 +174,7 @@ module "gke-ec" {
   cluster_pool_name               = var.cluster_ec_pool_name
   cluster_master_cidr             = var.cluster_ec_master_cidr
   cluster_master_authorized_cidrs = concat(
-    var.cluster_ec_master_authorized_cidrs,-
+    var.cluster_ec_master_authorized_cidrs,
     [
       merge(
         {
