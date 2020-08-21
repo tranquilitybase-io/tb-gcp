@@ -402,16 +402,18 @@ variable "kms_key" {
 
 #telemetry kms
 
-variable "telemetry_kms_keyring" {
+variable "telemetry_kms_keyring_name" {
   type = string
   description = ""
   default = "telemetry-keyring"
 }
 
-variable "telemetry_kms_keys" {
-  type = list(string)
+variable "telemetry_kms_key_name" {
+  type = string
   description = ""
-  default = ["telemetry-key"]
+  default = "telemetry-key"
 }
+
+
 
 

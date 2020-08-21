@@ -74,15 +74,19 @@ module "shared_projects" {
   labels                         = var.labels
 }
 
-module "telemetry-storage-kms-key" {
-  source  = "terraform-google-modules/kms/google"
-  version = "~> 1.2"
+resource "google_kms_key_ring" "my_key_ring" {
+  project    = module.shared_projects.shared_telemetry_id
+  name       = var.telemetry_kms_keyring_name
+  location   = var.region
 
-  project_id         = module.apis_activation.telemetry_apis_enabled
-  location           = var.region
-  keyring            = var.telemetry_kms_keyring
-  keys               = var.telemetry_kms_keys
+  depends_on = [module.apis_activation.telemetry_apis_enabled]
 }
+
+resource "google_kms_crypto_key" "my_crypto_key" {
+  name     = var.telemetry_kms_key_name
+  key_ring = google_kms_key_ring.my_key_ring.self_link
+}
+
 
 module "gcs_bucket_logging" {
   source = "github.com/tranquilitybase-io/terraform-google-cloud-storage.git//modules/simple_bucket?ref=v1.6.0-logging"
@@ -91,7 +95,7 @@ module "gcs_bucket_logging" {
   name        = "${var.gcs_logs_bucket_prefix}-${var.tb_discriminator}"
   iam_members = var.iam_members_bindings
   location    = var.region
-  encryption  = {default_kms_key_name = "projects/shared-telemetry-${var.tb_discriminator}/locations/${var.region}/keyRings/${var.telemetry_kms_keyring}/cryptoKeys/${element(var.telemetry_kms_keys, 0)}"}
+  encryption  = {default_kms_key_name = "projects/shared-telemetry-${var.tb_discriminator}/locations/${var.region}/keyRings/${var.telemetry_kms_keyring_name}/cryptoKeys/${var.telemetry_kms_key_name}"}
 }
 
 module "apis_activation" {
