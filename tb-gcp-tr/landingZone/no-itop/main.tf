@@ -150,7 +150,7 @@ module "logging_export" {
   shared_services_id            = module.folder_structure.shared_services_id
   applications_id               = module.folder_structure.activators_id
   location                      = var.region
-  encryption_key_names          = {default_kms_key_name = "projects/shared-telemetry-${var.tb_discriminator}/locations/${var.region}/keyRings/${var.telemetry_kms_keyring}/cryptoKeys/${element(var.telemetry_kms_keys, 0)}"}
+  encryption_key_names          = {default_kms_key_name = "projects/shared-telemetry-${var.tb_discriminator}/locations/${var.region}/keyRings/${var.telemetry_kms_keyring_name}/cryptoKeys/${element(var.telemetry_kms_key_name)}"}
 }
 
 module "gke-ec" {
@@ -174,7 +174,7 @@ module "gke-ec" {
   cluster_pool_name               = var.cluster_ec_pool_name
   cluster_master_cidr             = var.cluster_ec_master_cidr
   cluster_master_authorized_cidrs = concat(
-    var.cluster_ec_master_authorized_cidrs,
+    var.cluster_ec_master_authorized_cidrs,-
     [
       merge(
         {
