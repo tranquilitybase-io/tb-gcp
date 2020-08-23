@@ -92,11 +92,9 @@ resource "google_kms_key_ring_iam_binding" "key_ring" {
   role        = "roles/editor"
 
   members = [
-    "bootstrap-sa@bootstrap-${var.tb_discriminator}.iam.gserviceaccount.com",
+    "serviceAccount:bootstrap-sa@bootstrap-${var.tb_discriminator}.iam.gserviceaccount.com"
   ]
 }
-
-
 
 module "gcs_bucket_logging" {
   source = "github.com/tranquilitybase-io/terraform-google-cloud-storage.git//modules/simple_bucket?ref=v1.6.0-logging"
