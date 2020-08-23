@@ -74,6 +74,10 @@ module "shared_projects" {
   labels                         = var.labels
 }
 
+data "google_project" "telemetry_project" {
+  project_id = module.shared_projects.shared_telemetry_id
+}
+
 resource "google_kms_key_ring" "my_key_ring" {
   project    = module.shared_projects.shared_telemetry_id
   name       = var.telemetry_kms_keyring_name
@@ -89,10 +93,10 @@ resource "google_kms_crypto_key" "my_crypto_key" {
 
 resource "google_kms_crypto_key_iam_binding" "crypto_key" {
   crypto_key_id = google_kms_crypto_key.my_crypto_key.id
-  role          = "roles/cloudkms.cryptoKeyEncrypter"
+  role          = "roles/cloudkms.cryptoKeyEncrypterDecrypter"
 
   members = [
-    "serviceAccount:bootstrap-sa@bootstrap-${var.tb_discriminator}.iam.gserviceaccount.com"
+    "serviceAccount:service-${data.google_project.telemetry_project.number}@gs-project-accounts.iam.gserviceaccount.com"
   ]
 }
 
@@ -103,7 +107,7 @@ module "gcs_bucket_logging" {
   name        = "${var.gcs_logs_bucket_prefix}-${var.tb_discriminator}"
   iam_members = var.iam_members_bindings
   location    = var.region
-  encryption  = {default_kms_key_name = "projects/shared-telemetry-${var.tb_discriminator}/locations/${var.region}/keyRings/${var.telemetry_kms_keyring_name}/cryptoKeys/${var.telemetry_kms_key_name}"}
+  encryption  = {default_kms_key_name = "${google_kms_crypto_key.my_crypto_key.self_link}"}
 }
 
 module "apis_activation" {
