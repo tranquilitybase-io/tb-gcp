@@ -87,9 +87,9 @@ resource "google_kms_crypto_key" "my_crypto_key" {
   key_ring = google_kms_key_ring.my_key_ring.self_link
 }
 
-resource "google_kms_key_ring_iam_binding" "key_ring" {
-  key_ring_id = google_kms_key_ring.my_key_ring.id
-  role        = "roles/editor"
+resource "google_kms_crypto_key_iam_binding" "crypto_key" {
+  crypto_key_id = google_kms_crypto_key.my_crypto_key.id
+  role          = "roles/cloudkms.cryptoKeyEncrypter"
 
   members = [
     "serviceAccount:bootstrap-sa@bootstrap-${var.tb_discriminator}.iam.gserviceaccount.com"
