@@ -74,8 +74,8 @@ module "shared_projects" {
   labels                         = var.labels
 }
 
-data "google_project" "telemetry_project" {
-  project_id = module.shared_projects.shared_telemetry_id
+data "google_storage_project_service_account" "telemetry_storage_service_account" {
+  project = module.shared_projects.shared_telemetry_id
 }
 
 resource "google_kms_key_ring" "my_key_ring" {
@@ -91,12 +91,12 @@ resource "google_kms_crypto_key" "my_crypto_key" {
   key_ring = google_kms_key_ring.my_key_ring.self_link
 }
 
-resource "google_kms_crypto_key_iam_binding" "crypto_key" {
+resource "google_kms_crypto_key_iam_binding" "grant-google-storage-service-encrypt-decrypt" {
   crypto_key_id = google_kms_crypto_key.my_crypto_key.id
   role          = "roles/cloudkms.cryptoKeyEncrypterDecrypter"
 
-  members = [
-    "serviceAccount:service-${data.google_project.telemetry_project.number}@gs-project-accounts.iam.gserviceaccount.com"
+  members = [ #should be able to change to use
+    "serviceAccount:${data.google_storage_project_service_account.telemetry_storage_service_account.email_address}"
   ]
 }
 
