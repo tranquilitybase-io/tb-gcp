@@ -162,7 +162,7 @@ module "logging_export" {
   shared_services_id            = module.folder_structure.shared_services_id
   applications_id               = module.folder_structure.activators_id
   location                      = var.region
-  encryption_key_names          = {default_kms_key_name = "projects/shared-telemetry-${var.tb_discriminator}/locations/${var.region}/keyRings/${var.telemetry_kms_keyring_name}/cryptoKeys/${var.telemetry_kms_key_name}"}
+  encryption_key_names          = {default_kms_key_name = "${google_kms_crypto_key.my_crypto_key.self_link}"}
 }
 
 module "gke-ec" {
