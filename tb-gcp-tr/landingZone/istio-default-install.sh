@@ -17,8 +17,6 @@ endspin() {
 }
 
 
-
-
 # Check that kubectl is installed
 
 printf "Checking kubectl is installed...\n"
