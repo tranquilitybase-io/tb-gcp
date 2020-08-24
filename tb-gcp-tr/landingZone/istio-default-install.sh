@@ -1,5 +1,7 @@
 #!/bin/bash
 
+ISTIO_VERSION=1.6.8
+
 sp='/-\|'
 sc=0
 spin() {
@@ -46,7 +48,7 @@ fi
 
 printf "Downloading and installing Istio...\n"
 # Download Istio binaries
-curl -L https://istio.io/downloadIstio | sh - > /dev/null 2>&1
+curl -L https://istio.io/downloadIstio | ISTIO_VERSION=${ISTIO_VERSION} TARGET_ARCH=x86_64 sh - > /dev/null 2>&1
 version=$(ls -1d istio-1*)
 export PATH="$PATH:$PWD/$version/bin"
 
