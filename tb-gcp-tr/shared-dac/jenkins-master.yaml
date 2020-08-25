@@ -148,7 +148,7 @@ spec:
         - destination:
             host: jenkins-master.cicd.svc.cluster.local
             port:
-              number: 80
+              number: 8080
       corsPolicy:
         allowOrigin:
           - "*"
