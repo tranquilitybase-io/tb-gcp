@@ -15,31 +15,18 @@
 ###
 # Root module (activates other modules)
 ###
-
 provider "google" {
   region  = var.region
   zone    = var.region_zone
-  version = "~> 3.3"
-}
-
-provider "google" {
-  alias   = "vault"
-  region  = var.region
-  zone    = var.region_zone
-  version = "~> 3.3"
 }
 
 provider "google-beta" {
-  alias   = "shared-vpc"
   region  = var.region
   zone    = var.region_zone
-  project = module.shared_projects.shared_networking_id
-  version = "~> 3.3"
 }
 
 provider "kubernetes" {
   alias   = "k8s"
-  version = "~> 1.12"
 }
 
 provider "tls" {
@@ -52,6 +39,27 @@ terraform {
     # `-backend-config="bucket=${terraform_state_bucket_name}"` parameter
     # templated into the `bootstrap.sh` script 
     bucket = "terraformdevstate"
+
+  }
+
+  required_providers {
+    google = {
+      source  = "hashicorp/google"
+      version = "~> 3.3"
+    }
+    google-beta = {
+      source  = "hashicorp/google-beta"
+      version = "~> 3.3"
+    }
+    kubernetes = {
+      source = "hashicorp/kubernetes"g
+    }
+    local = {
+      source = "hashicorp/local"
+    }
+    null = {
+      source = "hashicorp/null"
+    }
   }
 }
 
@@ -130,7 +138,7 @@ module "bastion-security" {
 }
 
 module "logging_export" {
-  source = "../../logging-export"
+  source                        = "../../logging-export"
   tb_discriminator              = var.tb_discriminator
   shared_telemetry_project_name = module.shared_projects.shared_telemetry_id
   shared_services_id            = module.folder_structure.shared_services_id
@@ -140,11 +148,6 @@ module "logging_export" {
 
 module "gke-ec" {
   source = "../../kubernetes-cluster-creation"
-
-  providers = {
-    google                 = google
-    google-beta.shared-vpc = google-beta.shared-vpc
-  }
 
   region               = var.region
   sharedvpc_project_id = module.shared_projects.shared_networking_id
@@ -176,9 +179,16 @@ module "gke-ec" {
 
   apis_dependency          = module.apis_activation.all_apis_enabled
   shared_vpc_dependency    = module.shared-vpc.gke_subnetwork_ids
+  shared_ec_dependency     = module.shared_projects.shared_ec_id
   istio_status             = var.istio_status
   gke_pod_network_name     = var.gke_pod_network_name
   gke_service_network_name = var.gke_service_network_name
+  
+  depends_on = [
+  module.shared_projects.shared_networking_id, 
+  module.shared_projects.shared_ec_id
+  ]
+
 }
 
 resource "google_sourcerepo_repository" "EC" {
@@ -213,6 +223,7 @@ module "SharedServices_namespace_creation" {
 resource "null_resource" "kubernetes_service_account_key_secret" {
   triggers = {
     content = module.SharedServices_namespace_creation.id
+    k8_name = module.k8s-ec_context.context_name
   }
 
   provisioner "local-exec" {
@@ -220,7 +231,7 @@ resource "null_resource" "kubernetes_service_account_key_secret" {
   }
 
   provisioner "local-exec" {
-    command = "echo 'kubectl --context=${module.k8s-ec_context.context_name} delete secret ec-service-account' -n ssp | tee -a /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh"
+    command = "echo 'kubectl --context=${self.triggers.k8_name} delete secret ec-service-account' -n ssp | tee -a /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh"
     when    = destroy
   }
 }
@@ -230,6 +241,7 @@ resource "null_resource" "kubernetes_service_account_key_secret" {
 resource "null_resource" "kubernetes_jenkins_service_account_key_secret" {
   triggers = {
     content = module.SharedServices_namespace_creation.id
+    k8_name = module.k8s-ec_context.context_name
   }
 
   provisioner "local-exec" {
@@ -237,7 +249,7 @@ resource "null_resource" "kubernetes_jenkins_service_account_key_secret" {
   }
 
   provisioner "local-exec" {
-    command = "echo 'kubectl --context=${module.k8s-ec_context.context_name} delete secret ec-service-account' -n cicd | tee -a /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh"
+    command = "echo 'kubectl --context=${self.triggers.k8_name} delete secret ec-service-account' -n cicd | tee -a /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh"
     when    = destroy
   }
 }
@@ -251,8 +263,8 @@ module "SharedServices_jenkinsmaster_creation" {
   cluster_context   = module.k8s-ec_context.context_name
   dependency_var    = null_resource.kubernetes_jenkins_service_account_key_secret.id
 }
-  
-  
+
+
 module "SharedServices_configuration_file" {
   source = "../../../tb-common-tr/start_service"
 

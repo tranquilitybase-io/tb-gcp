@@ -15,6 +15,9 @@
 resource "null_resource" "k8s_config" {
   triggers = {
     content = var.dependency_var
+    cluster_name = var.cluster_name
+    region = var.region
+    cluster_project = var.cluster_project
   }
   provisioner "local-exec" {
     command = <<EOT
