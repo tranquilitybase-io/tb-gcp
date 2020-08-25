@@ -69,8 +69,8 @@ cat <<EOF > /etc/google-fluentd/config.d/bootstrap-log.conf
 EOF
 systemctl restart google-fluentd
 
-# install Terraform 0.11
-wget https://releases.hashicorp.com/terraform/0.12.9/terraform_0.12.9_linux_amd64.zip
+# install Terraform 0.13
+wget https://releases.hashicorp.com/terraform/0.13.3/terraform_0.13.3_linux_amd64.zip
 apt-get -y update
 apt-get -y install unzip
 apt-get -y install zip
@@ -85,8 +85,8 @@ npm install -g @angular/cli
 node -v
 npm -v
 
-unzip -d /usr/local/bin/ terraform_0.12.9_linux_amd64.zip
-rm terraform_0.12.9_linux_amd64.zip
+unzip -d /usr/local/bin/ terraform_0.13.3_linux_amd64.zip
+rm terraform_0.13.3_linux_amd64.zip
 
 # move TB Repo files from packer's home directory to target /opt/tb/repo directory
 mkdir -p /opt/tb

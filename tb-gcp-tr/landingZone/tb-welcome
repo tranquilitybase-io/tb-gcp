@@ -39,7 +39,6 @@ MAX_ATTEMPTS=10
 MAX_ATTEMPTS_INIT=3
 DELAY_BETWEEN_ATTEMPTS=60
 export HOME=/root
-
 #Initialise variables
 SA_NAME="bootstrap-sa"
 SA_EMAIL=${SA_NAME}@${PROJECT_ID}.iam.gserviceaccount.com

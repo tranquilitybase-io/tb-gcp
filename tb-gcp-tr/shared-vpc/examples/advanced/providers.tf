@@ -17,4 +17,3 @@ provider "google" {
   zone    = var.region_zone
   version = "~> 3.3"
 }
-

@@ -134,6 +134,11 @@ variable "shared_vpc_dependency" {
   description = "Creates dependency on shared-vpc module"
 }
 
+variable "shared_ec_dependency" {
+  type        = string
+  description = "Creates dependency on shared_projects"
+}
+
 variable "istio_permissive_mtls" {
   type    = string
   default = "false"

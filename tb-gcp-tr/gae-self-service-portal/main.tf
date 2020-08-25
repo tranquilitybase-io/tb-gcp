@@ -35,17 +35,21 @@ resource "google_storage_bucket" "ec-ui-static-files" {
 resource "null_resource" "sync-ec-ui-buckets" {
   count = var.source_bucket == "" ? 0 : 1
   provisioner "local-exec" {
-    command = "gsutil rsync -r gs://${var.source_bucket} gs://${google_storage_bucket.ec-ui-static-files.name}"
+    command = "gsutil rsync -r gs://${var.source_bucket} gs://${self.triggers.ec-ui-static-files}"
   }
 
   provisioner "local-exec" {
-    command = "gsutil rm -r gs://${google_storage_bucket.ec-ui-static-files.name}/*"
+    command = "gsutil rm -r gs://${self.triggers.ec-ui-static-files}/*"
     when    = destroy
   }
 
   depends_on = [
     google_storage_bucket.ec-ui-static-files
   ]
+    triggers = {
+    source_bucket  = var.source_bucket
+    ec-ui-static-files = google_storage_bucket.ec-ui-static-files.name
+  }
 }
 
 resource "null_resource" "ec_gke_cluster_endpoint_retrieved" {
@@ -59,6 +63,10 @@ resource "null_resource" "copy-endpoint-meta" {
     command = "cp ${var.endpoint_file} ${var.ui-source-local}/dist/tb-self-service-portal/assets/"
   }
   depends_on = [null_resource.ec_gke_cluster_endpoint_retrieved]
+    triggers = {
+    endpoint_file = var.endpoint_file
+    ui-source-local = var.ui-source-local
+  }
 }
 
 data "archive_file" "archive-ec-ui" {
