@@ -31,7 +31,7 @@ metadata:
     app: jenkins-master
 spec:
   ports:
-  - port: 8080
+  - port: 80
     targetPort: 8080
     protocol: TCP
     name: http
@@ -69,6 +69,7 @@ spec:
       containers:
        - name: jenkins-master
          image: gcr.io/tranquility-base-images/tb-jenkins_latest:landingzone
+         args: ["--prefix=/jenkins-service"]
          securityContext:
             privileged: true
             runAsUser: 0
@@ -148,7 +149,7 @@ spec:
         - destination:
             host: jenkins-master.cicd.svc.cluster.local
             port:
-              number: 8080
+              number: 80
       corsPolicy:
         allowOrigin:
           - "*"
