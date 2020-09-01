@@ -107,7 +107,7 @@ spec:
     spec:
       containers:
         - name: eagleconsole
-          image: gcr.io/tranquility-base-images/tb-eagle-console:landingzone
+          image: gcr.io/tranquility-base-images/tb-eagle-console:integration
           resources:
             requests:
               cpu: "100m"
@@ -134,7 +134,7 @@ spec:
     spec:
       containers:
         - name: houstonservice
-          image: gcr.io/tranquility-base-images/tb-houston-service:landingzone
+          image: gcr.io/tranquility-base-images/tb-houston-service:integration
           resources:
             requests:
               cpu: "100m"
@@ -191,7 +191,7 @@ spec:
     spec:
       containers:
         - name: gcpdac
-          image: gcr.io/tranquility-base-images/tb-gcp-dac:landingzone
+          image: gcr.io/tranquility-base-images/tb-gcp-dac:integration
           resources:
             requests:
               cpu: "100m"
@@ -217,7 +217,7 @@ spec:
               value: 'jenkins-master-svc.cicd'
 
         - name: gcpdacworker
-          image: gcr.io/tranquility-base-images/tb-gcp-dac:landingzone
+          image: gcr.io/tranquility-base-images/tb-gcp-dac:integration
           resources:
             requests:
               cpu: "100m"
@@ -270,7 +270,7 @@ spec:
     spec:
       containers:
         - name: mysql57
-          image: gcr.io/tranquility-base-images/tb-db:landingzone
+          image: gcr.io/tranquility-base-images/tb-db:integration
           resources:
             requests:
               cpu: "100m"
