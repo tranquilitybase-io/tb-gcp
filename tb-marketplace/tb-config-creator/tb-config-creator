@@ -24,7 +24,7 @@ function print_help {
   echo "  -o, --organization-id <id> Organisation ID where the Tranquility Base folder will be created"
   echo "  -a, --admin-name <id> (OPTIONAL) admin name to label to bootstrap project"
 
-  echo "  -l,  --labels <map(string)> (OPTIONAL) Comma seperated list of key : value pairs to be attached to shared projects"
+  echo "  -l, --labels <map(string)> (OPTIONAL) Comma seperated list of key : value pairs to be attached to shared projects"
   echo "  -nl, --no-labels <flag> (OPTIONAL) Override the labelling requirement."
   
   echo "  Either parent-folder-id or organization-id is REQUIRED"
@@ -58,7 +58,6 @@ while (( "$#" )); do
       ;;
     -nl|--no-labels)
       NO_LABELS="true"
-      shift 2
       ;;
     -h|--help)
       print_help
