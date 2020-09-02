@@ -23,6 +23,10 @@ function print_help {
   echo "  -f, --parent-folder-id <id> Parent folder ID where the Tranquility Base folder will be created"
   echo "  -o, --organization-id <id> Organisation ID where the Tranquility Base folder will be created"
   echo "  -a, --admin-name <id> (OPTIONAL) admin name to label to bootstrap project"
+
+  echo "  -l,  --labels <map(string)> (OPTIONAL) Comma seperated list of key : value pairs to be attached to shared projects"
+  echo "  -nl, --no-labels <flag> (OPTIONAL) Override the labelling requirement."
+  
   echo "  Either parent-folder-id or organization-id is REQUIRED"
   echo "Example:"
   echo "  $ ./tb-config-creator -f 705953663545 -b F9C122-73127B-50AE5B"
@@ -46,6 +50,14 @@ while (( "$#" )); do
       ;;
     -b|--billing-account-id)
       BILLING_ID=$2
+      shift 2
+      ;;
+    -l|--labels)
+      LABELS=$2
+      shift 2
+      ;;
+    -nl|--no-labels)
+      NO_LABELS=$2
       shift 2
       ;;
     -h|--help)
@@ -80,6 +92,11 @@ fi
 if [[ -n ${ORG_ID} && -n ${PARENT_FOLDER_ID} ]]; then
   #echo "ERROR: Invalid arguments."
   echo "Error: Either Organisation or Folder ID needs to be provided, not both"
+  exit 1
+fi
+
+if [[ -n ${LABELS} && -n ${NO_LABELS} ]]; then
+  echo "Error: Labels must either be provided or overriden with the --no-labels flag."
   exit 1
 fi
 
@@ -181,20 +198,20 @@ folder_id_entry=$(gcloud resource-manager folders create --display-name="${TBASE
 IFS='/' read -ra split_array <<< "$folder_id_entry"
 tb_folder_id="$(echo ${split_array[1]} | sed 's/[^0-9]*//g')"
 
-custom_labels_path="$(dirname ${BASH_SOURCE[0]})/custom_labels.txt"
-custom_labels_check=$(head -c1 < "$custom_labels_path")
-if [[ ${custom_labels_check} != '#' ]] 
-then
-  IFS=',' read -ra customLabels < "$custom_labels_path"
-  echo "The custom labels to be applied are:  "${customLabels[@]}
-  function join_by { local IFS="$1"; shift; echo "$*"; }
-  custom_labels_list="$(join_by ',' ${customLabels[@]})"
-  else
-  custom_labels_list=""
-fi
+# custom_labels_path="$(dirname ${BASH_SOURCE[0]})/custom_labels.txt"
+# custom_labels_check=$(head -c1 < "$custom_labels_path")
+# if [[ ${custom_labels_check} != '#' ]] 
+# then
+#   IFS=',' read -ra customLabels < "$custom_labels_path"
+#   echo "The custom labels to be applied are:  "${customLabels[@]}
+#   function join_by { local IFS="$1"; shift; echo "$*"; }
+#   custom_labels_list="$(join_by ',' ${customLabels[@]})"
+#   else
+#   custom_labels_list=""
+# fi
 
 echo "Creating project..."
-gcloud projects create "${PROJECT_ID}" --folder "${tb_folder_id}" --format=none --labels created_by="${ACTIVE_ACCOUNT}","${custom_labels_list[@]}"
+gcloud projects create "${PROJECT_ID}" --folder "${tb_folder_id}" --format=none --labels created_by="${ACTIVE_ACCOUNT}","${LABELS}"
 
 echo "Linking project to billing account..."
 gcloud alpha billing projects link "${PROJECT_ID}" --billing-account "${BILLING_ID}" --format=none
