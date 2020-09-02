@@ -22,7 +22,6 @@ function print_help {
   echo "  -b, --billing-account-id <string> (REQUIRED) Billing account ID tied to all Tranquility Base consumption"
   echo "  -f, --parent-folder-id <id> Parent folder ID where the Tranquility Base folder will be created"
   echo "  -o, --organization-id <id> Organisation ID where the Tranquility Base folder will be created"
-  echo "  -a, --admin-name <id> (OPTIONAL) admin name to label to bootstrap project"
 
   echo "  -l, --labels <map(string)> (OPTIONAL) Comma seperated list of key : value pairs to be attached to shared projects"
   echo "  -nl, --no-labels true <flag> (OPTIONAL) Override the labelling requirement."
@@ -58,7 +57,7 @@ while (( "$#" )); do
       ;;
     -nl|--no-labels)
       NO_LABELS=$2
-      
+
       ;;
     -h|--help)
       print_help
