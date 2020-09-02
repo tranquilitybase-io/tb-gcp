@@ -57,7 +57,7 @@ while (( "$#" )); do
       shift 2
       ;;
     -nl|--no-labels)
-      NO_LABELS=$2
+      NO_LABELS="true"
       shift 2
       ;;
     -h|--help)
@@ -128,7 +128,6 @@ if [[ -n ${ORG_ID}  ]]; then
     parent_id=${ORG_ID}
   fi
 fi
-
 
 # Check billing account
 tb_billing_id=$(gcloud beta billing accounts describe "${BILLING_ID}")
