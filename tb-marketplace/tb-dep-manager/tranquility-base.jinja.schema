@@ -24,7 +24,7 @@ required:
   - zone
   - billingAccountId
   - rootId
-  - created_by
+  - created-by
 
 properties:
   zone:
@@ -37,7 +37,7 @@ properties:
   billingAccountId:
     type: string
     pattern: ^[A-F0-9]{6}\-[A-F0-9]{6}\-[A-F0-9]{6}$
-  created_by:
+  created-by:
     type: string
 
 
