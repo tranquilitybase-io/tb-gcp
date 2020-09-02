@@ -95,7 +95,7 @@ if [[ -n ${ORG_ID} && -n ${PARENT_FOLDER_ID} ]]; then
   exit 1
 fi
 
-if [[ -n ${LABELS} && -n ${NO_LABELS} ]]; then
+if [[ -z ${LABELS} && -z ${NO_LABELS} ]]; then
   echo "Error: Labels must either be provided or overriden with the --no-labels flag."
   exit 1
 fi
@@ -197,18 +197,6 @@ sed -i "s/created_by:.*/created_by: '${ACTIVE_ACCOUNT}'/" $(dirname ${BASH_SOURC
 folder_id_entry=$(gcloud resource-manager folders create --display-name="${TBASE_FOLDER_NAME}" --"${parent_type}"="${parent_id}" --format="value(name)")
 IFS='/' read -ra split_array <<< "$folder_id_entry"
 tb_folder_id="$(echo ${split_array[1]} | sed 's/[^0-9]*//g')"
-
-# custom_labels_path="$(dirname ${BASH_SOURCE[0]})/custom_labels.txt"
-# custom_labels_check=$(head -c1 < "$custom_labels_path")
-# if [[ ${custom_labels_check} != '#' ]] 
-# then
-#   IFS=',' read -ra customLabels < "$custom_labels_path"
-#   echo "The custom labels to be applied are:  "${customLabels[@]}
-#   function join_by { local IFS="$1"; shift; echo "$*"; }
-#   custom_labels_list="$(join_by ',' ${customLabels[@]})"
-#   else
-#   custom_labels_list=""
-# fi
 
 echo "Creating project..."
 gcloud projects create "${PROJECT_ID}" --folder "${tb_folder_id}" --format=none --labels created_by="${ACTIVE_ACCOUNT}","${LABELS}"
