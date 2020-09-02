@@ -58,6 +58,7 @@ while (( "$#" )); do
       ;;
     -nl|--no-labels)
       NO_LABELS=$2
+      
       ;;
     -h|--help)
       print_help
