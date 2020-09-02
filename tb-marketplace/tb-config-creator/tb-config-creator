@@ -25,7 +25,7 @@ function print_help {
   echo "  -a, --admin-name <id> (OPTIONAL) admin name to label to bootstrap project"
 
   echo "  -l, --labels <map(string)> (OPTIONAL) Comma seperated list of key : value pairs to be attached to shared projects"
-  echo "  -nl, --no-labels <flag> (OPTIONAL) Override the labelling requirement."
+  echo "  -nl, --no-labels true <flag> (OPTIONAL) Override the labelling requirement."
   
   echo "  Either parent-folder-id or organization-id is REQUIRED"
   echo "Example:"
@@ -57,7 +57,7 @@ while (( "$#" )); do
       shift 2
       ;;
     -nl|--no-labels)
-      NO_LABELS=""
+      NO_LABELS=$2
       ;;
     -h|--help)
       print_help
