@@ -61,6 +61,7 @@ while (( "$#" )); do
       print_help
       exit 0
       ;;
+      
     --) # end argument parsing
       shift
       break

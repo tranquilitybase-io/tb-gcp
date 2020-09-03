@@ -1,9 +1,0 @@
-#cost_center=,business_unit=,team=,environment=,
-
-#Uncomment first line to add custom labels, you can add up to 255 labels
-#Only labels on the first line will be considered. Labels on the lines below will be ignored.
-#Comma-separated list of label KEY=VALUE pairs to associated with projects.
-#Keys must start with a lowercase character and contain only hyphens
-#(-), underscores (_), lowercase characters, and numbers. Values must
-#contain only hyphens (-), underscores (_), lowercase characters, and
-#numbers. Label keys as well as label values cannot exceed 63 characters each.
