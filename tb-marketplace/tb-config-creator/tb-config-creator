@@ -54,8 +54,8 @@ while (( "$#" )); do
       shift 2
       ;;
     -nl|--no-labels)
-      NO_LABELS=0
-      shift
+      NO_LABELS=$2
+      shift 2
       ;;
     -h|--help)
       print_help
