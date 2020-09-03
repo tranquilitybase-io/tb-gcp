@@ -23,6 +23,7 @@ function print_help {
   echo "  -f, --parent-folder-id <id> Parent folder ID where the Tranquility Base folder will be created"
   echo "  -o, --organization-id <id> Organisation ID where the Tranquility Base folder will be created"
   echo "  -l, --labels <map(string)> (OPTIONAL) Comma seperated list of key=value pairs to be attached to shared projects"
+  echo "   Example Labels: cost-code=value,business-unit=value,team=tranquility-base,environment=development"
   echo "  -nl, --no-labels <flag> (OPTIONAL) Override the labelling requirement."
   echo "  Either parent-folder-id or organization-id is REQUIRED"
   echo "Example:"
