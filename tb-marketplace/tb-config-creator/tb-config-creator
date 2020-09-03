@@ -34,6 +34,7 @@ function print_help {
 PARENT_FOLDER_ID=""
 BILLING_ID=""
 ORG_ID=""
+NO_LABELS=0
 
 while (( "$#" )); do
   case "$1" in
@@ -54,14 +55,14 @@ while (( "$#" )); do
       shift 2
       ;;
     -nl|--no-labels)
-      NO_LABELS=$2
-      shift 2
+      NO_LABELS=1
+      shift 
       ;;
     -h|--help)
       print_help
       exit 0
       ;;
-      
+
     --) # end argument parsing
       shift
       break
