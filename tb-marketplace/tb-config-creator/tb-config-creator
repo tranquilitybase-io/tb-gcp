@@ -23,7 +23,7 @@ function print_help {
   echo "  -f, --parent-folder-id <id> Parent folder ID where the Tranquility Base folder will be created"
   echo "  -o, --organization-id <id> Organisation ID where the Tranquility Base folder will be created"
   echo "  -l, --labels <map(string)> (OPTIONAL) Comma seperated list of key=value pairs to be attached to shared projects"
-  echo "  -nl, --no-labels true <flag> (OPTIONAL) Override the labelling requirement."
+  echo "  -nl, --no-labels <flag> (OPTIONAL) Override the labelling requirement."
   echo "  Either parent-folder-id or organization-id is REQUIRED"
   echo "Example:"
   echo "  $ ./tb-config-creator -f 705953663545 -b F9C122-73127B-50AE5B"
@@ -93,7 +93,7 @@ if [[ -n ${ORG_ID} && -n ${PARENT_FOLDER_ID} ]]; then
   exit 1
 fi
 
-if [[ -z ${LABELS} && -z ${NO_LABELS}]]; then
+if [[ -z ${LABELS} && -z ${NO_LABELS} ]]; then
   echo "Error: Labels must either be provided or overriden with the --no-labels flag."
   exit 1
 fi
