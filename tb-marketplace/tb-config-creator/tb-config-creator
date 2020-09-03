@@ -93,15 +93,12 @@ if [[ -n ${ORG_ID} && -n ${PARENT_FOLDER_ID} ]]; then
   exit 1
 fi
 
-if [[ -z ${LABELS} && -z ${NO_LABELS} ]]; then
+if [[ -z ${LABELS} && ${NO_LABELS} -eq 0 ]]; then
   echo "Error: Labels must either be provided or overriden with the --no-labels flag."
   exit 1
 fi
 
-if [[ $# -lt 3 ]]; then 
-  echo "Not enough arguments supplied."
-  exit 1
-fi
+if [[  ]]
 
 parent_type=""
 parent_id=""
