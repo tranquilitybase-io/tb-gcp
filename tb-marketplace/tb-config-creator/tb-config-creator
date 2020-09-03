@@ -22,7 +22,7 @@ function print_help {
   echo "  -b, --billing-account-id <string> (REQUIRED) Billing account ID tied to all Tranquility Base consumption"
   echo "  -f, --parent-folder-id <id> Parent folder ID where the Tranquility Base folder will be created"
   echo "  -o, --organization-id <id> Organisation ID where the Tranquility Base folder will be created"
-  echo "  -l, --labels <map(string)> (OPTIONAL) Comma seperated list of key : value pairs to be attached to shared projects"
+  echo "  -l, --labels <map(string)> (OPTIONAL) Comma seperated list of key=value pairs to be attached to shared projects"
   echo "  -nl, --no-labels true <flag> (OPTIONAL) Override the labelling requirement."
   echo "  Either parent-folder-id or organization-id is REQUIRED"
   echo "Example:"
@@ -54,14 +54,13 @@ while (( "$#" )); do
       shift 2
       ;;
     -nl|--no-labels)
-      NO_LABELS=$2
-      shift 2
+      NO_LABELS=0
+      shift
       ;;
     -h|--help)
       print_help
       exit 0
       ;;
-
     --) # end argument parsing
       shift
       break
