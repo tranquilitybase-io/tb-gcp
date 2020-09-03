@@ -98,6 +98,11 @@ if [[ -z ${LABELS} && -z ${NO_LABELS} ]]; then
   exit 1
 fi
 
+if [[ $# -lt 3 ]]; then 
+  echo "Not enough arguments supplied."
+  exit 1
+fi
+
 parent_type=""
 parent_id=""
 
