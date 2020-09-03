@@ -93,7 +93,7 @@ if [[ -n ${ORG_ID} && -n ${PARENT_FOLDER_ID} ]]; then
   exit 1
 fi
 
-if [[ -z ${LABELS} && -z ${NO_LABELS} ]]; then
+if [[ -z ${LABELS} && -z ${NO_LABELS} ]] || [[ -z $LABELS ]]; then
   echo "Error: Labels must either be provided or overriden with the --no-labels flag."
   exit 1
 fi
