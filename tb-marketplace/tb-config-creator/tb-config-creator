@@ -98,8 +98,6 @@ if [[ -z ${LABELS} && ${NO_LABELS} -eq 0 ]]; then
   exit 1
 fi
 
-if [[  ]]
-
 parent_type=""
 parent_id=""
 
