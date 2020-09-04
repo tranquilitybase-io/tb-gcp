@@ -165,7 +165,7 @@ fi
 
 # Generate a random alphanumeric
 PREFIX="bootstrap-"
-RND="$(cat /dev/urandom | tr -dc 'a-z0-9' | fold -w 8 | head -n 1)"
+RND="$(cat /dev/urandom | tr -dc 'a-z0-9' | fold -w 8 | sed '/^[0-9]*$/d' | head -n 1)"
 PROJECT_ID="${PREFIX}${RND}"
 SA_NAME="${PREFIX}sa"
 SA_EMAIL="${SA_NAME}@${PROJECT_ID}.iam.gserviceaccount.com"
