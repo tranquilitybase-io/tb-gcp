@@ -22,17 +22,19 @@ function print_help {
   echo "  -b, --billing-account-id <string> (REQUIRED) Billing account ID tied to all Tranquility Base consumption"
   echo "  -f, --parent-folder-id <id> Parent folder ID where the Tranquility Base folder will be created"
   echo "  -o, --organization-id <id> Organisation ID where the Tranquility Base folder will be created"
-  echo "  -a, --admin-name <id> (OPTIONAL) admin name to label to bootstrap project"
+  echo "  -l, --labels <map(string)> (OPTIONAL) Comma seperated list of key=value pairs to be attached to shared projects"
+  echo "  -nl, --no-labels <flag> (OPTIONAL) Override the labelling requirement."
   echo "  Either parent-folder-id or organization-id is REQUIRED"
   echo "Example:"
-  echo "  $ ./tb-config-creator -f 705953663545 -b F9C122-73127B-50AE5B"
-  echo "  $ ./tb-config-creator -o 123953123545 -b F9C122-73127B-50AE5B"
+  echo "  $ ./tb-config-creator -f 705953663545 -b F9C122-73127B-50AE5B -l cost-code=value,business-unit=value,team=tranquility-base,environment=development"
+  echo "  $ ./tb-config-creator -o 123953123545 -b F9C122-73127B-50AE5B -nl"
 
 }
 
 PARENT_FOLDER_ID=""
 BILLING_ID=""
 ORG_ID=""
+NO_LABELS=0
 
 while (( "$#" )); do
   case "$1" in
@@ -47,6 +49,14 @@ while (( "$#" )); do
     -b|--billing-account-id)
       BILLING_ID=$2
       shift 2
+      ;;
+    -l|--labels)
+      LABELS=$2
+      shift 2
+      ;;
+    -nl|--no-labels)
+      NO_LABELS=1
+      shift 
       ;;
     -h|--help)
       print_help
@@ -83,6 +93,11 @@ if [[ -n ${ORG_ID} && -n ${PARENT_FOLDER_ID} ]]; then
   exit 1
 fi
 
+if [[ -z ${LABELS} && ${NO_LABELS} -eq 0 ]]; then
+  echo "Error: Labels must either be provided or overriden with the --no-labels flag."
+  exit 1
+fi
+
 parent_type=""
 parent_id=""
 
@@ -111,7 +126,6 @@ if [[ -n ${ORG_ID}  ]]; then
     parent_id=${ORG_ID}
   fi
 fi
-
 
 # Check billing account
 tb_billing_id=$(gcloud beta billing accounts describe "${BILLING_ID}")
@@ -175,26 +189,14 @@ TBASE_FOLDER_NAME="${TBASE_FOLDER_PREFIX}${RND}"
 #Explicit labelling is required here because Terraform has not been applied.
 ACTIVE_ACCOUNT="$(gcloud config list account --format "value(core.account)" | cut -d@ -f1)"
 echo "Resources will be labelled with the owner: ${ACTIVE_ACCOUNT}"
-sed -i "s/created_by:.*/created_by: '${ACTIVE_ACCOUNT}'/" $(dirname ${BASH_SOURCE[0]})/../tb-dep-manager/test_config.yaml
+sed -i "s/created-by:.*/created-by: '${ACTIVE_ACCOUNT}'/" $(dirname ${BASH_SOURCE[0]})/../tb-dep-manager/test_config.yaml
 # Create Tbase folder to store bootstrap project, involves parsing the output of the glcoud command to get the folder id
 folder_id_entry=$(gcloud resource-manager folders create --display-name="${TBASE_FOLDER_NAME}" --"${parent_type}"="${parent_id}" --format="value(name)")
 IFS='/' read -ra split_array <<< "$folder_id_entry"
 tb_folder_id="$(echo ${split_array[1]} | sed 's/[^0-9]*//g')"
 
-custom_labels_path="$(dirname ${BASH_SOURCE[0]})/custom_labels.txt"
-custom_labels_check=$(head -c1 < "$custom_labels_path")
-if [[ ${custom_labels_check} != '#' ]] 
-then
-  IFS=',' read -ra customLabels < "$custom_labels_path"
-  echo "The custom labels to be applied are:  "${customLabels[@]}
-  function join_by { local IFS="$1"; shift; echo "$*"; }
-  custom_labels_list="$(join_by ',' ${customLabels[@]})"
-  else
-  custom_labels_list=""
-fi
-
 echo "Creating project..."
-gcloud projects create "${PROJECT_ID}" --folder "${tb_folder_id}" --format=none --labels created_by="${ACTIVE_ACCOUNT}","${custom_labels_list[@]}"
+gcloud projects create "${PROJECT_ID}" --folder "${tb_folder_id}" --format=none --labels created-by="${ACTIVE_ACCOUNT}","${LABELS}"
 
 echo "Linking project to billing account..."
 gcloud alpha billing projects link "${PROJECT_ID}" --billing-account "${BILLING_ID}" --format=none
