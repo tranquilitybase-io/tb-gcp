@@ -179,7 +179,7 @@ fi
 
 # Generate a random alphanumeric
 PREFIX="bootstrap-"
-RND="$(cat /dev/urandom | tr -dc 'a-z0-9' | fold -w 16 | sed '/^[0-9]*$/d' | head -n 1)"
+RND="$(date | md5sum |  awk '{print substr($0,0,9)}' | sed '/^[0-9]*$/d')"
 PROJECT_ID="${PREFIX}${RND}"
 SA_NAME="${PREFIX}sa"
 SA_EMAIL="${SA_NAME}@${PROJECT_ID}.iam.gserviceaccount.com"
@@ -189,14 +189,14 @@ TBASE_FOLDER_NAME="${TBASE_FOLDER_PREFIX}${RND}"
 #Explicit labelling is required here because Terraform has not been applied.
 ACTIVE_ACCOUNT="$(gcloud config list account --format "value(core.account)" | cut -d@ -f1)"
 echo "Resources will be labelled with the owner: ${ACTIVE_ACCOUNT}"
-sed -i "s/created_by:.*/created_by: '${ACTIVE_ACCOUNT}'/" $(dirname ${BASH_SOURCE[0]})/../tb-dep-manager/test_config.yaml
+sed -i "s/created-by:.*/created-by: '${ACTIVE_ACCOUNT}'/" $(dirname ${BASH_SOURCE[0]})/../tb-dep-manager/test_config.yaml
 # Create Tbase folder to store bootstrap project, involves parsing the output of the glcoud command to get the folder id
 folder_id_entry=$(gcloud resource-manager folders create --display-name="${TBASE_FOLDER_NAME}" --"${parent_type}"="${parent_id}" --format="value(name)")
 IFS='/' read -ra split_array <<< "$folder_id_entry"
 tb_folder_id="$(echo ${split_array[1]} | sed 's/[^0-9]*//g')"
 
 echo "Creating project..."
-gcloud projects create "${PROJECT_ID}" --folder "${tb_folder_id}" --format=none --labels created_by="${ACTIVE_ACCOUNT}","${LABELS}"
+gcloud projects create "${PROJECT_ID}" --folder "${tb_folder_id}" --format=none --labels created-by="${ACTIVE_ACCOUNT}","${LABELS}"
 
 echo "Linking project to billing account..."
 gcloud alpha billing projects link "${PROJECT_ID}" --billing-account "${BILLING_ID}" --format=none
