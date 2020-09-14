@@ -324,7 +324,7 @@ spec:
             claimName: mysql-pv-claim
       containers:
         - name: mysql57
-            image: gcr.io/tranquility-base-images/tb-db:landingzone
+          image: gcr.io/tranquility-base-images/tb-db:landingzone
           resources:
             requests:
               cpu: "100m"
