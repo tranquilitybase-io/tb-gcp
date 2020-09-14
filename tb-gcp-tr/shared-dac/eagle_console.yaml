@@ -212,14 +212,16 @@ spec:
     spec:
       volumes:
         - name: redis-pv-storage
+#          emptyDir: {}
           persistentVolumeClaim:
             claimName: redis-pv-claim
       containers:
         - name: redis
           image: redis:alpine
+          imagePullPolicy: IfNotPresent
           volumeMounts:
             - name: redis-pv-storage
-              mountPath: "/data"
+              mountPath: "/data/redis"
 
 ---
 apiVersion: apps/v1
@@ -328,7 +330,7 @@ spec:
           resources:
             requests:
               cpu: "100m"
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           ports:
             - name: mysql57
               containerPort: 3306
@@ -344,7 +346,7 @@ spec:
             - name: MYSQL_DATABASE
               value: eagle_db
           volumeMounts:
-            - mountPath: "/data"
+            - mountPath: /var/lib/mysql
               name: mysql-pv-storage
 ---
 apiVersion: networking.istio.io/v1alpha3
