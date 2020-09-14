@@ -271,8 +271,8 @@ spec:
             requests:
               cpu: "100m"
           imagePullPolicy: Always
-#          command: ['celery', '-E', '-A', 'celery_worker', 'worker', '--loglevel=info']
-          command: ['celery_worker.sh']
+          command: ['celery', '-E', '-A', 'celery_worker', 'worker', '--loglevel=info']
+#          command: ['celery_worker.sh']
           ports:
             - containerPort: 80
           volumeMounts:
