@@ -31,6 +31,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mysql-pv-claim
+  namespace: ssp
 spec:
   storageClassName: mysql-sc
   accessModes:
@@ -43,6 +44,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: redis-pv-claim
+  namespace: ssp
 spec:
   storageClassName: redis-sc
   accessModes:
@@ -218,7 +220,7 @@ spec:
           volumeMounts:
             - name: redis-pv-storage
               mountPath: "/data"
-              
+
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -269,7 +271,8 @@ spec:
             requests:
               cpu: "100m"
           imagePullPolicy: Always
-          command: ['celery', '-E', '-A', 'celery_worker', 'worker', '--loglevel=info']
+#          command: ['celery', '-E', '-A', 'celery_worker', 'worker', '--loglevel=info']
+          command: ['celery_worker.sh']
           ports:
             - containerPort: 80
           volumeMounts:
@@ -321,7 +324,7 @@ spec:
             claimName: mysql-pv-claim
       containers:
         - name: mysql57
-          image: gcr.io/tranquility-base-images/tb-db:landingzone
+            image: gcr.io/tranquility-base-images/tb-db:landingzone
           resources:
             requests:
               cpu: "100m"
