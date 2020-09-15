@@ -345,6 +345,8 @@ spec:
               value: eagle-user-secret-pw
             - name: MYSQL_DATABASE
               value: eagle_db
+          args:
+            - --ignore-db-dir=lost+found
           volumeMounts:
             - mountPath: /var/lib/mysql
               name: mysql-pv-storage
