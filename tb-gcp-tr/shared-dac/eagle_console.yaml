@@ -212,7 +212,6 @@ spec:
     spec:
       volumes:
         - name: redis-pv-storage
-#          emptyDir: {}
           persistentVolumeClaim:
             claimName: redis-pv-claim
       containers:
@@ -274,7 +273,6 @@ spec:
               cpu: "100m"
           imagePullPolicy: Always
           command: ['celery', '-E', '-A', 'celery_worker', 'worker', '--loglevel=info']
-#          command: ['celery_worker.sh']
           ports:
             - containerPort: 80
           volumeMounts:
