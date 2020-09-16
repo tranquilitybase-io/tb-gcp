@@ -11,7 +11,48 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: redis-sc
+provisioner: kubernetes.io/gce-pd
+parameters:
+  type: pd-ssd
+---
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: mysql-sc
+provisioner: kubernetes.io/gce-pd
+parameters:
+  type: pd-ssd
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pv-claim
+  namespace: ssp
+spec:
+  storageClassName: mysql-sc
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: redis-pv-claim
+  namespace: ssp
+spec:
+  storageClassName: redis-sc
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -169,9 +210,18 @@ spec:
         app: redis
         version: v1
     spec:
+      volumes:
+        - name: redis-pv-storage
+          persistentVolumeClaim:
+            claimName: redis-pv-claim
       containers:
         - name: redis
           image: redis:alpine
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: redis-pv-storage
+              mountPath: "/data/redis"
+
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -268,13 +318,17 @@ spec:
       labels:
         app: mysql57
     spec:
+      volumes:
+        - name: mysql-pv-storage
+          persistentVolumeClaim:
+            claimName: mysql-pv-claim
       containers:
         - name: mysql57
           image: gcr.io/tranquility-base-images/tb-db:landingzone
           resources:
             requests:
               cpu: "100m"
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           ports:
             - name: mysql57
               containerPort: 3306
@@ -289,6 +343,11 @@ spec:
               value: eagle-user-secret-pw
             - name: MYSQL_DATABASE
               value: eagle_db
+          args:
+            - --ignore-db-dir=lost+found
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: mysql-pv-storage
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
