@@ -39,7 +39,7 @@ resource "tls_private_key" "cert" {
   ecdsa_curve = var.private_key_ecdsa_curve
   rsa_bits    = var.private_key_rsa_bits
 
-  # Store the certificate's private key in a file.
+ 
   # Store the certificate's private key in a file.
   provisioner "local-exec" {
     command = "echo '${tls_private_key.cert.private_key_pem}' > '${var.private_key_file_path}' && chmod ${var.permissions} '${var.private_key_file_path}' && chown ${var.owner} '${var.private_key_file_path}'"
@@ -72,5 +72,4 @@ resource "tls_locally_signed_cert" "cert" {
   provisioner "local-exec" {
     command = "echo '${tls_locally_signed_cert.cert.cert_pem}' > '${var.public_key_file_path}' && chmod ${var.permissions} '${var.public_key_file_path}' && chown ${var.owner} '${var.public_key_file_path}'"
   }
-
 }
