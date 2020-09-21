@@ -42,6 +42,10 @@ provider "kubernetes" {
   version = "~> 1.12"
 }
 
+provider "tls" {
+  version = "~> 2.2"
+}
+
 terraform {
   backend "gcs" {
     # The bucket name below is overloaded at every run with
@@ -192,6 +196,9 @@ module "k8s-ec_context" {
   dependency_var  = module.gke-ec.node_id
 }
 
+module "tls" {
+  source = "../../tls"
+}
 ## Creating the ssp and cicd namespaces in the shared services cluster ## depends on the k8-ec_content module 
 module "SharedServices_namespace_creation" {
   source = "../../../tb-common-tr/start_service"

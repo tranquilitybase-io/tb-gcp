@@ -5,9 +5,7 @@ kubectl apply -f /opt/tb/repo/tb-gcp-tr/landingZone/istio-pvt-ingressgateway.yam
 kubectl delete svc istio-ingressgateway --namespace=istio-system
 
 ## create secret
-kubectl create -n istio-system secret tls ec-tls-credential --key=/opt/certs/eagle-console.private.landing-zone.com.key --cert=/opt/certs/eagle-console.private.landing-zone.com.crt
-
-
+kubectl create -n istio-system secret tls ec-tls-credential --key=/opt/certs/eagle-console.ca.pem --cert=/opt/certs/eagle-console.crt.pem
 ## record ip with Cloud DNS
 service_desc=($(kubectl describe services istio-private-ingressgateway --namespace=istio-system | grep 'LoadBalancer Ingress:'))
 endpoint_ip=${service_desc[2]}
@@ -17,5 +15,5 @@ PROJECT_ID=$(curl -s "http://metadata.google.internal/computeMetadata/v1/project
 TB_DISCRIMINATOR="${PROJECT_ID: -8}"
 SHARED_NETWORKING_PROJECT=shared-networking-${TB_DISCRIMINATOR}
 gcloud dns --project="${SHARED_NETWORKING_PROJECT}" record-sets transaction start --zone=private-shared
-gcloud beta dns --project="${SHARED_NETWORKING_PROJECT}" record-sets transaction add "${endpoint_ip}" --name=eagle-console.private.landing-zone.com. --ttl=300 --type=A --zone=private-shared
+gcloud beta dns --project="${SHARED_NETWORKING_PROJECT}" record-sets transaction add "${endpoint_ip}" --name=eagle-console.tranquilitybase.internal. --ttl=300 --type=A --zone=private-shared
 gcloud beta dns --project="${SHARED_NETWORKING_PROJECT}" record-sets transaction execute --zone=private-shared
