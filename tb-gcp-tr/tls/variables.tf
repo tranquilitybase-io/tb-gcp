@@ -99,17 +99,17 @@ variable "permissions" {
 variable "ca_public_key_file_path" {
   description = "Write the PEM-encoded CA certificate public key to this path (e.g. /etc/tls/ca.crt.pem)."
   type        = string
-  default     = "/opt/certs/eagle-console.ca.pem"
+  default     = "/opt/certs/eagle-console.ca"
 }
 
 variable "public_key_file_path" {
   description = "Write the PEM-encoded certificate public key to this path (e.g. /etc/tls/cloudapps.crt.pem)."
   type        = string
-  default     = "/opt/certs/eagle-console.crt.pem"
+  default     = "/opt/certs/eagle-console.crt"
 }
 
 variable "private_key_file_path" {
   description = "Write the PEM-encoded certificate private key to this path (e.g. /etc/tls/cloudapps.key.pem)."
   type        = string
-  default     = "/opt/certs/eagle-console.key.pem"
+  default     = "/opt/certs/eagle-console.key"
 }
