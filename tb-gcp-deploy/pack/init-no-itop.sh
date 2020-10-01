@@ -93,11 +93,8 @@ mkdir -p /opt/tb
 mv repo /opt/tb/
 mv tb-gcp-tr /opt/tb/repo
 
-# create certificate
+# create certificate directory
 mkdir -p /opt/certs
-openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 -subj '/O=TB Inc./CN=private.landing-zone.com' -keyout /opt/certs/private.landing-zone.com.key -out /opt/certs/private.landing-zone.com.crt
-openssl req -out /opt/certs/eagle-console.private.landing-zone.com.csr -newkey rsa:2048 -nodes -keyout /opt/certs/eagle-console.private.landing-zone.com.key -subj "/CN=eagle-console.private.landing-zone.com/O=eagle-console organization"
-openssl x509 -req -days 365 -CA /opt/certs/private.landing-zone.com.crt -CAkey /opt/certs/private.landing-zone.com.key -set_serial 0 -in /opt/certs/eagle-console.private.landing-zone.com.csr -out /opt/certs/eagle-console.private.landing-zone.com.crt
 
 #Navigate to Landing Zone working dir
 cd /opt/tb/repo/tb-gcp-tr/landingZone/no-itop/
