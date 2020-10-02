@@ -71,7 +71,7 @@ spec:
       spec:
       containers:
        - name: jenkins-master
-         image: gcr.io/tranquility-base-images/tb-jenkins_latest:landingzone
+         image: gcr.io/tranquility-base-images/tb-jenkins_latest:landingzonee
          securityContext:
             privileged: true
             runAsUser: 0
