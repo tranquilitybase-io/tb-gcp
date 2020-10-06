@@ -11,6 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+---
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
@@ -21,7 +22,6 @@ parameters:
   replication-type: regional-pd
 volumeBindingMode: WaitForFirstConsumer
 allowedTopologies:
-
 ---
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
@@ -308,7 +308,7 @@ spec:
           secret:
             secretName: ec-service-account
 ---
-apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+apiVersion: apps/v1  # for versions before 1.9.0 use apps/v1beta2
 kind: Deployment
 metadata:
   name: mysql57
@@ -363,7 +363,7 @@ metadata:
   namespace: ssp
 spec:
   selector:
-    istio: private-ingressgateway # use istio default controller
+    istio: private-ingressgateway  # use istio default controller
   servers:
     - port:
         number: 443
