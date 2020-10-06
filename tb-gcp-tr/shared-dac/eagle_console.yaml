@@ -18,6 +18,10 @@ metadata:
 provisioner: kubernetes.io/gce-pd
 parameters:
   type: pd-ssd
+  replication-type: regional-pd
+volumeBindingMode: WaitForFirstConsumer
+allowedTopologies:
+
 ---
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
@@ -26,6 +30,9 @@ metadata:
 provisioner: kubernetes.io/gce-pd
 parameters:
   type: pd-ssd
+  replication-type: regional-pd
+volumeBindingMode: WaitForFirstConsumer
+allowedTopologies:
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

@@ -6,20 +6,25 @@ metadata:
 provisioner: kubernetes.io/gce-pd
 parameters:
   type: pd-ssd
+  replication-type: regional-pd
+volumeBindingMode: WaitForFirstConsumer
+allowedTopologies:
 ---
 ### Persistent volume claim ###
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: jenkins-master-pv-claim 
+  name: jenkins-master-pv-claim
   namespace: cicd
 spec:
+  storageClassName: gold
   accessModes:
   - ReadWriteOnce
   resources:
     requests:
       storage: 50Gi
-  storageClassName: gold
+  
+  
 ---
 ### Jenkins Service ###
 apiVersion: v1
