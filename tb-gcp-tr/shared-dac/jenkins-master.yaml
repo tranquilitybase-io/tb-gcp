@@ -1,3 +1,4 @@
+---
 ### StorageClass ###
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
@@ -19,12 +20,10 @@ metadata:
 spec:
   storageClassName: gold
   accessModes:
-  - ReadWriteOnce
+    - ReadWriteOnce
   resources:
     requests:
       storage: 50Gi
-  
-  
 ---
 ### Jenkins Service ###
 apiVersion: v1
@@ -39,14 +38,14 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-  - port: 80
-    targetPort: 8080
-    protocol: TCP
-    name: http
-  - port: 50000
-    targetPort: 50000
-    protocol: TCP
-    name: slave
+    - port: 80
+      targetPort: 8080
+      protocol: TCP
+      name: http
+    - port: 50000
+      targetPort: 50000
+      protocol: TCP
+      name: slave
   selector:
     app: jenkins-master
 ---
@@ -75,50 +74,49 @@ spec:
         - name: "docker-hub"
       spec:
       containers:
-       - name: jenkins-master
-         image: gcr.io/tranquility-base-images/tb-jenkins_latest:landingzone
-         securityContext:
+        - name: jenkins-master
+          image: gcr.io/tranquility-base-images/tb-jenkins_latest:landingzone
+          securityContext:
             privileged: true
             runAsUser: 0
-         imagePullPolicy: "Always"
-         volumeMounts:
-          - mountPath: /var
-            name: jenkins-home
-            subPath: jenkins_home
-          - name: docker-sock-volume
-            mountPath: /var/run/docker.sock
-          - name: google-cloud-key
-            mountPath: /var/secrets/google
-         env:
-          - name: GOOGLE_APPLICATION_CREDENTIALS
-            value: /var/secrets/google/ec-service-account-config.json
-         resources:
-           requests:
-             memory: "1024Mi"
-             cpu: "1"
-           limits: 
-             memory: "4096Mi"
-             cpu: "2"
-         ports:
-           - name: http-port
-             containerPort: 8080
-           - name: jnlp-port
-             containerPort: 50000
+          imagePullPolicy: "Always"
+          volumeMounts:
+            - mountPath: /var
+              name: jenkins-home
+              subPath: jenkins_home
+            - name: docker-sock-volume
+              mountPath: /var/run/docker.sock
+            - name: google-cloud-key
+              mountPath: /var/secrets/google
+          env:
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /var/secrets/google/ec-service-account-config.json
+          resources:
+            requests:
+              memory: "1024Mi"
+              cpu: "1"
+            limits:
+              memory: "4096Mi"
+              cpu: "2"
+          ports:
+            - name: http-port
+              containerPort: 8080
+            - name: jnlp-port
+              containerPort: 50000
       volumes:
-       - name: config-volume
-         configMap:
-           name: ec-config
-       - name: google-cloud-key
-         secret:
-           secretName: ec-service-account
-       - name: jenkins-home
-         persistentVolumeClaim:
-          claimName: jenkins-master-pv-claim
-       - name: docker-sock-volume
-         hostPath:
-           path: /var/run/docker.sock
-           type: File
-status: {}
+        - name: config-volume
+          configMap:
+            name: ec-config
+        - name: google-cloud-key
+          secret:
+            secretName: ec-service-account
+        - name: jenkins-home
+          persistentVolumeClaim:
+            claimName: jenkins-master-pv-claim
+        - name: docker-sock-volume
+          hostPath:
+            path: /var/run/docker.sock
+            type: File
 ---
 ### Private-ingressgateway for Jenkins ###
 apiVersion: networking.istio.io/v1alpha3
@@ -128,7 +126,7 @@ metadata:
   namespace: cicd
 spec:
   selector:
-    istio: private-ingressgateway # use istio default controller
+    istio: private-ingressgateway  # use istio default controller
   servers:
     - port:
         number: 8080
