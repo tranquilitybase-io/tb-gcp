@@ -251,13 +251,18 @@ gcloud --project "${PROJECT_ID}" services enable runtimeconfig.googleapis.com
 
 echo "Essential APIs activated."
 
-# best practice (needs to be done after compute API is enabled)
-echo "Deleting default network..."
-gcloud compute firewall-rules delete projects/"${PROJECT_ID}"/global/firewalls/default-allow-icmp --quiet
-gcloud compute firewall-rules delete projects/"${PROJECT_ID}"/global/firewalls/default-allow-rdp --quiet
-gcloud compute firewall-rules delete projects/"${PROJECT_ID}"/global/firewalls/default-allow-ssh --quiet
-gcloud compute firewall-rules delete projects/"${PROJECT_ID}"/global/firewalls/default-allow-internal --quiet
-gcloud compute networks delete projects/"${PROJECT_ID}"/global/networks/default --quiet
+echo "Checking if the default VPC network was created on compute.googleapis.com activation..."
+if [[ -n "$(gcloud --project ${PROJECT_ID} compute networks list --filter='name=default' --format='value(name)' 2> /dev/null)" ]]; then
+  echo "The default VPC network was created. Deleting it as per best practices..."
+  gcloud compute firewall-rules delete projects/"${PROJECT_ID}"/global/firewalls/default-allow-icmp --quiet
+  gcloud compute firewall-rules delete projects/"${PROJECT_ID}"/global/firewalls/default-allow-rdp --quiet
+  gcloud compute firewall-rules delete projects/"${PROJECT_ID}"/global/firewalls/default-allow-ssh --quiet
+  gcloud compute firewall-rules delete projects/"${PROJECT_ID}"/global/firewalls/default-allow-internal --quiet
+  gcloud compute networks delete projects/"${PROJECT_ID}"/global/networks/default --quiet
+  echo "Finished deleting the default VPC network."
+else
+  echo "The default VPC network was not created."
+fi
 
 echo
 echo "Configuration completed!"
