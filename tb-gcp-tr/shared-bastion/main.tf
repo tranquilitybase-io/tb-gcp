@@ -127,6 +127,9 @@ resource "google_compute_instance_template" "bastion_linux_template" {
     email  = google_service_account.bastion_service_account.email
     scopes = []
   }
+
+  // make sure the project is attached and can see the shared VPC network before referencing one of it's subnetworks
+  depends_on = [google_compute_shared_vpc_service_project.attach_bastion_project]
 }
 
 // Create instance group for the linux bastion
@@ -183,6 +186,9 @@ resource "google_compute_instance_template" "bastion_windows_template" {
   metadata = {
     windows-startup-script-ps1 = "$LocalTempDir = $env:TEMP; $ChromeInstaller = \"ChromeInstaller.exe\"; (new-object System.Net.WebClient).DownloadFile('http://dl.google.com/chrome/install/375.126/chrome_installer.exe', \"$LocalTempDir\\$ChromeInstaller\"); & \"$LocalTempDir\\$ChromeInstaller\" /silent /install;"
   }
+
+  // make sure the project is attached and can see the shared VPC network before referencing one of it's subnetworks
+  depends_on = [google_compute_shared_vpc_service_project.attach_bastion_project]
 }
 
 // Create instance group for the windows bastion
