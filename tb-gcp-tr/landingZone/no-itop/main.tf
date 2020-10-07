@@ -132,7 +132,6 @@ module "bastion-security" {
   region_zone                   = var.region_zone
   shared_bastion_id             = module.shared_projects.shared_bastion_id
   shared_networking_id          = module.shared_projects.shared_networking_id
-  nat_static_ip                 = module.shared-vpc.nat_static_ip
   root_id                       = var.root_id
   shared_bastion_project_number = module.shared_projects.shared_bastion_project_number
 }
@@ -263,7 +262,6 @@ module "SharedServices_jenkinsmaster_creation" {
   cluster_context   = module.k8s-ec_context.context_name
   dependency_var    = null_resource.kubernetes_jenkins_service_account_key_secret.id
 }
-
 
 module "SharedServices_configuration_file" {
   source = "../../../tb-common-tr/start_service"

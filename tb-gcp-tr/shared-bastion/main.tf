@@ -42,52 +42,41 @@ resource "google_compute_subnetwork_iam_binding" "bastion_subnet_permission" {
   ]
 }
 
-resource "google_compute_firewall" "shared-net-bast" {
-  provider   = google-beta
-  depends_on = [google_service_account.bastion_service_account]
-  name       = "allow-iap-ingress-ssh-rdp"
-  network    = var.shared_vpc_name
-  project    = var.shared_networking_id
-  target_service_accounts = [
-  google_service_account.bastion_service_account.email, google_service_account.proxy-sa-res.email]
-  source_ranges = ["35.235.240.0/20"]
+resource "google_compute_firewall" "allow_bastion_ingress" {
+  name    = "allow-bastion-ingress"
+  network = var.shared_vpc_name
+  project = var.shared_networking_id
+
   allow {
     protocol = "tcp"
-    ports    = ["3389", "22"]
   }
-  enable_logging = true
-}
 
-resource "google_compute_firewall" "bast-nat-http" {
-  provider      = google-beta
-  depends_on    = [google_service_account.bastion_service_account]
-  name          = "bastion-http-https-allow"
-  network       = var.shared_vpc_name
-  project       = var.shared_networking_id
-  source_ranges = [var.nat_static_ip]
+  log_config {
+    metadata = "INCLUDE_ALL_METADATA"
+  }
+
   source_service_accounts = [
-  google_service_account.bastion_service_account.email, google_service_account.proxy-sa-res.email]
-  allow {
-    protocol = "tcp"
-    ports    = ["80", "443"]
-  }
-  enable_logging = true
+    google_service_account.bastion_service_account.email
+  ]
 }
 
-resource "google_compute_firewall" "remote-mgmt-iap" {
-  provider                = google-beta
-  name                    = "remote-mgmt-iap-test"
-  network                 = var.shared_vpc_name
-  project                 = var.shared_networking_id
-  description             = "Allow inbound connections from iap"
-  direction               = "INGRESS"
-  source_service_accounts = [google_service_account.proxy-sa-res.email]
+resource "google_compute_firewall" "allow_proxy_http_ingress" {
+  name    = "allow-proxy-http-ingress"
+  network = var.shared_vpc_name
+  project = var.shared_networking_id
 
   allow {
     protocol = "tcp"
+    ports    = [80, 443, 8008, 8080, 8443]
   }
-  enable_logging = true
-  source_ranges  = ["35.235.240.0/20"]
+
+  log_config {
+    metadata = "INCLUDE_ALL_METADATA"
+  }
+
+  source_service_accounts = [
+    google_service_account.proxy-sa-res.email
+  ]
 }
 
 data "google_compute_image" "debian_image" {

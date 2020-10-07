@@ -97,6 +97,28 @@ resource "google_compute_subnetwork" "shared-bastion-subnetwork" {
   depends_on = [
   google_compute_network.shared_network]
 }
+
+###
+# Base Firewall resources
+###
+resource "google_compute_firewall" "allow_iap_ingress" {
+  name        = "allow-iap-ingress"
+  network     = google_compute_network.shared_network.self_link
+  project     = var.host_project_id
+  description = "Allow inbound connections from Identity-Aware Proxy"
+  direction   = "INGRESS"
+
+  allow {
+    protocol = "tcp"
+  }
+
+  log_config {
+    metadata = "INCLUDE_ALL_METADATA"
+  }
+
+  source_ranges = ["35.235.240.0/20"]
+}
+
 ###
 # Additional Networking Resources
 ###
