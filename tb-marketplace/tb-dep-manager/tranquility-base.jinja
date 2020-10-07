@@ -154,6 +154,12 @@ resources:
         clusters_master_whitelist_ip="$(ref.nat-ip-{{ tbDiscriminator }}.address)"
         EOF
 
+        # Check if input.tfvars exists and if not create it.
+        if [[ ! -f "input.tfvars" ]]; then
+          echo "# Use this file to override any variable default value." > input.tfvars
+          echo "# Variables and their default values are declared on the variables.tf file." >> input.tfvars
+        fi
+
         echo "STARTUP COMPLETE"
       tags:
         items:

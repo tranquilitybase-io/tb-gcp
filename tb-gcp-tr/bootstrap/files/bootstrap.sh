@@ -41,6 +41,12 @@ tb_discriminator = "${tb_discriminator}"
 terraform_state_bucket_name = "${terraform_state_bucket_name}"
 EOF
 
+# Check if input.tfvars exists and if not create it
+if [[ ! -f "input.tfvars" ]]; then
+  echo "# Use this file to override any variable default value." > input.tfvars
+  echo "# Variables and their default values are declared on the variables.tf file." >> input.tfvars
+fi
+
 #Make the IAP and Kubectl command scripts executable
 chmod +x /opt/tb/repo/tb-gcp-tr/landingZone/iap-tunnel.sh
 chmod +x /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh
