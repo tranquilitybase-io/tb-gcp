@@ -26,11 +26,6 @@ variable "shared_networking_id" {
   description = "identifier for the shared_networking project."
 }
 
-variable "nat_static_ip" {
-  type        = string
-  description = "NAT Static IP"
-}
-
 variable root_id {
   type        = string
   description = "ID for the parent organisation where folders will be created"
