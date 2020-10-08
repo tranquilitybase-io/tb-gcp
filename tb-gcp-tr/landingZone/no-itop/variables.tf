@@ -175,60 +175,84 @@ variable "router_nat_name" {
 }
 
 variable "service_projects_number" {
-  type        = string
-  default     = ""
+  default     = 2
   description = "Number of service projects attached to shared vpc host"
+  type        = number
 }
 
 #KUBERNETES CLUSTERS
 variable "cluster_ec_service_account" {
+  default     = "kubernetes-ec"
   description = "Service account to associate to the nodes in the cluster"
+  type        = string
 }
 
 variable "cluster_opt_service_account" {
+  default     = "kubernetes-opt"
   description = "Service account to associate to the nodes in the cluster"
+  type        = string
 }
 
 variable "cluster_ec_subnetwork" {
+  default     = "shared-ec-snet"
   description = "The subnetwork to host the cluster in"
+  type        = string
 }
 
 variable "cluster_opt_subnetwork" {
+  default     = "shared-itsm-snet"
   description = "The subnetwork to host the cluster in"
+  type        = string
 }
 
 variable "cluster_ec_name" {
+  default     = "gke-ec"
   description = "The cluster name"
+  type        = string
 }
 
 variable "cluster_opt_name" {
+  default     = "gke-opt"
   description = "The cluster name"
+  type        = string
 }
 
 variable "cluster_ec_pool_name" {
+  default     = "gke-ec-node-pool"
   description = "The cluster pool name"
+  type        = string
 }
 
 variable "cluster_opt_pool_name" {
+  default     = "gke-opt-node-pool"
   description = "The cluster pool name"
+  type        = string
 }
 
 variable "cluster_opt_enable_private_nodes" {
-  type = string
+  default     = true
+  description = "When set to true the ITSM Kubernetes worker nodes will not be assigned public IPs."
+  type        = bool
 }
 
 variable "cluster_ec_enable_private_nodes" {
-  type = string
+  default     = true
+  description = "When set to true the EC Kubernetes worker nodes will not be assigned public IPs."
+  type        = bool
 }
 
 #Bool input for whether opt cluster has private endpoint or not.
 variable "cluster_opt_enable_private_endpoint" {
-  type = bool
+  default     = false
+  description = "When set to true the ITSM Kubernetes master endpoint will not have a public IP endpoint."
+  type        = bool
 }
 
 #Bool input for whether ec cluster has private endpoint or not.
 variable "cluster_ec_enable_private_endpoint" {
-  type = bool
+  default     = true
+  description = "When set to true the EC Kubernetes master endpoint will not have a public IP endpoint."
+  type        = bool
 }
 
 variable "cluster_ec_master_cidr" {
@@ -293,20 +317,22 @@ variable "cluster_ec_default_max_pods_per_node" {
 }
 
 variable "istio_status" {
-  type    = string
-  default = "true"
-  #  description = "the default behaviour is to not installed"
+  type        = bool
+  default     = true
+  description = "When true, GKE's Istio is not installed."
 }
 
 # EC Deployment
 variable "eagle_console_yaml_path" {
+  default     = "/opt/tb/repo/tb-gcp-tr/shared-dac/eagle_console.yaml"
   description = "Path to the yaml file describing the eagle console resources"
   type        = string
 }
 
 variable "ec_repository_name" {
-  type        = string
+  default     = "EC-activator-tf"
   description = "Repository name used to store activator code"
+  type        = string
 }
 
 variable "endpoint_file" {
@@ -316,8 +342,20 @@ variable "endpoint_file" {
 }
 
 variable "ec_iam_service_account_roles" {
-  type        = list(string)
+  default = [
+    "roles/resourcemanager.folderAdmin",
+    "roles/resourcemanager.projectCreator",
+    "roles/compute.xpnAdmin",
+    "roles/resourcemanager.projectDeleter",
+    "roles/billing.projectManager",
+    "roles/owner",
+    "roles/compute.networkAdmin",
+    "roles/datastore.owner",
+    "roles/browser",
+    "roles/resourcemanager.projectIamAdmin"
+  ]
   description = "Roles attached to service account"
+  type        = list(string)
 }
 
 #iTop deployment
@@ -337,6 +375,7 @@ variable "clusters_master_whitelist_ip" {
 }
 
 variable "ec_ui_source_bucket" {
+  default     = "tranquility-base-ui"
   description = "GCS Bucket hosting Self Service Portal Angular source code."
   type        = string
 }
@@ -355,12 +394,14 @@ variable "private_dns_domain_name" {
 ## DAC Services ##########
 # Namespace creations
 variable "sharedservice_namespace_yaml_path" {
+  default     = "/opt/tb/repo/tb-gcp-tr/shared-dac/namespaces.yaml"
   description = "Path to the yaml file to create namespaces on the shared gke-ec cluster"
   type        = string
 }
 
 # Jenkins install 
 variable "sharedservice_jenkinsmaster_yaml_path" {
+  default     = "/opt/tb/repo/tb-gcp-tr/shared-dac/jenkins-master.yaml"
   description = "Path to the yaml file to deploy Jenkins on the shared gke-ec cluster"
   type        = string
 }
