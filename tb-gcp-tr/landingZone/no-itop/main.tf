@@ -16,17 +16,17 @@
 # Root module (activates other modules)
 ###
 provider "google" {
-  region  = var.region
-  zone    = var.region_zone
+  region = var.region
+  zone   = var.region_zone
 }
 
 provider "google-beta" {
-  region  = var.region
-  zone    = var.region_zone
+  region = var.region
+  zone   = var.region_zone
 }
 
 provider "kubernetes" {
-  alias   = "k8s"
+  alias = "k8s"
 }
 
 provider "tls" {
@@ -183,10 +183,10 @@ module "gke-ec" {
   istio_status             = var.istio_status
   gke_pod_network_name     = var.gke_pod_network_name
   gke_service_network_name = var.gke_service_network_name
-  
+
   depends_on = [
-  module.shared_projects.shared_networking_id, 
-  module.shared_projects.shared_ec_id
+    module.shared_projects.shared_networking_id,
+    module.shared_projects.shared_ec_id
   ]
 
 }

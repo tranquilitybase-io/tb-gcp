@@ -14,10 +14,10 @@
 
 resource "null_resource" "kubernetes_resource" {
   triggers = {
-    content = var.dependency_var
-    k8s_template = var.k8s_template_file
+    content             = var.dependency_var
+    k8s_template        = var.k8s_template_file
     cluster_config_path = var.cluster_config_path
-    context = var.cluster_context
+    context             = var.cluster_context
   }
 
   provisioner "local-exec" {
