@@ -46,8 +46,8 @@ resource "null_resource" "sync-ec-ui-buckets" {
   depends_on = [
     google_storage_bucket.ec-ui-static-files
   ]
-    triggers = {
-    source_bucket  = var.source_bucket
+  triggers = {
+    source_bucket      = var.source_bucket
     ec-ui-static-files = google_storage_bucket.ec-ui-static-files.name
   }
 }
@@ -63,8 +63,8 @@ resource "null_resource" "copy-endpoint-meta" {
     command = "cp ${var.endpoint_file} ${var.ui-source-local}/dist/tb-self-service-portal/assets/"
   }
   depends_on = [null_resource.ec_gke_cluster_endpoint_retrieved]
-    triggers = {
-    endpoint_file = var.endpoint_file
+  triggers = {
+    endpoint_file   = var.endpoint_file
     ui-source-local = var.ui-source-local
   }
 }
