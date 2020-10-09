@@ -34,6 +34,7 @@ parameters:
 volumeBindingMode: WaitForFirstConsumer
 allowedTopologies:
 ---
+##persistent volume claim of mysql
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -41,13 +42,15 @@ metadata:
   namespace: ssp
 spec:
   storageClassName: mysql-sc
+  volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
+  volumeName: mysql-pv
   resources:
     requests:
       storage: 10Gi
 ---
+##persistent volume claim of redis
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -55,12 +58,33 @@ metadata:
   namespace: ssp
 spec:
   storageClassName: redis-sc
+  volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
+  volumeName: redis-pv
   resources:
     requests:
       storage: 10Gi
+
+---
+##persistent volume of mysql
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mysql-pv
+  claimRef:
+    name: mysql-pv-claim
+    namespace: ssp
+
+---
+##persistent volume of redis 
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: redis-pv
+  claimRef:
+    name: redis-pv-claim
+    namespace: ssp
 ---
 apiVersion: v1
 kind: Service

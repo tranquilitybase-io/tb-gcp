@@ -22,10 +22,19 @@ spec:
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
+  volumeName: jenkins-master-pv
   resources:
     requests:
       storage: 50Gi
+---
+##persistent volume 
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: jenkins-master-pv
+  claimRef:
+    name: jenkins-master-pv-claim
+    namespace: cicd
 ---
 ### Jenkins Service ###
 apiVersion: v1
