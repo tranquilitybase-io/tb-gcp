@@ -32,10 +32,10 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: jenkins-master-pv
+spec:
   claimRef:
     name: jenkins-master-pv-claim
     namespace: cicd
-spec:
   resources:
     requests:
       storage: 50Gi
