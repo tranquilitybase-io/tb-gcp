@@ -1,5 +1,5 @@
 locals {
-  log_filter                = "-unicorn (-Fdata_access) AND -unicorn (-Factivity) AND -unicorn (-Fsystem_event)"
+  log_filter                = "logName: ( -\"/logs/cloudaudit.googleapis.com%2Factivity\" AND -\"/logs/cloudaudit.googleapis.com%2Fdata_access\" AND -\"/logs/cloudaudit.googleapis.com%2Fsystem_event\")"
   applications_bucket_id    = "${var.applications_bucket_name}-${var.tb_discriminator}"
   shared_services_bucket_id = "${var.shared_services_bucket_name}-${var.tb_discriminator}"
 }
