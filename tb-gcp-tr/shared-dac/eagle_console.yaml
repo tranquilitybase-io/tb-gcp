@@ -43,6 +43,7 @@ spec:
   storageClassName: mysql-sc
   accessModes:
     - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
   resources:
     requests:
       storage: 10Gi
@@ -56,6 +57,7 @@ spec:
   storageClassName: redis-sc
   accessModes:
     - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
   resources:
     requests:
       storage: 10Gi
