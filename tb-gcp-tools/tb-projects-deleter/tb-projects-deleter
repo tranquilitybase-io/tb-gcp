@@ -204,11 +204,8 @@ echo
 
 # Remove the bootstrap-sa as billing account admin
 echo "Removing bootstrap service account [${SA_EMAIL}] as billing account admin..."
-gcloud beta billing accounts get-iam-policy ${BILLING_ID} > billing.yaml
-# Remove the line containing the name of the service account
-sed "/${SA_EMAIL}/d" billing.yaml > billing2.yaml
-gcloud beta billing accounts set-iam-policy ${BILLING_ID} billing2.yaml --format=none
-rm billing.yaml billing2.yaml
+gcloud beta billing accounts remove-iam-policy-binding "${BILLING_ID}" --member="serviceAccount:${SA_EMAIL}" --role="roles/billing.admin"
+
 # Revoke bootstrap SA project and folder roles. Just in case the project is not deleted this allows
 # to re-use the same service account name and work around known issue:
 # https://cloud.google.com/iam/docs/understanding-service-accounts#deleting_and_recreating_service_accounts
