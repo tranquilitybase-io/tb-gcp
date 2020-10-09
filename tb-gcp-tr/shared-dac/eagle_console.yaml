@@ -42,6 +42,15 @@ kind: PersistentVolumeClaim
 metadata:
   name: mysql-pv-claim
   namespace: ssp
+spec:
+  accessModes:
+    - ReadWriteOnce
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: mysql-sc
+  volumeName: mysql-pv
 
 ---
 ##persistent VolumeClaim of redis
@@ -50,6 +59,15 @@ kind: PersistentVolumeClaim
 metadata:
   name: redis-pv-claim
   namespace: ssp
+spec:
+  accessModes:
+    - ReadWriteOnce
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: redis-sc
+  volumeName: redis-pv
 ---
 ##persistent volume of mysql
 apiVersion: v1
@@ -60,14 +78,14 @@ metadata:
     name: mysql-pv-claim
     namespace: ssp
 spec:
-  storageClassName: mysql-sc
-  volumeMode: Filesystem
-  accessModes:
-    - ReadWriteOnce
-  volumeName: mysql-pv
   resources:
     requests:
       storage: 10Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: mysql-sc
+  volumeName: mysql-pv
   persistentVolumeReclaimPolicy: Retain
 
 ---
@@ -80,14 +98,14 @@ metadata:
     name: redis-pv-claim
     namespace: ssp
 spec: 
-  storageClassName: redis-sc
-  volumeMode: Filesystem
-  accessModes:
-    - ReadWriteOnce
-  volumeName: redis-pv
   resources:
     requests:
       storage: 10Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: redis-sc
+  volumeName: redis-pv
   persistentVolumeReclaimPolicy: Retain
 ---
 apiVersion: v1
