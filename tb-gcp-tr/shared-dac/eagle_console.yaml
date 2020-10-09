@@ -21,7 +21,7 @@ parameters:
   type: pd-ssd
   replication-type: regional-pd
 volumeBindingMode: WaitForFirstConsumer
-allowedTopologies:
+allowedTopologies: []
 ---
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
@@ -32,7 +32,7 @@ parameters:
   type: pd-ssd
   replication-type: regional-pd
 volumeBindingMode: WaitForFirstConsumer
-allowedTopologies:
+allowedTopologies: []
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

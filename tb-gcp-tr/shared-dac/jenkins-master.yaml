@@ -9,7 +9,7 @@ parameters:
   type: pd-ssd
   replication-type: regional-pd
 volumeBindingMode: WaitForFirstConsumer
-allowedTopologies:
+allowedTopologies: []
 ---
 ### Persistent volume claim ###
 apiVersion: v1
@@ -70,9 +70,6 @@ spec:
       labels:
         app: jenkins-master
     spec:
-      imagePullSecrets:
-        - name: "docker-hub"
-      spec:
       containers:
         - name: jenkins-master
           image: gcr.io/tranquility-base-images/tb-jenkins_latest:landingzone
