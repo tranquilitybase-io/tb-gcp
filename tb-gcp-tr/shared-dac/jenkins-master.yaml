@@ -17,15 +17,6 @@ kind: PersistentVolumeClaim
 metadata:
   name: jenkins-master-pv-claim
   namespace: cicd
-spec:
-  storageClassName: gold
-  volumeMode: Filesystem
-  accessModes:
-    - ReadWriteOnce
-  volumeName: jenkins-master-pv
-  resources:
-    requests:
-      storage: 50Gi
 ---
 ##persistent volume 
 apiVersion: v1
@@ -35,6 +26,16 @@ metadata:
   claimRef:
     name: jenkins-master-pv-claim
     namespace: cicd
+spec:
+  resources:
+    requests:
+      storage: 50Gi
+  persistentVolumeReclaimPolicy: Retain
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: gold
+  volumeName: jenkins-master-pv
 ---
 ### Jenkins Service ###
 apiVersion: v1

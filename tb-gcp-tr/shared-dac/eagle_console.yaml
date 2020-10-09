@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
+##storage class of redis
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
@@ -23,6 +24,7 @@ parameters:
 volumeBindingMode: WaitForFirstConsumer
 allowedTopologies:
 ---
+##storage class of mysql 
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
@@ -34,38 +36,20 @@ parameters:
 volumeBindingMode: WaitForFirstConsumer
 allowedTopologies:
 ---
-##persistent volume claim of mysql
+##persistent VolumeClaim of mysql
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mysql-pv-claim
   namespace: ssp
-spec:
-  storageClassName: mysql-sc
-  volumeMode: Filesystem
-  accessModes:
-    - ReadWriteOnce
-  volumeName: mysql-pv
-  resources:
-    requests:
-      storage: 10Gi
+
 ---
-##persistent volume claim of redis
+##persistent VolumeClaim of redis
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: redis-pv-claim
   namespace: ssp
-spec:
-  storageClassName: redis-sc
-  volumeMode: Filesystem
-  accessModes:
-    - ReadWriteOnce
-  volumeName: redis-pv
-  resources:
-    requests:
-      storage: 10Gi
-
 ---
 ##persistent volume of mysql
 apiVersion: v1
@@ -75,6 +59,16 @@ metadata:
   claimRef:
     name: mysql-pv-claim
     namespace: ssp
+spec:
+  storageClassName: mysql-sc
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  volumeName: mysql-pv
+  resources:
+    requests:
+      storage: 10Gi
+  persistentVolumeReclaimPolicy: Retain
 
 ---
 ##persistent volume of redis 
@@ -85,6 +79,16 @@ metadata:
   claimRef:
     name: redis-pv-claim
     namespace: ssp
+spec: 
+  storageClassName: redis-sc
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  volumeName: redis-pv
+  resources:
+    requests:
+      storage: 10Gi
+  persistentVolumeReclaimPolicy: Retain
 ---
 apiVersion: v1
 kind: Service
