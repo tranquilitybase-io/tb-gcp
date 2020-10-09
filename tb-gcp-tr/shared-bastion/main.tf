@@ -225,6 +225,8 @@ resource "google_compute_instance_template" "squid_proxy_template" {
 
   metadata_startup_script = file("${path.module}/squid_startup.sh")
 
+  // make sure the project is attached and can see the shared VPC network before referencing one of it's subnetworks
+  depends_on = [google_compute_shared_vpc_service_project.attach_bastion_project]
 }
 
 // Create instance group for the squid proxy
