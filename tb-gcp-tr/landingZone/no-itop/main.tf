@@ -128,7 +128,7 @@ module "shared-vpc" {
 ##### Audit logging #####
 
 module "audit-log-bucket" {
-  source = "github.com/tranquilitybase-io/terraform-google-cloud-storage.git//modules/simple_bucket?ref=logging"
+  source = "github.com/tranquilitybase-io/terraform-google-cloud-storage.git//modules/simple_bucket?ref=logging-v3"
 
   project_id      = module.shared_projects.shared_telemetry_id
   name            = "${var.tb_folder_admin_rw_audit_log_bucket_name}-${var.tb_discriminator}"
@@ -142,7 +142,7 @@ resource "google_logging_folder_sink" "audit-log-sink" {
   folder           = var.root_id
   name             = var.tb_folder_admin_rw_audit_log_sink_name
   destination      = "storage.googleapis.com/${module.audit-log-bucket.name}"
-  filter           = "logName:(/logs/cloudaudit.googleapis.com%2Factivity OR /logs/cloudaudit.googleapis.com%2Fdata_access OR /logs/cloudaudit.googleapis.com%2Fsystem_event)"
+  filter           = var.tb_folder_admin_rw_audit_log_bucket_filter
   include_children = var.include_children
 }
 

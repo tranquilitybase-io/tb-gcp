@@ -434,14 +434,20 @@ variable "iam_members_bindings" {
 
 ### Audit Bucket ###
 
+variable "tb_folder_admin_rw_audit_log_bucket_filter" {
+  default     = "logName:(/logs/cloudaudit.googleapis.com%2Factivity OR /logs/cloudaudit.googleapis.com%2Fsystem_event)"
+  description = "TB folder admin read/write bucket audit logs filter"
+  type        = string
+}
+
 variable "tb_folder_admin_rw_audit_log_bucket_location" {
   description = "location for tb folder admin read/write bucket audit logs"
-  type        = "string"
+  type        = string
   default     = "europe-west2"
 }
 variable "tb_folder_admin_rw_audit_log_bucket_storage_class" {
   description = "storage class for tb folder admin read/write bucket audit logs"
-  type        = "string"
+  type        = string
   default     = "REGIONAL"
 }
 variable "tb_folder_admin_rw_audit_log_bucket_name" {
@@ -468,7 +474,7 @@ variable "tb_folder_admin_rw_audit_log_bucket_lifecycle_rules" {
     },
     {
       action = {
-        type = "Delete"
+        type          = "Delete"
         storage_class = ""
       },
       condition = {
