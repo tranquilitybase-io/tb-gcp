@@ -11,7 +11,7 @@ parameters:
 volumeBindingMode: WaitForFirstConsumer
 allowedTopologies:
 ---
-### Persistent volume claim ###
+### Persistent VolumeClaim of jenkins###
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -27,7 +27,7 @@ spec:
   storageClassName: gold
   volumeName: jenkins-master-pv
 ---
-##persistent volume 
+##persistent volume of jenkins ## 
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -36,9 +36,8 @@ spec:
   claimRef:
     name: jenkins-master-pv-claim
     namespace: cicd
-  resources:
-    requests:
-      storage: 50Gi
+  capacity:
+    storage: 50Gi
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
