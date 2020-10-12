@@ -31,12 +31,9 @@ kind: Service
 metadata:
   name: jenkins-master-svc
   namespace: cicd
-  annotations:
-    cloud.google.com/load-balancer-type: "Internal"
   labels:
     app: jenkins-master
 spec:
-  type: LoadBalancer
   ports:
     - port: 80
       targetPort: 8080
@@ -73,6 +70,7 @@ spec:
       containers:
         - name: jenkins-master
           image: gcr.io/tranquility-base-images/tb-jenkins_latest:landingzone
+          args: ["--prefix=/jenkins-service"]
           securityContext:
             privileged: true
             runAsUser: 0
@@ -126,7 +124,7 @@ spec:
     istio: private-ingressgateway  # use istio default controller
   servers:
     - port:
-        number: 8080
+        number: 80
         name: http
         protocol: HTTP
       hosts:
@@ -136,7 +134,7 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: jenkinsservice
+  name: jenkins-master-svc
   namespace: cicd
 spec:
   hosts:
@@ -144,11 +142,14 @@ spec:
   gateways:
     - jenkins-gateway
   http:
+    - match:
+        - uri:
+            prefix: /jenkins-service
     - route:
         - destination:
-            host: jenkins-master
+            host: jenkins-master-svc.cicd.svc.cluster.local
             port:
-              number: 8080
+              number: 80
       corsPolicy:
         allowOrigin:
           - "*"
@@ -161,3 +162,18 @@ spec:
           - DELETE
         allowHeaders:
           - "*"
+---
+### Jenkins Destination Rule ###
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: jenkins-master-svc
+  namespace: cicd
+  annotations:
+    cloud.google.com/load-balancer-type: "Internal"
+spec:
+  host: jenkins-master-svc.cicd.svc.cluster.local
+  trafficPolicy:
+    loadBalancer:
+      simple: LEAST_CONN
+
