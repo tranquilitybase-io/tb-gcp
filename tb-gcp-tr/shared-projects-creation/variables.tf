@@ -33,6 +33,14 @@ variable "shared_networking_project_name" {
   description = "Shared networking project name."
 }
 
+variable "shared_networking_project_custom_iam_bindings" {
+  description = "List of custom IAM bindings that should be added to the shared networking project's policy. An item consists in a map containing a cloud identity member (such as group:name@example.com) and a IAM role (such as roles/compute.viewer)"
+  type = list(object({
+    member = string
+    role   = string
+  }))
+}
+
 variable "shared_telemetry_project_name" {
   type        = string
   default     = "shared-telemetry"
@@ -49,6 +57,14 @@ variable "shared_billing_project_name" {
   type        = string
   default     = "shared-billing"
   description = "Shared billing project name."
+}
+
+variable "shared_billing_project_custom_iam_bindings" {
+  description = "List of custom IAM bindings that should be added to the shared billing project's policy. An IAM binding consists of a map containing a cloud identity `member` (such as group:name@example.com) and a IAM `role` (such as roles/bigquery.admin)"
+  type = list(object({
+    member = string
+    role   = string
+  }))
 }
 
 variable "shared_ec_project_name" {
