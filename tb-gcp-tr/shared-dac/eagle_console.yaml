@@ -23,6 +23,7 @@ parameters:
   replication-type: regional-pd
 volumeBindingMode: WaitForFirstConsumer
 allowedTopologies:
+allowVolumeExpansion: true
 ---
 ##persistent VolumeClaim of mysql
 apiVersion: v1
