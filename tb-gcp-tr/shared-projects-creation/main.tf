@@ -22,6 +22,13 @@ resource "google_project" "shared_networking" {
   labels              = var.labels
 }
 
+resource "google_project_iam_member" "shared_networking_custom_iam_bindings" {
+  count   = length(var.shared_networking_project_custom_iam_bindings)
+  project = google_project.shared_networking.project_id
+  member  = var.shared_networking_project_custom_iam_bindings[count.index].member
+  role    = var.shared_networking_project_custom_iam_bindings[count.index].role
+}
+
 resource "google_project" "shared_itsm" {
   name                = "${var.shared_itsm_project_name}-${var.tb_discriminator}"
   project_id          = "${var.shared_itsm_project_name}-${var.tb_discriminator}"
@@ -49,6 +56,13 @@ resource "google_project" "shared_billing" {
   billing_account     = var.billing_account_id
   auto_create_network = false
   labels              = var.labels
+}
+
+resource "google_project_iam_member" "shared_billing_custom_iam_bindings" {
+  count   = length(var.shared_billing_project_custom_iam_bindings)
+  project = google_project.shared_billing.project_id
+  member  = var.shared_billing_project_custom_iam_bindings[count.index].member
+  role    = var.shared_billing_project_custom_iam_bindings[count.index].role
 }
 
 resource "google_project" "shared_ec" {

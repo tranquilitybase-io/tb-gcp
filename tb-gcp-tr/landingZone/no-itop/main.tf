@@ -75,15 +75,17 @@ module "folder_structure" {
 module "shared_projects" {
   source = "../../shared-projects-creation"
 
-  tb_discriminator               = var.tb_discriminator
-  root_id                        = module.folder_structure.shared_services_id
-  billing_account_id             = var.billing_account_id
-  shared_networking_project_name = var.shared_networking_project_name
-  shared_telemetry_project_name  = var.shared_telemetry_project_name
-  shared_itsm_project_name       = var.shared_itsm_project_name
-  shared_billing_project_name    = var.shared_billing_project_name
-  shared_bastion_project_name    = var.shared_bastion_project_name
-  labels                         = var.labels
+  tb_discriminator                              = var.tb_discriminator
+  root_id                                       = module.folder_structure.shared_services_id
+  billing_account_id                            = var.billing_account_id
+  shared_networking_project_name                = var.shared_networking_project_name
+  shared_networking_project_custom_iam_bindings = var.shared_networking_project_custom_iam_bindings
+  shared_telemetry_project_name                 = var.shared_telemetry_project_name
+  shared_itsm_project_name                      = var.shared_itsm_project_name
+  shared_billing_project_name                   = var.shared_billing_project_name
+  shared_billing_project_custom_iam_bindings    = var.shared_billing_project_custom_iam_bindings
+  shared_bastion_project_name                   = var.shared_bastion_project_name
+  labels                                        = var.labels
 }
 
 module "gcs_bucket_logging" {
