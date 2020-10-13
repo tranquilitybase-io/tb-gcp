@@ -39,6 +39,11 @@ variable "bastion_subnet_cidr" {
   description = "cidr range for the bastion subnetwork"
 }
 
+variable "bastion_subnet_name" {
+  description = "Bastion subnetwork name"
+  type        = string
+}
+
 variable "region" {
   type        = string
   description = "region name"

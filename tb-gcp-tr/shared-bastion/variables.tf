@@ -1,4 +1,9 @@
 # SHARED VPC
+variable "bastion_subnetwork_name" {
+  description = "Subnetwork where bastion and proxy servers should be deployed at."
+  type        = string
+}
+
 variable "shared_vpc_name" {
   type        = string
   default     = "shared-network"
