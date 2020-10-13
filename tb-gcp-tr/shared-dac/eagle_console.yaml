@@ -12,53 +12,45 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
+##storage class of mysql and redis
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
-  name: redis-sc
+  name: mysql-redis-sc
 provisioner: kubernetes.io/gce-pd
 parameters:
   type: pd-ssd
   replication-type: regional-pd
 volumeBindingMode: WaitForFirstConsumer
-allowedTopologies: []
+allowedTopologies:
 ---
-kind: StorageClass
-apiVersion: storage.k8s.io/v1
-metadata:
-  name: mysql-sc
-provisioner: kubernetes.io/gce-pd
-parameters:
-  type: pd-ssd
-  replication-type: regional-pd
-volumeBindingMode: WaitForFirstConsumer
-allowedTopologies: []
----
+##persistent VolumeClaim of mysql
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mysql-pv-claim
-  namespace: ssp
 spec:
-  storageClassName: mysql-sc
   accessModes:
     - ReadWriteOnce
+  volumeMode: Filesystem
   resources:
     requests:
       storage: 10Gi
+  storageClassName: mysql-redis-sc
 ---
+##persistent VolumeClaim of redis
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: redis-pv-claim
-  namespace: ssp
 spec:
-  storageClassName: redis-sc
   accessModes:
     - ReadWriteOnce
+  volumeMode: Filesystem
   resources:
     requests:
       storage: 10Gi
+  storageClassName: mysql-redis-sc
 ---
 apiVersion: v1
 kind: Service
@@ -77,7 +69,6 @@ spec:
       name: https
   selector:
     app: eagleconsole
-
 ---
 apiVersion: v1
 kind: Service

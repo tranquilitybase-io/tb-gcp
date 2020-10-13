@@ -9,21 +9,22 @@ parameters:
   type: pd-ssd
   replication-type: regional-pd
 volumeBindingMode: WaitForFirstConsumer
-allowedTopologies: []
+allowedTopologies:
 ---
-### Persistent volume claim ###
+### Persistent VolumeClaim of jenkins###
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: jenkins-master-pv-claim
   namespace: cicd
 spec:
-  storageClassName: gold
   accessModes:
     - ReadWriteOnce
+  volumeMode: Filesystem
   resources:
     requests:
       storage: 50Gi
+  storageClassName: gold
 ---
 ### Jenkins Service ###
 apiVersion: v1
@@ -31,9 +32,12 @@ kind: Service
 metadata:
   name: jenkins-master-svc
   namespace: cicd
+  annotations:
+    cloud.google.com/load-balancer-type: "Internal"
   labels:
     app: jenkins-master
 spec:
+  type: LoadBalancer
   ports:
     - port: 80
       targetPort: 8080
@@ -67,18 +71,19 @@ spec:
       labels:
         app: jenkins-master
     spec:
+      imagePullSecrets:
+        - name: "docker-hub"
+      spec:
       containers:
         - name: jenkins-master
           image: gcr.io/tranquility-base-images/tb-jenkins_latest:landingzone
-          args: ["--prefix=/jenkins-service"]
           securityContext:
             privileged: true
             runAsUser: 0
           imagePullPolicy: "Always"
           volumeMounts:
-            - mountPath: /var
-              name: jenkins-home
-              subPath: jenkins_home
+            - name: jenkins-home
+              mountPath: /var/jenkins_home
             - name: docker-sock-volume
               mountPath: /var/run/docker.sock
             - name: google-cloud-key
@@ -124,7 +129,7 @@ spec:
     istio: private-ingressgateway  # use istio default controller
   servers:
     - port:
-        number: 80
+        number: 8080
         name: http
         protocol: HTTP
       hosts:
@@ -134,45 +139,28 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: jenkins-master-svc
+  name: jenkinsservice
   namespace: cicd
 spec:
   hosts:
-  - "*"
+    - "*"
   gateways:
-  - jenkins-gateway
+    - jenkins-gateway
   http:
-  - match:
-    - uri:
-        prefix: /jenkins-service
-    route:
-    - destination:
-        host: jenkins-master-svc.cicd.svc.cluster.local
-        port:
-          number: 80
-    corsPolicy:
-      allowOrigin:
-        - "*"
-      allowMethods:
-        - POST
-        - GET
-        - OPTIONS
-        - PUT
-        - PATCH
-        - DELETE
-      allowHeaders:
-        - "*"
----
-### Jenkins Destination Rule ###
-apiVersion: networking.istio.io/v1alpha3
-kind: DestinationRule
-metadata:
-  name: jenkins-master-svc
-  namespace: cicd
-  annotations:
-    cloud.google.com/load-balancer-type: "Internal"
-spec:
-  host: jenkins-master-svc.cicd.svc.cluster.local
-  trafficPolicy:
-    loadBalancer:
-      simple: LEAST_CONN
+    - route:
+        - destination:
+            host: jenkins-master
+            port:
+              number: 8080
+      corsPolicy:
+        allowOrigin:
+          - "*"
+        allowMethods:
+          - POST
+          - GET
+          - OPTIONS
+          - PUT
+          - PATCH
+          - DELETE
+        allowHeaders:
+          - "*"
