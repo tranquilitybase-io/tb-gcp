@@ -156,6 +156,12 @@ variable "bastion_subnetwork_cidr" {
   description = "ip range for bastion subnet"
 }
 
+variable "bastion_subnetwork_name" {
+  default     = "shared-bastion"
+  description = "bastion subnetwork name"
+  type        = string
+}
+
 variable "router_name" {
   type        = string
   default     = "vpc-network-router"

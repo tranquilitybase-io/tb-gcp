@@ -110,6 +110,7 @@ module "shared-vpc" {
   region                   = var.region
   shared_vpc_name          = var.shared_vpc_name
   standard_network_subnets = var.standard_network_subnets
+  bastion_subnet_name      = var.bastion_subnetwork_name
   bastion_subnet_cidr      = var.bastion_subnetwork_cidr
   enable_flow_logs         = var.enable_flow_logs
   tags                     = var.tags
@@ -157,6 +158,7 @@ resource "google_storage_bucket_iam_binding" "audit-bucket-iam-binding" {
 module "bastion-security" {
   source = "../../shared-bastion"
 
+  bastion_subnetwork_name       = module.shared-vpc.bastion_subnetwork_name
   region                        = var.region
   region_zone                   = var.region_zone
   shared_bastion_id             = module.shared_projects.shared_bastion_id

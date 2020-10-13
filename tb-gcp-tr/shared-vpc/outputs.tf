@@ -26,7 +26,7 @@ output "gke_subnetwork_ids" {
   value = join(",", google_compute_subnetwork.gke.*.id)
 }
 
-output "tb_subnetwork_name" {
+output "bastion_subnetwork_name" {
   value = google_compute_subnetwork.shared-bastion-subnetwork.name
 }
 

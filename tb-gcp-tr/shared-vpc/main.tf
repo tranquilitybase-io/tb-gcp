@@ -81,7 +81,7 @@ resource "google_compute_subnetwork" "gke" {
 }
 
 resource "google_compute_subnetwork" "shared-bastion-subnetwork" {
-  name                     = "bastion-subnetwork"
+  name                     = var.bastion_subnet_name
   ip_cidr_range            = var.bastion_subnet_cidr
   region                   = var.region
   private_ip_google_access = true

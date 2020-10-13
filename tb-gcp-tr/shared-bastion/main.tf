@@ -32,7 +32,7 @@ resource "google_compute_shared_vpc_service_project" "attach_bastion_project" {
 }
 
 resource "google_compute_subnetwork_iam_binding" "bastion_subnet_permission" {
-  subnetwork = "bastion-subnetwork"
+  subnetwork = var.bastion_subnetwork_name
   role       = "roles/compute.networkUser"
   project    = var.shared_networking_id
 
@@ -109,7 +109,7 @@ resource "google_compute_instance_template" "bastion_linux_template" {
   }
 
   network_interface {
-    subnetwork = "projects/${var.shared_networking_id}/regions/${var.region}/subnetworks/bastion-subnetwork"
+    subnetwork = "projects/${var.shared_networking_id}/regions/${var.region}/subnetworks/${var.bastion_subnetwork_name}"
   }
 
   service_account {
@@ -164,7 +164,7 @@ resource "google_compute_instance_template" "bastion_windows_template" {
   }
 
   network_interface {
-    subnetwork = "projects/${var.shared_networking_id}/regions/${var.region}/subnetworks/bastion-subnetwork"
+    subnetwork = "projects/${var.shared_networking_id}/regions/${var.region}/subnetworks/${var.bastion_subnetwork_name}"
   }
 
   service_account {
@@ -215,7 +215,7 @@ resource "google_compute_instance_template" "squid_proxy_template" {
   }
 
   network_interface {
-    subnetwork = "projects/${var.shared_networking_id}/regions/${var.region}/subnetworks/bastion-subnetwork"
+    subnetwork = "projects/${var.shared_networking_id}/regions/${var.region}/subnetworks/${var.bastion_subnetwork_name}"
   }
 
   service_account {
