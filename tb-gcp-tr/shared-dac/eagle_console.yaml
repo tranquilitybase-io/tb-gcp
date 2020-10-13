@@ -11,25 +11,38 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
 ---
-##storage class of mysql and redis
+##storage class of mysql
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
-  name: mysql-redis-sc
+  name: mysql-sc
 provisioner: kubernetes.io/gce-pd
 parameters:
   type: pd-ssd
   replication-type: regional-pd
 volumeBindingMode: WaitForFirstConsumer
 allowedTopologies:
-allowVolumeExpansion: true
+---
+##storage class of redis
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: redis-sc
+provisioner: kubernetes.io/gce-pd
+parameters:
+  type: pd-ssd
+  replication-type: regional-pd
+volumeBindingMode: WaitForFirstConsumer
+allowedTopologies:
 ---
 ##persistent VolumeClaim of mysql
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mysql-pv-claim
+  namespace: ssp
 spec:
   accessModes:
     - ReadWriteOnce
@@ -37,13 +50,14 @@ spec:
   resources:
     requests:
       storage: 10Gi
-  storageClassName: mysql-redis-sc
+  storageClassName: mysql-sc
 ---
 ##persistent VolumeClaim of redis
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: redis-pv-claim
+  namespace: ssp
 spec:
   accessModes:
     - ReadWriteOnce
@@ -51,7 +65,7 @@ spec:
   resources:
     requests:
       storage: 10Gi
-  storageClassName: mysql-redis-sc
+  storageClassName: redis-sc
 ---
 apiVersion: v1
 kind: Service
