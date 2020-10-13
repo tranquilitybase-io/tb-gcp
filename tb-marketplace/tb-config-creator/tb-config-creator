@@ -98,6 +98,29 @@ if [[ -z ${LABELS} && ${NO_LABELS} -eq 0 ]]; then
   exit 1
 fi
 
+if [[ ${NO_LABELS} -eq 0 ]]; then
+  IFS=',' read -r -a array <<< "${LABELS}"
+
+  for index in "${!array[@]}"
+  do
+      IFS='=' read -r -a array2 <<< "${array[index]}"
+      costcode=$(( $costcode + $( printf "${array2[0]}" | grep "cost-code" | wc -l ) ))
+      team=$(( $team + $( printf "${array2[0]}" | grep "team" | wc -l ) ))
+  done
+
+  if ! [ $costcode -eq 1 ] || ! [ $team -eq 1 ]; then
+        if ! [ $costcode -eq 1 ]; then
+          printf "%s\n" "Ensure you have a cost-code label and only one"
+          printf "%s\n" "e.g. $ ./tb-config-creator -l cost-code=value,team=tranquility-base"
+        fi
+        if ! [ $team -eq 1 ]; then
+          printf "%s\n" "Ensure you have a team label and only one"
+          printf "%s\n" "e.g. $ ./tb-config-creator -l cost-code=value,team=tranquility-base"
+        fi
+        exit 1
+  fi
+fi
+
 parent_type=""
 parent_id=""
 
