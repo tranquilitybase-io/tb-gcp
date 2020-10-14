@@ -12,52 +12,28 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-##storageclass of redis
-kind: StorageClass
-apiVersion: storage.k8s.io/v1
-metadata:
-  name: redis-sc
-provisioner: kubernetes.io/gce-pd
-parameters:
-  type: pd-ssd
-  replication-type: regional-pd
-volumeBindingMode: WaitForFirstConsumer
-allowedTopologies: []
----
-##storageclass of mysql
-kind: StorageClass
-apiVersion: storage.k8s.io/v1
-metadata:
-  name: mysql-sc
-provisioner: kubernetes.io/gce-pd
-parameters:
-  type: pd-ssd
-  replication-type: regional-pd
-volumeBindingMode: WaitForFirstConsumer
-allowedTopologies: []
----
-##persistent VolumeClaim of mysql
+# MySQL's PersistentVolumeClaim
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mysql-pv-claim
   namespace: ssp
 spec:
-  storageClassName: mysql-sc
+  storageClassName: regional-retained-pd-ssd
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
       storage: 10Gi
 ---
-##persistent VolumeClaim of redis
+# Redis' persistentVolumeClaim
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: redis-pv-claim
   namespace: ssp
 spec:
-  storageClassName: redis-sc
+  storageClassName: regional-retained-pd-ssd
   accessModes:
     - ReadWriteOnce
   resources:
@@ -283,7 +259,13 @@ spec:
             requests:
               cpu: "100m"
           imagePullPolicy: Always
-          command: ['celery', '-E', '-A', 'celery_worker', 'worker', '--loglevel=info']
+          command:
+            - 'celery'
+            - '-E'
+            - '-A'
+            - 'celery_worker'
+            - 'worker'
+            - '--loglevel=info'
           ports:
             - containerPort: 80
           volumeMounts:

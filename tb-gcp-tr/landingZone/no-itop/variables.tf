@@ -423,6 +423,13 @@ variable "sharedservice_namespace_yaml_path" {
   type        = string
 }
 
+# StorageClasses creation
+variable "sharedservice_storageclass_yaml_path" {
+  default     = "/opt/tb/repo/tb-gcp-tr/shared-dac/storageclasses.yaml"
+  description = "Path to the yaml file to create storageclasses on the shared gke-ec cluster"
+  type        = string
+}
+
 # Jenkins install 
 variable "sharedservice_jenkinsmaster_yaml_path" {
   default     = "/opt/tb/repo/tb-gcp-tr/shared-dac/jenkins-master.yaml"

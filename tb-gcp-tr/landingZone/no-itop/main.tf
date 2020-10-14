@@ -286,14 +286,20 @@ resource "null_resource" "kubernetes_jenkins_service_account_key_secret" {
   }
 }
 
-### Jenkins Deployment Depends on the ec-service-account secret creation####
+module "SharedServices_storageclass_creation" {
+  source = "../../../tb-common-tr/start_service"
+
+  k8s_template_file = var.sharedservice_storageclass_yaml_path
+  cluster_context   = module.k8s-ec_context.context_name
+}
 
 module "SharedServices_jenkinsmaster_creation" {
   source = "../../../tb-common-tr/start_service"
 
   k8s_template_file = var.sharedservice_jenkinsmaster_yaml_path
   cluster_context   = module.k8s-ec_context.context_name
-  dependency_var    = null_resource.kubernetes_jenkins_service_account_key_secret.id
+  # Jenkins Deployment depends on the ec-service-account secret creation
+  dependency_var = null_resource.kubernetes_jenkins_service_account_key_secret.id
 }
 
 module "SharedServices_configuration_file" {
