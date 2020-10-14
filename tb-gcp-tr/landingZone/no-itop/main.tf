@@ -165,6 +165,19 @@ module "bastion-security" {
   shared_networking_id          = module.shared_projects.shared_networking_id
   root_id                       = var.root_id
   shared_bastion_project_number = module.shared_projects.shared_bastion_project_number
+  depends_on = [module.shared-vpc]
+}
+
+module "dns-instances" {
+  source = "../../dns-instances"
+
+  linux_instances = module.bastion-security.linux_bastion_instances
+  private_dns_domain_name = module.shared-vpc.dns_domain_name
+  private_dns_name = module.shared-vpc.dns_name
+  squid_proxy_instances = module.bastion-security.squid_proxy_instances
+  windows_instances = module.bastion-security.windows_bastion_instances
+  zone = var.region_zone
+  depends_on = [module.bastion-security]
 }
 
 module "logging_export" {
