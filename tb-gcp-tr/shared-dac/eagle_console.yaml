@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
+##storageclass of redis
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
@@ -23,6 +24,7 @@ parameters:
 volumeBindingMode: WaitForFirstConsumer
 allowedTopologies: []
 ---
+##storageclass of mysql
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
@@ -34,6 +36,7 @@ parameters:
 volumeBindingMode: WaitForFirstConsumer
 allowedTopologies: []
 ---
+##persistent VolumeClaim of mysql
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -47,6 +50,7 @@ spec:
     requests:
       storage: 10Gi
 ---
+##persistent VolumeClaim of redis
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:

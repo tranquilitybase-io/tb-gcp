@@ -76,9 +76,8 @@ spec:
             runAsUser: 0
           imagePullPolicy: "Always"
           volumeMounts:
-            - mountPath: /var
-              name: jenkins-home
-              subPath: jenkins_home
+            - name: jenkins-home
+              mountPath: /var/jenkins_home
             - name: docker-sock-volume
               mountPath: /var/run/docker.sock
             - name: google-cloud-key
