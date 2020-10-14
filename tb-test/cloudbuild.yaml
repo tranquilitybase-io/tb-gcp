@@ -14,6 +14,8 @@ steps:
       - -var
       - image_zone=$_IMAGE_ZONE
       - -var
+      - tb_git_branch=$BRANCH_NAME
+      - -var
       - tb_repos_root_path=.
       - tb-gcp-deploy/pack/packer-no-itop.json
 
