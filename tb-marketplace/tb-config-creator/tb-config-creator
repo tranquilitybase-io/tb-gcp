@@ -62,12 +62,11 @@ while (( "$#" )); do
       print_help
       exit 0
       ;;
-
     --) # end argument parsing
       shift
       break
       ;;
-    -*|--*=) # unsupported flags
+    --*=|-*) # unsupported flags
       echo "Error: Unsupported flag $1" >&2
       exit 1
       ;;
@@ -104,8 +103,8 @@ if [[ ${NO_LABELS} -eq 0 ]]; then
   for index in "${!array[@]}"
   do
       IFS='=' read -r -a array2 <<< "${array[index]}"
-      costcode=$(( $costcode + $( printf "${array2[0]}" | grep "cost-code" | wc -l ) ))
-      team=$(( $team + $( printf "${array2[0]}" | grep "team" | wc -l ) ))
+      costcode=$(( costcode + $( echo "${array2[0]}" | grep -c "cost-code") ))
+      team=$(( team + $( echo "${array2[0]}" | grep -c "team") ))
   done
 
   if ! [ $costcode -eq 1 ] || ! [ $team -eq 1 ]; then
@@ -202,7 +201,7 @@ fi
 
 # Generate a random alphanumeric
 PREFIX="bootstrap-"
-RND="$(cat /dev/urandom | tr -dc 'a-z0-9' | fold -w 8 | sed '/^[0-9]*$/d' | head -n 1)"
+RND="$(tr -dc 'a-z0-9' < /dev/urandom | fold -w 8 | sed '/^[0-9]*$/d' | head -n 1)"
 PROJECT_ID="${PREFIX}${RND}"
 SA_NAME="${PREFIX}sa"
 SA_EMAIL="${SA_NAME}@${PROJECT_ID}.iam.gserviceaccount.com"
@@ -212,11 +211,9 @@ TBASE_FOLDER_NAME="${TBASE_FOLDER_PREFIX}${RND}"
 #Explicit labelling is required here because Terraform has not been applied.
 ACTIVE_ACCOUNT="$(gcloud config list account --format "value(core.account)" | cut -d@ -f1)"
 echo "Resources will be labelled with the owner: ${ACTIVE_ACCOUNT}"
-sed -i "s/created-by:.*/created-by: '${ACTIVE_ACCOUNT}'/" $(dirname ${BASH_SOURCE[0]})/../tb-dep-manager/test_config.yaml
+sed -i "s/created-by:.*/created-by: '${ACTIVE_ACCOUNT}'/" "$(dirname "${BASH_SOURCE[0]}")/../tb-dep-manager/test_config.yaml"
 # Create Tbase folder to store bootstrap project, involves parsing the output of the glcoud command to get the folder id
-folder_id_entry=$(gcloud resource-manager folders create --display-name="${TBASE_FOLDER_NAME}" --"${parent_type}"="${parent_id}" --format="value(name)")
-IFS='/' read -ra split_array <<< "$folder_id_entry"
-tb_folder_id="$(echo ${split_array[1]} | sed 's/[^0-9]*//g')"
+tb_folder_id=$(gcloud resource-manager folders create --display-name="${TBASE_FOLDER_NAME}" --"${parent_type}"="${parent_id}" --format="value(name.basename())")
 
 #Add auditing to at folder level
 gcloud resource-manager folders get-iam-policy "${tb_folder_id}" > rootfolderiampolicy.yaml
@@ -283,7 +280,7 @@ gcloud --project "${PROJECT_ID}" services enable runtimeconfig.googleapis.com
 echo "Essential APIs activated."
 
 echo "Checking if the default VPC network was created on compute.googleapis.com activation..."
-if [[ -n "$(gcloud --project ${PROJECT_ID} compute networks list --filter='name=default' --format='value(name)' 2> /dev/null)" ]]; then
+if [[ -n "$(gcloud --project "${PROJECT_ID}" compute networks list --filter='name=default' --format='value(name)' 2> /dev/null)" ]]; then
   echo "The default VPC network was created. Deleting it as per best practices..."
   gcloud compute firewall-rules delete projects/"${PROJECT_ID}"/global/firewalls/default-allow-icmp --quiet
   gcloud compute firewall-rules delete projects/"${PROJECT_ID}"/global/firewalls/default-allow-rdp --quiet
