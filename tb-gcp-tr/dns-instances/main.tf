@@ -14,6 +14,7 @@ data "google_compute_instance" "squid_proxy_instances" {
 }
 
 resource "google_dns_record_set" "linux_instance_dns" {
+  project = var.shared_networking
   name = "tb-linux-bastion.${var.private_dns_domain_name}"
   type = "A"
   ttl  = 300
@@ -28,6 +29,7 @@ resource "google_dns_record_set" "linux_instance_dns" {
 }
 
 resource "google_dns_record_set" "windows_instance_dns" {
+  project = var.shared_networking
   name = "tb-windows-bastion.${var.private_dns_domain_name}"
   type = "A"
   ttl  = 300
@@ -42,6 +44,7 @@ resource "google_dns_record_set" "windows_instance_dns" {
 }
 
 resource "google_dns_record_set" "squid_proxy_dns" {
+  project = var.shared_networking
   name = "tb-squid-proxy.${var.private_dns_domain_name}"
   type = "A"
   ttl  = 300

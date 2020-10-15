@@ -177,7 +177,8 @@ module "dns-instances" {
   squid_proxy_instances = module.bastion-security.squid_proxy_instances
   windows_instances = module.bastion-security.windows_bastion_instances
   zone = var.region_zone
-  depends_on = [module.bastion-security]
+  shared_networking = module.shared_projects.shared_networking_id
+  depends_on = [module.bastion-security, module.]
 }
 
 module "logging_export" {
