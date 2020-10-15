@@ -178,7 +178,7 @@ module "dns-instances" {
   windows_instances = module.bastion-security.windows_bastion_instances
   zone = var.region_zone
   shared_networking = module.shared_projects.shared_networking_id
-  depends_on = [module.bastion-security, module.]
+  depends_on = [module.bastion-security, module.shared-vpc]
 }
 
 module "logging_export" {
