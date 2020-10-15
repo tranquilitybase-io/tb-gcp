@@ -33,3 +33,11 @@ output "bastion_subnetwork_name" {
 output "nat_static_ip" {
   value = google_compute_address.static.address
 }
+
+output "dns_name" {
+  value = google_dns_managed_zone.private-zone.name
+}
+
+output "dns_domain_name" {
+  value = google_dns_managed_zone.private-zone.dns_name
+}
