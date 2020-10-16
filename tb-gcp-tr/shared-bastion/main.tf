@@ -246,6 +246,24 @@ resource "google_compute_instance_group_manager" "squid_proxy_group" {
   depends_on = [google_compute_subnetwork_iam_binding.bastion_subnet_permission, google_service_account.bastion_service_account]
 }
 
+resource "time_sleep" "linux_wait_30_seconds" {
+  depends_on = [google_compute_instance_group_manager.linux_bastion_group]
+
+  create_duration = "80s"
+}
+
+resource "time_sleep" "windows_wait_30_seconds" {
+  depends_on = [google_compute_instance_group_manager.windows_bastion_group]
+
+  create_duration = "80s"
+}
+
+resource "time_sleep" "squid_wait_30_seconds" {
+  depends_on = [google_compute_instance_group_manager.squid_proxy_group]
+
+  create_duration = "80s"
+}
+
 resource "null_resource" "start-iap-tunnel" {
 
   provisioner "local-exec" {
