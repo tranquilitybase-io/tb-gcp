@@ -32,19 +32,19 @@ variable "organization_name" {
 variable "ca_common_name" {
   description = "The common name to use in the subject of the CA certificate (e.g. acme.co cert)."
   type        = string
-  default     = "eagle-console.tranquilitybase.internal."
+  default     = "eagle-console.tranquilitybase-demo.io"
 }
 
 variable "common_name" {
   description = "The common name to use in the subject of the certificate (e.g. acme.co cert)."
   type        = string
-  default     = "eagle-console.tranquilitybase.internal."
+  default     = "eagle-console.tranquilitybase-demo.io"
 }
 
 variable "dns_names" {
   description = "List of DNS names for which the certificate will be valid (e.g. foo.example.com)."
   type        = list(string)
-  default     = ["eagle-console.tranquilitybase.internal."]
+  default     = ["eagle-console.tranquilitybase-demo.io"]
 }
 
 #variable "ip_addresses" {

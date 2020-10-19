@@ -412,7 +412,7 @@ variable "private_dns_name" {
 
 variable "private_dns_domain_name" {
   type        = string
-  default     = "tranquilitybase.internal." # domain requires . to finish
+  default     = "tranquilitybase-demo.io." # domain requires . to finish
   description = "Domain name for private DNS in the shared vpc network"
 }
 ## DAC Services ##########
