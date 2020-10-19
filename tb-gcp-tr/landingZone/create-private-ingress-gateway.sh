@@ -15,5 +15,5 @@ PROJECT_ID=$(curl -s "http://metadata.google.internal/computeMetadata/v1/project
 TB_DISCRIMINATOR="${PROJECT_ID: -8}"
 SHARED_NETWORKING_PROJECT=shared-networking-${TB_DISCRIMINATOR}
 gcloud dns --project="${SHARED_NETWORKING_PROJECT}" record-sets transaction start --zone=private-shared
-gcloud beta dns --project="${SHARED_NETWORKING_PROJECT}" record-sets transaction add "${endpoint_ip}" --name=eagle-console.tranquilitybase.internal. --ttl=300 --type=A --zone=private-shared
+gcloud beta dns --project="${SHARED_NETWORKING_PROJECT}" record-sets transaction add "${endpoint_ip}" --name=eagle-console.tranquilitybase-demo.io --ttl=300 --type=A --zone=private-shared
 gcloud beta dns --project="${SHARED_NETWORKING_PROJECT}" record-sets transaction execute --zone=private-shared
