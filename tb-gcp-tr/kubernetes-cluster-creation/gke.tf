@@ -101,6 +101,25 @@ resource "google_container_node_pool" "gke_node_pool" {
   name     = var.cluster_pool_name
   location = var.region
 
+  management {
+    // CIS 6.5.2 (SL1D) Ensure Node Auto-Repair is enabled for GKE nodes
+    auto_repair = true
+    // CIS 6.5.3 (SL1D) Ensure Node Auto-Upgrade is enabled for GKE nodes
+    auto_upgrade = true
+  }
+
+  workload_metadata_config {
+    // Enables Metadata Concealment which is the 2nd most secure option after GKE Metadata Server (commented option below)
+    node_metadata = "SECURE"
+  }
+
+  shielded_instance_config {
+    // CIS 6.5.7 (NSL2ND) Ensure Secure Boot for Shielded GKE Nodes is Enabled
+    enable_secure_boot = true
+    // CIS 6.5.6 (NSL1ND) Ensure Integrity Monitoring for Shielded GKE Nodes is Enabled
+    enable_integrity_monitoring = true
+  }
+
   node_count = 1
   cluster    = google_container_cluster.gke.name
 
