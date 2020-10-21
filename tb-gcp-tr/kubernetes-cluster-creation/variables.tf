@@ -171,22 +171,22 @@ variable "enable_shielded_nodes" {
   default     = true
 }
 variable "enable_intranode_visibility" {
-  description = ""
+  description = "Enabled visibility of traffic between nodes."
   default     = true
 }
 variable "auto_repair" {
-  description = ""
+  description = "Enabled automatic repair for nodes."
   default     = true
 }
 variable "auto_upgrade" {
-  description = ""
+  description = "Enables automatic node repair"
   default     = true
 }
 variable "enable_secure_boot" {
-  description = ""
+  description = "Enabled secure boot for nodes."
   default     = true
 }
 variable "enable_integrity_monitoring" {
-  description = ""
+  description = "Enables integrity monitoring"
   default     = true
 }
