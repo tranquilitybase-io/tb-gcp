@@ -251,7 +251,7 @@ spec:
             - name: HOUSTON_SERVICE_URL
               value: 'houstonservice:80'
             - name: JENKINS_BASE_URL
-              value: 'jenkins-master-svc.cicd'
+              value: 'eagle-console.tranquilitybase-demo.io/jenkins-service'
 
         - name: gcpdacworker
           image: gcr.io/tranquility-base-images/tb-gcp-dac:landingzone
@@ -284,7 +284,7 @@ spec:
             - name: HOUSTON_SERVICE_URL
               value: 'houstonservice:80'
             - name: JENKINS_BASE_URL
-              value: 'jenkins-master-svc.cicd'
+              value: 'eagle-console.tranquilitybase-demo.io/jenkins-service'
 
       volumes:
         - name: config-volume
