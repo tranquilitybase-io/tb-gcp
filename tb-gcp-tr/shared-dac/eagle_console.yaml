@@ -133,6 +133,7 @@ spec:
         app: eagleconsole
         version: v1
     spec:
+      runtimeClassName: gvisor
       containers:
         - name: eagleconsole
           image: gcr.io/tranquility-base-images/tb-eagle-console:landingzone
@@ -160,6 +161,7 @@ spec:
         app: houstonservice
         version: v1
     spec:
+      runtimeClassName: gvisor
       containers:
         - name: houstonservice
           image: gcr.io/tranquility-base-images/tb-houston-service:landingzone
@@ -226,6 +228,7 @@ spec:
         app: gcpdac
         version: v1
     spec:
+      runtimeClassName: gvisor
       containers:
         - name: gcpdac
           image: gcr.io/tranquility-base-images/tb-gcp-dac:landingzone
@@ -311,6 +314,7 @@ spec:
       labels:
         app: mysql57
     spec:
+      runtimeClassName: gvisor
       volumes:
         - name: mysql-pv-storage
           persistentVolumeClaim:
