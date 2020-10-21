@@ -21,8 +21,6 @@ resource "google_container_cluster" "gke" {
   # We can't create a cluster with no node pool defined, but we want to only use
   # separately managed node pools. So we create the smallest possible default
   # node pool and immediately delete it.
-
-  #test options from CIS
   remove_default_node_pool    = true
   enable_shielded_nodes       = true
   enable_intranode_visibility = true
@@ -102,9 +100,7 @@ resource "google_container_node_pool" "gke_node_pool" {
   location = var.region
 
   management {
-    // CIS 6.5.2 (SL1D) Ensure Node Auto-Repair is enabled for GKE nodes
-    auto_repair = true
-    // CIS 6.5.3 (SL1D) Ensure Node Auto-Upgrade is enabled for GKE nodes
+    auto_repair  = true
     auto_upgrade = true
   }
 
@@ -122,25 +118,16 @@ resource "google_container_node_pool" "gke_node_pool" {
     oauth_scopes    = var.cluster_oauth_scopes
     service_account = google_service_account.cluster.email
     tags            = ["gke-private", var.cluster_name]
+
     shielded_instance_config {
       // CIS 6.5.7 (NSL2ND) Ensure Secure Boot for Shielded GKE Nodes is Enabled
       enable_secure_boot = true
       // CIS 6.5.6 (NSL1ND) Ensure Integrity Monitoring for Shielded GKE Nodes is Enabled
       enable_integrity_monitoring = true
     }
-
-    // CIS 6.4.1 (SL1D) Disable legacy Compute Engine instance metadata
-    // this is done automatically since GKE 1.12 by injecting the disable-legacy-endpoints=true metadata item on all nodes
-
     workload_metadata_config {
       // Enables Metadata Concealment which is the 2nd most secure option after GKE Metadata Server (commented option below)
       node_metadata = "SECURE"
-
-      // CIS 6.4.2 (NSL2ND) Enables GKE Metadata Server
-      // this is only possible when Workload Identity is enabled
-      //
-      //node_metadata = "GKE_METADATA_SERVER"
-
     }
 
   }
