@@ -170,22 +170,27 @@ variable "enable_shielded_nodes" {
   description = "Whether to enable shielding on worker nodes, defaults to true."
   default     = true
 }
+
 variable "enable_intranode_visibility" {
   description = "Enabled visibility of traffic between nodes."
   default     = true
 }
+
 variable "auto_repair" {
   description = "Enabled automatic repair for nodes."
   default     = true
 }
+
 variable "auto_upgrade" {
   description = "Enables automatic node repair"
   default     = true
 }
+
 variable "enable_secure_boot" {
   description = "Enabled secure boot for nodes."
   default     = true
 }
+
 variable "enable_integrity_monitoring" {
   description = "Enables integrity monitoring"
   default     = true
