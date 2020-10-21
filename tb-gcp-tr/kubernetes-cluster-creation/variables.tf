@@ -165,3 +165,28 @@ variable "cluster_default_max_pods_per_node" {
   description = "The maximum number of pods to schedule per node"
   default     = null
 }
+
+variable "enable_shielded_nodes" {
+  description = "Whether to enable shielding on worker nodes, defaults to true."
+  default     = true
+}
+variable "enable_intranode_visibility" {
+  description = ""
+  default     = true
+}
+variable "auto_repair" {
+  description = ""
+  default     = true
+}
+variable "auto_upgrade" {
+  description = ""
+  default     = true
+}
+variable "enable_secure_boot" {
+  description = ""
+  default     = true
+}
+variable "enable_integrity_monitoring" {
+  description = ""
+  default     = true
+}

@@ -22,8 +22,8 @@ resource "google_container_cluster" "gke" {
   # separately managed node pools. So we create the smallest possible default
   # node pool and immediately delete it.
   remove_default_node_pool    = true
-  enable_shielded_nodes       = true
-  enable_intranode_visibility = true
+  enable_shielded_nodes       = var.enable_shielded_nodes
+  enable_intranode_visibility = var.enable_intranode_visibility
 
   initial_node_count = 1
 
@@ -100,8 +100,8 @@ resource "google_container_node_pool" "gke_node_pool" {
   location = var.region
 
   management {
-    auto_repair  = true
-    auto_upgrade = true
+    auto_repair  = var.auto_repair
+    auto_upgrade = var.auto_upgrade
   }
 
   node_count = 1
@@ -120,9 +120,9 @@ resource "google_container_node_pool" "gke_node_pool" {
     tags            = ["gke-private", var.cluster_name]
 
     shielded_instance_config {
-      enable_secure_boot = true
+      enable_secure_boot = var.enable_secure_boot
 
-      enable_integrity_monitoring = true
+      enable_integrity_monitoring = var.enable_integrity_monitoring
     }
 
     workload_metadata_config {
