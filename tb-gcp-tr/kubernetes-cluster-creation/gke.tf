@@ -99,11 +99,6 @@ resource "google_container_node_pool" "gke_node_pool" {
   name     = var.cluster_pool_name
   location = var.region
 
-  management {
-    auto_repair  = var.auto_repair
-    auto_upgrade = var.auto_upgrade
-  }
-
   node_count = 1
   cluster    = google_container_cluster.gke.name
 

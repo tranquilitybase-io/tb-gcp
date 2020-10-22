@@ -176,15 +176,6 @@ variable "enable_intranode_visibility" {
   default     = true
 }
 
-variable "auto_repair" {
-  description = "Enabled automatic repair for nodes."
-  default     = true
-}
-
-variable "auto_upgrade" {
-  description = "Enables automatic node repair"
-  default     = true
-}
 
 variable "enable_secure_boot" {
   description = "Enabled secure boot for nodes."
