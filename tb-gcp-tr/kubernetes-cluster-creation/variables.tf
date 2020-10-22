@@ -176,7 +176,6 @@ variable "enable_intranode_visibility" {
   default     = true
 }
 
-
 variable "enable_secure_boot" {
   description = "Enabled secure boot for nodes."
   default     = true

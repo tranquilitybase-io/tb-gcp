@@ -115,13 +115,12 @@ resource "google_container_node_pool" "gke_node_pool" {
     tags            = ["gke-private", var.cluster_name]
 
     shielded_instance_config {
-      enable_secure_boot = var.enable_secure_boot
-
+      enable_secure_boot          = var.enable_secure_boot
       enable_integrity_monitoring = var.enable_integrity_monitoring
     }
 
     workload_metadata_config {
-      // Enables Metadata Concealment which is the 2nd most secure option after GKE Metadata Server (commented option below)
+      // Enables Metadata Concealment which is the 2nd most secure option after GKE Metadata Server.
       node_metadata = "SECURE"
     }
 
