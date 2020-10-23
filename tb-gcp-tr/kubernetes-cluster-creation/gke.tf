@@ -34,7 +34,7 @@ resource "google_container_cluster" "gke" {
   }
   monitoring_service = var.pod-mon-service
   logging_service    = var.pod-log-service
-  enable_legacy_abac = false
+
   # Setting an empty username and password explicitly disables basic auth
   master_auth {
     username = ""
