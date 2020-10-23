@@ -166,11 +166,6 @@ variable "cluster_default_max_pods_per_node" {
   default     = null
 }
 
-variable "enable_shielded_nodes" {
-  description = "Whether to enable shielding on worker nodes, defaults to true."
-  default     = true
-}
-
 variable "enable_intranode_visibility" {
   description = "Enabled visibility of traffic between nodes."
   default     = true
