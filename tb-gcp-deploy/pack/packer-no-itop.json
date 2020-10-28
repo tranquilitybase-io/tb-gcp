@@ -17,7 +17,7 @@
       "type": "googlecompute",
       "project_id": "{{user `project_id`}}",
       "machine_type": "n1-standard-1",
-      "source_image_family": "cis-debian-linux-9-level-1",
+      "source_image_family": "debian-9",
       "region": "{{user `region`}}",
       "zone": "{{user `zone`}}",
       "image_description": "TB, Terraform, Debian 9 based Machine Image",

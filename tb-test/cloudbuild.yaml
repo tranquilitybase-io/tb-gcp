@@ -50,7 +50,7 @@ steps:
 substitutions:
   _TB_IMAGE_BUCKET: tbase-images
   _IMAGE_NAME: "tranquility-base-bootstrap"
-  _IMAGE_FAMILY: tb-tr-debian-9
+  _IMAGE_FAMILY: cis-debian-linux-9-level-1
   _IMAGE_ZONE: europe-west2
   _IMAGE_MEMBER: allAuthenticatedUsers
   _IMAGE_ROLE: roles/compute.imageUser
