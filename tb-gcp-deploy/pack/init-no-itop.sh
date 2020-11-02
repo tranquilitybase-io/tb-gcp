@@ -60,7 +60,7 @@ npm -v
 
 # install Terraform 0.13
 wget https://releases.hashicorp.com/terraform/0.13.3/terraform_0.13.3_linux_amd64.zip
-unzip -d /usr/local/bin/ terraform_0.13.3_linux_amd64.zip
+unzip -d -o /usr/local/bin/ terraform_0.13.3_linux_amd64.zip
 rm terraform_0.13.3_linux_amd64.zip
 
 # Clone Tranquility Base repository
