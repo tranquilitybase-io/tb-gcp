@@ -84,7 +84,7 @@ cd ..
 # move TB Repo files from packer's home directory to target /opt/tb/repo directory
 ls /opt/tb/repo
 mkdir -p /opt/tb
-rsync -a repo/ opt/tb/
+rsync -a repo/ /opt/tb/
 rm -rf repo/
 
 # create certificate directory
