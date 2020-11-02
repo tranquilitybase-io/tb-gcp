@@ -82,6 +82,7 @@ find . -type f -name '*.old' -delete
 cd ..
 
 # move TB Repo files from packer's home directory to target /opt/tb/repo directory
+ls /opt/tb/repo
 mkdir -p /opt/tb
 mv repo /opt/tb/
 
