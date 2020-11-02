@@ -16,6 +16,8 @@
 set -e
 set -o pipefail
 
+systemctl disable apt-daily-upgrade.service 
+
 echo "User: $(whoami)"
 echo "Pwd: $(pwd)"
 ls -al
