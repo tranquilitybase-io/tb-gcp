@@ -44,10 +44,7 @@
       "type": "shell",
       "inline": [
         "git clone https://github.com/hardenedlinux/harbian-audit.git"
-      ]
-    },
-    {
-      "type": "shell",
+      ],
       "execute_command": "bin/hardening.sh --set-hardening-level 1 && bin/hardening.sh --apply"
     }
   ]
