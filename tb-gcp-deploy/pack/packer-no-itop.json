@@ -39,11 +39,6 @@
       ],
       "execute_command": "echo 'packer' | sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
     }
-    ,
-    {
-      "type": "shell",
-      "inline": [
-        "git clone https://github.com/hardenedlinux/harbian-audit.git"
-      ] }
+
   ]
 }
