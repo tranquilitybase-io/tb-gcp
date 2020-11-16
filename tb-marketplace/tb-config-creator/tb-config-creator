@@ -239,7 +239,7 @@ gcloud --project "${PROJECT_ID}" iam service-accounts create "${SA_NAME}" --quie
 
 
 #create custom roles 
-gcloud iam roles create networkAdminCustomRole --project="${PROJECT_ID}" --file="$(dirname "${BASH_SOURCE[0]}")"/tb-config-creator/custom_roles/network.yaml
+gcloud iam roles create networkAdminCustomRole --project="${PROJECT_ID}" --file="$(dirname "${BASH_SOURCE[0]}")"/tb-marketplace/tb-config-creator/custom_roles/network.yaml
 #rest of custom role defs go here
 
 
