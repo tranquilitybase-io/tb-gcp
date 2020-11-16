@@ -254,11 +254,27 @@ echo "Linked project to billing account [${BILLING_ID}]."
 echo "Creating service account..."
 gcloud --project "${PROJECT_ID}" iam service-accounts create "${SA_NAME}" --quiet
 
+
+#create custom roles 
+gcloud iam roles create networkAdminCustomRole --project="${PROJECT_ID}" --file=../custom_roles/network.yaml
+#rest of custom role defs go here
+
+
 #Add permissions at the project level
 echo "Adding permissions at the project level... "
 gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.instanceAdmin.v1 --format=none
+
+#Probably doesn't need storage admin past creating state and log buckets.
+#     storage.buckets.create < - this can be temp
+#     storage.objects.getIamPolicy
+#     storage.objects.get
+#     storage.buckets.update
 gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/storage.admin --format=none
+
+#Should grant admin only for the time it takes to create, then reader / writer.
 gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/source.admin --format=none
+
+#these can stay the same.
 gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/logging.logWriter --format=none
 gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/logging.configWriter --format=none
 
@@ -268,10 +284,12 @@ gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --membe
 gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/resourcemanager.projectCreator --format=none
 gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/resourcemanager.projectDeleter --format=none
 gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/billing.projectManager --format=none
-gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.networkAdmin --format=none
+gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/networkAdminCustomRole--format=none
 gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.xpnAdmin --format=none
 gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.networkUser --format=none
 gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/cloudkms.admin --format=none
+
+#OK
 gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/logging.logWriter --format=none
 gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/logging.configWriter --format=none
 
