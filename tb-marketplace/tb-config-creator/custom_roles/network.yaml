@@ -2,7 +2,6 @@ title: network-role
 description: permissions to be asigned to the bootstrap account
 stage: launch-stage
 includedPermissions:
-
 - compute.acceleratorTypes.*
 - compute.addresses.*
 - compute.autoscalers.get
