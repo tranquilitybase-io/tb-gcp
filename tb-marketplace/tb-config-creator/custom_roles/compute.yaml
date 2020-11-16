@@ -1,5 +1,5 @@
-title: network-role
-description: permissions to be asigned to the bootstrap account
+title: compute-role
+description: compute permissions to be asigned to the bootstrap account
 stage: launch-stage
 includedPermissions:
     - compute.acceleratorTypes.*
