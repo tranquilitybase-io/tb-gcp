@@ -1,5 +1,5 @@
 title: compute-role
-description: compute permissions to be asigned to the bootstrap account
+description: compute permissions to be asigned.
 stage: launch-stage
 includedPermissions:
     -    compute.networks.list
