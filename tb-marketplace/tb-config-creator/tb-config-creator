@@ -256,13 +256,13 @@ gcloud --project "${PROJECT_ID}" iam service-accounts create "${SA_NAME}" --quie
 
 
 #create custom roles 
-gcloud iam roles create networkAdminCustomRole --project="${PROJECT_ID}" --file="$(dirname "${BASH_SOURCE[0]}")"/custom_roles/network.yaml
+gcloud iam roles create computeCustomRole --project="${PROJECT_ID}" --file="$(dirname "${BASH_SOURCE[0]}")"/custom_roles/compute.yaml
 #rest of custom role defs go here
 
 
 #Add permissions at the project level
 echo "Adding permissions at the project level... "
-gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.instanceAdmin.v1 --format=none
+gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/computeCustomRole --format=none
 
 #Probably doesn't need storage admin past creating state and log buckets.
 #     storage.buckets.create < - this can be temp
@@ -284,7 +284,7 @@ gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --membe
 gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/resourcemanager.projectCreator --format=none
 gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/resourcemanager.projectDeleter --format=none
 gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/billing.projectManager --format=none
-gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/networkAdminCustomRole--format=none
+gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/networkAdmin--format=none
 gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.xpnAdmin --format=none
 gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.networkUser --format=none
 gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/cloudkms.admin --format=none
