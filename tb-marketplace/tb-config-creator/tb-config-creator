@@ -270,7 +270,7 @@ gcloud --project "${PROJECT_ID}" services enable storage-api.googleapis.com
 gcloud --project "${PROJECT_ID}" services enable runtimeconfig.googleapis.com
 
 #create custom roles 
-gcloud iam roles create computeCustomRole --project="${PROJECT_ID}" --organization="${ORG_ID}" --file="$(dirname "${BASH_SOURCE[0]}")"/custom_roles/compute.yaml
+gcloud iam roles create computeCustomRole --project="${PROJECT_ID}" --file="$(dirname "${BASH_SOURCE[0]}")"/custom_roles/compute.yaml
 #rest of custom role defs go here
 
 
