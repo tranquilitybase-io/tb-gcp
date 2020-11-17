@@ -1,6 +1,6 @@
-title: compute-role
-description: compute permissions to be asigned.
-stage: launch-stage
+title: "compute-role"
+description: "compute permissions to be asigned."
+stage: "ALPHA"
 includedPermissions:
     -    compute.networks.list
     -    compute.firewalls.delete
