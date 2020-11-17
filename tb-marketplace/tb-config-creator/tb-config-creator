@@ -298,7 +298,7 @@ gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --membe
 gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/resourcemanager.projectCreator --format=none
 gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/resourcemanager.projectDeleter --format=none
 gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/billing.projectManager --format=none
-gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/networkAdmin--format=none
+gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.networkAdmin--format=none
 gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.xpnAdmin --format=none
 gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.networkUser --format=none
 gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/cloudkms.admin --format=none
