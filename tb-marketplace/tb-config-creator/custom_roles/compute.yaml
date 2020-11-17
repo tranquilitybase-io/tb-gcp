@@ -6,9 +6,7 @@ includedPermissions:
     -    compute.firewalls.delete
     -    compute.networks.updatePolicy
     -    compute.globalOperations.get
-    -    v1.compute.firewalls.delete
     -    compute.networks.delete
-    -    v1.compute.networks.delete
     -    compute.subnetworks.list
     -    compute.resourcePolicies.list
     -    compute.snapshots.list
@@ -32,6 +30,4 @@ includedPermissions:
     -    compute.firewalls.delete
     -    compute.networks.updatePolicy
     -    compute.globalOperations.get
-    -    v1.compute.firewalls.delete
     -    compute.networks.delete
-    -    v1.compute.networks.delete
