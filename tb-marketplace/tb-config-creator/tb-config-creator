@@ -271,22 +271,18 @@ gcloud --project "${PROJECT_ID}" services enable runtimeconfig.googleapis.com
 
 #create custom roles 
 gcloud iam roles create computeCustomRole --project="${PROJECT_ID}" --file="$(dirname "${BASH_SOURCE[0]}")"/custom_roles/compute.yaml
+gcloud iam roles create networkCustomRole --project="${PROJECT_ID}" --file="$(dirname "${BASH_SOURCE[0]}")"/custom_roles/network.yaml
+gcloud iam roles create storageCustomRole --project="${PROJECT_ID}" --file="$(dirname "${BASH_SOURCE[0]}")"/custom_roles/storage.yaml
+gcloud iam roles create sourceCustomRole --project="${PROJECT_ID}" --file="$(dirname "${BASH_SOURCE[0]}")"/custom_roles/source.yaml
 #rest of custom role defs go here
 
 
 #Add permissions at the project level
 echo "Adding permissions at the project level... "
 gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=projects/"${PROJECT_ID}"/roles/computeCustomRole --format=none
-
-#Probably doesn't need storage admin past creating state and log buckets.
-#     storage.buckets.create < - this can be temp
-#     storage.objects.getIamPolicy
-#     storage.objects.get
-#     storage.buckets.update
-gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/storage.admin --format=none
-
-#Should grant admin only for the time it takes to create, then reader / writer.
-gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/source.admin --format=none
+gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=projects/"${PROJECT_ID}"/roles/computeCustomRole --format=none
+gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=projects/"${PROJECT_ID}"/roles/computeCustomRole --format=none
+gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=projects/"${PROJECT_ID}"/roles/computeCustomRole --format=none
 
 #these can stay the same.
 gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/logging.logWriter --format=none

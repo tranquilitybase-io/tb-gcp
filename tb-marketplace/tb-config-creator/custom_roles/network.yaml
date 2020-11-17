@@ -1,0 +1,6 @@
+title: "network-role"
+description: "network permissions to be assigned."
+stage: "ALPHA"
+includedPermissions:
+- permission-1
+- permission-2
