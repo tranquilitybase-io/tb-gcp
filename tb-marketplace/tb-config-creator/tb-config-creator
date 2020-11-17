@@ -259,7 +259,7 @@ gcloud iam roles create computeCustomRole --project="${PROJECT_ID}" --file="$(di
 
 #Add permissions at the project level
 echo "Adding permissions at the project level... "
-gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/computeCustomRole --format=none
+gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=projects/"${PROJECT_ID}"/roles/computeCustomRole --format=none
 
 #Probably doesn't need storage admin past creating state and log buckets.
 #     storage.buckets.create < - this can be temp
