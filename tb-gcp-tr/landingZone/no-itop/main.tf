@@ -183,6 +183,14 @@ module "dns-instances" {
   depends_on = [module.bastion-security, module.shared-vpc]
 }
 
+module "dac-secret" {
+  source = "../../dac-secret"
+
+  content = module.SharedServices_namespace_creation.id
+  context_name = module.k8s-ec_context.context_name
+  depends_on = [module.SharedServices_namespace_creation]
+}
+
 module "logging_export" {
   source                        = "../../logging-export"
   tb_discriminator              = var.tb_discriminator
@@ -314,6 +322,7 @@ module "SharedServices_jenkinsmaster_creation" {
   cluster_context   = module.k8s-ec_context.context_name
   # Jenkins Deployment depends on the ec-service-account secret creation
   dependency_var = null_resource.kubernetes_jenkins_service_account_key_secret.id
+  depends_on = [module.dac-secret]
 }
 
 module "SharedServices_configuration_file" {
@@ -330,6 +339,7 @@ module "SharedServices_ec" {
   k8s_template_file = var.eagle_console_yaml_path
   cluster_context   = module.k8s-ec_context.context_name
   dependency_var    = module.SharedServices_configuration_file.id
+  depends_on = [module.dac-secret]
 }
 
 resource "null_resource" "get_endpoint" {
