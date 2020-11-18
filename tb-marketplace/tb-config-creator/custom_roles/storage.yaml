@@ -1,6 +1,8 @@
-title: role-title
-description: role-description
-stage: launch-stage
+title: "storage-role"
+description: "role-description"
+stage: "ALPHA"
 includedPermissions:
-- permission-1
-- permission-2
+- storage.buckets.create
+- storage.objects.get
+- storage.objects.getIamPolicy
+- storage.buckets.update

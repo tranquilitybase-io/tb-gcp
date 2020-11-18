@@ -1,6 +1,6 @@
-title: role-title
-description: role-description
-stage: launch-stage
+title: "source-role"
+description: "role-description"
+stage: "ALPHA"
 includedPermissions:
-- permission-1
-- permission-2
+- source.repos.list
+- source.repos.create
