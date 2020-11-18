@@ -6,5 +6,6 @@ includedPermissions:
 - storage.buckets.list
 - storage.objects.get
 - storage.objects.list
+- storage.objects.create
 - storage.objects.getIamPolicy
 - storage.buckets.update
