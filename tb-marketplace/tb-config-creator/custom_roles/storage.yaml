@@ -4,8 +4,10 @@ stage: "ALPHA"
 includedPermissions:
 - storage.buckets.create
 - storage.buckets.list
+- storage.buckets.update
 - storage.objects.get
 - storage.objects.list
 - storage.objects.create
+- storage.objects.delete
 - storage.objects.getIamPolicy
-- storage.buckets.update
+
