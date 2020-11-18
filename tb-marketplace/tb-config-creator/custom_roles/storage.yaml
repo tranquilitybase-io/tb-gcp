@@ -3,6 +3,7 @@ description: "role-description"
 stage: "ALPHA"
 includedPermissions:
 - storage.buckets.create
+- storage.buckets.list
 - storage.objects.get
 - storage.objects.getIamPolicy
 - storage.buckets.update
