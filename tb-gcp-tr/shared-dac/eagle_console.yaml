@@ -252,6 +252,16 @@ spec:
               value: 'houstonservice:80'
             - name: JENKINS_BASE_URL
               value: 'eagle-console.tranquilitybase-demo.io/jenkins-service'
+            - name: DAC_USER
+              valueFrom:
+                secretKeyRef:
+                  name: dac-user-pass
+                  key: username
+            - name: DAC_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: dac-user-pass
+                  key: password
 
         - name: gcpdacworker
           image: gcr.io/tranquility-base-images/tb-gcp-dac:landingzone
@@ -285,6 +295,16 @@ spec:
               value: 'houstonservice:80'
             - name: JENKINS_BASE_URL
               value: 'eagle-console.tranquilitybase-demo.io/jenkins-service'
+            - name: DAC_USER
+              valueFrom:
+                secretKeyRef:
+                  name: dac-user-pass
+                  key: username
+            - name: DAC_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: dac-user-pass
+                  key: password
 
       volumes:
         - name: config-volume
