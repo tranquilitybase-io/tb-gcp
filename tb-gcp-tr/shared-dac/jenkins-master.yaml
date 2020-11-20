@@ -86,12 +86,12 @@ spec:
           env:
             - name: GOOGLE_APPLICATION_CREDENTIALS
               value: /var/secrets/google/ec-service-account-config.json
-            - name: DAC_USER
+            - name: DAC_JENKINS_USER
               valueFrom:
                 secretKeyRef:
                   name: dac-user-pass
                   key: username
-            - name: DAC_PASSWORD
+            - name: DAC_JENKINS_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: dac-user-pass
