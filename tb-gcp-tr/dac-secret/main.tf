@@ -4,7 +4,7 @@ resource "random_password" "password" {
   override_special = "_%@"
 }
 
-## Creates dac username and password in the cicd namespace ##
+## Creates Dac username and password in the cicd namespace ##
 
 resource "null_resource" "kubernetes_dac_secret_cicd" {
   triggers = {
@@ -22,7 +22,7 @@ resource "null_resource" "kubernetes_dac_secret_cicd" {
   }
 }
 
-## Creates dac username and password in the ssp namespace ##
+## Creates Dac username and password in the ssp namespace ##
 
 resource "null_resource" "kubernetes_dac_secret_ssp" {
   triggers = {
