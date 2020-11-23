@@ -1,5 +1,5 @@
 variable "content" {
-  description = "Content for the Trigger"
+  description = "Content for the trigger"
 }
 
 variable "context_name" {
