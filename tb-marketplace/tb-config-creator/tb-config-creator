@@ -270,10 +270,10 @@ gcloud --project "${PROJECT_ID}" services enable storage-api.googleapis.com
 gcloud --project "${PROJECT_ID}" services enable runtimeconfig.googleapis.com
 
 #create custom roles 
-gcloud iam roles create computeCustomRole --project="${PROJECT_ID}" --file="$(dirname "${BASH_SOURCE[0]}")"/custom_roles/compute.yaml
-gcloud iam roles create storageCustomRole --project="${PROJECT_ID}" --file="$(dirname "${BASH_SOURCE[0]}")"/custom_roles/storage.yaml
-gcloud iam roles create sourceCustomRole  --project="${PROJECT_ID}" --file="$(dirname "${BASH_SOURCE[0]}")"/custom_roles/source.yaml
-gcloud iam roles create deployCustomRole  --project="${PROJECT_ID}" --file="$(dirname "${BASH_SOURCE[0]}")"/custom_roles/deploy.yaml
+gcloud iam roles create computeCustomRole --project="${PROJECT_ID}" --file="$(dirname "${BASH_SOURCE[0]}")"/custom_roles/compute.yaml --quiet
+gcloud iam roles create storageCustomRole --project="${PROJECT_ID}" --file="$(dirname "${BASH_SOURCE[0]}")"/custom_roles/storage.yaml --quiet
+gcloud iam roles create sourceCustomRole  --project="${PROJECT_ID}" --file="$(dirname "${BASH_SOURCE[0]}")"/custom_roles/source.yaml --quiet
+gcloud iam roles create deployCustomRole  --project="${PROJECT_ID}" --file="$(dirname "${BASH_SOURCE[0]}")"/custom_roles/deploy.yaml --quiet
 
 #Add permissions at the project level
 echo "Adding permissions at the project level... "
@@ -309,8 +309,9 @@ timeLimit="
 }"
 
 gcloud resource-manager folders get-iam-policy "${tb_folder_id}" > rootfolderiampolicy.yaml
-sed  "/\role: roles/resourcemanager.folderAdmin/a ${timelimit}" rootfolderiampolicy.yaml
+#sed  "/roles/resourcemanager.folderAdmin/a ${timeLimit}" rootfolderiampolicy.yaml
 
+sed -a "/roles/resourcemanager.folderAdmin '${timeLimit}'" rootfolderiampolicy.yaml
 gcloud resource-manager folders set-iam-policy "${tb_folder_id}" rootfolderiampolicy.yaml
 rm rootfolderiampolicy.yaml
 
