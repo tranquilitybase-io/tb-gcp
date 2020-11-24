@@ -374,7 +374,7 @@ variable "endpoint_file" {
 
 variable "ec_iam_service_account_roles" {
   default = [
-    "roles/resourcemanager.folderAdmin",
+    "roles/resourcemanager.folderCreator",
     "roles/resourcemanager.projectCreator",
     "roles/compute.xpnAdmin",
     "roles/resourcemanager.projectDeleter",
