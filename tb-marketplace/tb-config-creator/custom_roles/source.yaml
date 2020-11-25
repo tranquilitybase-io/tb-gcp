@@ -4,3 +4,4 @@ stage: "ALPHA"
 includedPermissions:
 - source.repos.list
 - source.repos.create
+- source.repos.get
