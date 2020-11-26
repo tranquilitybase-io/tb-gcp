@@ -292,7 +292,7 @@ timeLimit='\
 }'
 
 gcloud resource-manager folders get-iam-policy "${tb_folder_id}" > rootfolderiampolicy.yaml
-sed "\/roles\/resourcemanager.folderAdmin\/ a ${timeLimit}/" rootfolderiampolicy.yaml
+sed "\/roles\/resourcemanager\.folderAdmin\/ a ${timeLimit}/" rootfolderiampolicy.yaml
 gcloud resource-manager folders set-iam-policy "${tb_folder_id}" rootfolderiampolicy.yaml
 rm rootfolderiampolicy.yaml
 
