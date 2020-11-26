@@ -300,12 +300,12 @@ gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --membe
 
 #test
 #Add one hour time limit to roles only required for deployment
-timeLimit='\                                                              
+timeLimit='\
   condition: \{\
    title: Time Limit,\
     description: A time limit for roles only needed for setup,\
       expression:\
-        request\.time\.getHours\(Europe\/London\) \+ 1)\
+        request\.time\.getHours\(Europe\/London\)\+\1)\
 }'
 
 gcloud resource-manager folders get-iam-policy "${tb_folder_id}" > rootfolderiampolicy.yaml
