@@ -298,21 +298,6 @@ gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --membe
 gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/logging.logWriter --format=none
 gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/logging.configWriter --format=none
 
-#Add one hour time limit to roles only required for deployment
-timeLimit="\
-  condition: {\
-   title: Time Limit,\
-    description: A time limit for roles only needed for setup,\
-      expression:\
-        request\.time\.getHours\(Europe\/London\)\+\1)\
-}"
-
-gcloud resource-manager folders get-iam-policy "${tb_folder_id}" > rootfolderiampolicy.yaml
-sed "/folderAdmin/ a ${timeLimit}/" rootfolderiampolicy.yaml
-gcloud resource-manager folders set-iam-policy "${tb_folder_id}" rootfolderiampolicy.yaml
-rm rootfolderiampolicy.yaml
-
-
 # Add permissions at the billing level
 echo "Adding permission at the billing account level..."
 gcloud beta billing accounts add-iam-policy-binding "${BILLING_ID}" --member="serviceAccount:${SA_EMAIL}" --role=roles/billing.admin
