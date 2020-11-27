@@ -5,3 +5,5 @@ includedPermissions:
 - source.repos.list
 - source.repos.create
 - source.repos.get
+- source.repos.update
+- source.repos.updateRepoConfig
