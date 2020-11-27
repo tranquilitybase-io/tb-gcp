@@ -272,16 +272,15 @@ gcloud --project "${PROJECT_ID}" services enable runtimeconfig.googleapis.com
 #create custom roles 
 gcloud iam roles create computeCustomRole --project="${PROJECT_ID}" --file="$(dirname "${BASH_SOURCE[0]}")"/custom_roles/compute.yaml --quiet
 gcloud iam roles create storageCustomRole --project="${PROJECT_ID}" --file="$(dirname "${BASH_SOURCE[0]}")"/custom_roles/storage.yaml --quiet
-gcloud iam roles create sourceCustomRole  --project="${PROJECT_ID}" --file="$(dirname "${BASH_SOURCE[0]}")"/custom_roles/source.yaml --quiet
 gcloud iam roles create deployCustomRole  --project="${PROJECT_ID}" --file="$(dirname "${BASH_SOURCE[0]}")"/custom_roles/deploy.yaml --quiet
 
 #Add permissions at the project level
 echo "Adding permissions at the project level... "
 gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=projects/"${PROJECT_ID}"/roles/computeCustomRole --format=none
 gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=projects/"${PROJECT_ID}"/roles/storageCustomRole --format=none
-gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=projects/"${PROJECT_ID}"/roles/sourceCustomRole --format=none
 gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=projects/"${PROJECT_ID}"/roles/deployCustomRole --format=none
 
+cloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/source.admin --format=none
 gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/logging.logWriter --format=none
 gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/logging.configWriter --format=none
 
