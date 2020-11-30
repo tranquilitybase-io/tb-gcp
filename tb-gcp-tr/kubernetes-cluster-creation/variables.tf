@@ -116,7 +116,8 @@ variable "cluster_node_disk_size" {
 variable "cluster_oauth_scopes" {
   type = list(string)
   default = [
-    "https://www.googleapis.com/auth/cloud-platform"
+    "https://www.googleapis.com/auth/cloud-platform",
+    "https://www.googleapis.com/auth/projecthosting"
   ]
 }
 
