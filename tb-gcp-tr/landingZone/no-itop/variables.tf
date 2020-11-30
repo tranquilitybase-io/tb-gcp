@@ -244,8 +244,7 @@ variable "cluster_opt_name" {
 variable "cluster_oauth_scopes" {
   type = list(string)
   default = [
-    "https://www.googleapis.com/auth/cloud-platform",
-    "https://www.googleapis.com/auth/projecthosting"
+    "https://www.googleapis.com/auth/cloud-platform"
   ]
 }
 
