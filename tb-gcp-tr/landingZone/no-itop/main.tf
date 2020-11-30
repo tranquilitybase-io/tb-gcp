@@ -230,6 +230,7 @@ module "gke-ec" {
   )
   cluster_min_master_version        = var.cluster_ec_min_master_version
   cluster_default_max_pods_per_node = var.cluster_ec_default_max_pods_per_node
+  cluster_oauth_scopes = var.cluster_oauth_scopes
 
   apis_dependency          = module.apis_activation.all_apis_enabled
   shared_vpc_dependency    = module.shared-vpc.gke_subnetwork_ids
