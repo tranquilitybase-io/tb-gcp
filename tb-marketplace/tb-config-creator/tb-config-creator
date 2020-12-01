@@ -240,6 +240,8 @@ auditConfigs:
   - logType: ADMIN_READ
   service: allServices
 EOF
+
+
 gcloud resource-manager folders set-iam-policy "${tb_folder_id}" rootfolderiampolicy.yaml
 rm rootfolderiampolicy.yaml
 
