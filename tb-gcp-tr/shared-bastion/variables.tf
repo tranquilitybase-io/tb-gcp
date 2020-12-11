@@ -45,7 +45,6 @@ variable "scopes" {
 variable "main_iam_service_account_roles" {
   type = list(string)
   default = [
-    "roles/resourcemanager.folderCreator",
     "roles/resourcemanager.projectCreator",
     "roles/resourcemanager.projectDeleter",
     "roles/billing.projectManager",
