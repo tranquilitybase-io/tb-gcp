@@ -31,7 +31,7 @@ variable "shared_networking_id" {
   description = "identifier for the shared_networking project."
 }
 
-variable root_id {
+variable "root_id" {
   type        = string
   description = "ID for the parent organisation where folders will be created"
 }
