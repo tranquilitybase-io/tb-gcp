@@ -48,7 +48,7 @@ variable "main_iam_service_account_roles" {
     "roles/resourcemanager.folderCreator",
     "roles/resourcemanager.projectCreator",
     "roles/resourcemanager.projectDeleter",
-    "roles/billing.user",
+    "roles/billing.projectManager",
     "roles/compute.xpnAdmin",
     "roles/editor",
     "roles/compute.networkUser",
