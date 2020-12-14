@@ -24,6 +24,7 @@ locals {
 #   member     = local.service_account_name
 #   depends_on = [google_service_account.proxy-sa-res]
 # }
+
 resource "google_project_iam_member" "sa-project-admin-role" {
   count      = length(var.main_iam_service_account_roles)
   project    = var.shared_bastion_id
