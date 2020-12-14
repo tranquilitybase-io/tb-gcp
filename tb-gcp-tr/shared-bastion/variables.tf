@@ -48,10 +48,10 @@ variable "main_iam_service_account_roles" {
     "roles/resourcemanager.folderCreator",
     "roles/resourcemanager.projectCreator",
     "roles/resourcemanager.projectDeleter",
-    "roles/billing.projectManager",
+    "roles/billing.user",
     "roles/compute.xpnAdmin",
-    "roles/owner",
-    "roles/compute.networkAdmin",
+    "roles/editor",
+    "roles/compute.networkUser",
   ]
   description = "Roles attached to service account"
 }
