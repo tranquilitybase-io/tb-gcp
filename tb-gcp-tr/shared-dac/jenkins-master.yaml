@@ -70,7 +70,7 @@ spec:
     spec:
       containers:
         - name: jenkins-master
-          image: gcr.io/tranquility-base-images/tb-jenkins_latest:landingzone
+          image: gcr.io/tranquility-base-images/tb-jenkins:v0.0.14
           args: ["--prefix=/jenkins-service"]
           securityContext:
             privileged: true
@@ -86,6 +86,21 @@ spec:
           env:
             - name: GOOGLE_APPLICATION_CREDENTIALS
               value: /var/secrets/google/ec-service-account-config.json
+            - name: DAC_JENKINS_USER
+              valueFrom:
+                secretKeyRef:
+                  name: dac-user-pass
+                  key: username
+            - name: DAC_JENKINS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: dac-user-pass
+                  key: password
+            - name: GCR_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: gcr-folder
+                  key: folder
           resources:
             requests:
               memory: "1024Mi"
