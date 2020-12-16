@@ -70,7 +70,7 @@ spec:
     spec:
       containers:
         - name: jenkins-master
-          image: gcr.io/tranquility-base-images/tb-jenkins:v0.0.8
+          image: gcr.io/tranquility-base-images/tb-jenkins:v0.0.14
           args: ["--prefix=/jenkins-service"]
           securityContext:
             privileged: true
@@ -96,6 +96,11 @@ spec:
                 secretKeyRef:
                   name: dac-user-pass
                   key: password
+            - name: GCR_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: gcr-folder
+                  key: folder
           resources:
             requests:
               memory: "1024Mi"

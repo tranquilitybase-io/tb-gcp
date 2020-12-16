@@ -241,6 +241,13 @@ variable "cluster_opt_name" {
   type        = string
 }
 
+variable "cluster_oauth_scopes" {
+  type = list(string)
+  default = [
+    "https://www.googleapis.com/auth/cloud-platform"
+  ]
+}
+
 variable "cluster_ec_pool_name" {
   default     = "gke-ec-node-pool"
   description = "The cluster pool name"

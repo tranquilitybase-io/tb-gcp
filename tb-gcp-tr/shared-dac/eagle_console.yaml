@@ -50,10 +50,10 @@ metadata:
 spec:
   ports:
     - port: 80
-      targetPort: 4200
+      targetPort: 80
       name: http
     - port: 443
-      targetPort: 4200
+      targetPort: 80
       name: https
   selector:
     app: eagleconsole
@@ -135,7 +135,7 @@ spec:
     spec:
       containers:
         - name: eagleconsole
-          image: gcr.io/tranquility-base-images/tb-eagle-console:landingzone
+          image: gcr.io/tranquility-base-images/tb-eagle-console:v0.9.13
           resources:
             requests:
               cpu: "100m"
@@ -162,7 +162,7 @@ spec:
     spec:
       containers:
         - name: houstonservice
-          image: gcr.io/tranquility-base-images/tb-houston-service:landingzone
+          image: gcr.io/tranquility-base-images/tb-houston-service:v0.46.78
           resources:
             requests:
               cpu: "100m"
@@ -228,7 +228,7 @@ spec:
     spec:
       containers:
         - name: gcpdac
-          image: gcr.io/tranquility-base-images/tb-gcp-dac:landingzone
+          image: gcr.io/tranquility-base-images/tb-gcp-dac:v0.1.49
           resources:
             requests:
               cpu: "100m"
@@ -264,18 +264,12 @@ spec:
                   key: password
 
         - name: gcpdacworker
-          image: gcr.io/tranquility-base-images/tb-gcp-dac:landingzone
+          image: gcr.io/tranquility-base-images/tb-gcp-dac:v0.1.49
           resources:
             requests:
               cpu: "100m"
           imagePullPolicy: Always
-          command:
-            - 'celery'
-            - '-E'
-            - '-A'
-            - 'celery_worker'
-            - 'worker'
-            - '--loglevel=info'
+          command: ['/bin/sh', './celery_worker.sh']
           ports:
             - containerPort: 80
           volumeMounts:
@@ -337,7 +331,7 @@ spec:
             claimName: mysql-pv-claim
       containers:
         - name: mysql57
-          image: gcr.io/tranquility-base-images/tb-db:landingzone
+          image: gcr.io/tranquility-base-images/tb-db:v0.0.39
           resources:
             requests:
               cpu: "100m"
