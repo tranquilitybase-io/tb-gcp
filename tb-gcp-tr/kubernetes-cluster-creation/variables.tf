@@ -116,11 +116,7 @@ variable "cluster_node_disk_size" {
 variable "cluster_oauth_scopes" {
   type = list(string)
   default = [
-    "compute-rw",
-    "storage-ro",
-    "logging-write",
-    "monitoring",
-    "https://www.googleapis.com/auth/userinfo.email",
+    "https://www.googleapis.com/auth/cloud-platform"
   ]
 }
 
