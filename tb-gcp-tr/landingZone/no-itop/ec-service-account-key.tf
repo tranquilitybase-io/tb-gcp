@@ -42,7 +42,7 @@ resource "google_folder_iam_member" "xpnbinding" {
 #ADD-POLICY-TO-BILLING-ACCOUNT
 resource "google_billing_account_iam_member" "ba-billing-account-user" {
   billing_account_id = var.billing_account_id
-  role               = "roles/billing.admin"
+  role               = "roles/billing.user"
   member             = local.service_account_name
 }
 
