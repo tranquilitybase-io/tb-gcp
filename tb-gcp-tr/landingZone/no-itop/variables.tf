@@ -380,8 +380,8 @@ variable "ec_iam_service_account_roles" {
     "roles/resourcemanager.projectDeleter",
     "roles/billing.projectManager",
     "roles/owner",
-    "roles/compute.networkAdmin",
-    "roles/datastore.owner",
+    "roles/compute.networkUser",
+    "roles/datastore.user",
     "roles/browser",
     "roles/resourcemanager.projectIamAdmin"
   ]
