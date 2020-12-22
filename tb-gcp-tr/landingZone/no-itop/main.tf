@@ -273,6 +273,18 @@ module "k8s-ec_context" {
 module "tls" {
   source = "../../tls"
 }
+
+module "auth" {
+  source = "../../auth"
+  
+  credentials = var.gcp_credentials
+  client_id = var.client_id
+  client_secret = var.client_secret
+  project = module.shared_projects.shared_ec_id
+  content = module.SharedServices_namespace_creation.id
+  context_name = module.k8s-ec_context.context_name
+  depends_on = [module.SharedServices_namespace_creation]
+}
 ## Creating the ssp and cicd namespaces in the shared services cluster ## depends on the k8-ec_content module 
 module "SharedServices_namespace_creation" {
   source = "../../../tb-common-tr/start_service"
