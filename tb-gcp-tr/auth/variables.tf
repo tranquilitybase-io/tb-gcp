@@ -25,6 +25,7 @@ variable "credentials" {
   type        = string
 }
 
-variable "region"{
-    description =" region"
+variable "region" { 
+    description = "region"
+    type        = string
 }
