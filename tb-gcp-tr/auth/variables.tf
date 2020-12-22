@@ -1,11 +1,3 @@
-variable "client_id" {
-  description = "this is client's Id"
-}
-
-variable "client_secret" {
-  description = "Client's (password)"
-  type        = string
-}
 
 variable "content" {
   description = "Content for the Trigger"
