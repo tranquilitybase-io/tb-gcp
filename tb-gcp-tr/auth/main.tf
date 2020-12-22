@@ -7,7 +7,7 @@ data "google_client_config" "current" {
 resource "google_iap_brand" "iap_brand" {
   provider          = google-beta
 
-  support_email     = data.google_client_openid_userinfo.current_identity.email
+#   support_email     = data.google_client_openid_userinfo.current_identity.email
   application_title = "EC OAuth Tooling"
 }
 
@@ -33,7 +33,7 @@ resource "null_resource" "kubernetes_auth_secret_ssp" {
   }
 
   provisioner "local-exec" {
-    command = "echo 'kubectl --context=${var.context_name} create secret generic ec-iap-secrets -n ssp --from-literal=client_secret='${var.client_secret}' --from-literal=client_id='${var.client_id}' --type=kubernetes.io/basic-auth' | tee -a /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh"
+    command = "echo 'kubectl --context=${var.context_name} create secret generic ec-iap-secrets -n ssp --from-literal=client_secret='${google_iap_client.iap_ec_client.secret}' --from-literal=client_id='${google_iap_client.iap_ec_client.client_id}' --type=kubernetes.io/basic-auth' | tee -a /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh"
   }
 
   provisioner "local-exec" {
