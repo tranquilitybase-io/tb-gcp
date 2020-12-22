@@ -1,9 +1,4 @@
 #Setting up the 0auth consent screen, which terraforms refer to as google_iap_brand
-provider "google-beta" {
-  credentials = var.gcp_credentials
-  project     = var.project
-  region      = var.region
-}
 
 data "google_client_config" "current" {
   provider = google-beta
@@ -16,10 +11,6 @@ resource "google_iap_brand" "iap_brand" {
   application_title = "EC OAuth Tooling"
 }
 
-provider "google" {
-  client_id 		= "${var.client_id}"
-  client_secret 	= "${var.client_secret}"
-}
 # setup access for users, for which will use the google_iap_web_iam_member. this will define the project which is mandatory and directly giving access to company domain using domain: prefix
 resource "google_iap_web_iam_member" "access_iap_policy" {
   provider  = google-beta
