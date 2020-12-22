@@ -277,9 +277,7 @@ module "tls" {
 module "auth" {
   source = "../../auth"
 
-  region      = var.region
-  client_id = var.client_id
-  client_secret = var.client_secret
+  region  = var.region
   project = module.shared_projects.shared_ec_id
   content = module.SharedServices_namespace_creation.id
   context_name = module.k8s-ec_context.context_name
