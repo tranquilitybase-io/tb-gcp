@@ -57,25 +57,13 @@ spec:
       name: https
   selector:
     app: eagleconsole
----
-apiVersion: cloud.google.com/v1beta1
-kind: BackendConfig
-metadata:
-  name: houstonservice-backend-config
-  namespace: ssp
-spec:
-  iap:
-    enabled: true
-    oauthclientCredentials:
-      secretName: ec-iap-secrets
+
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: houstonservice
   namespace: ssp
-  annotations:
-    beta.cloud.google.com/backend-config: '{"default": "houstonservice-backend-config"}'
   labels:
     app: houstonservice
 spec:
@@ -147,7 +135,7 @@ spec:
     spec:
       containers:
         - name: eagleconsole
-          image: gcr.io/tranquility-base-images/tb-eagle-console:v0.9.13
+          image: gcr.io/tranquility-base-images/tb-eagle-console:v0.10.0
           resources:
             requests:
               cpu: "100m"
@@ -174,7 +162,7 @@ spec:
     spec:
       containers:
         - name: houstonservice
-          image: gcr.io/tranquility-base-images/tb-houston-service:v0.46.78
+          image: gcr.io/tranquility-base-images/tb-houston-service:v0.47.0
           resources:
             requests:
               cpu: "100m"
@@ -190,8 +178,8 @@ spec:
               value: "True"
             - name: GCP_DAC_URL
               value: 'gcpdac:80'
-            - name: SPEC_URL
-              value: "gcpdac:80"
+            - name: CLIENT_ID
+              value: '576108226578-m876jb0mjk5gjsenvifthut89gna3j8o.apps.googleusercontent.com'
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -240,7 +228,7 @@ spec:
     spec:
       containers:
         - name: gcpdac
-          image: gcr.io/tranquility-base-images/tb-gcp-dac:v0.1.49
+          image: gcr.io/tranquility-base-images/tb-gcp-dac:v0.1.51
           resources:
             requests:
               cpu: "100m"
@@ -250,7 +238,7 @@ spec:
           volumeMounts:
             - name: config-volume
               mountPath: /app/ec-config.yaml
-              subPath: ec-config.yamlPES
+              subPath: ec-config.yaml
             - name: google-cloud-key
               mountPath: /var/secrets/google
           env:
@@ -276,7 +264,7 @@ spec:
                   key: password
 
         - name: gcpdacworker
-          image: gcr.io/tranquility-base-images/tb-gcp-dac:v0.1.49
+          image: gcr.io/tranquility-base-images/tb-gcp-dac:v0.1.51
           resources:
             requests:
               cpu: "100m"
@@ -343,7 +331,7 @@ spec:
             claimName: mysql-pv-claim
       containers:
         - name: mysql57
-          image: gcr.io/tranquility-base-images/tb-db:v0.0.39
+          image: gcr.io/tranquility-base-images/tb-db:v0.0.42
           resources:
             requests:
               cpu: "100m"
