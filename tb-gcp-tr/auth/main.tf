@@ -16,12 +16,11 @@ resource "google_iap_brand" "iap_brand" {
   application_title = "EC OAuth Tooling"
 }
 
-
 provider "google" {
   client_id 		= "${var.client_id}"
   client_secret 	= "${var.client_secret}"
 }
-# setup access for my users, for which I will use the google_iap_web_iam_member. in this I define the project which is mandatory and Im directly giving access to company domain using domain: prefix
+# setup access for users, for which will use the google_iap_web_iam_member. this will define the project which is mandatory and directly giving access to company domain using domain: prefix
 resource "google_iap_web_iam_member" "access_iap_policy" {
   provider  = google-beta
   project   = var.project
@@ -36,14 +35,12 @@ resource "google_iap_client" "iap_ec_client" {
   brand         =  google_iap_brand.iap_brand.name
 }
 
- 
 resource "kubernetes_secret" "iap_ec_client_k8s_secret" {
   metadata {
     name      = "ec-iap-secrets"
     namespace = "ssp"
   }
  
-
 resource "null_resource" "kubernetes_auth_secret_ssp" {
   triggers = {
     content = var.content
