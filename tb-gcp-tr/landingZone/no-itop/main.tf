@@ -276,7 +276,7 @@ module "tls" {
 
 module "auth" {
   source = "../../auth"
-  
+  region      = var.region
   credentials = var.gcp_credentials
   client_id = var.client_id
   client_secret = var.client_secret
