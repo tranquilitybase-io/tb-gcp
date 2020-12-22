@@ -1,19 +1,15 @@
-#Setting up the 0auth consent screen, which terraforms refer to as google_iap_brand
+#setting up the 0auth consent screen, which terraforms refer to as google_iap_brand
 
 data "google_client_config" "current" {
-  provider = google-beta
 }
 
 resource "google_iap_brand" "iap_brand" {
-  provider          = google-beta
-
-#   support_email     = data.google_client_openid_userinfo.current_identity.email
+  support_email     = "e-hsan@gftdevgcp.com"
   application_title = "EC OAuth Tooling"
 }
 
-# setup access for users, for which will use the google_iap_web_iam_member. this will define the project which is mandatory and directly giving access to company domain using domain: prefix
+#setup access for users, for which will use the google_iap_web_iam_member. this will define the project which is mandatory and directly giving access to company domain using domain: prefix
 resource "google_iap_web_iam_member" "access_iap_policy" {
-  provider  = google-beta
   project   = var.project
   role      = "roles/iap.httpsResourceAccessor"
   member    = "domain:eagle-console.tranquilitybase-demo.io"
@@ -21,7 +17,6 @@ resource "google_iap_web_iam_member" "access_iap_policy" {
 
 #setting up the 0AUTH app which terraform refer to as google_iap_client
 resource "google_iap_client" "iap_ec_client" {
-  provider      = google-beta
   display_name  = "EC Auth"
   brand         =  google_iap_brand.iap_brand.name
 }
