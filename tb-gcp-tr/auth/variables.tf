@@ -4,6 +4,7 @@ variable "client_id" {
 
 variable "client_secret" {
   description = "Client's (password)"
+  type        = string
 }
 
 variable "content" {
@@ -20,5 +21,7 @@ variable "project" {
 }
 
 variable "credentials" {
-  description - "google credentials"
+  description = "google credentials"
+  type        = string
+  
 }
