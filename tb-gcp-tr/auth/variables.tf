@@ -23,5 +23,8 @@ variable "project" {
 variable "credentials" {
   description = "google credentials"
   type        = string
-  
+}
+
+variable "region"{
+    description =" region"
 }
