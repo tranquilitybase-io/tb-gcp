@@ -56,5 +56,3 @@ resource "null_resource" "kubernetes_auth_secret_ssp" {
     when    = destroy
   }
 }
-
-# configure a BackendConfig CRD and tell Service to use it
