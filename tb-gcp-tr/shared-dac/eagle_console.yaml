@@ -149,7 +149,7 @@ spec:
         - name: eagleconsole
           image: gcr.io/tranquility-base-images/tb-eagle-console:v0.9.13
           resources:
-          requests:
+            requests:
               cpu: "100m"
           imagePullPolicy: Always
           ports:
