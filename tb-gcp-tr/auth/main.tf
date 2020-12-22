@@ -34,12 +34,6 @@ resource "google_iap_client" "iap_ec_client" {
   display_name  = "EC Auth"
   brand         =  google_iap_brand.iap_brand.name
 }
-
-resource "kubernetes_secret" "iap_ec_client_k8s_secret" {
-  metadata {
-    name      = "ec-iap-secrets"
-    namespace = "ssp"
-  }
  
 resource "null_resource" "kubernetes_auth_secret_ssp" {
   triggers = {
