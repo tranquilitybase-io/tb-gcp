@@ -23,7 +23,6 @@ resource "google_iap_web_iam_member" "access_iap_policy" {
 resource "google_iap_client" "iap_ec_client" {
   display_name  = "EC Auth"
   brand         =  google_iap_brand.iap_brand.name
-  token = data.google_client_config.current.access_token
 }
  
 resource "null_resource" "kubernetes_auth_secret_ssp" {
