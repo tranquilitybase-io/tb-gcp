@@ -1,10 +1,14 @@
 #setting up the 0auth consent screen, which terraforms refer to as google_iap_brand
 
+
+data "google_client_openid_userinfo" "current_identity" {
+}
+
 data "google_client_config" "current" {
 }
 
 resource "google_iap_brand" "iap_brand" {
-  support_email     = "e-hsan@gftdevgcp.com"
+  support_email     = data.google_client_openid_userinfo.current_identity.email
   application_title = "EC OAuth Tooling"
 }
 
@@ -19,6 +23,7 @@ resource "google_iap_web_iam_member" "access_iap_policy" {
 resource "google_iap_client" "iap_ec_client" {
   display_name  = "EC Auth"
   brand         =  google_iap_brand.iap_brand.name
+  token = data.google_client_config.current.access_token
 }
  
 resource "null_resource" "kubernetes_auth_secret_ssp" {
