@@ -1,10 +1,15 @@
 #setting up the 0auth consent screen, which terraforms refer to as google_iap_brand
 
+provider "google" {
+    version = "~> 3.3"
+    scopes = ["https://www.googleapis.com/auth/userinfo.email",]
+}
 
 data "google_client_openid_userinfo" "current_identity" {
 }
 
 data "google_client_config" "current" {
+
 }
 
 resource "google_iap_brand" "iap_brand" {
