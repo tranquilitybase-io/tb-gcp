@@ -189,6 +189,8 @@ echo "  - logging.googleapis.com"
 echo "  - serviceusage.googleapis.com"
 echo "  - sourcerepo.googleapis.com"
 echo "  - storage-api.googleapis.com"
+echo "  - iap.googleapis.com"
+     
 echo
 
 read -p "Press Y to continue or any other key to abort: " -n 1 -r
@@ -276,6 +278,7 @@ gcloud --project "${PROJECT_ID}" services enable serviceusage.googleapis.com
 gcloud --project "${PROJECT_ID}" services enable sourcerepo.googleapis.com
 gcloud --project "${PROJECT_ID}" services enable storage-api.googleapis.com
 gcloud --project "${PROJECT_ID}" services enable runtimeconfig.googleapis.com
+gcloud --project "${PROJECT_ID}" services enable iap.googleapis.com
 
 echo "Essential APIs activated."
 

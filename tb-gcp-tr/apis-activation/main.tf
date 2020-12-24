@@ -29,6 +29,7 @@ locals {
     "serviceusage.googleapis.com",
     "storage-api.googleapis.com",
     "dns.googleapis.com",
+    "iap.googleapis.com",
   ]
   service_project_apis = [
     "appengine.googleapis.com",
@@ -49,6 +50,7 @@ locals {
     "sourcerepo.googleapis.com",
     "sqladmin.googleapis.com",
     "storage-api.googleapis.com",
+    "iap.googleapis.com",
   ]
   bastion_project_apis = [
     "recommender.googleapis.com",
