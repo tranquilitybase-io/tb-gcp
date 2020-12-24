@@ -277,6 +277,14 @@ module "tls" {
 module "auth" {
   source = "../../auth"
 
+provider "google" {
+    version = "~> 3.3"
+    scopes = [
+    "https://www.googleapis.com/auth/userinfo.email", 
+    "https://www.googleapis.com/auth/cloud-platform", 
+    ]
+}
+
   region  = var.region
   project = module.shared_projects.shared_ec_id
   content = module.SharedServices_namespace_creation.id
