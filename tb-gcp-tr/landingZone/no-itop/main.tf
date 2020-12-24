@@ -20,14 +20,6 @@ provider "google" {
   zone   = var.region_zone
 }
 
-provider "google" {
-    alias = "auth"
-    scopes = [
-    "https://www.googleapis.com/auth/userinfo.email", 
-    "https://www.googleapis.com/auth/cloud-platform", 
-    ]
-}
-
 provider "google-beta" {
   region = var.region
   zone   = var.region_zone
@@ -284,10 +276,7 @@ module "tls" {
 
 module "auth" {
   source = "../../auth"
-  providers = { 
-    google = google.auth
-
-}
+ 
   region  = var.region
   project = module.shared_projects.shared_ec_id
   content = module.SharedServices_namespace_creation.id

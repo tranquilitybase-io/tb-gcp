@@ -132,7 +132,9 @@ resources:
       bootDiskSizeGb: {{ bootDiskSizeGb }}
       serviceAccounts:
         - email : {{ tbBootstrapSA }}
-          scopes : ['https://www.googleapis.com/auth/cloud-platform', 'https://www.googleapis.com/auth/userinfo.email']
+          scopes : 
+          - https://www.googleapis.com/auth/cloud-platform
+          - https://www.googleapis.com/auth/userinfo.email
       bootstrapServerStartupScript: |
         #!/bin/bash
         exec >> /var/log/bootstrap.log 2>&1
