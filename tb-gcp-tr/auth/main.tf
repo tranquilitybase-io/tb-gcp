@@ -2,7 +2,10 @@
 
 provider "google" {
     version = "~> 3.3"
-    scopes = ["https://www.googleapis.com/auth/userinfo.email",]
+    scopes = [
+    "https://www.googleapis.com/auth/userinfo.email", 
+    "https://www.googleapis.com/auth/cloud-platform", 
+    ]
 }
 
 data "google_client_openid_userinfo" "current_identity" {
