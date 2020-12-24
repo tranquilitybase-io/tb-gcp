@@ -1,17 +1,14 @@
 #setting up the 0auth consent screen, which terraforms refer to as google_iap_brand
-
-
-
 data "google_client_openid_userinfo" "current_identity" {
 }
 
 data "google_client_config" "current" {
-
 }
 
 resource "google_iap_brand" "iap_brand" {
   support_email     = data.google_client_openid_userinfo.current_identity.email
   application_title = "EC OAuth Tooling"
+  project = var.project
 }
 
 #setup access for users, for which will use the google_iap_web_iam_member. this will define the project which is mandatory and directly giving access to company domain using domain: prefix
