@@ -179,7 +179,15 @@ spec:
             - name: GCP_DAC_URL
               value: 'gcpdac:80'
             - name: CLIENT_ID
-              value: '576108226578-m876jb0mjk5gjsenvifthut89gna3j8o.apps.googleusercontent.com'
+              valueFrom:
+                secretKeyRef:
+                  name: ec_iap_secrets
+                  key: client_id
+            - name: CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: ec_iap_secrets
+                  key: client_secret
 ---
 apiVersion: apps/v1
 kind: Deployment
