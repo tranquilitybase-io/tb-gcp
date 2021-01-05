@@ -191,8 +191,8 @@ module "dac-secret" {
   depends_on = [module.SharedServices_namespace_creation]
 }
     
-module "gcr-configmap" {
-  source = "../../gcr-configmap"
+module "gcr-secret" {
+  source = "../../gcr-secret"
 
   content = module.SharedServices_namespace_creation.id
   context_name = module.k8s-ec_context.context_name
