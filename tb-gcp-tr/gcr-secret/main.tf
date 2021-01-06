@@ -5,7 +5,7 @@ resource "null_resource" "gcr_root_folder_id_cicd" {
   }
 
   provisioner "local-exec" {
-    command = "echo 'kubectl --context=${var.context_name} create secret generic gcr-folder -n cicd --from-literal=folder='${var.root_id}'' | tee -a /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh"
+    command = "echo 'kubectl --context=${var.context_name} create secret generic gcr-folder -n cicd --from-literal=username=folder --from-literal=password='${var.root_id}' --type=kubernetes.io/basic-auth' | tee -a /opt/tb/repo/tb-gcp-tr/landingZone/kube.sh"
   }
 
   provisioner "local-exec" {
