@@ -98,9 +98,9 @@ spec:
                   key: password
             - name: GCR_ID
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   name: gcr-folder
-                  key: folder
+                  key: password
           resources:
             requests:
               memory: "1024Mi"
