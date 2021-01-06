@@ -15,7 +15,7 @@ resource "google_iap_brand" "iap_brand" {
 resource "google_iap_web_iam_member" "access_iap_policy" {
   project   = var.project
   role      = "roles/iap.httpsResourceAccessor"
-  member    = "domain:tranquilitybase-demo.io"
+  member    = "domain:https://eagle-console.tranquilitybase-demo.io"
 }
 
 #setting up the 0AUTH app which terraform refer to as google_iap_client
