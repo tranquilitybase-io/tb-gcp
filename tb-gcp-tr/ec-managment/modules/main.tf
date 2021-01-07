@@ -10,6 +10,7 @@ locals {
   subnet_name             = format("subnet-", local.prefix)
   router_name             = format("router-", local.prefix)
   sa_name                 = format("sa-", local.prefix)
+  project_roles           = [for role in var.project_roles : format("%s=>%s", module.project.project_id, role)]
 }
 
 
