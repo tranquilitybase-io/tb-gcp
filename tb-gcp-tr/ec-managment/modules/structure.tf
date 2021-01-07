@@ -13,4 +13,5 @@ module "project" {
   name            = local.management_project_name
   folder_id       = module.folders.id
   billing_account = var.billing_id
+  org_id          = var.org_id
 }

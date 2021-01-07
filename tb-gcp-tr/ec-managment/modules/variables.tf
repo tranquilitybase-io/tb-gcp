@@ -4,17 +4,21 @@ variable "parent_id" {
 variable "billing_id" {
 }
 
+variable "org_id" {
+}
+
 variable "region" {
   default = "eu-west1"
 }
 
 variable "project_roles" {
+  type    = list(string)
   default = [
-    "compute.instanceAdmin.v1",
-    "storage.admin",
-    "source.admin",
-    "logging.logWriter",
-    "logging.configWriter"
+    "roles/compute.instanceAdmin.v1",
+    "roles/storage.admin",
+    "roles/source.admin",
+    "roles/logging.logWriter",
+    "roles/logging.configWriter"
   ]
 }
 
