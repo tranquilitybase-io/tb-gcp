@@ -100,7 +100,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: gcr-folder
-                  key: password
+                  key: folder
           resources:
             requests:
               memory: "1024Mi"
