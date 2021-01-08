@@ -24,6 +24,6 @@ export TG_PROJECT=${TBASE_PROJECT_NAME}
 echo '{ "project_id": "'${TBASE_PROJECT_NAME}'", "folder_name": "'${TBASE_FOLDER_NAME}'"  }' | jq '.' > ./01-bootstrap/fp.auto.tfvars.json
 
 cd ./01-bootstrap
-terragrunt init --terragrunt-non-interactive
-terragrunt apply -auto-approve --terragrunt-non-interactive
+#terragrunt init --terragrunt-non-interactive
+#terragrunt apply -auto-approve --terragrunt-non-interactive
 echo "Bootstrap apply completed successfully"
