@@ -1,10 +1,11 @@
-
 variable "content" {
   description = "Content for the Trigger"
+  type        = string
 }
 
 variable "context_name" {
   description = "GKE context name stored into ~/.kube/config"
+  tyoe        = string
 }
 
 variable "project" {
@@ -12,7 +13,12 @@ variable "project" {
   type        = string
 }
 
-variable "region" {
+variable "region" { 
   description = "region"
+  type        = string
+}
+
+variable "domain_name" {
+  description = "domain"
   type        = string
 }
