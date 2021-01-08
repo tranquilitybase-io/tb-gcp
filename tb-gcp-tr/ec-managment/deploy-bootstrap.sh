@@ -1,5 +1,4 @@
 #!/bin/bash
-set -eo pipefail
 
 #random number
 RND="$(tr -dc 'a-z0-9' < /dev/urandom | fold -w 8 | sed '/^[0-9]*$/d' | head -n 1)"
@@ -16,7 +15,7 @@ TG_STATE_BUCKET="${TG_STATE_BUCKET_PREFIX}${RND}"
 TBASE_FOLDER_ID=$(gcloud resource-manager folders create --display-name="${TBASE_FOLDER_NAME}" --folder="${TBASE_PARENT_FOLDER_ID}" --format="value(name.basename())")
 
 #create bootstrap project
-gcloud projects create "${TBASE_PROJECT_NAME}" -folder="${TBASE_FOLDER_ID}"
+gcloud projects create "${TBASE_PROJECT_NAME}" --folder="${TBASE_FOLDER_ID}"
 
 #define variables for bootstrap backend
 export TG_STATE_BUCKET=${TG_STATE_BUCKET}
