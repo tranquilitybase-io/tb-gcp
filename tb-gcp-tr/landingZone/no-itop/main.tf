@@ -278,7 +278,7 @@ module "auth" {
   source = "../../auth"
 
   region       = var.region
-  base_domain_name = var.domain_name
+  #base_domain_name = var.domain_name
   project      = module.shared_projects.shared_ec_id
   content      = module.SharedServices_namespace_creation.id
   context_name = module.k8s-ec_context.context_name
