@@ -21,7 +21,7 @@ gcloud projects create "${TBASE_PROJECT_NAME}" --folder="${TBASE_FOLDER_ID}"
 export TG_STATE_BUCKET=${TG_STATE_BUCKET}
 export TG_PROJECT=${TBASE_PROJECT_NAME}
 
-echo '{ "project_id": "'${TBASE_PROJECT_NAME}'", "folder_name": "'${TBASE_FOLDER_NAME}'"  }' | jq > ./01-bootstrap/fp.auto.tfvars.json
+echo '{ "project_id": "'${TBASE_PROJECT_NAME}'", "folder_name": "'${TBASE_FOLDER_NAME}'"  }' | jq '.' > ./01-bootstrap/fp.auto.tfvars.json
 
 cd ./01-bootstrap
 terragrunt init --terragrunt-non-interactive
