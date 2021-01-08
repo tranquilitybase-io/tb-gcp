@@ -2,7 +2,8 @@
 
 #install terragrunt
 wget https://github.com/gruntwork-io/terragrunt/releases/download/v0.27.0/terragrunt_linux_amd64
-chmod u+x terragrunt
+chmod u+x terragrunt_linux_amd64
+mv terragrunt_linux_amd64 terragrunt
 sudo mv terragrunt /usr/local/bin/terragrunt
 sudo terragrunt --version
 
@@ -15,7 +16,7 @@ TBASE_FOLDER_PREFIX="TranquilityBase-"
 TBASE_PROJECT_PREFIX="bootstrap-"
 TBASE_FOLDER_NAME="${TBASE_FOLDER_PREFIX}${RND}"
 TBASE_PROJECT_NAME="${TBASE_PROJECT_PREFIX}${RND}"
-TG_STATE_BUCKET="${TG_STATE_BUCKET_PREFIX}${RND}"
+TG_STATE_BUCKET_NAME="${TG_STATE_BUCKET_PREFIX}${RND}"
 
 #create root TB folder
 TBASE_FOLDER_ID=$(gcloud resource-manager folders create --display-name="${TBASE_FOLDER_NAME}" --folder="${TBASE_PARENT_FOLDER_ID}" --format="value(name.basename())")
@@ -23,13 +24,14 @@ TBASE_FOLDER_ID=$(gcloud resource-manager folders create --display-name="${TBASE
 #create bootstrap project
 gcloud projects create "${TBASE_PROJECT_NAME}" --folder="${TBASE_FOLDER_ID}"
 
-#define variables for bootstrap backend
-export TG_STATE_BUCKET=${TG_STATE_BUCKET}
-export TG_PROJECT=${TBASE_PROJECT_NAME}
-
-echo '{ "project_id": "'${TBASE_PROJECT_NAME}'", "folder_name": "'${TBASE_FOLDER_NAME}'"  }' | jq '.' > ./01-bootstrap/fp.auto.tfvars.json
+echo '{ "project_id": "'${TBASE_PROJECT_NAME}'", \
+"folder_name": "'${TBASE_FOLDER_NAME}'", \
+"TG_STATE_BUCKET": "'${TG_STATE_BUCKET_NAME}'", \
+"TG_PROJECT": "'${TBASE_PROJECT_NAME}'"  }' | jq '.' > ./01-bootstrap/fp.auto.tfvars.json
 
 cd ./01-bootstrap
 #sudo terragrunt init --terragrunt-non-interactive
 #sudo terragrunt apply -auto-approve --terragrunt-non-interactive
 echo "Bootstrap apply completed successfully"
+
+
