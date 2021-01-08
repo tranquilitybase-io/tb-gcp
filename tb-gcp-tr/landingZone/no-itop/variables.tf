@@ -539,5 +539,5 @@ variable "include_children" {
 variable "domain_name" {
   description = "domain"
   type        = string
-  default     = "tranquilitybase-demo.io"
+  default     = "xyz"
 }
