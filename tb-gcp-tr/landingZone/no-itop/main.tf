@@ -191,8 +191,8 @@ module "dac-secret" {
   depends_on = [module.SharedServices_namespace_creation]
 }
     
-module "gcr-configmap" {
-  source = "../../gcr-configmap"
+module "gcr-secret" {
+  source = "../../gcr-secret"
 
   content = module.SharedServices_namespace_creation.id
   context_name = module.k8s-ec_context.context_name
@@ -332,7 +332,7 @@ module "SharedServices_jenkinsmaster_creation" {
   cluster_context   = module.k8s-ec_context.context_name
   # Jenkins Deployment depends on the ec-service-account secret creation
   dependency_var = null_resource.kubernetes_jenkins_service_account_key_secret.id
-  depends_on = [module.dac-secret, module.gcr-configmap]
+  depends_on = [module.dac-secret, module.gcr-secret]
 }
 
 module "SharedServices_configuration_file" {
