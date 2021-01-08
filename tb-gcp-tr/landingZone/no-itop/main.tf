@@ -284,6 +284,7 @@ module "auth" {
   context_name = module.k8s-ec_context.context_name
   depends_on   = [module.SharedServices_namespace_creation]
 }
+
 ## Creating the ssp and cicd namespaces in the shared services cluster ## depends on the k8-ec_content module 
 module "SharedServices_namespace_creation" {
   source = "../../../tb-common-tr/start_service"
