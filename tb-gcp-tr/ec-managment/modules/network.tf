@@ -1,4 +1,4 @@
-module "vpc" {
+/*module "vpc" {
   source  = "terraform-google-modules/network/google"
   version = "~> 3.0"
 
@@ -10,8 +10,30 @@ module "vpc" {
       subnet_name = local.subnet_name
       subnet_ip   = "192.168.0.0/28"
       region      = var.region
-    },
+    }
+  ]
+}*/
+
+module "vpc" {
+  source                  = "terraform-google-modules/network/google//modules/vpc"
+  version                 = "~> 3.0.0"
+  project_id              = module.project.project_id
+  network_name            = local.network_name
+  auto_create_subnetworks = false
+}
+
+module "subnets" {
+  source       = "terraform-google-modules/network/google//modules/subnets"
+  version      = "~> 3.0.0"
+  project_id   = module.project.project_id
+  network_name = module.vpc.network_name
+
+  subnets = [
     {
+      subnet_name           = local.subnet_name
+      subnet_ip             = "192.168.0.0/28"
+      subnet_region         = var.region
+      subnet_private_access = true
     }
   ]
 }
@@ -32,5 +54,5 @@ module "cloud-nat" {
 
   project_id = module.project.project_id
   region     = var.region
-  router     = module.cloud_router.router
+  router     = local.router_name
 }
