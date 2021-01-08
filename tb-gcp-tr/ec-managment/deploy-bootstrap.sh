@@ -1,5 +1,11 @@
 #!/bin/bash
 
+#install terragrunt
+wget https://github.com/gruntwork-io/terragrunt/releases/download/v0.27.0/terragrunt_linux_amd64
+chmod u+x terragrunt
+sudo mv terragrunt /usr/local/bin/terragrunt
+sudo terragrunt --version
+
 #random number
 RND="$(tr -dc 'a-z0-9' < /dev/urandom | fold -w 8 | sed '/^[0-9]*$/d' | head -n 1)"
 
@@ -24,6 +30,6 @@ export TG_PROJECT=${TBASE_PROJECT_NAME}
 echo '{ "project_id": "'${TBASE_PROJECT_NAME}'", "folder_name": "'${TBASE_FOLDER_NAME}'"  }' | jq '.' > ./01-bootstrap/fp.auto.tfvars.json
 
 cd ./01-bootstrap
-#terragrunt init --terragrunt-non-interactive
-#terragrunt apply -auto-approve --terragrunt-non-interactive
+#sudo terragrunt init --terragrunt-non-interactive
+#sudo terragrunt apply -auto-approve --terragrunt-non-interactive
 echo "Bootstrap apply completed successfully"
