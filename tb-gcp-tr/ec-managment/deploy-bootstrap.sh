@@ -25,11 +25,11 @@ TBASE_FOLDER_ID=$(gcloud resource-manager folders create --display-name="${TBASE
 gcloud projects create "${TBASE_PROJECT_NAME}" --folder="${TBASE_FOLDER_ID}"
 
 #create variables json
-echo '{ "project_id": "'${TBASE_PROJECT_NAME}'", "folder_name": "'${TBASE_FOLDER_NAME}'", "region": "'${TBASE_REGION}'",  }' \
+echo '{ "project_id": "'${TBASE_PROJECT_NAME}'", "folder_name": "'${TBASE_FOLDER_NAME}'", "region": "'${TBASE_REGION}'"  }' \
 | jq '.' > ./01-bootstrap/variables.auto.tfvars.json
 
 #create backend json
-echo '{ "TG_PROJECT_ID": "'${TBASE_PROJECT_NAME}'", "TG_REGION": "'${TBASE_REGION}'", "TG_STATE_BUCKET_NAME": "'${TG_STATE_BUCKET_NAME}'",  }' \
+echo '{ "TG_PROJECT_ID": "'${TBASE_PROJECT_NAME}'", "TG_REGION": "'${TBASE_REGION}'", "TG_STATE_BUCKET_NAME": "'${TG_STATE_BUCKET_NAME}'"  }' \
 | jq '.' > ./01-bootstrap/backend.auto.tfvars.json
 
 cd ./01-bootstrap
