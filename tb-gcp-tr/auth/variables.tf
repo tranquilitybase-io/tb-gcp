@@ -5,7 +5,7 @@ variable "content" {
 
 variable "context_name" {
   description = "GKE context name stored into ~/.kube/config"
-  tyoe        = string
+  type        = string
 }
 
 variable "project" {
