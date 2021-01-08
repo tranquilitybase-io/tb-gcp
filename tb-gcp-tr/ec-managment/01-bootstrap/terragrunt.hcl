@@ -10,9 +10,9 @@ terraform {
 remote_state {
   backend = "gcs"
   config = {
-    bucket   = get_env("TG_STATE_BUCKET", "NULL")
+    bucket   = var.TG_STATE_BUCKET_NAME
     prefix   = "bootstrap/${path_relative_to_include()}/terraform.tfstate"
-    project  = get_env("TG_PROJECT", "NULL")
-    location = get_env("TG_REGION", "NULL")
+    project  = var.TG_PROJECT_ID
+    location = var.TG_REGION
   }
 }

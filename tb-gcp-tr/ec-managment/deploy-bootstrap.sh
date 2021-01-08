@@ -24,8 +24,13 @@ TBASE_FOLDER_ID=$(gcloud resource-manager folders create --display-name="${TBASE
 #create bootstrap project
 gcloud projects create "${TBASE_PROJECT_NAME}" --folder="${TBASE_FOLDER_ID}"
 
-echo '{ "project_id": "'${TBASE_PROJECT_NAME}'", "folder_name": "'${TBASE_FOLDER_NAME}'", "TG_STATE_BUCKET": "'${TG_STATE_BUCKET_NAME}'", "TG_PROJECT": "'${TBASE_PROJECT_NAME}'"  }' \
-| jq '.' > ./01-bootstrap/fp.auto.tfvars.json
+#create variables json
+echo '{ "project_id": "'${TBASE_PROJECT_NAME}'", "folder_name": "'${TBASE_FOLDER_NAME}'", "region": "'${TBASE_REGION}'",  }' \
+| jq '.' > ./01-bootstrap/variables.auto.tfvars.json
+
+#create backend json
+echo '{ "TG_PROJECT_ID": "'${TBASE_PROJECT_NAME}'", "TG_REGION": "'${TBASE_REGION}'", "TG_STATE_BUCKET_NAME": "'${TG_STATE_BUCKET_NAME}'",  }' \
+| jq '.' > ./01-bootstrap/backend.auto.tfvars.json
 
 cd ./01-bootstrap
 #sudo terragrunt init --terragrunt-non-interactive
