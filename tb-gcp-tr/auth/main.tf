@@ -8,22 +8,22 @@ data "google_client_config" "current" {
 resource "google_iap_brand" "iap_brand" {
   support_email     = data.google_client_openid_userinfo.current_identity.email
   application_title = "EC OAuth Tooling"
-  project = var.project
+  project           = var.project
 }
 
 #setup access for users, for which will use the google_iap_web_iam_member. this will define the project which is mandatory and directly giving access to company domain using domain: prefix
 resource "google_iap_web_iam_member" "access_iap_policy" {
-  project   = var.project
-  role      = "roles/iap.httpsResourceAccessor"
-  member    = "domain:tranquilitybase-demo.io"
+  project = var.project
+  role    = "roles/iap.httpsResourceAccessor"
+  member  = "domain:tranquilitybase-demo.io"
 }
 
 #setting up the 0AUTH app which terraform refer to as google_iap_client
 resource "google_iap_client" "iap_ec_client" {
-  display_name  = "EC Auth"
-  brand         =  google_iap_brand.iap_brand.name
+  display_name = "EC Auth"
+  brand        = google_iap_brand.iap_brand.name
 }
- 
+
 resource "null_resource" "kubernetes_auth_secret_ssp" {
   triggers = {
     content = var.content

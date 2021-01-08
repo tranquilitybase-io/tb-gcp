@@ -60,7 +60,7 @@ resource "google_project_services" "bootstrap_project_apis" {
     "sourcerepo.googleapis.com",
     "sqladmin.googleapis.com",
     "storage-api.googleapis.com"
-    
+
   ]
 }
 

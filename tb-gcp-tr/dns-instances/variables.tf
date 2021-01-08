@@ -1,13 +1,13 @@
 variable "linux_instances" {
-  type    = list(string)
+  type = list(string)
 }
 
 variable "windows_instances" {
-  type    = list(string)
+  type = list(string)
 }
 
 variable "squid_proxy_instances" {
-  type    = list(string)
+  type = list(string)
 }
 
 variable "zone" {}

@@ -22,7 +22,7 @@ resource "tls_self_signed_cert" "ca" {
     common_name  = var.ca_common_name
     organization = var.organization_name
   }
-  
+
   provisioner "local-exec" {
     command = "echo '${tls_self_signed_cert.ca.cert_pem}' > '${var.ca_public_key_file_path}' && chmod ${var.permissions} '${var.ca_public_key_file_path}' && chown ${var.owner} '${var.ca_public_key_file_path}'"
   }
@@ -39,7 +39,7 @@ resource "tls_private_key" "cert" {
   ecdsa_curve = var.private_key_ecdsa_curve
   rsa_bits    = var.private_key_rsa_bits
 
- 
+
   # Store the certificate's private key in a file.
   provisioner "local-exec" {
     command = "echo '${tls_private_key.cert.private_key_pem}' > '${var.private_key_file_path}' && chmod ${var.permissions} '${var.private_key_file_path}' && chown ${var.owner} '${var.private_key_file_path}'"
@@ -49,7 +49,7 @@ resource "tls_cert_request" "cert" {
   key_algorithm   = tls_private_key.cert.algorithm
   private_key_pem = tls_private_key.cert.private_key_pem
 
-  dns_names    = var.dns_names
+  dns_names = var.dns_names
   #ip_addresses = var.ip_addresses
 
   subject {

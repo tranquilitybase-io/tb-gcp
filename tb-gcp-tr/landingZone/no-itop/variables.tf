@@ -449,7 +449,7 @@ variable "labels" {
   description = "Labels to assign to resources."
 }
 
-#GCS bucket logging
+# GCS bucket logging
 variable "gcs_logs_bucket_prefix" {
   description = "Prefix of the access logs & storage logs storage bucket"
   type        = string
@@ -533,4 +533,11 @@ variable "include_children" {
   description = "include logs for folders and project below the tb folder"
   default     = true
   type        = bool
+}
+
+# Oauth
+variable "domain_name" {
+  description = "domain"
+  type        = string
+  default     = "tranquilitybase-demo.io"
 }
