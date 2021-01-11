@@ -1,0 +1,33 @@
+title: "compute-role"
+description: "compute permissions to be assigned."
+stage: "ALPHA"
+includedPermissions:
+    -    compute.networks.list
+    -    compute.firewalls.delete
+    -    compute.networks.updatePolicy
+    -    compute.globalOperations.get
+    -    compute.networks.delete
+    -    compute.subnetworks.list
+    -    compute.resourcePolicies.list
+    -    compute.snapshots.list
+    -    compute.instances.get
+    -    compute.projects.setCommonInstanceMetadata
+    -    compute.disks.list
+    -    compute.diskTypes.list
+    -    compute.firewalls.list
+    -    compute.projects.get
+    -    compute.instances.list
+    -    compute.machineTypes.list
+    -    compute.zones.list
+    -    compute.targetPools.list
+    -    compute.addresses.list
+    -    compute.instanceGroupManagers.list
+    -    compute.instances.listReferrers
+    -    compute.acceleratorTypes.list
+    -    compute.regions.list
+    -    compute.reservations.list
+    -    compute.networks.list
+    -    compute.firewalls.delete
+    -    compute.networks.updatePolicy
+    -    compute.globalOperations.get
+    -    compute.networks.delete
