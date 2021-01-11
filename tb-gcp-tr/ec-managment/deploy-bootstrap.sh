@@ -32,12 +32,12 @@ export TG_PROJECT_ID=${TBASE_PROJECT_NAME}
 export TG_REGION=${TBASE_REGION}
 export TG_STATE_BUCKET_NAME=${TG_STATE_BUCKET_NAME}
 
+cd ./01-bootstrap
+echo "---"
 echo TG_PROJECT: $TG_PROJECT_ID
 echo TG_REGION: $TG_REGION
 echo TG_BUCKET: $TG_STATE_BUCKET_NAME
-
-cd ./01-bootstrap
-sudo terragrunt init --terragrunt-non-interactive
-cd ./01-bootstrap/modules
+echo "---"
+#sudo terragrunt init --terragrunt-non-interactive
 #sudo terragrunt apply -auto-approve --terragrunt-non-interactive
 echo "Bootstrap apply completed successfully"
