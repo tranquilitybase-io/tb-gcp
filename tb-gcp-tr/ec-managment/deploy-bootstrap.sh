@@ -32,10 +32,8 @@ export TF_VAR_PROJECT_ID=${TBASE_PROJECT_NAME}
 export TF_VAR_REGION=${TBASE_REGION}
 export TF_VAR_STATE_BUCKET_NAME=${TG_STATE_BUCKET_NAME}
 
-env
-
 cd ./01-bootstrap
 
-sudo terragrunt init --terragrunt-non-interactive
+terragrunt init --terragrunt-non-interactive
 #sudo terragrunt apply -auto-approve --terragrunt-non-interactive
 echo "Bootstrap apply completed successfully"
