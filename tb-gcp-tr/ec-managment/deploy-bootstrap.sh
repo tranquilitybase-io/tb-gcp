@@ -37,6 +37,6 @@ echo TG_REGION: $TG_REGION
 echo TG_BUCKET: $TG_STATE_BUCKET_NAME
 
 cd ./01-bootstrap
-#sudo terragrunt init --terragrunt-non-interactive
+sudo terragrunt init --terragrunt-non-interactive
 #sudo terragrunt apply -auto-approve --terragrunt-non-interactive
 echo "Bootstrap apply completed successfully"
