@@ -30,9 +30,9 @@ echo '{ "project_id": "'${TBASE_PROJECT_NAME}'", "folder_name": "'${TBASE_FOLDER
 
 cd ./01-bootstrap
 
-sudo export TG_PROJECT_ID=${TBASE_PROJECT_NAME}
-sudo export TG_REGION=${TBASE_REGION}
-sudo export TG_STATE_BUCKET_NAME=${TG_STATE_BUCKET_NAME}
+sudo export TF_VAR_PROJECT_ID=${TBASE_PROJECT_NAME}
+sudo export TF_VAR_REGION=${TBASE_REGION}
+sudo export TF_VAR_STATE_BUCKET_NAME=${TG_STATE_BUCKET_NAME}
 
 sudo terragrunt init --terragrunt-non-interactive
 #sudo terragrunt apply -auto-approve --terragrunt-non-interactive
