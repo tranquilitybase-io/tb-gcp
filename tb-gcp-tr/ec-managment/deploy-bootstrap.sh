@@ -28,9 +28,13 @@ gcloud projects create "${TBASE_PROJECT_NAME}" --folder="${TBASE_FOLDER_ID}"
 echo '{ "project_id": "'${TBASE_PROJECT_NAME}'", "folder_name": "'${TBASE_FOLDER_NAME}'", "region": "'${TBASE_REGION}'"  }' \
 | jq '.' > ./01-bootstrap/variables.auto.tfvars.json
 
-#create backend json
-echo '{ "TG_PROJECT_ID": "'${TBASE_PROJECT_NAME}'", "TG_REGION": "'${TBASE_REGION}'", "TG_STATE_BUCKET_NAME": "'${TG_STATE_BUCKET_NAME}'"  }' \
-| jq '.' > ./01-bootstrap/backend.auto.tfvars.json
+export TG_PROJECT_ID=${TBASE_PROJECT_NAME}
+export TG_REGION=${TBASE_REGION}
+export TG_STATE_BUCKET_NAME=${TG_STATE_BUCKET_NAME}
+
+echo TG_PROJECT: $TG_PROJECT_ID
+echo TG_REGION: $TG_REGION
+echo TG_BUCKET: $TG_STATE_BUCKET_NAME
 
 cd ./01-bootstrap
 #sudo terragrunt init --terragrunt-non-interactive
