@@ -38,5 +38,6 @@ echo TG_BUCKET: $TG_STATE_BUCKET_NAME
 
 cd ./01-bootstrap
 sudo terragrunt init --terragrunt-non-interactive
+cd ./01-bootstrap/modules
 #sudo terragrunt apply -auto-approve --terragrunt-non-interactive
 echo "Bootstrap apply completed successfully"
