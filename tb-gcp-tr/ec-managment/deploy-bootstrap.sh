@@ -39,5 +39,5 @@ export TF_VAR_STATE_BUCKET_NAME=${TG_STATE_BUCKET_NAME}
 cd ./01-bootstrap
 
 terragrunt init --terragrunt-non-interactive
-#sudo terragrunt apply -auto-approve --terragrunt-non-interactive
+terragrunt apply -auto-approve --terragrunt-non-interactive
 echo "Bootstrap apply completed successfully"
