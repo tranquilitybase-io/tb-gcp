@@ -24,6 +24,9 @@ TBASE_FOLDER_ID=$(gcloud resource-manager folders create --display-name="${TBASE
 #create bootstrap project
 gcloud projects create "${TBASE_PROJECT_NAME}" --folder="${TBASE_FOLDER_ID}"
 
+#linking project to billing account
+gcloud alpha billing projects link "${TBASE_PROJECT_NAME}" --billing-account "${TBASE_BILLING_ID}" --format=none
+
 #create variables json
 echo '{ "project_id": "'${TBASE_PROJECT_NAME}'", "folder_name": "'${TBASE_FOLDER_NAME}'", "region": "'${TBASE_REGION}'"  }' \
 | jq '.' > ./01-bootstrap/variables.auto.tfvars.json
