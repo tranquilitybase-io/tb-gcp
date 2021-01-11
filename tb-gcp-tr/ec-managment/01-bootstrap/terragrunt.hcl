@@ -1,5 +1,5 @@
 terraform {
-  source = "github.com/tranquilitybase-io/tb-gcp-bootstrap"
+  source = "github.com/tranquilitybase-io/tb-gcp-bootstrap//modules"
 }
 
 inputs = {
