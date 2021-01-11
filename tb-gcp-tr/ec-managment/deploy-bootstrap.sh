@@ -28,9 +28,10 @@ gcloud projects create "${TBASE_PROJECT_NAME}" --folder="${TBASE_FOLDER_ID}"
 gcloud alpha billing projects link "${TBASE_PROJECT_NAME}" --billing-account "${TBASE_BILLING_ID}" --format=none
 
 #create variables json
-echo '{ "project_id": "'${TBASE_PROJECT_NAME}'", "folder_name": "'${TBASE_FOLDER_NAME}'", "region": "'${TBASE_REGION}'"  }' \
+echo '{ "project_id": "'${TBASE_PROJECT_NAME}'", "folder_name": "'${TBASE_FOLDER_NAME}'", "region": "'${TBASE_REGION}'", "billing_id": "'${TBASE_BILLING_ID}'"  }' \
 | jq '.' > ./01-bootstrap/variables.auto.tfvars.json
 
+#used in terragrunt backend
 export TF_VAR_PROJECT_ID=${TBASE_PROJECT_NAME}
 export TF_VAR_REGION=${TBASE_REGION}
 export TF_VAR_STATE_BUCKET_NAME=${TG_STATE_BUCKET_NAME}
