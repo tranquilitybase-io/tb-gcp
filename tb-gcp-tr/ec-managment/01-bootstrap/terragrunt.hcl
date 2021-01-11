@@ -2,9 +2,16 @@ terraform {
   source = "github.com/tranquilitybase-io/tb-gcp-bootstrap"
 }
 
+inputs = {
+  project_id  = get_env("project_id")
+  folder_name = get_env("folder_name")
+  region      = get_env("region")
+  billing_id  = get_env("billing_id")
+}
+
 remote_state {
   backend = "gcs"
-  config = {
+  config  = {
     bucket   = get_env("TF_VAR_STATE_BUCKET_NAME")
     prefix   = "bootstrap/${path_relative_to_include()}/terraform.tfstate"
     project  = get_env("TF_VAR_PROJECT_ID")
