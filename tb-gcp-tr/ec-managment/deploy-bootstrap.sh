@@ -7,6 +7,12 @@ mv terragrunt_linux_amd64 terragrunt
 sudo mv terragrunt /usr/local/bin/terragrunt
 sudo terragrunt --version
 
+#install terraform
+wget https://releases.hashicorp.com/terraform/0.13.4/terraform_0.13.4_linux_amd64.zip
+unzip terraform_0.13.4_linux_amd64.zip
+sudo mv ./terraform /usr/local/bin/
+terraform --version
+
 #random number
 RND="$(tr -dc 'a-z0-9' < /dev/urandom | fold -w 8 | sed '/^[0-9]*$/d' | head -n 1)"
 
