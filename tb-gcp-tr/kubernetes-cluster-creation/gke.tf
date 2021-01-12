@@ -23,8 +23,6 @@ resource "google_container_cluster" "gke" {
   # node pool and immediately delete it.
   remove_default_node_pool = true
 
-  enable_intranode_visibility = var.enable_intranode_visibility
-
   initial_node_count = 1
 
   maintenance_policy {
@@ -113,16 +111,6 @@ resource "google_container_node_pool" "gke_node_pool" {
     oauth_scopes    = var.cluster_oauth_scopes
     service_account = google_service_account.cluster.email
     tags            = ["gke-private", var.cluster_name]
-
-    shielded_instance_config {
-      enable_secure_boot          = var.enable_secure_boot
-      enable_integrity_monitoring = var.enable_integrity_monitoring
-    }
-
-    workload_metadata_config {
-      node_metadata = "SECURE"
-    }
-
   }
   depends_on = [google_container_cluster.gke]
 }
