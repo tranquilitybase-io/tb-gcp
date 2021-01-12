@@ -93,14 +93,3 @@ terraform init -backend=false
 # Check terraform syntax
 terraform validate
 echo "Pwd: $(pwd)"
-
-#clone CIS audit script
-git clone https://github.com/hardenedlinux/harbian-audit.git && cd harbian-audit
-sudo cp etc/default.cfg /etc/default/cis-hardening
-sudo sed -i "s#CIS_ROOT_DIR=.*#CIS_ROOT_DIR='$(pwd)'#" /etc/default/cis-hardening
-#Audit and apply level 1 CIS compliance
-sudo bin/hardening.sh --audit-all > /dev/null
-sudo bin/hardening.sh --set-hardening-level 1 > /dev/null
-sudo bin/hardening.sh --apply > /dev/null
-cd ..
-rm -rf ./harbian-audit
