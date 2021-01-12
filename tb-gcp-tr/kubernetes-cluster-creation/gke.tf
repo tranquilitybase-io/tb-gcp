@@ -23,8 +23,6 @@ resource "google_container_cluster" "gke" {
   # node pool and immediately delete it.
   remove_default_node_pool = true
 
-  enable_intranode_visibility = var.enable_intranode_visibility
-
   initial_node_count = 1
 
   maintenance_policy {

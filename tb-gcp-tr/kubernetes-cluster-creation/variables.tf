@@ -161,18 +161,3 @@ variable "cluster_default_max_pods_per_node" {
   description = "The maximum number of pods to schedule per node"
   default     = null
 }
-
-variable "enable_intranode_visibility" {
-  description = "Enabled visibility of traffic between nodes."
-  default     = true
-}
-
-variable "enable_secure_boot" {
-  description = "Enabled secure boot for nodes."
-  default     = true
-}
-
-variable "enable_integrity_monitoring" {
-  description = "Enables integrity monitoring"
-  default     = true
-}
