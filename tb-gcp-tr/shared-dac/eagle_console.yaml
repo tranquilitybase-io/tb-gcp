@@ -236,6 +236,7 @@ spec:
             requests:
               cpu: "100m"
           imagePullPolicy: Always
+          command: ['/bin/sh', './src/main/bash/tranquilitybase/celery_worker/celery_worker.sh']
           ports:
             - containerPort: 3100
           volumeMounts:
@@ -272,7 +273,7 @@ spec:
             requests:
               cpu: "100m"
           imagePullPolicy: Always
-          command: ['/bin/sh', './celery_worker.sh']
+          command: ['/bin/sh', './src/main/bash/tranquilitybase/celery_worker/celery_worker.sh']
           ports:
             - containerPort: 80
           volumeMounts:
