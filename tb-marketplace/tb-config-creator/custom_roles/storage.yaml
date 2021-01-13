@@ -1,0 +1,13 @@
+title: "storage-role"
+description: "role-description"
+stage: "ALPHA"
+includedPermissions:
+- storage.buckets.create
+- storage.buckets.list
+- storage.buckets.update
+- storage.objects.get
+- storage.objects.list
+- storage.objects.create
+- storage.objects.delete
+- storage.objects.getIamPolicy
+
