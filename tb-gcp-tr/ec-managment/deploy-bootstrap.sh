@@ -34,15 +34,9 @@ gcloud projects create "${TBASE_PROJECT_NAME}" --folder="${TBASE_FOLDER_ID}"
 #linking project to billing account
 gcloud alpha billing projects link "${TBASE_PROJECT_NAME}" --billing-account "${TBASE_BILLING_ID}" --format=none
 
-#
-##create variables json
-#echo '{ "project_id": "'${TBASE_PROJECT_NAME}'", "folder_name": "'${TBASE_FOLDER_NAME}'", "region": "'${TBASE_REGION}'", "billing_id": "'${TBASE_BILLING_ID}'"  }' \
-#| jq '.' > ./01-bootstrap/variables.auto.tfvars.json
-#
-
 #used as vars for bootstrap
 export project_id=${TBASE_PROJECT_NAME}
-export folder_name=${TBASE_FOLDER_NAME}
+export folder_id=${TBASE_FOLDER_ID}
 export region=${TBASE_REGION}
 export billing_id=${TBASE_BILLING_ID}
 
