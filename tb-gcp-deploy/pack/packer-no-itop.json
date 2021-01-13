@@ -39,6 +39,5 @@
       ],
       "execute_command": "echo 'packer' | sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
     }
-
   ]
 }
