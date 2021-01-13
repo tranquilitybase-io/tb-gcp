@@ -233,7 +233,7 @@ spec:
             requests:
               cpu: "100m"
           imagePullPolicy: Always
-          command: ['/bin/sh', './src/main/bash/tranquilitybase/gcpdac/app_docker.sh']
+          command: ['/bin/sh', './src/main/bash/tranquilitybase/gcpdac/main/app_docker.sh']
           ports:
             - containerPort: 3100
           volumeMounts:
@@ -274,7 +274,7 @@ spec:
             requests:
               cpu: "100m"
           imagePullPolicy: Always
-          command: ['/bin/sh', './src/main/bash/tranquilitybase/celery_worker/celery_worker.sh']
+          command: ['/bin/sh', './src/main/bash/tranquilitybase/gcpdac/celery_worker/celery_worker.sh']
           ports:
             - containerPort: 80
           volumeMounts:
@@ -284,6 +284,10 @@ spec:
             - name: google-cloud-key
               mountPath: /var/secrets/google
           env:
+            - name: APP_PORT
+              value: "3200"
+            - name: EC_CONFIG
+              value: /resources/ec-config.yaml
             - name: GOOGLE_APPLICATION_CREDENTIALS
               value: /var/secrets/google/ec-service-account-config.json
             - name: CELERY_BROKER_URL
