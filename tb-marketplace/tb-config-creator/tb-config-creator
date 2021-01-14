@@ -207,7 +207,7 @@ function print_confirmation {
 }
 
 # Consider automation
-if [[ -n ${RANDOM_ID}  ]]; then
+if [[ -z ${RANDOM_ID}  ]]; then
   print_confirmation
   RND="$(tr -dc 'a-z0-9' < /dev/urandom | fold -w 8 | sed '/^[0-9]*$/d' | head -n 1)"
 else
