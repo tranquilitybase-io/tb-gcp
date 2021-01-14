@@ -136,7 +136,7 @@ spec:
       runtimeClassName: gvisor
       containers:
         - name: eagleconsole
-          image: gcr.io/tranquility-base-images/tb-eagle-console:v0.9.13
+          image: gcr.io/tranquility-base-images/tb-eagle-console:v0.10.0
           resources:
             requests:
               cpu: "100m"
@@ -164,7 +164,7 @@ spec:
       runtimeClassName: gvisor
       containers:
         - name: houstonservice
-          image: gcr.io/tranquility-base-images/tb-houston-service:v0.46.78
+          image: gcr.io/tranquility-base-images/tb-houston-service:v0.47.0
           resources:
             requests:
               cpu: "100m"
@@ -231,7 +231,7 @@ spec:
       runtimeClassName: gvisor
       containers:
         - name: gcpdac
-          image: gcr.io/tranquility-base-images/tb-gcp-dac:v0.1.49
+          image: gcr.io/tranquility-base-images/tb-gcp-dac:v0.1.51
           resources:
             requests:
               cpu: "100m"
@@ -267,7 +267,7 @@ spec:
                   key: password
 
         - name: gcpdacworker
-          image: gcr.io/tranquility-base-images/tb-gcp-dac:v0.1.49
+          image: gcr.io/tranquility-base-images/tb-gcp-dac:v0.1.51
           resources:
             requests:
               cpu: "100m"
@@ -335,7 +335,7 @@ spec:
             claimName: mysql-pv-claim
       containers:
         - name: mysql57
-          image: gcr.io/tranquility-base-images/tb-db:v0.0.39
+          image: gcr.io/tranquility-base-images/tb-db:v0.0.42
           resources:
             requests:
               cpu: "100m"
