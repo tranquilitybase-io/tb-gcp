@@ -167,38 +167,38 @@ module "bastion-security" {
   shared_networking_id          = module.shared_projects.shared_networking_id
   root_id                       = var.root_id
   shared_bastion_project_number = module.shared_projects.shared_bastion_project_number
-  depends_on = [module.shared-vpc]
+  depends_on                    = [module.shared-vpc]
 }
 
 module "dns-instances" {
   source = "../../dns-instances"
 
-  linux_instances = module.bastion-security.linux_bastion_instances
+  linux_instances         = module.bastion-security.linux_bastion_instances
   private_dns_domain_name = module.shared-vpc.dns_domain_name
-  private_dns_name = module.shared-vpc.dns_name
-  squid_proxy_instances = module.bastion-security.squid_proxy_instances
-  windows_instances = module.bastion-security.windows_bastion_instances
-  zone = var.region_zone
-  shared_networking = module.shared_projects.shared_networking_id
-  depends_on = [module.bastion-security, module.shared-vpc]
+  private_dns_name        = module.shared-vpc.dns_name
+  squid_proxy_instances   = module.bastion-security.squid_proxy_instances
+  windows_instances       = module.bastion-security.windows_bastion_instances
+  zone                    = var.region_zone
+  shared_networking       = module.shared_projects.shared_networking_id
+  depends_on              = [module.bastion-security, module.shared-vpc]
 }
 
 module "dac-secret" {
   source = "../../dac-secret"
 
-  content = module.SharedServices_namespace_creation.id
+  content      = module.SharedServices_namespace_creation.id
   context_name = module.k8s-ec_context.context_name
-  depends_on = [module.SharedServices_namespace_creation]
+  depends_on   = [module.SharedServices_namespace_creation]
 }
-    
+
 module "gcr-secret" {
   source = "../../gcr-secret"
 
-  content = module.SharedServices_namespace_creation.id
+  content      = module.SharedServices_namespace_creation.id
   context_name = module.k8s-ec_context.context_name
-  root_id = var.root_id
-  depends_on = [module.SharedServices_namespace_creation]
-} 
+  root_id      = var.root_id
+  depends_on   = [module.SharedServices_namespace_creation]
+}
 
 module "logging_export" {
   source                        = "../../logging-export"
@@ -239,7 +239,7 @@ module "gke-ec" {
   )
   cluster_min_master_version        = var.cluster_ec_min_master_version
   cluster_default_max_pods_per_node = var.cluster_ec_default_max_pods_per_node
-  cluster_oauth_scopes = var.cluster_oauth_scopes
+  cluster_oauth_scopes              = var.cluster_oauth_scopes
 
   apis_dependency          = module.apis_activation.all_apis_enabled
   shared_vpc_dependency    = module.shared-vpc.gke_subnetwork_ids
@@ -273,6 +273,18 @@ module "k8s-ec_context" {
 module "tls" {
   source = "../../tls"
 }
+
+module "auth" {
+  source = "../../auth"
+
+  region       = var.region
+  domain_name = var.domain_name
+  project      = module.shared_projects.shared_ec_id
+  content      = module.SharedServices_namespace_creation.id
+  context_name = module.k8s-ec_context.context_name
+  depends_on   = [module.SharedServices_namespace_creation]
+}
+
 ## Creating the ssp and cicd namespaces in the shared services cluster ## depends on the k8-ec_content module 
 module "SharedServices_namespace_creation" {
   source = "../../../tb-common-tr/start_service"
@@ -332,7 +344,7 @@ module "SharedServices_jenkinsmaster_creation" {
   cluster_context   = module.k8s-ec_context.context_name
   # Jenkins Deployment depends on the ec-service-account secret creation
   dependency_var = null_resource.kubernetes_jenkins_service_account_key_secret.id
-  depends_on = [module.dac-secret, module.gcr-secret]
+  depends_on     = [module.dac-secret, module.gcr-secret]
 }
 
 module "SharedServices_configuration_file" {
@@ -349,7 +361,7 @@ module "SharedServices_ec" {
   k8s_template_file = var.eagle_console_yaml_path
   cluster_context   = module.k8s-ec_context.context_name
   dependency_var    = module.SharedServices_configuration_file.id
-  depends_on = [module.dac-secret]
+  depends_on        = [module.dac-secret]
 }
 
 resource "null_resource" "get_endpoint" {
