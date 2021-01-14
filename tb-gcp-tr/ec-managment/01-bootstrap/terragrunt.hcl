@@ -4,7 +4,7 @@ terraform {
 
 inputs = {
   project_id  = get_env("project_id")
-  folder_name = get_env("folder_name")
+  folder_id   = get_env("folder_id")
   region      = get_env("region")
   billing_id  = get_env("billing_id")
 }

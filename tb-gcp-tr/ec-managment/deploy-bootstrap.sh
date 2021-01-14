@@ -15,7 +15,7 @@ rm terraform_0.13.4_linux_amd64.zip
 terraform --version
 
 #random number
-RND="$(tr -dc 'a-z0-9' < /dev/urandom | fold -w 8 | sed '/^[0-9]*$/d' | head -n 1)"
+RND=$RANDOM
 
 #Build folder/project name
 TG_STATE_BUCKET_PREFIX="tg-tfstate-"
