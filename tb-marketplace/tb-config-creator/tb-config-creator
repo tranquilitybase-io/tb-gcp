@@ -38,6 +38,10 @@ NO_LABELS=0
 
 while (( "$#" )); do
   case "$1" in
+    -r|--random-id)
+      RANDOM_ID=$2
+      shift 2
+      ;;
     -f|--parent-folder-id)
       PARENT_FOLDER_ID=$2
       shift 2
@@ -158,50 +162,63 @@ else
   echo "Found billing account ${BILLING_ID}."
 fi
 
-# Ask for confirmation
-echo; echo "You are about to create a Project to host the Tranquility Base bootstrap server."
-echo "A random project name will be assigned and informed at the end of this configuration"
-echo "In addition, a \"super\" Service Account will be created and several API's will be activated in that project:"
-echo
-echo "1. Permissions of the Service Account:"
-echo "  - at the project level"
-echo "    - compute.admin"
-echo "    - storage.admin"
-echo "    - source.admin"
-echo "    - logger.logWriter"
-echo "  - at the folder level"
-echo "    - resourcemanager.folderAdmin"
-echo "    - resourcemanager.projectCreator"
-echo "    - resourcemanager.projectDeleter"
-echo "    - compute.networkAdmin"
-echo "    - compute.xpnAdmin"
-echo "  - at the billing account level"
-echo "    - billing.admin"
-echo "2.Activation of the following API's:"
-echo "  - cloudbilling.googleapis.com"
-echo "  - cloudkms.googleapis.com"
-echo "  - cloudresourcemanager.googleapis.com"
-echo "  - compute.googleapis.com"
-echo "  - container.googleapis.com"
-echo "  - containerregistry.googleapis.com"
-echo "  - deploymentmanager.googleapis.com"
-echo "  - logging.googleapis.com"
-echo "  - serviceusage.googleapis.com"
-echo "  - sourcerepo.googleapis.com"
-echo "  - storage-api.googleapis.com"
-echo
 
-read -p "Press Y to continue or any other key to abort: " -n 1 -r
-echo
-if [[ $REPLY != "Y" ]]
-then
-  echo "Aborting..."
-  exit 0
+function print_confirmation {
+
+  echo; echo "You are about to create a Project to host the Tranquility Base bootstrap server."
+  echo "A random project name will be assigned and informed at the end of this configuration"
+  echo "In addition, a \"super\" Service Account will be created and several API's will be activated in that project:"
+  echo
+  echo "1. Permissions of the Service Account:"
+  echo "  - at the project level"
+  echo "    - compute.admin"
+  echo "    - storage.admin"
+  echo "    - source.admin"
+  echo "    - logger.logWriter"
+  echo "  - at the folder level"
+  echo "    - resourcemanager.folderAdmin"
+  echo "    - resourcemanager.projectCreator"
+  echo "    - resourcemanager.projectDeleter"
+  echo "    - compute.networkAdmin"
+  echo "    - compute.xpnAdmin"
+  echo "  - at the billing account level"
+  echo "    - billing.admin"
+  echo "2.Activation of the following API's:"
+  echo "  - cloudbilling.googleapis.com"
+  echo "  - cloudkms.googleapis.com"
+  echo "  - cloudresourcemanager.googleapis.com"
+  echo "  - compute.googleapis.com"
+  echo "  - container.googleapis.com"
+  echo "  - containerregistry.googleapis.com"
+  echo "  - deploymentmanager.googleapis.com"
+  echo "  - logging.googleapis.com"
+  echo "  - serviceusage.googleapis.com"
+  echo "  - sourcerepo.googleapis.com"
+  echo "  - storage-api.googleapis.com"
+  echo
+
+  read -p "Press Y to continue or any other key to abort: " -n 1 -r
+  echo
+  if [[ $REPLY != "Y" ]]
+  then
+    echo "Aborting..."
+    exit 0
+  fi
+}
+
+# Consider automation
+if [[ -n ${RANDOM_ID}  ]]; then
+  print_confirmation
+  RND="$(tr -dc 'a-z0-9' < /dev/urandom | fold -w 8 | sed '/^[0-9]*$/d' | head -n 1)"
+else
+  RND=${RANDOM_ID}
 fi
+
+
 
 # Generate a random alphanumeric
 PREFIX="bootstrap-"
-RND="$(tr -dc 'a-z0-9' < /dev/urandom | fold -w 8 | sed '/^[0-9]*$/d' | head -n 1)"
+
 PROJECT_ID="${PREFIX}${RND}"
 SA_NAME="${PREFIX}sa"
 SA_EMAIL="${SA_NAME}@${PROJECT_ID}.iam.gserviceaccount.com"
