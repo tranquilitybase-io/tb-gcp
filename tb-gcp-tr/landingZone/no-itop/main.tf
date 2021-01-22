@@ -158,7 +158,7 @@ resource "google_storage_bucket_iam_binding" "audit-bucket-iam-binding" {
 #####
 
 module "bastion" {
-  source = "https://github.com/tranquilitybase-io/tf-gcp-bastion"
+  source = "github.com/tranquilitybase-io/tf-gcp-bastion"
 
   bastion_subnetwork_name       = module.shared-vpc.bastion_subnetwork_name
   region                        = var.region
@@ -173,7 +173,7 @@ module "bastion" {
 }
 
 module "proxy" {
-  source = "https://github.com/tranquilitybase-io/tf-gcp-proxy"
+  source = "github.com/tranquilitybase-io/tf-gcp-proxy"
 
   bastion_subnetwork_name       = module.shared-vpc.bastion_subnetwork_name
   region                        = var.region
