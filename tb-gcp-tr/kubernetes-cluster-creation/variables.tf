@@ -39,7 +39,7 @@ variable "cluster_pool_name" {
 
 variable "cluster_machine_type" {
   type    = string
-  default = "n1-standard-4"
+  default = "e2-standard-4"
 }
 
 variable "cluster_enable_private_nodes" {

@@ -31,7 +31,7 @@ variable "shared_networking_id" {
   description = "identifier for the shared_networking project."
 }
 
-variable root_id {
+variable "root_id" {
   type        = string
   description = "ID for the parent organisation where folders will be created"
 }
@@ -45,13 +45,13 @@ variable "scopes" {
 variable "main_iam_service_account_roles" {
   type = list(string)
   default = [
-    "roles/resourcemanager.folderAdmin",
+    "roles/resourcemanager.folderCreator",
     "roles/resourcemanager.projectCreator",
     "roles/resourcemanager.projectDeleter",
     "roles/billing.projectManager",
     "roles/compute.xpnAdmin",
-    "roles/owner",
-    "roles/compute.networkAdmin",
+    "roles/editor",
+    "roles/compute.networkUser",
   ]
   description = "Roles attached to service account"
 }

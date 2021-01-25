@@ -29,6 +29,7 @@ def delete_tbase_deployments(event, context):
     for bootstrap_project in bootstrap_project_dicts:
         tb_folder = bootstrap_project['parent']['id']
         __delete_tbase_deployment(tb_folder)
+        
 
 
 def __delete_tbase_deployment(tb_folder):
