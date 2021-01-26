@@ -214,8 +214,6 @@ else
   RND=${RANDOM_ID}
 fi
 
-
-
 # Generate a random alphanumeric
 PREFIX="bootstrap-"
 
@@ -224,6 +222,7 @@ SA_NAME="${PREFIX}sa"
 SA_EMAIL="${SA_NAME}@${PROJECT_ID}.iam.gserviceaccount.com"
 TBASE_FOLDER_PREFIX="Tranquility Base - "
 TBASE_FOLDER_NAME="${TBASE_FOLDER_PREFIX}${RND}"
+
 
 #Explicit labelling is required here because Terraform has not been applied.
 ACTIVE_ACCOUNT="$(gcloud config list account --format "value(core.account)" | cut -d@ -f1)"
@@ -254,7 +253,7 @@ echo "Linked project to billing account [${BILLING_ID}]."
 echo "Creating service account..."
 gcloud --project "${PROJECT_ID}" iam service-accounts create "${SA_NAME}" --quiet
 
-#Add permissions at the project level
+#Add permissions at the project level 
 echo "Adding permissions at the project level... "
 gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.instanceAdmin.v1 --format=none
 gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/storage.admin --format=none
@@ -278,6 +277,17 @@ gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --membe
 # Add permissions at the billing level
 echo "Adding permission at the billing account level..."
 gcloud beta billing accounts add-iam-policy-binding "${BILLING_ID}" --member="serviceAccount:${SA_EMAIL}" --role="roles/billing.admin"
+
+
+# Set EC account variable and add it to cloud identity group
+PREFIX="tb-"
+
+ORG_ID="gftdevgcp.com"
+EC_GROUP_ADMINS="tb-ecadmins@gftdevgcp.com"
+EC_NAME="${PREFIX}ecadmins"
+# Create identity group for EC
+echo "Creating CLOUD identity group..."
+gcloud identity groups create "${ACTIVE_ACCOUNT}" --display-name="tb-admins" --with-initial-owner=WITH_INITIAL_OWNER --labels="cloudidentity.googleapis.com/groups.discussion_forum" --organization="$ORG_ID"
 
 #Activate essential APIs
 echo "Activating essential APIs..."
