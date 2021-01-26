@@ -287,7 +287,7 @@ EC_GROUP_ADMINS="tb-ecadmins@gftdevgcp.com"
 EC_NAME="${PREFIX}ecadmins"
 # Create identity group for EC
 echo "Creating CLOUD identity group..."
-gcloud identity groups create "${ACTIVE_ACCOUNT}" --display-name="tb-admins" --with-initial-owner=WITH_INITIAL_OWNER --labels="cloudidentity.googleapis.com/groups.discussion_forum" --organization="$ORG_ID"
+gcloud identity groups create "${ACTIVE_ACCOUNT}" --display-name="tb-admins" --with-initial-owner=WITH_INITIAL_OWNER --labels="cloudidentity.googleapis.com/groups.discussion_forum" --organization="${ORG_ID}"
 
 #Activate essential APIs
 echo "Activating essential APIs..."
