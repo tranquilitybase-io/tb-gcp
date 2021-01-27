@@ -284,7 +284,7 @@ PREFIX="tb-"
 ACTIVE_ACCOUNT=$(gcloud config list account --format "value(core.account)")
 ORG_ID="gftdevgcp.com"
 EC_GROUP_ADMINS="tb-ecadmins@gftdevgcp.com"
-EC_NAME="tb-ecadmins"
+EC_NAME="tb-admins"
 
 # Create identity group for EC
 isMember=$(gcloud identity groups memberships check-transitive-membership --group-email="${EC_GROUP_ADMINS}" --member-email="${ACTIVE_ACCOUNT}" | grep "${true}")
