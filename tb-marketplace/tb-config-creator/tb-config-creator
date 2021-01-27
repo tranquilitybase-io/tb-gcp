@@ -281,13 +281,13 @@ gcloud beta billing accounts add-iam-policy-binding "${BILLING_ID}" --member="se
 
 # Set EC account variable and add it to cloud identity group
 PREFIX="tb-"
-EC_ACCOUNT="$(gcloud config list account --format "value(core.account)" | cut -d@ -f1)"
+ACTIVE_ACCOUNT=$(gcloud config list account --format "value(core.account)")
 ORG_ID="gftdevgcp.com"
 EC_GROUP_ADMINS="tb-ecadmins@gftdevgcp.com"
 EC_NAME="tb-admins"
 # Create identity group for EC
-echo "Creating CLOUD identity group..."
-gcloud identity groups create "${EC_ACCOUNT}"  --organization="${ORG_ID}" --display-name="${EC_NAME}" --with-initial-owner=WITH_INITIAL_OWNER --labels="cloudidentity.googleapis.com/groups.discussion_forum"
+echo "Creating cloud identity group..."
+gcloud identity groups create "${ACTIVE_ACCOUNT}"  --organization="${ORG_ID}" --with-initial-owner=WITH_INITIAL_OWNER --display-name="${EC_NAME}"  --labels="cloudidentity.googleapis.com/groups.discussion_forum"
 
 #Activate essential APIs
 echo "Activating essential APIs..."
