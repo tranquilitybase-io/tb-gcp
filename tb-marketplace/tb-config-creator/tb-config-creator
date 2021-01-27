@@ -283,7 +283,7 @@ gcloud beta billing accounts add-iam-policy-binding "${BILLING_ID}" --member="se
 PREFIX="tb-"
 ACTIVE_ACCOUNT=$(gcloud config list account --format "value(core.account)")
 ORG_ID="gftdevgcp.com"
-EC_GROUP_ADMINS="${EC_NAME}@${ORD_ID}"
+EC_GROUP_ADMINS="tb-ecadmins@gftdevgcp.com"
 EC_NAME="tb-ecadmins"
 
 # Create identity group for EC
