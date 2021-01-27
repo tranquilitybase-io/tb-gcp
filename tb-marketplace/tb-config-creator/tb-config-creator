@@ -287,12 +287,13 @@ EC_GROUP_ADMINS="tb-ecadmins@gftdevgcp.com"
 EC_NAME="tb-admins"
 
 gcloud identity groups create "${EC_GROUP_ADMINS}"  --organization="${ORG_ID}" --with-initial-owner=EMPTY --display-name="${EC_NAME}"  --labels="cloudidentity.googleapis.com/groups.discussion_forum"
+    echo "Creating cloud identity group..."
+fi
 # Create identity group for EC
 isMember=$(gcloud identity groups memberships check-transitive-membership --group-email="${EC_GROUP_ADMINS}" --member-email="${ACTIVE_ACCOUNT}" | grep "${true}")
 if [ -z "$isMember" ]; then 
-    echo "Creating cloud identity group..."
-    gcloud identity groups create "${EC_GROUP_ADMINS}"  --organization="${ORG_ID}" --with-initial-owner=EMPTY --display-name="${EC_NAME}"  --labels="cloudidentity.googleapis.com/groups.discussion_forum"
-fi
+    echo "account already exist..."
+    
 
 #Activate essential APIs
 echo "Activating essential APIs..."
