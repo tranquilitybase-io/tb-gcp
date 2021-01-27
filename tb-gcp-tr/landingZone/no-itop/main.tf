@@ -157,31 +157,6 @@ resource "google_storage_bucket_iam_binding" "audit-bucket-iam-binding" {
 
 #####
 
-module "bastion-security" {
-  source = "../../shared-bastion"
-
-  bastion_subnetwork_name       = module.shared-vpc.bastion_subnetwork_name
-  region                        = var.region
-  region_zone                   = var.region_zone
-  shared_bastion_id             = module.shared_projects.shared_bastion_id
-  shared_networking_id          = module.shared_projects.shared_networking_id
-  root_id                       = var.root_id
-  shared_bastion_project_number = module.shared_projects.shared_bastion_project_number
-  depends_on = [module.shared-vpc]
-}
-
-module "dns-instances" {
-  source = "../../dns-instances"
-
-  linux_instances = module.bastion-security.linux_bastion_instances
-  private_dns_domain_name = module.shared-vpc.dns_domain_name
-  private_dns_name = module.shared-vpc.dns_name
-  squid_proxy_instances = module.bastion-security.squid_proxy_instances
-  windows_instances = module.bastion-security.windows_bastion_instances
-  zone = var.region_zone
-  shared_networking = module.shared_projects.shared_networking_id
-  depends_on = [module.bastion-security, module.shared-vpc]
-}
 
 module "dac-secret" {
   source = "../../dac-secret"
