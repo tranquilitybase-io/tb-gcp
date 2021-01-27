@@ -293,7 +293,6 @@ if [ -z "$isMember" ]; then
     gcloud identity groups create "${ACTIVE_ACCOUNT}"  --organization="${ORG_ID}" --with-initial-owner=WITH_INITIAL_OWNER --display-name="${EC_NAME}"  --labels="cloudidentity.googleapis.com/groups.discussion_forum"
 fi
 
-
 #Activate essential APIs
 echo "Activating essential APIs..."
 gcloud --project "${PROJECT_ID}" services enable cloudbilling.googleapis.com
