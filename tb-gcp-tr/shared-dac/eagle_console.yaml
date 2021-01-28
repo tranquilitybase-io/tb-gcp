@@ -228,7 +228,7 @@ spec:
     spec:
       containers:
         - name: gcpdac
-          image: gcr.io/tranquility-base-images/tb-gcp-dac:v0.1.51
+          image: gcr.io/tranquility-base-images/tb-gcp-dac:v0.1.53
           resources:
             requests:
               cpu: "100m"
@@ -264,7 +264,7 @@ spec:
                   key: password
 
         - name: gcpdacworker
-          image: gcr.io/tranquility-base-images/tb-gcp-dac:v0.1.51
+          image: gcr.io/tranquility-base-images/tb-gcp-dac:v0.1.53
           resources:
             requests:
               cpu: "100m"
