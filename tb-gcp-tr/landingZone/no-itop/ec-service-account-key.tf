@@ -36,13 +36,13 @@ resource "google_folder_iam_member" "sa-folder-admin-role" {
 resource "google_folder_iam_member" "xpnbinding" {
   folder = var.root_id
   member = local.service_account_name
-  role   = "roles/compute.admin"
+  role   = "roles/compute.instanceAdmin"
 }
 
 #ADD-POLICY-TO-BILLING-ACCOUNT
 resource "google_billing_account_iam_member" "ba-billing-account-user" {
   billing_account_id = var.billing_account_id
-  role               = "roles/billing.admin"
+  role               = "roles/billing.user"
   member             = local.service_account_name
 }
 
