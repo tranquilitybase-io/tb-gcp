@@ -72,12 +72,10 @@ def __get_target_projects(bootstrap_prefix: str, exclusion_label: str) -> list:
     :param exclusion_label:
     :return:
     """
-    project_dicts = projects_service.get_all_projects()
-    active_bootstrap_projects = [project for project in project_dicts
-                                 if project['name'].startswith(bootstrap_prefix)]
+    active_projects = projects_service.get_all_projects()
 
     # filter out projects that have the exclusion label e.g 'dont-delete'
-    target_projects = [project for project in active_bootstrap_projects
+    target_projects = [project for project in active_projects
                        if 'labels' not in project
                        or 'labels' in project and exclusion_label not in project['labels']]
 
