@@ -11,7 +11,6 @@ billing_service = BillingService(credentials)
 folders_service = FoldersService(credentials)
 projects_service = ProjectsService(credentials)
 EXCLUDE_DELETE_LABEL = "dont-delete"
-BOOTSTRAP_PREFIX = "bootstrap"
 
 def delete_tbase_deployments(event, context):
     """Responds to any HTTP request.
@@ -24,7 +23,7 @@ def delete_tbase_deployments(event, context):
     """.format(context.event_id, context.timestamp))
 
 
-    bootstrap_project_dicts = __get_target_projects(BOOTSTRAP_PREFIX, EXCLUDE_DELETE_LABEL)
+    bootstrap_project_dicts = __get_target_projects(EXCLUDE_DELETE_LABEL)
 
     for bootstrap_project in bootstrap_project_dicts:
         tb_folder = bootstrap_project['parent']['id']
@@ -65,7 +64,7 @@ def __disable_and_delete_all_projects_under_folder(folder_id: str):
     return
 
 
-def __get_target_projects(bootstrap_prefix: str, exclusion_label: str) -> list:
+def __get_target_projects(exclusion_label: str) -> list:
     """
     :param parent:
     :param bootstrap_prefix:
