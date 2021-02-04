@@ -11,7 +11,7 @@ billing_service = BillingService(credentials)
 folders_service = FoldersService(credentials)
 projects_service = ProjectsService(credentials)
 EXCLUDE_DELETE_LABEL = "dont-delete"
-
+MODERN_APPLICATIONS = "943956663445"
 def delete_tbase_deployments(event, context):
     """Responds to any HTTP request.
     Args:
