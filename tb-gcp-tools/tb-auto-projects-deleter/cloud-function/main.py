@@ -31,6 +31,7 @@ def delete_tbase_deployments(event, context):
         if tb_folder == MODERN_APPS_ID:
             pass
         __delete_tbase_deployment(tb_folder)
+        
 
 
 def __delete_tbase_deployment(tb_folder):
