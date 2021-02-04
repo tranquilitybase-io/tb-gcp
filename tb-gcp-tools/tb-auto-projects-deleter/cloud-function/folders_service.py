@@ -19,6 +19,18 @@ class FoldersService:
         if resp:
             folders = [entry['name'].split('/')[-1] for entry in resp['folders']]
         return folders
+        parent_folder = []
+        child_folders = []
+        total_folders = []
+        if resp:
+            parent_folder = [entry['name'].split('/')[-1] for entry in resp['folders']]
+        for folder in parent_folder:
+           child_folders =  self.get_folders_under_parent_folder(folder)
+        child_folders.reverse()
+
+        for folders in child_folders:
+            total_folders.append(folders)
+        return child_folders
 
     def delete_folder(self, folder_id: str) -> str:
         """
