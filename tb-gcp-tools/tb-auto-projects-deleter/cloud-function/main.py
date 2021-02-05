@@ -45,9 +45,10 @@ def __delete_tbase_deployment(tb_folder):
             continue
         __disable_and_delete_all_projects_under_folder(child_folder)
         __delete_folder(child_folder)
-
-    __disable_and_delete_all_projects_under_folder(tb_folder)
-    __delete_folder(tb_folder)
+        
+    if child_folder is not MODERN_APPLICATIONS:
+        __disable_and_delete_all_projects_under_folder(tb_folder)
+        __delete_folder(tb_folder)
 
 
 def __disable_and_delete_all_projects_under_folder(folder_id: str):
