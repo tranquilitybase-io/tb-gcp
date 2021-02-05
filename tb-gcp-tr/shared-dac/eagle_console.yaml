@@ -162,7 +162,7 @@ spec:
     spec:
       containers:
         - name: houstonservice
-          image: gcr.io/tranquility-base-images/tb-houston-service:v0.48.62
+          image: gcr.io/tranquility-base-images/tb-houston-service:v0.48.63
           resources:
             requests:
               cpu: "100m"
