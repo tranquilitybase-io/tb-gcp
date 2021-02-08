@@ -363,7 +363,7 @@ metadata:
   namespace: ssp
 spec:
   selector:
-    istio: private-ingressgateway  # use istio default controller
+    istio: private-ingressgateway  #use istio default controller
   servers:
     - port:
         number: 443
