@@ -28,8 +28,6 @@ def delete_tbase_deployments(event, context):
 
     for bootstrap_project in bootstrap_project_dicts:
         tb_folder = bootstrap_project['parent']['id']
-        if tb_folder == MODERN_APPS_ID:
-            pass
         __delete_tbase_deployment(tb_folder)
         
 
@@ -41,7 +39,6 @@ def __delete_tbase_deployment(tb_folder):
     """
     print("Deleting deployment linked to {}".format(tb_folder))
     child_folders = folders_service.get_folders_under_parent_folder(tb_folder)
-    
     for child_folder in child_folders:
         __disable_and_delete_all_projects_under_folder(child_folder)
         __delete_folder(child_folder)
@@ -104,9 +101,3 @@ def __delete_folder(folder_id: str):
     """
     print("DELETING FOLDER {}".format(folder_id))
     folders_service.delete_folder(folder_id)
-
-
-
-
-
-
