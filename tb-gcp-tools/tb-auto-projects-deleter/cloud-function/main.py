@@ -11,6 +11,7 @@ billing_service = BillingService(credentials)
 folders_service = FoldersService(credentials)
 projects_service = ProjectsService(credentials)
 EXCLUDE_DELETE_LABEL = "dont-delete"
+MODERN_APPLICATIONS = "943956663445"
 
 def delete_tbase_deployments(event, context):
     """Responds to any HTTP request.
@@ -38,12 +39,17 @@ def __delete_tbase_deployment(tb_folder):
     """
     print("Deleting deployment linked to {}".format(tb_folder))
     child_folders = folders_service.get_folders_under_parent_folder(tb_folder)
+    
+    print(child_folders)
     for child_folder in child_folders:
+        if child_folder == MODERN_APPLICATIONS:
+            continue
         __disable_and_delete_all_projects_under_folder(child_folder)
         __delete_folder(child_folder)
-
-    __disable_and_delete_all_projects_under_folder(tb_folder)
-    __delete_folder(tb_folder)
+        
+    if child_folder is not MODERN_APPLICATIONS:
+        __disable_and_delete_all_projects_under_folder(tb_folder)
+        __delete_folder(tb_folder)
 
 
 def __disable_and_delete_all_projects_under_folder(folder_id: str):

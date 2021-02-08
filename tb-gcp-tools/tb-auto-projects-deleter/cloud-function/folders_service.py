@@ -15,16 +15,18 @@ class FoldersService:
         :return: List of folder ids
         """
         resp = self.service.folders().list(parent="folders/{}".format(folder_id)).execute()
-        folders = []
+        parent_folder = []
         child_folders = []
+        total_folders = []
         if resp:
-            folders = [entry['name'].split('/')[-1] for entry in resp['folders']]
-        folders.reverse()
-        for folder in folders:
+            parent_folder = [entry['name'].split('/')[-1] for entry in resp['folders']]
+        for folder in parent_folder:
            child_folders =  self.get_folders_under_parent_folder(folder)
         child_folders.reverse()
-        folders.append(child_folders)
-        return folders
+
+        for folders in child_folders:
+            total_folders.append(folders)
+        return total_folders
 
     def delete_folder(self, folder_id: str) -> str:
         """
