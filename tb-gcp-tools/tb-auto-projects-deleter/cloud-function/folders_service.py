@@ -26,7 +26,7 @@ class FoldersService:
 
         for folders in child_folders:
             total_folders.append(folders)
-        return child_folders
+        return total_folders
 
     def delete_folder(self, folder_id: str) -> str:
         """
