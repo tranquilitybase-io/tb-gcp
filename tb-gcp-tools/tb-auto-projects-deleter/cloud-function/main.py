@@ -13,20 +13,18 @@ folders_service = FoldersService(credentials, dry_run)
 projects_service = ProjectsService(credentials, dry_run)
 
 
-def run_delete_task():
-    print("")
-    print("-- Starting clean up task --")
-
-    print("projects/folders to keep:")
-    keep_list = []
-    projects_to_keep = __get_kept_projects(EXCLUDE_DELETE_LABEL)
-    for item in projects_to_keep:
+def create_keep_list() -> list:
+    item_list = __get_kept_projects(EXCLUDE_DELETE_LABEL)
+    listing = []
+    for item in item_list:
         tb_folder = str(item['parent']['id'])
-        keep_list.append(tb_folder)
-        print(" keep " + str(tb_folder))
+        listing.append(tb_folder)
 
-    print("")
-    print("projects/folders to delete:")
+    listing = list(dict.fromkeys(listing))
+    return listing
+
+
+def create_delete_and_conflict_list(keep_list: list):
     delete_list = []
     conflict_list = []
     project_to_delete = __get_target_projects(EXCLUDE_DELETE_LABEL)
@@ -36,17 +34,33 @@ def run_delete_task():
             conflict_list.append(tb_folder)
         else:
             delete_list.append(tb_folder)
-            print(" delete: " + str(tb_folder))
 
+    delete_list = list(dict.fromkeys(delete_list))
+    conflict_list = list(dict.fromkeys(conflict_list))
+    return delete_list, conflict_list
+
+
+def run_delete_task():
+    print("")
+    print("-- Starting clean up task --")
+
+    print("projects/folders to keep:")
+    keep_list = create_keep_list()
+    print("keep: " + str(keep_list))
+
+    delete_list, conflict_list = create_delete_and_conflict_list(keep_list)
+    print("")
+    print("projects/folders to delete:")
+    print("delete: " + str(delete_list))
     print("")
     print("projects/folders in conflict: ")
-    for item in conflict_list:
-        print(" ambiguity found: " + item)
+    print("conflict: " + str(conflict_list))
 
     print("")
     print("running clean up jobs:")
     for item in delete_list:
-        print("running delete job for project " + item)
+        print("")
+        print("#running delete job for project " + item)
         __delete_tbase_deployment(item)
 
     print("")
