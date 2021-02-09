@@ -6,7 +6,8 @@ from apiclient import discovery
 
 class BillingService:
 
-    def __init__(self, credentials):
+    def __init__(self, credentials, dry_run):
+        self.dry_run = dry_run
         self.credentials = credentials
         self.service = discovery.build('cloudbilling', 'v1', credentials=credentials, cache_discovery=False)
 
@@ -19,4 +20,7 @@ class BillingService:
 
         # service = __get_cloud_billing_service()
         # https://developers.google.com/resources/api-libraries/documentation/cloudbilling/v1/python/latest/cloudbilling_v1.projects.html#updateBillingInfo
-        billing_info = self.service.projects().updateBillingInfo(name='projects/{}'.format(project_id), body={'billingAccountName': ''}).execute()
+        if self.dry_run:
+            print("mock remove billing account")
+        else:
+            billing_info = self.service.projects().updateBillingInfo(name='projects/{}'.format(project_id), body={'billingAccountName': ''}).execute()

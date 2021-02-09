@@ -5,7 +5,8 @@ from googleapiclient import discovery
 
 class FoldersService:
 
-    def __init__(self, credentials):
+    def __init__(self, credentials, dry_run):
+        self.dry_run = dry_run
         self.credentials = credentials
         self.service = discovery.build('cloudresourcemanager', 'v2', credentials=credentials)
 
@@ -33,4 +34,8 @@ class FoldersService:
         :param folder_id:
         :return:
         """
-        resp = self.service.folders().delete(name="folders/{}".format(folder_id)).execute()
+        if self.dry_run:
+            print("mock delete folder {} ".format(folder_id))
+        else:
+            resp = self.service.folders().delete(name="folders/{}".format(folder_id)).execute()
+            print("DELETE FOLDER ID ".format(folder_id))
