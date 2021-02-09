@@ -101,9 +101,3 @@ def __delete_folder(folder_id: str):
     """
     print("DELETING FOLDER {}".format(folder_id))
     folders_service.delete_folder(folder_id)
-
-
-
-
-
-
