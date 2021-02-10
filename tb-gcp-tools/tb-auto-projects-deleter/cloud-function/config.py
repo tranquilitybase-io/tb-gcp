@@ -24,6 +24,9 @@ def get_env(name: str, default: str) -> str:
 
 
 def str_to_bool(s):
+    if type(s) == bool:
+        return s
+
     if s == 'True':
         return True
     elif s == 'False':
@@ -32,7 +35,7 @@ def str_to_bool(s):
         raise ValueError
 
 
-dry_run = str_to_bool(get_env('dry_run', "True"))
+dry_run = str_to_bool(get_env('dry_run', True))
 is_cloud_run = str_to_bool(get_env('is_cloud_run', "False"))
 EXCLUDE_DELETE_LABEL = get_env('EXCLUDE_DELETE_LABEL', "dont-delete")
 ROOT_PROJECT = get_env('ROOT_PROJECT', "943956663445")
