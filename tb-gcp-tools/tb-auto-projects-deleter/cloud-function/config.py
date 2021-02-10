@@ -19,7 +19,7 @@ def establish_gcp_credentials():
 def get_env(name: str, default: str) -> str:
     value = default
     if name in os.environ:
-        value = os.environ['dry_run']
+        value = os.environ[name]
     return value
 
 
