@@ -198,10 +198,6 @@ def __delete_folder(folder_id: str):
     :return:
     """
     folders_service.delete_folder(folder_id)
-<<<<<<< HEAD
-
 
 if __name__ == "__main__":
     run_delete_task()
-=======
->>>>>>> 22b4f2b8af531350e6042550fabf7a7e75242f9e
