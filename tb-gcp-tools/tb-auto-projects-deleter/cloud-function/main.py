@@ -71,7 +71,7 @@ def run_delete_task():
 
     print("")
     print("deleting folders: ")
-    for folder in listing:
+    for folder in kill_listing:
         if folder in parent_folders_keep:
             continue
         __delete_tbase_deployment(folder)
