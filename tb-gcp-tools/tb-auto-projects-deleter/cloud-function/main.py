@@ -53,7 +53,8 @@ def run_delete_task():
     for project in orphan_projects_kill:
         parent_folder = str(project['parent']['id'])
         parent_folders_kill.append(parent_folder)
-    print(parent_folders_kill)
+    kill_listing = list(dict.fromkeys(parent_folders_kill))
+    print(kill_listing)
 
     #projects with dont-delete label that are not in a sub folder
     print("Orphan projects to keep")
@@ -64,12 +65,13 @@ def run_delete_task():
     for project in orphan_projects_keep:
         parent_folder = str(project['parent']['id'])
         parent_folders_keep.append(parent_folder)
-    print(parent_folders_keep)
+    keep_listing = list(dict.fromkeys(parent_folders_keep))
+    print(keep_listing)
 
 
     print("")
     print("deleting folders: ")
-    for folder in parent_folders_kill:
+    for folder in listing:
         if folder in parent_folders_keep:
             continue
         __delete_tbase_deployment(folder)
