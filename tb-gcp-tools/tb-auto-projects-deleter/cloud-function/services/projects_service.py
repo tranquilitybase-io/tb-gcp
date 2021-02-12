@@ -8,7 +8,7 @@ class ProjectsService:
     def __init__(self, credentials, dry_run):
         self.dry_run = dry_run
         self.credentials = credentials
-        self.service = discovery.build('cloudresourcemanager', 'v1', credentials=credentials)
+        self.service = discovery.build('cloudresourcemanager', 'v1', credentials=credentials, cache_discovery=False)
 
     def get_liens_for_project(self, project_id: str):
         resp = self.service.liens().list(parent="projects/{}".format(project_id)).execute()

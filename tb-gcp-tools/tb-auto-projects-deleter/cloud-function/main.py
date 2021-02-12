@@ -1,4 +1,7 @@
+import pymsteams
+from datetime import datetime
 
+from reporter.reporter import generate_report
 from services.billing_service import BillingService
 from services.folders_service import FoldersService
 from services.projects_service import ProjectsService
@@ -7,6 +10,7 @@ from config import dry_run
 from config import credentials
 from config import EXCLUDE_DELETE_LABEL
 from config import ROOT_PROJECT
+from config import ReportWebhook
 
 billing_service = BillingService(credentials, dry_run)
 folders_service = FoldersService(credentials, dry_run)
@@ -40,12 +44,27 @@ def create_delete_and_conflict_list(keep_list: list):
     return delete_list, conflict_list
 
 
+def send_teams_message(message: str):
+    if ReportWebhook != "none":
+        my_teams_message = pymsteams.connectorcard(ReportWebhook)
+        my_teams_message.text(message)
+        my_teams_message.send()
+
+
 def run_delete_task():
+
     print("")
     print("-- Starting clean up task --")
 
-    #projects with no dont-delete label that are not in a sub folder.
-    print("Orphan projects to kill")
+    start_time = datetime.now()
+    start_timestamp = start_time.timestamp()
+    start_projects = projects_service.get_all_projects()
+
+    print("projects/folders to keep:")
+    keep_list = create_keep_list()
+    print("keep: " + str(keep_list))
+
+    delete_list, conflict_list = create_delete_and_conflict_list(keep_list)
     print("")
     orphan_projects_kill = __get_target_projects(EXCLUDE_DELETE_LABEL)
     print(orphan_projects_kill)
@@ -81,6 +100,19 @@ def run_delete_task():
     #the structure must be reversed such that lowest child folders are first.
 
     
+    end_projects = projects_service.get_all_projects()
+
+    finish_timestamp = datetime.now().timestamp()
+    duration = round(finish_timestamp - start_timestamp, 2)
+
+    report = generate_report(dry_run,
+                             start_time.strftime("%H:%M:%S"), str(duration),
+                             delete_list, keep_list, conflict_list,
+                             start_projects, end_projects)
+
+    send_teams_message(report)
+
+    print("-- clean up finished --")
 
 
 def delete_tbase_deployments(event, context):
@@ -95,6 +127,7 @@ def delete_tbase_deployments(event, context):
     try:
         run_delete_task()
     except Exception as e:
+        send_teams_message('<strong style="color:red;">Error running delete task</strong>')
         raise Exception("Error running delete task " + str(e))
 
 
