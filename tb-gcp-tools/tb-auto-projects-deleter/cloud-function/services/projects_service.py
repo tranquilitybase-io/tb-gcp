@@ -30,7 +30,7 @@ class ProjectsService:
             print("mock delete project {}".format(project_id))
         else:
             resp = self.service.projects().delete(projectId=project_id).execute()
-            print("DELETING PROJECT".format(project_id, resp))
+            print("DELETING PROJECT {project_id}, {resp}".format(project_id, resp))
         return
 
     def get_project_dicts_under_folder(self, folder_id: str) -> list:

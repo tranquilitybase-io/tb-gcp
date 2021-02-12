@@ -6,7 +6,10 @@ def get_stubborn_projects(delete_list: list, end_projects: list) -> list:
     stubborn_projects = []
     for deleteId in delete_list:
         filtered = list(filter(lambda proj: proj['parent']['id'] == deleteId, end_projects))
-        stubborn_projects.append(filtered[0]["projectNumber"])
+        if filtered:
+            stubborn_projects.append(filtered[0]["projectNumber"])
+        else:
+            stubborn_projects.append("Error assessing project " + deleteId)
 
     return stubborn_projects
 

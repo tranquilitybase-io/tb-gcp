@@ -60,6 +60,7 @@ def run_delete_task():
     start_timestamp = start_time.timestamp()
     start_projects = projects_service.get_all_projects()
 
+    print("")
     print("projects/folders to keep:")
     keep_list = create_keep_list()
     print("keep: " + str(keep_list))
@@ -77,8 +78,8 @@ def run_delete_task():
     print(kill_listing)
 
     #projects with dont-delete label that are not in a sub folder
-    print("Orphan projects to keep")
     print("")
+    print("Orphan projects to keep")
     orphan_projects_keep = __get_kept_projects(EXCLUDE_DELETE_LABEL)
     print(orphan_projects_keep)
     parent_folders_keep = []
