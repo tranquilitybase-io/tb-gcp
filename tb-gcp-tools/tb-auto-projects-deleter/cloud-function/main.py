@@ -54,6 +54,7 @@ def run_delete_task():
         parent_folder = str(project['parent']['id'])
         parent_folders_kill.append(parent_folder)
     kill_listing = list(dict.fromkeys(parent_folders_kill))
+    kill_listing.reverse()
     print(kill_listing)
 
     #projects with dont-delete label that are not in a sub folder
