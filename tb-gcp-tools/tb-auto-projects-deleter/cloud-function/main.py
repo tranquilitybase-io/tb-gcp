@@ -44,30 +44,39 @@ def run_delete_task():
     print("")
     print("-- Starting clean up task --")
 
-    print("projects/folders to keep:")
-    keep_list = create_keep_list()
-    print("keep: " + str(keep_list))
-
-    delete_list, conflict_list = create_delete_and_conflict_list(keep_list)
+    #projects with no dont-delete label that are not in a sub folder.
+    print("Orphan projects to kill")
     print("")
-    print("projects/folders to delete:")
-    print("delete: " + str(delete_list))
+    orphan_projects_kill = __get_target_projects(EXCLUDE_DELETE_LABEL)
+    print(orphan_projects_kill)
+    parent_folders_kill = []
+    for project in orphan_projects_kill:
+        parent_folder = str(project['parent']['id'])
+        parent_folders_kill.append(parent_folder)
+    print(parent_folders_kill)
+
+    #projects with dont-delete label that are not in a sub folder
+    print("Orphan projects to keep")
     print("")
-    print("projects/folders in conflict: ")
-    print("conflict: " + str(conflict_list))
+    orphan_projects_keep = __get_kept_projects(EXCLUDE_DELETE_LABEL)
+    print(orphan_projects_keep)
+    parent_folders_keep = []
+    for project in orphan_projects_keep:
+        parent_folder = str(project['parent']['id'])
+        parent_folders_keep.append(parent_folder)
+    print(parent_folders_keep)
+
 
     print("")
-    print("running clean up jobs:")
-    for item in delete_list:
-        print("")
-        print("#running delete job for project " + item)
-        __delete_tbase_deployment(item)
+    print("deleting folders: ")
+    for folder in parent_folders_kill:
+        if folder in parent_folders_keep:
+            continue
+        __delete_tbase_deployment(folder)
+    #for each folder under root folder, generate a list of sub folders for each child folder, 
+    #the structure must be reversed such that lowest child folders are first.
 
-    print("")
-    print("-- clean up finished --")
-
-    # check_for_stubborn_projects(delete_list)
-    # generate_report(delete_list, keep_list, conflict_list)
+    
 
 
 def delete_tbase_deployments(event, context):
@@ -133,9 +142,7 @@ def __get_kept_projects(exclusion_label: str) -> list:
 
     # filter in projects that have the exclusion label e.g 'dont-delete'
     kept_projects = [project for project in active_projects
-                     if 'labels' not in project
-                     or 'labels' in project and exclusion_label in project['labels']]
-
+                     if 'labels' in project and exclusion_label in project['labels']]
     return kept_projects
 
 
