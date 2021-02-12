@@ -8,7 +8,7 @@ class FoldersService:
     def __init__(self, credentials, dry_run):
         self.dry_run = dry_run
         self.credentials = credentials
-        self.service = discovery.build('cloudresourcemanager', 'v2', credentials=credentials)
+        self.service = discovery.build('cloudresourcemanager', 'v2', credentials=credentials, cache_discovery=False)
 
     def get_folders_under_parent_folder(self, folder_id: str) -> str:
         """
