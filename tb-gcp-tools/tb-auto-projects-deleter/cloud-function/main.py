@@ -1,4 +1,7 @@
+import pymsteams
+from datetime import datetime
 
+from reporter.reporter import generate_report
 from services.billing_service import BillingService
 from services.folders_service import FoldersService
 from services.projects_service import ProjectsService
@@ -7,6 +10,7 @@ from config import dry_run
 from config import credentials
 from config import EXCLUDE_DELETE_LABEL
 from config import ROOT_PROJECT
+from config import ReportWebhook
 
 billing_service = BillingService(credentials, dry_run)
 folders_service = FoldersService(credentials, dry_run)
@@ -44,6 +48,10 @@ def run_delete_task():
     print("")
     print("-- Starting clean up task --")
 
+    start_time = datetime.now()
+    start_timestamp = start_time.timestamp()
+    start_projects = projects_service.get_all_projects()
+
     print("projects/folders to keep:")
     keep_list = create_keep_list()
     print("keep: " + str(keep_list))
@@ -64,10 +72,22 @@ def run_delete_task():
         __delete_tbase_deployment(item)
 
     print("")
-    print("-- clean up finished --")
+    end_projects = projects_service.get_all_projects()
 
-    # check_for_stubborn_projects(delete_list)
-    # generate_report(delete_list, keep_list, conflict_list)
+    finish_timestamp = datetime.now().timestamp()
+    duration = round(finish_timestamp - start_timestamp, 2)
+
+    report = generate_report(dry_run,
+                             start_time.strftime("%H:%M:%S"), str(duration),
+                             delete_list, keep_list, conflict_list,
+                             start_projects, end_projects)
+
+    if ReportWebhook is not "none":
+        my_teams_message = pymsteams.connectorcard(ReportWebhook)
+        my_teams_message.text(report)
+        my_teams_message.send()
+
+    print("-- clean up finished --")
 
 
 def delete_tbase_deployments(event, context):
