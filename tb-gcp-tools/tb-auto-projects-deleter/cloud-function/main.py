@@ -44,7 +44,15 @@ def create_delete_and_conflict_list(keep_list: list):
     return delete_list, conflict_list
 
 
+def send_teams_message(message: str):
+    if ReportWebhook != "none":
+        my_teams_message = pymsteams.connectorcard(ReportWebhook)
+        my_teams_message.text(message)
+        my_teams_message.send()
+
+
 def run_delete_task():
+
     print("")
     print("-- Starting clean up task --")
 
@@ -82,10 +90,7 @@ def run_delete_task():
                              delete_list, keep_list, conflict_list,
                              start_projects, end_projects)
 
-    if ReportWebhook is not "none":
-        my_teams_message = pymsteams.connectorcard(ReportWebhook)
-        my_teams_message.text(report)
-        my_teams_message.send()
+    send_teams_message(report)
 
     print("-- clean up finished --")
 
@@ -102,6 +107,7 @@ def delete_tbase_deployments(event, context):
     try:
         run_delete_task()
     except Exception as e:
+        send_teams_message('<strong style="color:red;">Error running delete task</strong>')
         raise Exception("Error running delete task " + str(e))
 
 
