@@ -74,7 +74,8 @@ def run_delete_task():
     for folder in kill_listing:
         if folder in parent_folders_keep:
             continue
-        __delete_tbase_deployment(folder)
+        __disable_and_delete_all_projects_under_folder(folder)
+        __delete_folder(folder)
     #for each folder under root folder, generate a list of sub folders for each child folder, 
     #the structure must be reversed such that lowest child folders are first.
 
