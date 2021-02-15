@@ -21,7 +21,7 @@ def create_keep_list() -> list:
     item_list = __get_kept_projects(EXCLUDE_DELETE_LABEL)
     listing = []
     for item in item_list:
-        tb_folder = str(item['parent']['id'])
+        tb_folder = str(item['projectNumber'])
         listing.append(tb_folder)
 
     listing = list(dict.fromkeys(listing))
@@ -33,7 +33,7 @@ def create_delete_and_conflict_list(keep_list: list):
     conflict_list = []
     project_to_delete = __get_target_projects(EXCLUDE_DELETE_LABEL)
     for item in project_to_delete:
-        tb_folder = item['parent']['id']
+        tb_folder = item['projectNumber']
         if tb_folder in keep_list:
             conflict_list.append(tb_folder)
         else:
@@ -105,6 +105,7 @@ def run_delete_task():
 
     finish_timestamp = datetime.now().timestamp()
     duration = round(finish_timestamp - start_timestamp, 2)
+
 
     report = generate_report(dry_run,
                              start_time.strftime("%H:%M:%S"), str(duration),

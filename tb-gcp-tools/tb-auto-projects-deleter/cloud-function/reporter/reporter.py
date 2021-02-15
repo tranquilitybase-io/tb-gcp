@@ -2,10 +2,10 @@ from datetime import datetime
 from tabulate import tabulate
 
 
-def get_stubborn_projects(delete_list: list, end_projects: list) -> list:
+def get_stubborn_projects(delete_list: list, end_projects: list, start_projects: list) -> list:
     stubborn_projects = []
     for deleteId in delete_list:
-        filtered = list(filter(lambda proj: proj['parent']['id'] == deleteId, end_projects))
+        filtered = list(filter(lambda proj: proj['projectNumber'] == deleteId, end_projects))
         if filtered:
             stubborn_projects.append(filtered[0]["projectNumber"])
         else:
@@ -16,7 +16,7 @@ def get_stubborn_projects(delete_list: list, end_projects: list) -> list:
 
 def pretty_print_project(id: str, start_projects: list) -> list:
 
-    filtered = list(filter(lambda proj: proj['parent']['id'] == id, start_projects))
+    filtered = list(filter(lambda proj: proj['projectNumber'] == id, start_projects))
     if filtered:
         project_number = str(filtered[0]['projectNumber'])
         project_id = str(filtered[0]['projectId'])
@@ -55,8 +55,7 @@ def generate_report(dry_run: bool, run_start: str, duration: str,
                     deleted_projects: list, kept_projects: list, conflicted_projects: list,
                     start_projects: list, end_projects: list):
 
-    stubborn_projects = get_stubborn_projects(deleted_projects, end_projects)
-
+    stubborn_projects = get_stubborn_projects(deleted_projects, end_projects, start_projects)
 
     print("++++++++++++++++++++++++++")
     report = "\n"
