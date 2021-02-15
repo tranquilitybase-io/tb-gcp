@@ -30,12 +30,12 @@ class ProjectsService:
             print("mock delete project {}".format(project_id))
         else:
             resp = self.service.projects().delete(projectId=project_id).execute()
-            print("DELETING PROJECT {project_id}, {resp}".format(project_id, resp))
+            #print("DELETING PROJECT {project_id}, {resp}".format(project_id, resp))
         return
     
     def delete_project_by_project_number(self, project_number: str):
         if self.dry_run:
-            print("mock delete project {}".format(project_id))
+            print("mock delete project {}".format(project_number))
         else:
             resp = self.service.projects().delete(projectNumber=project_number).execute()
             print("DELETING PROJECT {project_number}, {resp}".format(project_number, resp))

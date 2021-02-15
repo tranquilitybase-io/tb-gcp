@@ -50,4 +50,4 @@ class FoldersService:
             print("mock delete folder {} ".format(folder_id))
         else:
             resp = self.service.folders().delete(name="folders/{}".format(folder_id)).execute()
-            print("DELETE FOLDER ID {folder_id}".format(folder_id))
+            #print("DELETE FOLDER ID {folder_id}".format(folder_id))

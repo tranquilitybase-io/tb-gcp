@@ -88,7 +88,7 @@ def run_delete_task():
     
     for project_id in orphan_projects_kill_ids:
         #delete orphan projects
-        projects_service.delete_project_by_project_number(projects_id)
+        projects_service.delete_project(project_id)
 
     #projects with dont-delete label that are not in a sub folder
     print("")
