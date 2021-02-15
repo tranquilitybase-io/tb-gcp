@@ -38,7 +38,7 @@ def str_to_bool(s):
 dry_run = str_to_bool(get_env('dry_run', True))
 is_cloud_run = str_to_bool(get_env('is_cloud_run', "False"))
 EXCLUDE_DELETE_LABEL = get_env('EXCLUDE_DELETE_LABEL', "dont-delete")
-ROOT_PROJECT = get_env('ROOT_PROJECT', "943956663445")
+ROOT_PROJECT = get_env('ROOT_PROJECT', "700895369094")
 ReportWebhook = get_env('WebHook', "none")
 
 print("")
