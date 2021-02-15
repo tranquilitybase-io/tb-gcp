@@ -11,7 +11,7 @@ def establish_gcp_credentials():
     if is_cloud_run:
         credentials = GoogleCredentials.get_application_default()
     else:
-        os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "credentials/credentials.json"
+        os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/e-crjk/code/TB/src/tb-gcp/tb-gcp-tools/tb-auto-projects-deleter/cloud-function/credentials/credentials.json"
         credentials_path = os.environ["GOOGLE_APPLICATION_CREDENTIALS"]
         credentials = service_account.Credentials.from_service_account_file(credentials_path)
 
@@ -38,7 +38,7 @@ def str_to_bool(s):
 dry_run = str_to_bool(get_env('dry_run', True))
 is_cloud_run = str_to_bool(get_env('is_cloud_run', "False"))
 EXCLUDE_DELETE_LABEL = get_env('EXCLUDE_DELETE_LABEL', "dont-delete")
-ROOT_PROJECT = get_env('ROOT_PROJECT', "700895369094")
+ROOT_PROJECT = get_env('ROOT_PROJECT', "431834131195")
 ReportWebhook = get_env('WebHook', "none")
 
 print("")

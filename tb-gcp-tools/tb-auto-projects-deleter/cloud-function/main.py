@@ -75,9 +75,9 @@ def run_delete_task():
         print(project)
         parent_folder = str(project['parent']['id'])
         parent_folders_kill.append(parent_folder)
-    parent_folder_kill = list(dict.fromkeys(parent_folders_kill))
-    parent_folder_kill.reverse()
-    print(parent_folder_kill)
+    parent_folders_kill = list(dict.fromkeys(parent_folders_kill))
+    parent_folders_kill.reverse()
+    print(parent_folders_kill)
 
     orphan_projects_kill_ids = []
     print("Deleting projects: ") 
@@ -102,7 +102,7 @@ def run_delete_task():
         parent_folders_keep.append(parent_folder)
     keep_listing = list(dict.fromkeys(parent_folders_keep))
     print(keep_listing)
-    
+
     print("")
     print("deleting folders: ")
     for folder in parent_folders_kill:
