@@ -2,7 +2,6 @@
 
 from googleapiclient import discovery
 
-
 class FoldersService:
 
     def __init__(self, credentials, dry_run):
@@ -28,6 +27,19 @@ class FoldersService:
         for folders in child_folders:
             total_folders.append(folders)
         return total_folders
+
+    def get_next_folder_under_parent_folder(self, folder_id: str) -> str:
+        """
+        :param folder_id: folder id number
+        :return: List of folder ids
+        """
+        resp = self.service.folders().list(parent="folders/{}".format(folder_id)).execute()
+        child_folder = []
+        if resp:
+            child_folder = [entry['name'].split('/')[-1] for entry in resp['folders']]
+        return child_folder
+
+
 
     def delete_folder(self, folder_id: str) -> str:
         """

@@ -104,8 +104,20 @@ def run_delete_task():
     print(keep_listing)
 
     print("")
+    print("empty folders")
+    parents = folders_service.get_next_folder_under_parent_folder("431834131195")
+    for folder in parents:
+        empties = folders_service.get_next_folder_under_parent_folder(folder)
+        empties = list(dict.fromkeys(empties))
+        if len(empties) > 1:
+            for id in empties:
+                projects = projects_service.get_projectIds_under_folder(id)
+                if len(projects) == 0:
+                    parent_folders_kill.append(id)
+    print("")
     print("deleting folders: ")
     for folder in parent_folders_kill:
+        print(folder)
         if folder in parent_folders_keep:
             continue
         __disable_and_delete_all_projects_under_folder(folder)
