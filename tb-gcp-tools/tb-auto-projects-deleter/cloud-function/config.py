@@ -11,7 +11,7 @@ def establish_gcp_credentials():
     if is_cloud_run:
         credentials = GoogleCredentials.get_application_default()
     else:
-        os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/e-crjk/code/TB/src/tb-gcp/tb-gcp-tools/tb-auto-projects-deleter/cloud-function/credentials/credentials.json"
+        os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "credentials/credentials.json"
         credentials_path = os.environ["GOOGLE_APPLICATION_CREDENTIALS"]
         credentials = service_account.Credentials.from_service_account_file(credentials_path)
 
