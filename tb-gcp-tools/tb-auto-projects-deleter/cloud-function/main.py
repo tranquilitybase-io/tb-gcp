@@ -31,13 +31,13 @@ def create_keep_list() -> list:
 def create_delete_and_conflict_list(keep_list: list):
     delete_list = []
     conflict_list = []
-    project_to_delete = __get_target_projects(EXCLUDE_DELETE_LABEL)
-    for item in project_to_delete:
-        tb_folder = item['projectNumber']
-        if tb_folder in keep_list:
-            conflict_list.append(tb_folder)
+    projects_to_delete = __get_target_projects(EXCLUDE_DELETE_LABEL)
+    for project in projects_to_delete:
+        project_number = project['projectNumber']
+        if project_number in keep_list:
+            conflict_list.append(project_number)
         else:
-            delete_list.append(tb_folder)
+            delete_list.append(project_number)
 
     delete_list = list(dict.fromkeys(delete_list))
     conflict_list = list(dict.fromkeys(conflict_list))
@@ -52,7 +52,6 @@ def send_teams_message(message: str):
 
 
 def run_delete_task():
-
     print("")
     print("-- Starting clean up task --")
 
@@ -61,44 +60,48 @@ def run_delete_task():
     start_projects = projects_service.get_all_projects()
 
     print("")
-    print("projects/folders to keep:")
+    print("generating listings")
     keep_list = create_keep_list()
-    print("keep: " + str(keep_list))
-
     delete_list, conflict_list = create_delete_and_conflict_list(keep_list)
-    print("")
-    orphan_projects_kill = __get_target_projects(EXCLUDE_DELETE_LABEL)
-    print(orphan_projects_kill)
-    parent_folders_kill = []
-    for project in orphan_projects_kill:
-        parent_folder = str(project['parent']['id'])
-        parent_folders_kill.append(parent_folder)
-    kill_listing = list(dict.fromkeys(parent_folders_kill))
-    kill_listing.reverse()
-    print(kill_listing)
+
+
+    # TODO: do we need this orphaning, the delete and keep list methods should be complete with these?
+    # print("")
+    # orphan_projects_kill = __get_target_projects(EXCLUDE_DELETE_LABEL)
+    # print(orphan_projects_kill)
+    # parent_folders_kill = []
+    # for project in orphan_projects_kill:
+    #     parent_folder = str(project['parent']['id'])
+    #     parent_folders_kill.append(parent_folder)
+    # kill_listing = list(dict.fromkeys(parent_folders_kill))
+    # kill_listing.reverse()
+    # print(kill_listing)
 
     #projects with dont-delete label that are not in a sub folder
-    print("")
-    print("Orphan projects to keep")
-    orphan_projects_keep = __get_kept_projects(EXCLUDE_DELETE_LABEL)
-    print(orphan_projects_keep)
-    parent_folders_keep = []
-    for project in orphan_projects_keep:
-        parent_folder = str(project['parent']['id'])
-        parent_folders_keep.append(parent_folder)
-    keep_listing = list(dict.fromkeys(parent_folders_keep))
-    print(keep_listing)
+    # print("")
+    # print("Orphan projects to keep")
+    # orphan_projects_keep = __get_kept_projects(EXCLUDE_DELETE_LABEL)
+    # print(orphan_projects_keep)
+    # parent_folders_keep = []
+    # for project in orphan_projects_keep:
+    #     parent_folder = str(project['parent']['id'])
+    #     parent_folders_keep.append(parent_folder)
+    # keep_listing = list(dict.fromkeys(parent_folders_keep))
+    # print(keep_listing)
 
 
     print("")
-    print("deleting folders: ")
-    for folder in kill_listing:
-        if folder in parent_folders_keep:
-            continue
+    print("deleting projects: ")
+    #the structure must be reversed such that lowest child folders are first.
+    delete_list.reverse()
+    print("delete_list: " + str(delete_list))
+    for folder in delete_list:
         __disable_and_delete_all_projects_under_folder(folder)
         __delete_folder(folder)
-    #for each folder under root folder, generate a list of sub folders for each child folder, 
-    #the structure must be reversed such that lowest child folders are first.
+
+
+    # TODO: delete any empty folders
+    print("--TODO delete empty folders--")
 
     
     end_projects = projects_service.get_all_projects()
