@@ -6,22 +6,22 @@ steps:
     entrypoint: 'bash'
     args: [ 'tools/myScript.sh','--foo' ]
 
-  - name: 'bash'
+  - name: 'destroy'
     args: [ './destroy.bash' ]
 
-  - id: Destroy Current
-    name: 'Destroy Current'
-    args: ['./destroy.sh', '-foo', ${BRANCH_NAME}]
-
-  - id: Deploy new
-    name: ' Deploy new'
-    waitFor:
-      - Destroy Current
-    args: ['./deploy.sh', '-foo', ${BRANCH_NAME}]
-
-  - id: Tests
-    name: 'Run Tests'
-    waitFor:
-      - Deploy new
-    args: ['./test.sh', '-foo', ${BRANCH_NAME}]
+#  - id: Destroy Current
+#    name: 'Destroy Current'
+#    args: ['./destroy.sh', '-foo', ${BRANCH_NAME}]
+#
+#  - id: Deploy new
+#    name: ' Deploy new'
+#    waitFor:
+#      - Destroy Current
+#    args: ['./deploy.sh', '-foo', ${BRANCH_NAME}]
+#
+#  - id: Tests
+#    name: 'Run Tests'
+#    waitFor:
+#      - Deploy new
+#    args: ['./test.sh', '-foo', ${BRANCH_NAME}]
 
