@@ -18,16 +18,24 @@ def pretty_print_project(id: str, start_projects: list) -> list:
 
     filtered = list(filter(lambda proj: proj['projectNumber'] == id, start_projects))
     if filtered:
-        project_number = str(filtered[0]['projectNumber'])
-        project_id = str(filtered[0]['projectId'])
-        if 'labels' in filtered[0] and 'created_by' in filtered[0]['labels']:
-            created_by = str(filtered[0]['labels']['created_by'])
-        else:
-            created_by = "not available"
-        entry = [str(project_number), project_id, created_by]
+        project_details = filtered[0]
+        project_number = str(project_details['projectNumber'])
+        project_id = str(project_details['projectId'])
+
+        # labels
+        created_by = "not available"
+        owner = "not available"
+        if 'labels' in project_details:
+            if 'created_by' in project_details['labels']:
+                created_by = str(project_details['labels']['created_by'])
+
+            if 'owner' in project_details['labels']:
+                owner = str(project_details['labels']['owner'])
+
+        entry = [str(project_number), project_id, created_by, owner]
         return entry
     else:
-        entry = ['na', id, 'na']
+        entry = ['na', id, 'na', 'na']
         return entry
 
 
@@ -42,7 +50,7 @@ def generate_projects(projects: list, title: str, start_projects: list) -> str:
     for p in projects:
         table.append(pretty_print_project(p, start_projects))
 
-    report += tabulate(table, headers=['id', 'name', 'created_by'], stralign="left")
+    report += tabulate(table, headers=['id', 'name', 'created_by', 'owner'], stralign="left")
     report += "</pre>"
     return report
 
