@@ -3,8 +3,8 @@ steps:
     args: [ './destroy.bash', '--foo' ]
 
   - name: 'Deploy new'
-      args: [ './deploy.bash', '--foo' ]
+    args: [ './deploy.bash', '--foo' ]
 
   - name: 'Run Tests'
-      args: [ './test.bash', '--foo', ${BRANCH_NAME} ]
+    args: [ './test.bash', '--foo', ${BRANCH_NAME} ]
 
