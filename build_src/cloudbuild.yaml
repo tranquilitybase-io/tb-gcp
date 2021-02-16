@@ -1,4 +1,14 @@
 steps:
+  - name: 'bash'
+    args: [ './destroy.bash' ]
+
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args: [ 'tools/myScript.sh','--foo' ]
+
+  - name: 'bash'
+    args: [ './destroy.bash' ]
+
   - id: Destroy Current
     name: 'Destroy Current'
     args: ['./destroy.sh', '-foo', ${BRANCH_NAME}]
