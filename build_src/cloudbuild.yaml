@@ -1,19 +1,15 @@
 steps:
-  - name: 'ls'
-    id: ls
-    args: [ 'ls' ]
-
   - name: 'bash'
     id: Destroy Current
-    args: [ './build_src/destroy.sh' ]
+    args: [ 'build_src/destroy.sh' ]
 
   - name: 'bash'
     id: Deploy new
-    args: [ './build_src/deploy.sh','--foo' ]
+    args: [ 'build_src/deploy.sh','--foo' ]
 
   - name: 'bash'
     id: Run Tests
-    args: [ './build_src/test.sh' ]
+    args: [ 'build_src/test.sh' ]
 
 #  - id: Destroy Current
 #    name: 'Destroy Current'
