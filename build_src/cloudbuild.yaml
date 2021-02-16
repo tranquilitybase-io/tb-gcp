@@ -1,19 +1,16 @@
 steps:
-  - name: 'Destroy Current'
-    args: [ './destroy.bash','--foo' ]
 
-  - name: 'Deploy new'
-    args: [ './deploy.bash','--foo' ]
-
-  - name: 'Run Tests'
-    args: [ './test.bash','--foo' ]
+  - name: 'bash'
+    id: Destroy Current
+    args: [ './destroy.bash' ]
 
   - name: 'gcr.io/cloud-builders/gcloud'
-    entrypoint: 'bash'
-    args: [ 'tools/myScript.sh','--foo' ]
+    id: Deploy new
+    args: [ 'deploy.sh','--foo' ]
 
-  - name: 'destroy'
-    args: [ './destroy.bash' ]
+  - name: 'gcr.io/cloud-builders/gcloud'
+    id: Run Tests
+    args: [ './test.bash' ]
 
 #  - id: Destroy Current
 #    name: 'Destroy Current'
