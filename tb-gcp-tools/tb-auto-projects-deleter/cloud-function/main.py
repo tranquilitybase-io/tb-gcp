@@ -51,10 +51,51 @@ def send_teams_message(message: str):
         my_teams_message.send()
 
 
+def get_empty_folders(root_folder: str) -> list:
+    empty_folders = []
+    root_content = folders_service.get_folders_under_parent_folder(root_folder)
+    for folder in root_content:
+        no_sub_folders = folders_service.is_folder_empty(folder)
+        sub_projects = projects_service.get_projectIds_under_folder(folder)
+        if no_sub_folders and not sub_projects:
+            empty_folders.append(folder)
+    return empty_folders
+
+
+def delete_all_under_id(delete_list: list):
+    for id in delete_list:
+        __disable_and_delete_all_projects_under_folder(id)
+        __delete_folder(id)
+
+
+def delete_folders(delete_list: list):
+    for id in delete_list:
+        __delete_folder(id)
+
+
+def prune_all_empty_folders(root_folder):
+    max_iteration = 3
+    if dry_run:
+        max_iteration = 1
+
+    counter = 0
+    full_empty_folder_list = []
+    empty_folders = get_empty_folders(root_folder)
+    while empty_folders:
+        full_empty_folder_list += empty_folders
+        delete_folders(empty_folders)
+        empty_folders = get_empty_folders(root_folder)
+
+        counter += 1
+        if counter >= max_iteration:
+            break
+
+    return full_empty_folder_list
+
+
 def run_delete_task():
     print("")
     print("-- Starting clean up task --")
-
     start_time = datetime.now()
     start_timestamp = start_time.timestamp()
     start_projects = projects_service.get_all_projects()
@@ -62,84 +103,31 @@ def run_delete_task():
     print("")
     print("Projects/folders to keep:")
     keep_list = create_keep_list()
+    print("keep_list " + str(keep_list))
+
+    print("")
     delete_list, conflict_list = create_delete_and_conflict_list(keep_list)
-    print("Projects under root folder to delete:")
-    print("")
-    orphan_projects_kill = __get_target_projects(EXCLUDE_DELETE_LABEL)
-    parent_folders_kill = []
-    
-    for project in orphan_projects_kill:
-        print(project)
-        parent_folder = str(project['parent']['id'])
-        parent_folders_kill.append(parent_folder)
-    parent_folders_kill = list(dict.fromkeys(parent_folders_kill))
-    parent_folders_kill.reverse()
-    print(parent_folders_kill)
-
-    orphan_projects_kill_ids = []
-    print("Deleting projects: ") 
-    for project in orphan_projects_kill:
-        project_id = str(project['projectId'])
-        print(project_id)
-        orphan_projects_kill_ids.append(project_id)
-    
-    for project_id in orphan_projects_kill_ids:
-        #delete orphan projects
-        projects_service.delete_project(project_id)
-
-    #projects with dont-delete label that are not in a sub folder
-    print("")
-    print("Orphan projects to keep")
-    orphan_projects_keep = __get_kept_projects(EXCLUDE_DELETE_LABEL)
-    print(orphan_projects_keep)
-    parent_folders_keep = []
-    
-    for project in orphan_projects_keep:
-        parent_folder = str(project['parent']['id'])
-        parent_folders_keep.append(parent_folder)
-    keep_listing = list(dict.fromkeys(parent_folders_keep))
-    print(keep_listing)
+    print("conflict_list " + str(conflict_list))
+    print("delete_list " + str(delete_list))
 
     print("")
-    print("empty folders")
-    parents = folders_service.get_next_folder_under_parent_folder(ROOT_PROJECT)
-    for folder in parents:
-        empties = folders_service.get_next_folder_under_parent_folder(folder)
-        empties = list(dict.fromkeys(empties))
-        if len(empties) > 1:
-            for id in empties:
-                projects = projects_service.get_projectIds_under_folder(id)
-                if len(projects) == 0:
-                    parent_folders_kill.append(id)
+    print("Run deletion")
+    delete_all_under_id(delete_list)
 
     print("")
-    print("deleting projects: ")
-    #the structure must be reversed such that lowest child folders are first.
-    delete_list.reverse()
-    print("delete_list: " + str(delete_list))
-    for folder in delete_list:
-    print("deleting folders: ")
-    for folder in parent_folders_kill:
-        print(folder)
-        if folder in parent_folders_keep:
-            continue
-        __disable_and_delete_all_projects_under_folder(folder)
-        __delete_folder(folder)
+    print("prune empty folders")
+    full_empty_folder_list = prune_all_empty_folders(ROOT_PROJECT)
+    print("full_empty_folder_list: " + str(full_empty_folder_list))
 
-
-    # TODO: delete any empty folders
-    print("--TODO delete empty folders--")
-
-    
+    print("")
+    print("Generate report")
     end_projects = projects_service.get_all_projects()
-
     finish_timestamp = datetime.now().timestamp()
     duration = round(finish_timestamp - start_timestamp, 2)
 
-
     report = generate_report(dry_run,
                              start_time.strftime("%H:%M:%S"), str(duration),
-                             delete_list, keep_list, conflict_list,
+                             delete_list, full_empty_folder_list, keep_list, conflict_list,
                              start_projects, end_projects)
 
     send_teams_message(report)
@@ -267,6 +255,7 @@ def __delete_folder(folder_id: str):
     :return:
     """
     folders_service.delete_folder(folder_id)
+
 
 if __name__ == "__main__":
     run_delete_task()

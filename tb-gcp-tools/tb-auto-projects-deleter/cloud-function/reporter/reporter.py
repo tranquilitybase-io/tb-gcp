@@ -52,7 +52,8 @@ def get_date() -> str:
 
 
 def generate_report(dry_run: bool, run_start: str, duration: str,
-                    deleted_projects: list, kept_projects: list, conflicted_projects: list,
+                    deleted_projects: list, full_empty_folder_list: list,
+                    kept_projects: list, conflicted_projects: list,
                     start_projects: list, end_projects: list):
 
     stubborn_projects = get_stubborn_projects(deleted_projects, end_projects, start_projects)
@@ -65,6 +66,7 @@ def generate_report(dry_run: bool, run_start: str, duration: str,
     report += "<strong>Cleanup Report:</strong>" + "\n"
     report += "Run at " + get_date() + ", " + str(run_start) + " (duration: " + duration + " secs)" + "\n"
     report += generate_projects(deleted_projects, "Deleted", start_projects) + "\n"
+    report += generate_projects(full_empty_folder_list, "Empty folders removed", start_projects) + "\n"
     report += generate_projects(kept_projects, "Kept", start_projects) + "\n"
     report += generate_projects(stubborn_projects, "Stubborn", start_projects) + "\n"
     report += generate_projects(conflicted_projects, "Conflicted", start_projects) + "\n"
