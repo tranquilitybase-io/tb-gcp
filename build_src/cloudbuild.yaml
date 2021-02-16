@@ -1,0 +1,17 @@
+steps:
+  - id: Destroy Current
+    name: 'Destroy Current'
+    args: ['./destroy_deployment.sh', ${PROJECT_ID}]
+
+  - id: Deploy new
+    name: ' Deploy new'
+    waitFor:
+      - Destroy Current
+    args: ['./auto_deploy.sh', ${PROJECT_ID}]
+
+  - id: Tests
+    name: 'Run Tests'
+    waitFor:
+      - Deploy new
+    args: ['./run_tests.sh', ${PROJECT_ID}]
+
