@@ -2,15 +2,15 @@ steps:
 
   - name: 'bash'
     id: Destroy Current
-    args: [ './destroy.sh' ]
+    args: [ './build_src/destroy.sh' ]
 
   - name: 'gcr.io/cloud-builders/gcloud'
     id: Deploy new
-    args: [ 'deploy.sh','--foo' ]
+    args: [ './build_src/deploy.sh','--foo' ]
 
   - name: 'gcr.io/cloud-builders/gcloud'
     id: Run Tests
-    args: [ './test.sh' ]
+    args: [ './build_src/test.sh' ]
 
 #  - id: Destroy Current
 #    name: 'Destroy Current'
