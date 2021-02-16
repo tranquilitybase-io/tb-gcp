@@ -2,7 +2,7 @@ steps:
 
   - name: 'bash'
     id: Destroy Current
-    args: [ './destroy.bash' ]
+    args: [ './destroy.sh' ]
 
   - name: 'gcr.io/cloud-builders/gcloud'
     id: Deploy new
@@ -10,7 +10,7 @@ steps:
 
   - name: 'gcr.io/cloud-builders/gcloud'
     id: Run Tests
-    args: [ './test.bash' ]
+    args: [ './test.sh' ]
 
 #  - id: Destroy Current
 #    name: 'Destroy Current'
