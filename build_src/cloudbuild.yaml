@@ -2,7 +2,7 @@ steps:
   - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
     id: Destroy Current
-    args: [ 'sh build_src/destroy.sh' ]
+    args: [ 'build_src/destroy.sh' ]
 
   - name: 'bash'
     id: Deploy new
