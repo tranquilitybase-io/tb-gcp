@@ -6,11 +6,11 @@ steps:
 
   - name: 'bash'
     id: Deploy new
-    args: [ 'sh build_src/deploy.sh','--foo' ]
+    args: [ 'build_src/deploy.sh','--foo' ]
 
   - name: 'bash'
     id: Run Tests
-    args: [ 'sh build_src/test.sh' ]
+    args: [ 'build_src/test.sh' ]
 
 #  - id: Destroy Current
 #    name: 'Destroy Current'
