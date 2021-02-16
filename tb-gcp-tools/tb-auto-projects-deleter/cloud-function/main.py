@@ -63,14 +63,14 @@ def get_empty_folders(root_folder: str) -> list:
 
 
 def delete_all_under_id(delete_list: list):
-    for id in delete_list:
-        __disable_and_delete_all_projects_under_folder(id)
-        __delete_folder(id)
+    for item_id in delete_list:
+        __disable_and_delete_all_projects_under_folder(item_id)
+        __delete_folder(item_id)
 
 
 def delete_folders(delete_list: list):
-    for id in delete_list:
-        __delete_folder(id)
+    for item_id in delete_list:
+        __delete_folder(item_id)
 
 
 def prune_all_empty_folders(root_folder):
