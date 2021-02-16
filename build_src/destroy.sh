@@ -1,2 +1,2 @@
 #!/bin/sh
-echo "I want to run tests"
+echo "I want to destroy the deployment"
