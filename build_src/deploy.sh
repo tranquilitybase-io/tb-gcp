@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/bin/sh
+set -e
 echo "I want to deploy a new release"
 
 while [ "$1" != "" ]; do

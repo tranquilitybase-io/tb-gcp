@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/bin/sh
+set -e
 echo "I want to run tests"
 
 while [ "$1" != "" ]; do
