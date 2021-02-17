@@ -5,6 +5,7 @@ steps:
 
   - name: 'gcr.io/cloud-builders/gcloud'
     id: Deploy new
+    entrypoint: "bash"
     args: [ 'sh build_src/deploy.sh', '--branch_name', '$BRANCH_NAME', '--tag', '$TAG_NAME', '-p', '$_PR_NUMBER', '-f', '$_TARGET_FOLDER', '-d', '$_DEV_BILLING' ]
 
 #  - name: 'bash'
