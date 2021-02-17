@@ -1,5 +1,5 @@
-#!/bin/sh
-echo "I want to deploy a new release"
+#!/bin/bash
+echo "I want to run tests"
 
 while (( "$#" )); do
   case "$1" in
