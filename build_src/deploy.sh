@@ -47,4 +47,4 @@ echo "pr_number: $PR_NUMBER";
 echo "dev_billing: $DEV_BILLING";
 echo "target_folder: $TARGET_FOLDER";
 
-sh auto-deploy.sh --folder-id $TARGET_FOLDER --billing-account $DEV_BILLING --fixed-name "Integration"  --no-labels
+sh build_src/auto-deploy.sh --folder-id $TARGET_FOLDER --billing-account $DEV_BILLING --fixed-name "Integration"  --no-labels
