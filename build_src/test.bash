@@ -1,8 +1,10 @@
 #!/bin/bash
 echo "I want to run tests"
 
-while (( "$#" )); do
-  case "$1" in
+while [ "$1" != "" ]; do
+  PARAM=`echo $1 | awk -F= '{print $1}'`
+  VALUE=`echo $1 | awk -F= '{print $2}'`
+  case "$PARAM" in
     -b|--branch_name)
       BRANCH_NAME=$2
       shift 2

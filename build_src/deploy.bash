@@ -1,8 +1,10 @@
 #!/bin/bash
 echo "I want to deploy a new release"
 
-while (( "$#" )); do
-  case "$1" in
+while [ "$1" != "" ]; do
+  PARAM=`echo $1 | awk -F= '{print $1}'`
+  VALUE=`echo $1 | awk -F= '{print $2}'`
+  case "$PARAM" in
     -b|--branch_name)
       BRANCH_NAME=$2
       shift 2
@@ -32,4 +34,4 @@ done
 
 echo "branch: $BRANCH_NAME";
 echo "repo_tag: $TAG";
-echo "pr_number: $PR_NUMBER";
+echo "pr_number: $PR_NUMBER";ER";
