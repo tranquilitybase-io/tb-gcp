@@ -1,13 +1,15 @@
 steps:
-#  - name: 'bash'
-#    id: Destroy Current
+  - name: 'gcr.io/cloud-builders/gcloud'
+    id: Deploy sdsdsdsd
+    entrypoint: 'bash'
+    args: [ '-c', './build_src/deploy.sh' ]
 #    args: [ 'build_src/destroy.sh', '--branch_name', '$BRANCH_NAME', '--tag', '$TAG_NAME', '-p', '$_PR_NUMBER', '-d', '$_DEV_BILLING' ]
 
-  - name: 'gcr.io/cloud-builders/gcloud'
-    id: Deploy new
-    entrypoint: "bash"
-    args: [ 'sh build_src/deploy.sh', '--branch_name', '$BRANCH_NAME', '--tag', '$TAG_NAME', '-p', '$_PR_NUMBER', '-f', '$_TARGET_FOLDER', '-d', '$_DEV_BILLING' ]
+#  - name: 'bash'
+#    id: Deploy new
+#    args: [ './build_src/deploy.sh', '--branch_name', '$BRANCH_NAME', '-f', '123', '-d', '123' ]
 
 #  - name: 'bash'
 #    id: Run Tests
 #    args: [ 'build_src/test.sh', '--branch_name', '$BRANCH_NAME', '--tag', '$TAG_NAME', '-p', '$_PR_NUMBER', '-d', '$_DEV_BILLING' ]
+
