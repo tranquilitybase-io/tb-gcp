@@ -1,12 +1,12 @@
 steps:
   - name: 'bash'
     id: Destroy Current
-    args: [ 'build_src/destroy.sh' ]
+    args: [ 'build_src/destroy.sh', '--branch_name={BRANCH_NAME} --tag={TAG_NAME} --pr={_PR_NUMBER}' ]
 
   - name: 'bash'
     id: Deploy new
-    args: [ 'build_src/deploy.sh','--foo' ]
+    args: [ 'build_src/deploy.sh', '--branch_name={BRANCH_NAME} --tag={TAG_NAME} --pr={_PR_NUMBER}' ]
 
   - name: 'bash'
     id: Run Tests
-    args: [ 'build_src/test.sh' ]
+    args: [ 'build_src/test.sh', '--branch_name={BRANCH_NAME} --tag={TAG_NAME} --pr={_PR_NUMBER}' ]
