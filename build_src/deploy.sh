@@ -1,6 +1,6 @@
 #!/bin/sh
 set -e
-echo "I want to deploy a new release"
+echo "I want to run the  deployment"
 
 while [ "$1" != "" ]; do
   PARAM=`echo $1 | awk -F= '{print $1}'`
@@ -35,4 +35,4 @@ done
 
 echo "branch: $BRANCH_NAME";
 echo "repo_tag: $TAG";
-echo "pr_number: $PR_NUMBER";ER";
+echo "pr_number: $PR_NUMBER";
