@@ -1,6 +1,6 @@
 #!/bin/sh
 set -e
-echo "I want to run the  deployment"
+echo "I want to run the deployment"
 
 while [ "$1" != "" ]; do
   PARAM=`echo $1 | awk -F= '{print $1}'`
@@ -16,6 +16,14 @@ while [ "$1" != "" ]; do
       ;;
     -p|--pr_number )
       PR_NUMBER=$2
+      shift 2
+      ;;
+    -d|--dev_billing )
+      DEV_BILLING=$2
+      shift 2
+      ;;
+    -f|--target_folder )
+      TARGET_FOLDER=$2
       shift 2
       ;;
     --) # end argument parsing
@@ -36,3 +44,7 @@ done
 echo "branch: $BRANCH_NAME";
 echo "repo_tag: $TAG";
 echo "pr_number: $PR_NUMBER";
+echo "dev_billing: $DEV_BILLING";
+echo "target_folder: $TARGET_FOLDER";
+
+sh auto-deploy.sh --folder-id $TARGET_FOLDER --billing-account $DEV_BILLING --fixed-name "Integration"  --no-labels

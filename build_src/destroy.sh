@@ -18,6 +18,10 @@ while [ "$1" != "" ]; do
       PR_NUMBER=$2
       shift 2
       ;;
+    -d|--dev_billing )
+      DEV_BILLING=$2
+      shift 2
+      ;;
     --) # end argument parsing
       shift
       break
@@ -33,11 +37,9 @@ while [ "$1" != "" ]; do
   esac
 done
 
-echo "DEV_BILLING_ACCOUNT: $DEV_BILLING_ACCOUNT";
 echo "branch: $BRANCH_NAME";
 echo "repo_tag: $TAG";
 echo "pr_number: $PR_NUMBER";
+echo "dev_billing: $DEV_BILLING";
 
-secret=$(gcloud secrets versions access 1 --secret="geoff_test_secret")
-echo "secret " + secret
 #./tb-projects-deleter -r fl0jhl5g -f 70705938661 -b 0171E1-E25AD9-6240E8
