@@ -47,6 +47,10 @@ echo "repo_tag: $TAG";
 echo "pr_number: $PR_NUMBER";
 echo "dev_billing: $DEV_BILLING";
 echo "target_folder: $TARGET_FOLDER";
+echo "-----"
+pwd
+echo "-----"
+ls
 
 #sh build_src/auto-deploy.sh --folder-id $TARGET_FOLDER --billing-account $DEV_BILLING --fixed-name "Integration"  --no-labels
-sh build_src/auto-deploy.sh --fixed-name "Integration"  --no-labels
+sh auto-deploy.sh --fixed-name "Integration"  --no-labels
