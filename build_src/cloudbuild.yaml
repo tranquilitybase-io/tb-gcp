@@ -1,7 +1,7 @@
 steps:
   - name: 'bash'
     id: Destroy Current
-    args: [ 'build_src/destroy.sh', '--branch_name', '$BRANCH_NAME', '--tag', '$TAG_NAME', '-p', '$_PR_NUMBER' ]
+    args: [ 'build_src/destroy.sh', '--branch_name', '$BRANCH_NAME', '--tag', '$TAG_NAME', '-p', '$_DEV_BILLING' ]
 
   - name: 'bash'
     id: Deploy new
