@@ -1,6 +1,6 @@
 steps:
   - name: 'gcr.io/cloud-builders/gcloud'
-    id: Deploy sdsdsdsd
+    id: Deploy branch
     entrypoint: 'bash'
     args: [ '-c', './build_src/deploy.sh' ]
 #    args: [ 'build_src/destroy.sh', '--branch_name', '$BRANCH_NAME', '--tag', '$TAG_NAME', '-p', '$_PR_NUMBER', '-d', '$_DEV_BILLING' ]
