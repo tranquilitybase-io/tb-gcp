@@ -135,7 +135,7 @@ spec:
     spec:
       containers:
         - name: eagleconsole
-          image: gcr.io/tranquility-base-images/tb-eagle-console:v0.10.0
+          image: gcr.io/tranquility-base-images/tb-eagle-console:v0.12.1
           resources:
             requests:
               cpu: "100m"
@@ -162,7 +162,7 @@ spec:
     spec:
       containers:
         - name: houstonservice
-          image: gcr.io/tranquility-base-images/tb-houston-service:v0.47.0
+          image: gcr.io/tranquility-base-images/tb-houston-service:v0.48.65
           resources:
             requests:
               cpu: "100m"
@@ -228,20 +228,25 @@ spec:
     spec:
       containers:
         - name: gcpdac
-          image: gcr.io/tranquility-base-images/tb-gcp-dac:v0.1.51
+          image: gcr.io/tranquility-base-images/tb-gcp-dac:v0.2.0
           resources:
             requests:
               cpu: "100m"
           imagePullPolicy: Always
+          command: ['/bin/sh', './src/main/bash/tranquilitybase/gcpdac/main/app_docker.sh']
           ports:
             - containerPort: 3100
           volumeMounts:
             - name: config-volume
-              mountPath: /app/ec-config.yaml
+              mountPath: /app/resources/ec-config.yaml
               subPath: ec-config.yaml
             - name: google-cloud-key
               mountPath: /var/secrets/google
           env:
+            - name: APP_PORT
+              value: "3100"
+            - name: EC_CONFIG
+              value: /resources/ec-config.yaml
             - name: GOOGLE_APPLICATION_CREDENTIALS
               value: /var/secrets/google/ec-service-account-config.json
             - name: CELERY_BROKER_URL
@@ -264,21 +269,25 @@ spec:
                   key: password
 
         - name: gcpdacworker
-          image: gcr.io/tranquility-base-images/tb-gcp-dac:v0.1.51
+          image: gcr.io/tranquility-base-images/tb-gcp-dac:v0.2.0
           resources:
             requests:
               cpu: "100m"
           imagePullPolicy: Always
-          command: ['/bin/sh', './celery_worker.sh']
+          command: ['/bin/sh', './src/main/bash/tranquilitybase/gcpdac/celery_worker/celery_worker.sh']
           ports:
             - containerPort: 80
           volumeMounts:
             - name: config-volume
-              mountPath: /app/ec-config.yaml
+              mountPath: /app/resources/ec-config.yaml
               subPath: ec-config.yaml
             - name: google-cloud-key
               mountPath: /var/secrets/google
           env:
+            - name: APP_PORT
+              value: "3200"
+            - name: EC_CONFIG
+              value: /resources/ec-config.yaml
             - name: GOOGLE_APPLICATION_CREDENTIALS
               value: /var/secrets/google/ec-service-account-config.json
             - name: CELERY_BROKER_URL
@@ -331,7 +340,7 @@ spec:
             claimName: mysql-pv-claim
       containers:
         - name: mysql57
-          image: gcr.io/tranquility-base-images/tb-db:v0.0.42
+          image: gcr.io/tranquility-base-images/tb-db:v0.0.43
           resources:
             requests:
               cpu: "100m"

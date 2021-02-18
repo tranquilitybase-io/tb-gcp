@@ -21,3 +21,4 @@ override.tf.json
 *.bak
 *.old
 # Local .terraform directories
+credentials.json

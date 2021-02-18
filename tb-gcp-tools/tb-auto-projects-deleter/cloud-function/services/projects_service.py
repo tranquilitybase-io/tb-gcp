@@ -5,9 +5,10 @@ from googleapiclient import discovery
 
 class ProjectsService:
 
-    def __init__(self, credentials):
+    def __init__(self, credentials, dry_run):
+        self.dry_run = dry_run
         self.credentials = credentials
-        self.service = discovery.build('cloudresourcemanager', 'v1', credentials=credentials)
+        self.service = discovery.build('cloudresourcemanager', 'v1', credentials=credentials, cache_discovery=False)
 
     def get_liens_for_project(self, project_id: str):
         resp = self.service.liens().list(parent="projects/{}".format(project_id)).execute()
@@ -17,13 +18,27 @@ class ProjectsService:
         return liens
 
     def delete_lien(self, lien_name: str):
-        resp = self.service.liens().delete(name=lien_name).execute()
-        print("DELETING LIEN".format(lien_name, resp))
+        if self.dry_run:
+            print("mock delete lien".format(lien_name))
+        else:
+            resp = self.service.liens().delete(name=lien_name).execute()
+            print("DELETING LIEN".format(lien_name, resp))
         return
 
     def delete_project(self, project_id: str):
-        resp = self.service.projects().delete(projectId=project_id).execute()
-        print("DELETING PROJECT".format(project_id, resp))
+        if self.dry_run:
+            print("mock delete project {}".format(project_id))
+        else:
+            resp = self.service.projects().delete(projectId=project_id).execute()
+            #print("DELETING PROJECT {project_id}, {resp}".format(project_id, resp))
+        return
+    
+    def delete_project_by_project_number(self, project_number: str):
+        if self.dry_run:
+            print("mock delete project {}".format(project_number))
+        else:
+            resp = self.service.projects().delete(projectNumber=project_number).execute()
+            print("DELETING PROJECT {project_number}, {resp}".format(project_number, resp))
         return
 
     def get_project_dicts_under_folder(self, folder_id: str) -> list:
@@ -49,7 +64,7 @@ class ProjectsService:
 
         projects = []
         resp = self.service.projects().list(
-            filter="parent.type:folder parent.id:{}".format(folder_id)).execute()
+            filter="parent.type:folder parent.id:{} ".format(folder_id)).execute()
         if resp:
             projects = [entry for entry in resp['projects'] if entry['lifecycleState'] == 'ACTIVE']
         return projects
