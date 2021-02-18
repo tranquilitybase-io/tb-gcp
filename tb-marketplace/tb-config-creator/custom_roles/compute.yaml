@@ -1,6 +1,6 @@
 title: "compute-role"
 description: "compute permissions to be assigned."
-stage: "ALPHA"
+stage: "GA"
 includedPermissions:
     -    compute.networks.list
     -    compute.firewalls.delete

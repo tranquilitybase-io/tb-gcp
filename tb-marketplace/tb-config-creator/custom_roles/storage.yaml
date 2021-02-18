@@ -1,6 +1,6 @@
 title: "storage-role"
 description: "role-description"
-stage: "ALPHA"
+stage: "GA"
 includedPermissions:
 - storage.buckets.create
 - storage.buckets.list
