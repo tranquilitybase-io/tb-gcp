@@ -53,4 +53,4 @@ echo "-----"
 ls
 
 #sh build_src/auto-deploy.sh --folder-id $TARGET_FOLDER --billing-account $DEV_BILLING --fixed-name "Integration"  --no-labels
-sh auto-deploy.sh --fixed-name "Integration"  --no-labels
+bash build_src/auto-deploy.sh --fixed-name "Integration"  --no-labels
