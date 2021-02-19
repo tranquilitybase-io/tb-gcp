@@ -215,6 +215,9 @@ gcloud projects remove-iam-policy-binding "${PROJECT_ID}" --member=serviceAccoun
 gcloud projects remove-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/storage.admin --format=none
 gcloud projects remove-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/source.admin --format=none
 gcloud projects remove-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/logging.logWriter --format=none
+gcloud projects remove-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=projects/"${PROJECT_ID}"/roles/computeCustomRole --format=none
+gcloud projects remove-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=projects/"${PROJECT_ID}"/roles/storageCustomRole --format=none
+gcloud projects remove-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=projects/"${PROJECT_ID}"/roles/deployCustomRole --format=none
 
 # remove permissions at the folder level
 echo "Removing bootstrap service account [${SA_EMAIL}] bindings at the folder level... "
@@ -224,6 +227,10 @@ gcloud resource-manager folders remove-iam-policy-binding "${FOLDER_ID}" --membe
 gcloud resource-manager folders remove-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/billing.projectManager --format=none
 gcloud resource-manager folders remove-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.networkAdmin --format=none
 gcloud resource-manager folders remove-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.xpnAdmin --format=none
+gcloud resource-manager folders remove-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.networkUser --format=none
+gcloud resource-manager folders remove-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/cloudkms.admin --format=none
+gcloud resource-manager folders remove-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/logging.logWriter --format=none
+gcloud resource-manager folders remove-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/logging.configWriter --format=none
 
 # Remove the activator-dev-sa as billing account admin
 echo "Removing activator service account [${ACTIVATOR_SA_EMAIL}] as billing account admin..."
