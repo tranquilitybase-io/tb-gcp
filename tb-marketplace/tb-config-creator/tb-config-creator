@@ -232,7 +232,7 @@ sed -i "s/created-by:.*/created-by: '${ACTIVE_ACCOUNT}'/" "$(dirname "${BASH_SOU
 # Create Tbase folder to store bootstrap project, involves parsing the output of the glcoud command to get the folder id
 tb_folder_id=$(gcloud resource-manager folders create --display-name="${TBASE_FOLDER_NAME}" --"${parent_type}"="${parent_id}" --format="value(name.basename())")
 
-#Add auditing to at folder level
+#Add auditing at the folder level
 gcloud resource-manager folders get-iam-policy "${tb_folder_id}" > rootfolderiampolicy.yaml
 cat >> rootfolderiampolicy.yaml <<EOF
 auditConfigs:
@@ -240,6 +240,8 @@ auditConfigs:
   - logType: ADMIN_READ
   service: allServices
 EOF
+
+
 gcloud resource-manager folders set-iam-policy "${tb_folder_id}" rootfolderiampolicy.yaml
 rm rootfolderiampolicy.yaml
 
@@ -254,10 +256,32 @@ echo "Linked project to billing account [${BILLING_ID}]."
 echo "Creating service account..."
 gcloud --project "${PROJECT_ID}" iam service-accounts create "${SA_NAME}" --quiet
 
+#Activate essential APIs
+echo "Activating essential APIs..."
+gcloud --project "${PROJECT_ID}" services enable cloudbilling.googleapis.com
+gcloud --project "${PROJECT_ID}" services enable cloudkms.googleapis.com
+gcloud --project "${PROJECT_ID}" services enable cloudresourcemanager.googleapis.com
+gcloud --project "${PROJECT_ID}" services enable compute.googleapis.com
+gcloud --project "${PROJECT_ID}" services enable container.googleapis.com
+gcloud --project "${PROJECT_ID}" services enable containerregistry.googleapis.com
+gcloud --project "${PROJECT_ID}" services enable deploymentmanager.googleapis.com
+gcloud --project "${PROJECT_ID}" services enable logging.googleapis.com
+gcloud --project "${PROJECT_ID}" services enable serviceusage.googleapis.com
+gcloud --project "${PROJECT_ID}" services enable sourcerepo.googleapis.com
+gcloud --project "${PROJECT_ID}" services enable storage-api.googleapis.com
+gcloud --project "${PROJECT_ID}" services enable runtimeconfig.googleapis.com
+
+#create custom roles 
+gcloud iam roles create computeCustomRole --project="${PROJECT_ID}" --file="$(dirname "${BASH_SOURCE[0]}")"/custom_roles/compute.yaml --quiet
+gcloud iam roles create storageCustomRole --project="${PROJECT_ID}" --file="$(dirname "${BASH_SOURCE[0]}")"/custom_roles/storage.yaml --quiet
+gcloud iam roles create deployCustomRole  --project="${PROJECT_ID}" --file="$(dirname "${BASH_SOURCE[0]}")"/custom_roles/deploy.yaml --quiet
+
 #Add permissions at the project level
 echo "Adding permissions at the project level... "
-gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/compute.instanceAdmin.v1 --format=none
-gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/storage.admin --format=none
+gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=projects/"${PROJECT_ID}"/roles/computeCustomRole --format=none
+gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=projects/"${PROJECT_ID}"/roles/storageCustomRole --format=none
+gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=projects/"${PROJECT_ID}"/roles/deployCustomRole --format=none
+
 gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/source.admin --format=none
 gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/logging.logWriter --format=none
 gcloud projects add-iam-policy-binding "${PROJECT_ID}" --member=serviceAccount:"${SA_EMAIL}" --role=roles/logging.configWriter --format=none
@@ -277,22 +301,7 @@ gcloud resource-manager folders add-iam-policy-binding "${tb_folder_id}" --membe
 
 # Add permissions at the billing level
 echo "Adding permission at the billing account level..."
-gcloud beta billing accounts add-iam-policy-binding "${BILLING_ID}" --member="serviceAccount:${SA_EMAIL}" --role="roles/billing.admin"
-
-#Activate essential APIs
-echo "Activating essential APIs..."
-gcloud --project "${PROJECT_ID}" services enable cloudbilling.googleapis.com
-gcloud --project "${PROJECT_ID}" services enable cloudkms.googleapis.com
-gcloud --project "${PROJECT_ID}" services enable cloudresourcemanager.googleapis.com
-gcloud --project "${PROJECT_ID}" services enable compute.googleapis.com
-gcloud --project "${PROJECT_ID}" services enable container.googleapis.com
-gcloud --project "${PROJECT_ID}" services enable containerregistry.googleapis.com
-gcloud --project "${PROJECT_ID}" services enable deploymentmanager.googleapis.com
-gcloud --project "${PROJECT_ID}" services enable logging.googleapis.com
-gcloud --project "${PROJECT_ID}" services enable serviceusage.googleapis.com
-gcloud --project "${PROJECT_ID}" services enable sourcerepo.googleapis.com
-gcloud --project "${PROJECT_ID}" services enable storage-api.googleapis.com
-gcloud --project "${PROJECT_ID}" services enable runtimeconfig.googleapis.com
+gcloud beta billing accounts add-iam-policy-binding "${BILLING_ID}" --member="serviceAccount:${SA_EMAIL}" --role=roles/billing.admin
 
 echo "Essential APIs activated."
 

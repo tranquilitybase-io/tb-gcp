@@ -1,0 +1,10 @@
+title: "deploy-role"
+description: "role-description"
+stage: "GA"
+includedPermissions:
+   - deploymentmanager.deployments.create
+   - deploymentmanager.deployments.get
+   - deploymentmanager.operations.get
+   - deploymentmanager.resources.list
+   - deploymentmanager.manifests.get
+
