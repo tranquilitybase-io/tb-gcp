@@ -105,13 +105,16 @@ fi
 export FOLDER_ID=$PARENT_FOLDER_ID
 export BILLING_ID=$BILLING_ID
 export REPO_BRANCH=$REPO_BRANCH
+export NORMAL_REPO_BRANCH="${REPO_BRANCH////_}"
 export ORG_ID=$ORG_ID
+
 
 
 echo ""
 echo " FOLDER_ID: ${PARENT_FOLDER_ID}"
 echo " BILLING_ID: ${BILLING_ID}"
 echo " REPO_BRANCH: ${REPO_BRANCH}"
+echo " NORMAL_REPO_BRANCH: ${NORMAL_REPO_BRANCH}"
 echo " ORG_ID: ${ORG_ID}"
 
 main (){
@@ -186,9 +189,9 @@ main (){
     sed -i "s/rootId:.*/rootId: '${TB_FOLDER_ID}'/; s/billingAccountId:.*/billingAccountId: '${BILLING_ID}'/" tb-marketplace/tb-dep-manager/test_config.yaml
     gcloud deployment-manager deployments create bootstrap-resources --config tb-marketplace/tb-dep-manager/test_config.yaml
   else
-    sed -i "s@gft-group-public/global/images/tranquility-base-bootstrap-master@tb-marketplace-dev/global/images/tranquility-base-bootstrap-${REPO_BRANCH}@" tb-marketplace/tb-dep-manager/tranquility-base.jinja
+    sed -i "s@gft-group-public/global/images/tranquility-base-bootstrap-master@tb-marketplace-dev/global/images/tranquility-base-bootstrap-${NORMAL_REPO_BRANCH}@" tb-marketplace/tb-dep-manager/tranquility-base.jinja
     sed -i "s/rootId:.*/rootId: '${TB_FOLDER_ID}'/; s/billingAccountId:.*/billingAccountId: '${BILLING_ID}'/" tb-marketplace/tb-dep-manager/test_config.yaml
-    gcloud deployment-manager deployments create $REPO_BRANCH --config tb-marketplace/tb-dep-manager/test_config.yaml
+    gcloud deployment-manager deployments create $NORMAL_REPO_BRANCH --config tb-marketplace/tb-dep-manager/test_config.yaml
   fi
 
   ZONE=$(gcloud compute instances list --format "value(ZONE)" --limit=1)
