@@ -203,17 +203,17 @@ main (){
   ZONE=$(gcloud compute instances list --format "value(ZONE)" --limit=1)
 #  TF_SERVER_INTERNAL_IP=$(gcloud compute instances describe tf-server-${TB_ID} --zone=${ZONE} --format='get(networkInterfaces[0].networkIP)')
   TF_SERVER_INTERNAL_IP=$(gcloud compute instances list --filter=name:tf-server --zones=${ZONE} --format='get(networkInterfaces[0].networkIP)')
+  TF_SERVER_NAME=$(gcloud compute instances list --zones=europe-west2-a --filter=name:tf --format='get(name)')
 
 
   echo "SSH to bastion"
   # ===== SSH to bastion
   ssh-keygen -b 2048 -t rsa -f /tmp/sshkey -q -N ""
   (
-    gcloud compute ssh tf-server-${TB_ID} \
+    gcloud compute ssh $TF_SERVER_NAME \
     --zone ${ZONE}  \
     --ssh-key-file=/tmp/sshkey \
-    -- 'sudo echo "hello"'
-#    -- 'sudo /opt/tb/repo/tb-gcp-tr/landingZone/tb-welcome'
+    -- 'sudo /opt/tb/repo/tb-gcp-tr/landingZone/tb-welcome'
   )
   if [ $? != 0 ]
   then
