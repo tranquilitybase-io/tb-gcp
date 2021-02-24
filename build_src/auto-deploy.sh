@@ -201,13 +201,14 @@ main (){
   echo $(gcloud compute instances list)
 
   ZONE=$(gcloud compute instances list --format "value(ZONE)" --limit=1)
-#  TF_SERVER_INTERNAL_IP=$(gcloud compute instances describe tf-server-${TB_ID} --zone=${ZONE} --format='get(networkInterfaces[0].networkIP)')
   TF_SERVER_INTERNAL_IP=$(gcloud compute instances list --filter=name:tf-server --zones=${ZONE} --format='get(networkInterfaces[0].networkIP)')
-  TF_SERVER_NAME=$(gcloud compute instances list --zones=europe-west2-a --filter=name:tf --format='get(name)')
+  TF_SERVER_NAME=$(gcloud compute instances list --zones=$ZONE --filter=name:tf --format='get(name)')
 
 
   echo "SSH to bastion"
   # ===== SSH to bastion
+  eval `ssh-agent`
+  ssh-keyscan $TF_SERVER_INTERNAL_IP >> ~/.ssh/known_hosts
   ssh-keygen -b 2048 -t rsa -f /tmp/sshkey -q -N ""
   (
     gcloud compute ssh $TF_SERVER_NAME \
@@ -218,7 +219,7 @@ main (){
   if [ $? != 0 ]
   then
     echo "there was an error creating the SSH connection"
-    echo "to complete the terraform steps you will need to shh into 'tf-server-${TB_ID}'"
+    echo "to complete the terraform steps you will need to shh into '${TF_SERVER_NAME}'"
     echo "and run this command 'sudo /opt/tb/repo/tb-gcp-tr/landingZone/tb-welcome'"
     echo ""
     echo "Make sure you are using the correct gcloud account and that you have authenticated by running 'gcloud auth login'"
