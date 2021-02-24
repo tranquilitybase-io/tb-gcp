@@ -23,8 +23,8 @@ while (( "$#" )); do
       ORG_ID=$2
       shift 2
       ;;
-    -n|--fixed-name)
-      FIXED_NAME=$2
+    -n|--name-append)
+      NAME_APPEND=$2
       shift 2
       ;;
     -l|--labels)
@@ -138,11 +138,11 @@ main (){
   git checkout ${REPO_BRANCH}
 
 
-
-  if [[ -z $FIXED_NAME ]]; then
-    RND_ID="$(tr -dc 'a-z0-9' < /dev/urandom | fold -w 8 | sed '/^[0-9]*$/d' | head -n 1)"
+  RND="$(tr -dc 'a-z0-9' < /dev/urandom | fold -w 8 | sed '/^[0-9]*$/d' | head -n 1)"
+  if [[ -z $NAME_APPEND ]]; then
+    RND_ID=$RND
   else
-    RND_ID=$FIXED_NAME
+    RND_ID="$NAME_APPEND-$RND"
   fi
 
   export TB_ID=${RND_ID}
