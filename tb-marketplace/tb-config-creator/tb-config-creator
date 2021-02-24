@@ -228,9 +228,9 @@ SA_NAME="${PREFIX}sa"
 SA_EMAIL="${SA_NAME}@${PROJECT_ID}.iam.gserviceaccount.com"
 
 if [[ -z "${FOLDER_PREFIX}" ]]; then
-  TBASE_FOLDER_PREFIX=$FOLDER_PREFIX
-else
   TBASE_FOLDER_PREFIX="Tranquility Base - "
+else
+  TBASE_FOLDER_PREFIX=$FOLDER_PREFIX
 fi
 
 
