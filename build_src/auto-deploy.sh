@@ -157,13 +157,13 @@ main (){
 
   # ===== GCP bootstrap setup
   if [[ ${NO_LABELS} -eq 1 && -z ${ORG_ID} ]]; then
-    tb-marketplace/tb-config-creator/tb-config-creator -r ${TB_ID} -f $PARENT_FOLDER_ID -b $BILLING_ID -nl -p $FOLDER_PREFIX
+    tb-marketplace/tb-config-creator/tb-config-creator -r ${TB_ID} -f $PARENT_FOLDER_ID -b $BILLING_ID -p $FOLDER_PREFIX -nl
 
   elif [[ ${NO_LABELS} -eq 0 && -z ${PARENT_FOLDER_ID} ]]; then
     tb-marketplace/tb-config-creator/tb-config-creator -r ${TB_ID} -o $ORG_ID -b $BILLING_ID -l ${LABELS} -p $FOLDER_PREFIX
   
   elif [[ ${NO_LABELS} -eq 1 && -n ${ORG_ID} ]]; then
-    tb-marketplace/tb-config-creator/tb-config-creator -r ${TB_ID} -o $ORG_ID -b $BILLING_ID -nl -p $FOLDER_PREFIX
+    tb-marketplace/tb-config-creator/tb-config-creator -r ${TB_ID} -o $ORG_ID -b $BILLING_ID -p $FOLDER_PREFIX -nl
 
   else
     tb-marketplace/tb-config-creator/tb-config-creator -r ${TB_ID} -f $PARENT_FOLDER_ID -b $BILLING_ID -l ${LABELS} -p $FOLDER_PREFIX
