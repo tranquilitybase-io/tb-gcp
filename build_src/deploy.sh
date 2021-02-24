@@ -52,4 +52,4 @@ pwd
 echo "-----"
 ls
 
-bash build_src/auto-deploy.sh --folder-id $TARGET_FOLDER --billing-account $DEV_BILLING --name-append "int" --no-labels
+bash build_src/auto-deploy.sh --folder-id $TARGET_FOLDER --billing-account $DEV_BILLING -r $BRANCH_NAME --name-append "int" --no-labels
