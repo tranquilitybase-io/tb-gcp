@@ -198,6 +198,12 @@ main (){
 
 
   echo "identify machine"
+  echo "before-"
+  echo $(gcloud compute instances list)
+  sleep 2m
+  echo "after-"
+  echo $(gcloud compute instances list)
+  
   ZONE=$(gcloud compute instances list --format "value(ZONE)" --limit=1)
   TF_SERVER_INTERNAL_IP=$(gcloud compute instances describe tf-server-${TB_ID} --zone=${ZONE} --format='get(networkInterfaces[0].networkIP)')
 
