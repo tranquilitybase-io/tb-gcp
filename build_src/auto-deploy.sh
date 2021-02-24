@@ -202,7 +202,7 @@ main (){
 
   ZONE=$(gcloud compute instances list --format "value(ZONE)" --limit=1)
 #  TF_SERVER_INTERNAL_IP=$(gcloud compute instances describe tf-server-${TB_ID} --zone=${ZONE} --format='get(networkInterfaces[0].networkIP)')
-  TF_SERVER_INTERNAL_IP=$(gcloud compute instances list --filter=name:tf-server --zone=${ZONE} --format='get(networkInterfaces[0].networkIP)')
+  TF_SERVER_INTERNAL_IP=$(gcloud compute instances list --filter=name:tf-server --zones=${ZONE} --format='get(networkInterfaces[0].networkIP)')
 
 
   echo "SSH to bastion"
