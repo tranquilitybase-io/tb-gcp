@@ -93,12 +93,28 @@ def prune_all_empty_folders(root_folder):
     return full_empty_folder_list
 
 
+def get_projects_under_root():
+    folders_under_root = folders_service.get_folders_under_parent_folder(ROOT_PROJECT)
+    start_projects = []
+    for folder in folders_under_root:
+        projects = projects_service.get_projectIds_under_folder(folder)
+        if projects:
+            start_projects.append(projects)
+
+    project_details = []
+    project_ids = sum(start_projects, [])
+    for id in project_ids:
+        project_details.append(projects_service.get_project_details(id))
+
+    return project_details
+
+
 def run_delete_task():
     print("")
     print("-- Starting clean up task --")
     start_time = datetime.now()
     start_timestamp = start_time.timestamp()
-    start_projects = projects_service.get_all_projects()
+    start_projects = get_projects_under_root()
 
     print("")
     print("Projects/folders to keep:")
@@ -195,7 +211,7 @@ def __get_kept_projects(exclusion_label: str) -> list:
     :param exclusion_label:
     :return:
     """
-    active_projects = projects_service.get_all_projects()
+    active_projects = get_projects_under_root()
 
     # filter in projects that have the exclusion label e.g 'dont-delete'
     kept_projects = [project for project in active_projects
@@ -210,7 +226,7 @@ def __get_target_projects(exclusion_label: str) -> list:
     :param exclusion_label:
     :return:
     """
-    active_projects = projects_service.get_all_projects()
+    active_projects = get_projects_under_root()
 
     # filter out projects that have the exclusion label e.g 'dont-delete'
     target_projects = [project for project in active_projects

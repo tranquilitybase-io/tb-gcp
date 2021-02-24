@@ -41,6 +41,14 @@ class ProjectsService:
             print("DELETING PROJECT {project_number}, {resp}".format(project_number, resp))
         return
 
+    def get_project_details(self, project_id: str) -> dict:
+        project = None
+        resp = self.service.projects().list(
+            filter="projectId:{} ".format(project_id)).execute()
+        if resp:
+            project = [entry for entry in resp['projects'] if entry['lifecycleState'] == 'ACTIVE'][0]
+        return project
+
     def get_project_dicts_under_folder(self, folder_id: str) -> list:
         """
         Returns project dictionaries that represent project state, example dictionary:
@@ -83,3 +91,4 @@ class ProjectsService:
         if resp:
             projects = [entry['projectId'] for entry in resp['projects'] if entry['lifecycleState'] == 'ACTIVE']
         return projects
+
