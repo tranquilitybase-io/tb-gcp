@@ -227,7 +227,7 @@ PROJECT_ID="${PREFIX}${RND}"
 SA_NAME="${PREFIX}sa"
 SA_EMAIL="${SA_NAME}@${PROJECT_ID}.iam.gserviceaccount.com"
 
-if [[ -z "${tb_billing_id}" ]]; then
+if [[ -z "${FOLDER_PREFIX}" ]]; then
   TBASE_FOLDER_PREFIX=$FOLDER_PREFIX
 else
   TBASE_FOLDER_PREFIX="Tranquility Base - "
