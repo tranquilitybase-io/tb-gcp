@@ -189,7 +189,7 @@ main (){
     sed -i "s/rootId:.*/rootId: '${TB_FOLDER_ID}'/; s/billingAccountId:.*/billingAccountId: '${BILLING_ID}'/" tb-marketplace/tb-dep-manager/test_config.yaml
     gcloud deployment-manager deployments create bootstrap-resources --config tb-marketplace/tb-dep-manager/test_config.yaml
   else
-    sed -i "s@gft-group-public/global/images/tranquility-base-bootstrap-master@tb-marketplace-dev/global/images/tranquility-base-bootstrap-${NORMAL_REPO_BRANCH}@" tb-marketplace/tb-dep-manager/tranquility-base.jinja
+#    sed -i "s@gft-group-public/global/images/tranquility-base-bootstrap-master@tb-marketplace-dev/global/images/tranquility-base-bootstrap-${NORMAL_REPO_BRANCH}@" tb-marketplace/tb-dep-manager/tranquility-base.jinja
     sed -i "s/rootId:.*/rootId: '${TB_FOLDER_ID}'/; s/billingAccountId:.*/billingAccountId: '${BILLING_ID}'/" tb-marketplace/tb-dep-manager/test_config.yaml
     gcloud deployment-manager deployments create $NORMAL_REPO_BRANCH --config tb-marketplace/tb-dep-manager/test_config.yaml
   fi
