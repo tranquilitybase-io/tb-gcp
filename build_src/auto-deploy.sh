@@ -194,10 +194,15 @@ main (){
     gcloud deployment-manager deployments create $NORMAL_REPO_BRANCH --config tb-marketplace/tb-dep-manager/test_config.yaml
   fi
 
+  echo "deployment manager completed"
+
+
+  echo "identify machine"
   ZONE=$(gcloud compute instances list --format "value(ZONE)" --limit=1)
   TF_SERVER_INTERNAL_IP=$(gcloud compute instances describe tf-server-${TB_ID} --zone=${ZONE} --format='get(networkInterfaces[0].networkIP)')
 
 
+  echo "SSH to bastion"
   # ===== SSH to bastion
   ssh-keygen -b 2048 -t rsa -f /tmp/sshkey -q -N ""
   (
