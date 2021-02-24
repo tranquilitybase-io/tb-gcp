@@ -15,7 +15,7 @@ while (( "$#" )); do
       BILLING_ID=$2
       shift 2
       ;;
-    -r|--repo-branch )
+    -r|--repo-branch)
       REPO_BRANCH=$2
       shift 2
       ;;
