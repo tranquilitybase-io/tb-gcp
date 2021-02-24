@@ -52,4 +52,4 @@ pwd
 echo "-----"
 ls
 
-bash build_src/auto-deploy.sh --folder-id $TARGET_FOLDER --billing-account $DEV_BILLING --fixed-name "Integration" --no-labels
+bash build_src/auto-deploy.sh --folder-id $TARGET_FOLDER --billing-account $DEV_BILLING --fixed-name "integration" --no-labels
