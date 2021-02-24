@@ -54,6 +54,10 @@ while (( "$#" )); do
       BILLING_ID=$2
       shift 2
       ;;
+    -p|--folder-prefix)
+      FOLDER_PREFIX=$2
+      shift 2
+      ;;
     -l|--labels)
       LABELS=$2
       shift 2
@@ -222,7 +226,13 @@ PREFIX="bootstrap-"
 PROJECT_ID="${PREFIX}${RND}"
 SA_NAME="${PREFIX}sa"
 SA_EMAIL="${SA_NAME}@${PROJECT_ID}.iam.gserviceaccount.com"
-TBASE_FOLDER_PREFIX="Tranquility Base - "
+
+if [[ -z "${tb_billing_id}" ]]; then
+  TBASE_FOLDER_PREFIX=$FOLDER_PREFIX
+else
+  TBASE_FOLDER_PREFIX="Tranquility Base - "
+fi
+
 TBASE_FOLDER_NAME="${TBASE_FOLDER_PREFIX}${RND}"
 
 #Explicit labelling is required here because Terraform has not been applied.

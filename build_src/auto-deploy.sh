@@ -146,7 +146,9 @@ main (){
   fi
 
   export TB_ID=${RND_ID}
-  expected_folder="Tranquility Base - "${RND_ID}
+  FOLDER_PREFIX="TranqBse-"
+#  expected_folder="Tranquility Base - "${RND_ID}
+  expected_folder=${FOLDER_PREFIX}${RND_ID}
   echo ""
   echo " ================= "
   echo "   TB_ID: ${TB_ID}"
@@ -155,16 +157,16 @@ main (){
 
   # ===== GCP bootstrap setup
   if [[ ${NO_LABELS} -eq 1 && -z ${ORG_ID} ]]; then
-    tb-marketplace/tb-config-creator/tb-config-creator -r ${TB_ID} -f $PARENT_FOLDER_ID -b $BILLING_ID -nl
+    tb-marketplace/tb-config-creator/tb-config-creator -r ${TB_ID} -f $PARENT_FOLDER_ID -b $BILLING_ID -nl -p $FOLDER_PREFIX
 
   elif [[ ${NO_LABELS} -eq 0 && -z ${PARENT_FOLDER_ID} ]]; then
-    tb-marketplace/tb-config-creator/tb-config-creator -r ${TB_ID} -o $ORG_ID -b $BILLING_ID -l ${LABELS}
+    tb-marketplace/tb-config-creator/tb-config-creator -r ${TB_ID} -o $ORG_ID -b $BILLING_ID -l ${LABELS} -p $FOLDER_PREFIX
   
   elif [[ ${NO_LABELS} -eq 1 && -n ${ORG_ID} ]]; then
-    tb-marketplace/tb-config-creator/tb-config-creator -r ${TB_ID} -o $ORG_ID -b $BILLING_ID -nl
+    tb-marketplace/tb-config-creator/tb-config-creator -r ${TB_ID} -o $ORG_ID -b $BILLING_ID -nl -p $FOLDER_PREFIX
 
   else
-    tb-marketplace/tb-config-creator/tb-config-creator -r ${TB_ID} -f $PARENT_FOLDER_ID -b $BILLING_ID -l ${LABELS}
+    tb-marketplace/tb-config-creator/tb-config-creator -r ${TB_ID} -f $PARENT_FOLDER_ID -b $BILLING_ID -l ${LABELS} -p $FOLDER_PREFIX
 
   fi
 
