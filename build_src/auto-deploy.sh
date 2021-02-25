@@ -210,11 +210,11 @@ main (){
   mkdir -p ~/.ssh
   touch ~/.ssh/google_compute_known_hosts
   ssh-keyscan $TF_SERVER_INTERNAL_IP >> ~/.ssh/google_compute_known_hosts
-  ssh-keygen -b 2048 -t rsa -f /tmp/sshkey -q -N ""
+  ssh-keygen -b 2048 -t rsa -f ~/.ssh/google_compute_known_hosts -q -N ""
   (
     gcloud compute ssh $TF_SERVER_NAME \
     --zone ${ZONE}  \
-    --ssh-key-file=/tmp/sshkey \
+    --ssh-key-file=~/.ssh/google_compute_known_hosts \
     -- 'sudo /opt/tb/repo/tb-gcp-tr/landingZone/tb-welcome'
   )
   if [ $? != 0 ]
