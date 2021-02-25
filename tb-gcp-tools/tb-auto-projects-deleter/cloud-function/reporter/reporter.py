@@ -76,9 +76,12 @@ def generate_report(dry_run: bool, run_start: str, duration: str,
     report += generate_projects(deleted_projects, "Deleted:", start_projects) + "\n"
     report += generate_projects(full_empty_folder_list, "Empty folders removed:", start_projects) + "\n"
     report += generate_projects(kept_projects, "Kept:", start_projects) + "\n"
-    report += generate_projects(stubborn_projects, "Stubborn:", start_projects) + "\n"
-    report += generate_projects(conflicted_projects, "Conflicted:", start_projects) + "\n"
-
+    if dry_run:
+        report += generate_projects(conflicted_projects, "Conflicted:", start_projects) + "\n"
+    else:
+        report += generate_projects(conflicted_projects, "Conflicted:", start_projects) + "\n"
+        report += generate_projects(stubborn_projects, "Stubborn:", start_projects) + "\n"
+    
     print(report)
     print("++++++++++++++++++++++++++")
     return report
