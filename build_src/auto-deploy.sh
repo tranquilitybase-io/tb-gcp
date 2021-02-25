@@ -208,7 +208,7 @@ main (){
   echo "SSH to bastion"
   # ===== SSH to bastion
   eval `ssh-agent`
-  ssh-keyscan $TF_SERVER_INTERNAL_IP >> ~/.ssh/known_hosts
+  ssh-keyscan $TF_SERVER_INTERNAL_IP >> ~/.ssh/google_compute_known_hosts
   ssh-keygen -b 2048 -t rsa -f /tmp/sshkey -q -N ""
   (
     gcloud compute ssh $TF_SERVER_NAME \
