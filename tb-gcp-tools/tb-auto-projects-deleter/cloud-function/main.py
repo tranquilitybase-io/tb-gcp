@@ -95,6 +95,7 @@ def prune_all_empty_folders(root_folder):
 
 def get_projects_under_root():
     folders_under_root = folders_service.get_folders_under_parent_folder(ROOT_PROJECT)
+
     start_projects = []
     for folder in folders_under_root:
         projects = projects_service.get_projectIds_under_folder(folder)
@@ -106,6 +107,9 @@ def get_projects_under_root():
     for id in project_ids:
         project_details.append(projects_service.get_project_details(id))
 
+    projects_at_root = projects_service.get_project_dicts_under_folder(ROOT_PROJECT)
+    project_details = project_details + projects_at_root
+
     return project_details
 
 
@@ -115,6 +119,7 @@ def run_delete_task():
     start_time = datetime.now()
     start_timestamp = start_time.timestamp()
     start_projects = get_projects_under_root()
+    print("start_projects " + str(start_projects))
 
     print("")
     print("Projects/folders to keep:")
@@ -227,23 +232,6 @@ def __get_target_projects(exclusion_label: str) -> list:
     :return:
     """
     active_projects = get_projects_under_root()
-
-    # filter out projects that have the exclusion label e.g 'dont-delete'
-    target_projects = [project for project in active_projects
-                       if 'labels' not in project
-                       or 'labels' in project and exclusion_label not in project['labels']]
-
-    return target_projects
-
-
-def __get_target_projects(exclusion_label: str) -> list:
-    """
-    :param parent:
-    :param bootstrap_prefix:
-    :param exclusion_label:
-    :return:
-    """
-    active_projects = projects_service.get_all_projects()
 
     # filter out projects that have the exclusion label e.g 'dont-delete'
     target_projects = [project for project in active_projects
