@@ -236,12 +236,12 @@ spec:
           command: ['/bin/sh', './src/main/bash/tranquilitybase/gcpdac/main/app_docker.sh']
           ports:
             - containerPort: 3100
-          volumeMounts:
-            - name: config-volume
-              mountPath: /app/resources/ec-config.yaml
-              subPath: ec-config.yaml
-            - name: google-cloud-key
-              mountPath: /var/secrets/google
+#          volumeMounts:
+#            - name: config-volume
+#              mountPath: /app/resources/ec-config.yaml
+#              subPath: ec-config.yaml
+#            - name: google-cloud-key
+#              mountPath: /var/secrets/google
           env:
             - name: APP_PORT
               value: "3100"
@@ -258,15 +258,9 @@ spec:
             - name: JENKINS_BASE_URL
               value: 'eagle-console.tranquilitybase-demo.io/jenkins-service'
             - name: DAC_JENKINS_USER
-              valueFrom:
-                secretKeyRef:
-                  name: dac-user-pass
-                  key: username
+              value: "test"
             - name: DAC_JENKINS_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: dac-user-pass
-                  key: password
+              value: "test"
 
         - name: gcpdacworker
           image: gcr.io/tranquility-base-images/tb-gcp-dac:v0.2.0
@@ -277,12 +271,12 @@ spec:
           command: ['/bin/sh', './src/main/bash/tranquilitybase/gcpdac/celery_worker/celery_worker.sh']
           ports:
             - containerPort: 80
-          volumeMounts:
-            - name: config-volume
-              mountPath: /app/resources/ec-config.yaml
-              subPath: ec-config.yaml
-            - name: google-cloud-key
-              mountPath: /var/secrets/google
+#          volumeMounts:
+#            - name: config-volume
+#              mountPath: /app/resources/ec-config.yaml
+#              subPath: ec-config.yaml
+#            - name: google-cloud-key
+#              mountPath: /var/secrets/google
           env:
             - name: APP_PORT
               value: "3200"
@@ -299,23 +293,27 @@ spec:
             - name: JENKINS_BASE_URL
               value: 'eagle-console.tranquilitybase-demo.io/jenkins-service'
             - name: DAC_JENKINS_USER
-              valueFrom:
-                secretKeyRef:
-                  name: dac-user-pass
-                  key: username
+              value: "test"
             - name: DAC_JENKINS_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: dac-user-pass
-                  key: password
+              value: "test"
+#            - name: DAC_JENKINS_USER
+#              valueFrom:
+#                secretKeyRef:
+#                  name: dac-user-pass
+#                  key: username
+#            - name: DAC_JENKINS_PASSWORD
+#              valueFrom:
+#                secretKeyRef:
+#                  name: dac-user-pass
+#                  key: password
 
-      volumes:
-        - name: config-volume
-          configMap:
-            name: ec-config
-        - name: google-cloud-key
-          secret:
-            secretName: ec-service-account
+#      volumes:
+#        - name: config-volume
+#          configMap:
+#            name: ec-config
+#        - name: google-cloud-key
+#          secret:
+#            secretName: ec-service-account
 ---
 apiVersion: apps/v1  # for versions before 1.9.0 use apps/v1beta2
 kind: Deployment
