@@ -4,7 +4,6 @@ set -e
 echo "== Creating the LZ deployment == "
 echo ""
 
-
 while (( "$#" )); do
   case "$1" in
     -f|--folder-id)
@@ -208,7 +207,7 @@ main (){
   echo "SSH to bastion"
   # ===== SSH to bastion
   eval `ssh-agent`
-  mkdir -p /.ssh
+  mkdir -p ~/.ssh
   touch ~/.ssh/google_compute_known_hosts
   ssh-keyscan $TF_SERVER_INTERNAL_IP >> ~/.ssh/google_compute_known_hosts
   ssh-keygen -b 2048 -t rsa -f /tmp/sshkey -q -N ""
