@@ -383,7 +383,8 @@ variable "ec_iam_service_account_roles" {
     "roles/compute.networkUser",
     "roles/datastore.user",
     "roles/browser",
-    "roles/resourcemanager.projectIamAdmin"
+    "roles/resourcemanager.projectIamAdmin",
+    "roles/source.admin"
   ]
   description = "Roles attached to service account"
   type        = list(string)
