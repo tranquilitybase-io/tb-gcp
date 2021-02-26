@@ -9,9 +9,11 @@ from services.projects_service import ProjectsService
 from config import dry_run
 from config import credentials
 from config import EXCLUDE_DELETE_LABEL
+from config import EXCLUDE_EMPTY_FOLDER
 from config import ROOT_PROJECT
 from config import ReportWebhook
 
+global kept_folders
 billing_service = BillingService(credentials, dry_run)
 folders_service = FoldersService(credentials, dry_run)
 projects_service = ProjectsService(credentials, dry_run)
@@ -51,6 +53,12 @@ def send_teams_message(message: str):
         my_teams_message.send()
 
 
+def add_to_kept_folders(folder):
+    global kept_folders
+    if folder not in kept_folders:
+        kept_folders.append(folder)
+
+
 def get_empty_folders(root_folder: str) -> list:
     empty_folders = []
     root_content = folders_service.get_folders_under_parent_folder(root_folder)
@@ -58,7 +66,11 @@ def get_empty_folders(root_folder: str) -> list:
         no_sub_folders = folders_service.is_folder_empty(folder)
         sub_projects = projects_service.get_projectIds_under_folder(folder)
         if no_sub_folders and not sub_projects:
-            empty_folders.append(folder)
+            folder_name = folders_service.get_folder_name(root_folder, folder)
+            if folder_name not in EXCLUDE_EMPTY_FOLDER:
+                empty_folders.append(folder)
+            else:
+                add_to_kept_folders(folder)
     return empty_folders
 
 
@@ -73,7 +85,22 @@ def delete_folders(delete_list: list):
         __delete_folder(item_id)
 
 
+def decorate_folder_list(root_folder: str, folder_list: list) -> list:
+    decorated_list = []
+    for folder_id in folder_list:
+        name = folders_service.get_folder_name(root_folder, folder_id)
+        if name:
+            app = f"{folder_id} ({name})".format(folder_id, name)
+            decorated_list.append(app)
+        else:
+            decorated_list.append(folder_id)
+    return decorated_list
+
+
 def prune_all_empty_folders(root_folder):
+    global kept_folders
+    kept_folders = []
+
     max_iteration = 3
     if dry_run:
         max_iteration = 1
@@ -90,7 +117,8 @@ def prune_all_empty_folders(root_folder):
         if counter >= max_iteration:
             break
 
-    return full_empty_folder_list
+    decorated_list = decorate_folder_list(root_folder, full_empty_folder_list)
+    return decorated_list
 
 
 def get_projects_under_root():
@@ -139,6 +167,10 @@ def run_delete_task():
     print("prune empty folders")
     full_empty_folder_list = prune_all_empty_folders(ROOT_PROJECT)
     print("full_empty_folder_list: " + str(full_empty_folder_list))
+    global kept_folders
+    kept_folders = decorate_folder_list(ROOT_PROJECT, kept_folders)
+    print("adding kept_folders to keep list: " + str(kept_folders))
+    keep_list = keep_list + kept_folders
 
     print("")
     print("Generate report")

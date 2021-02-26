@@ -35,17 +35,28 @@ def str_to_bool(s):
         raise ValueError
 
 
+def str_to_list(string_list: str):
+    un_trimmed = string_list.split(",")
+    trimmed = []
+    for item in un_trimmed:
+        trimmed.append(item.strip())
+    return trimmed
+
+
 dry_run = str_to_bool(get_env('dry_run', True))
 is_cloud_run = str_to_bool(get_env('is_cloud_run', "False"))
 EXCLUDE_DELETE_LABEL = get_env('EXCLUDE_DELETE_LABEL', "dont-delete")
+EXCLUDE_EMPTY_FOLDER = str_to_list(get_env('EXCLUDE_EMPTY_FOLDER', "Shared Services,  Applications"))
 ROOT_PROJECT = get_env('ROOT_PROJECT', "943956663445")
 ReportWebhook = get_env('WebHook', "none")
+
 
 print("")
 print("------ Configuration ------")
 print("dry_run: " + str(dry_run))
 print("is_cloud_run: " + str(is_cloud_run))
 print("EXCLUDE_DELETE_LABEL: " + EXCLUDE_DELETE_LABEL)
+print("EXCLUDE_EMPTY_FOLDER: " + str(EXCLUDE_EMPTY_FOLDER))
 print("ROOT_PROJECT: " + ROOT_PROJECT)
 print("---------------------------")
 print("")
