@@ -117,8 +117,8 @@ def prune_all_empty_folders(root_folder):
         if counter >= max_iteration:
             break
 
-    decorated_list = decorate_folder_list(root_folder, full_empty_folder_list)
-    return decorated_list
+    # decorated_list = decorate_folder_list(root_folder, full_empty_folder_list)
+    return full_empty_folder_list
 
 
 def get_projects_under_root():
@@ -167,8 +167,8 @@ def run_delete_task():
     print("prune empty folders")
     full_empty_folder_list = prune_all_empty_folders(ROOT_PROJECT)
     print("full_empty_folder_list: " + str(full_empty_folder_list))
-    global kept_folders
-    kept_folders = decorate_folder_list(ROOT_PROJECT, kept_folders)
+    # global kept_folders
+    # kept_folders = decorate_folder_list(ROOT_PROJECT, kept_folders)
     print("adding kept_folders to keep list: " + str(kept_folders))
     keep_list = keep_list + kept_folders
 
