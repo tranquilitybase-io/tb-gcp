@@ -1,8 +1,6 @@
 # https://cloud.google.com/resource-manager/reference/rest/v2/folders
 
 from googleapiclient import discovery
-from google.cloud import resource_manager
-from services.helper import handle_permission_error
 
 
 class FoldersService:
@@ -11,7 +9,6 @@ class FoldersService:
         self.dry_run = dry_run
         self.credentials = credentials
         self.service = discovery.build('cloudresourcemanager', 'v2', credentials=credentials, cache_discovery=False)
-        self.client = resource_manager.Client()
 
     def is_folder_empty(self, folder_id: str) -> bool:
         folder_under = self.get_next_folder_under_parent_folder(folder_id)

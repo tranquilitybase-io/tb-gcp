@@ -14,12 +14,6 @@ def system_test(event, context):
 
 
 def delete_tbase_deployments(event, context):
-    """Responds to any HTTP request.
-    Args:
-        request (flask.Request): HTTP request object.
-    Returns:
-    """
-
     print("""This Function was triggered by messageId {} published at {}
     """.format(context.event_id, context.timestamp))
     try:
