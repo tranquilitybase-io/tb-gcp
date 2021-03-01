@@ -30,15 +30,6 @@ def cannot_view_folder(scope_folder: str):
         print("OK: cannot view folder outside bounds")
 
 
-def cannot_create_folder(scope_folder: str):
-    print("Check: Cannot create folder")
-    check_result = folders_service.can_create_folder("tb-del-tst-"+random_string(), scope_folder)
-    if check_result:
-        raise Exception("Error: checks show Service Account CAN create folder in an out of bounds area")
-    else:
-        print("OK: cannot create folder outside bounds")
-
-
 def cannot_create_project(scope_folder: str):
     print("Check: Cannot create project")
     check_result = projects_service.can_create_project("tb-del-tst-"+random_string(), scope_folder)
@@ -60,30 +51,11 @@ def can_create_and_delete_project(scope_folder: str):
     # GCP needs some grace time to create the project before deletion
     time.sleep(10)
 
-    check_result = projects_service.system_check_delete_project(name)
+    check_result = projects_service.delete_project_system_check(name)
     if check_result:
         print("OK: can delete project in bounds")
     else:
         raise Exception("Error: checks show Service Account CANNOT delete project as needed")
-
-
-def can_create_and_delete_folder(scope_folder: str):
-    print("Check: can create and delete folder")
-    name = "tb-del-tst-"+random_string()
-    check_result = folders_service.can_create_folder(name, scope_folder)
-    if check_result:
-        print("OK: can create folder in bounds")
-    else:
-        raise Exception("Error: checks show Service Account CANNOT create folder as needed")
-
-    # GCP needs some grace time to create the folder before deletion
-    time.sleep(10)
-
-    check_result = folders_service.delete_folder(name)
-    if check_result:
-        print("OK: can delete folder in bounds")
-    else:
-        raise Exception("Error: checks show Service Account CANNOT delete folder as needed")
 
 
 def run_system_checks():
@@ -93,12 +65,10 @@ def run_system_checks():
         # out of scope
         print("")
         cannot_view_folder(TEST_OUTSIDE_SCOPE)
-        # cannot_create_folder(TEST_OUTSIDE_SCOPE)
         print("")
         cannot_create_project(TEST_OUTSIDE_SCOPE)
 
         # in scope:
-        # can_create_and_delete_folder(ROOT_PROJECT)
         print("")
         can_create_and_delete_project(ROOT_PROJECT)
     except Exception as e:

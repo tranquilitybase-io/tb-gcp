@@ -74,9 +74,9 @@ def get_empty_folders(root_folder: str) -> list:
     return empty_folders
 
 
-def delete_all_under_id(delete_list: list):
+def delete_all(delete_list: list):
     for item_id in delete_list:
-        __disable_and_delete_all_projects_under_folder(item_id)
+        __disable_and_delete_project(item_id)
         __delete_folder(item_id)
 
 
@@ -162,7 +162,7 @@ def run_delete_task():
 
     print("")
     print("Run deletion")
-    delete_all_under_id(delete_list)
+    delete_all(delete_list)
 
     print("")
     print("prune empty folders")
@@ -189,41 +189,10 @@ def run_delete_task():
     print("-- clean up finished --")
 
 
-def __delete_tbase_deployment(tb_folder):
-    """
-    :param tb_folder:
-    :return:
-    """
-    child_folders = folders_service.get_folders_under(tb_folder)
-
-    if child_folders:
-        print("found child folders under " + str(tb_folder))
-        for child_folder in child_folders:
-            if child_folder == ROOT_PROJECT:
-                continue
-            __disable_and_delete_all_projects_under_folder(child_folder)
-            __delete_folder(child_folder)
-
-    if tb_folder is not ROOT_PROJECT:
-        __disable_and_delete_all_projects_under_folder(tb_folder)
-        __delete_folder(tb_folder)
-
-
-def __disable_and_delete_all_projects_under_folder(folder_id: str):
-    """ Method does the following
-        1. Gets all projects under folder and for each:
-            1. disable  billing
-            2. delete liens
-            3. delete project
-    :param folder_id:
-    :return:
-    """
-    project_ids = projects_service.get_projectIds_under_folder(folder_id)
-    for project_id in project_ids:
-        __delete_liens_for_project(project_id)
-        billing_service.disable_billing_for_project(project_id)
-        projects_service.delete_project(project_id)
-    return
+def __disable_and_delete_project(project_id: str):
+    __delete_liens_for_project(project_id)
+    billing_service.disable_billing_for_project(project_id)
+    projects_service.delete_project(project_id)
 
 
 def __get_kept_projects(exclusion_label: str) -> list:

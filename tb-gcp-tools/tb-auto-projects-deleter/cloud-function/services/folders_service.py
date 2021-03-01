@@ -61,16 +61,11 @@ class FoldersService:
         :param folder_id:
         :return:
         """
+        print("Delete folder " + folder_id)
         if self.dry_run:
             print("mock delete folder {} ".format(folder_id))
         else:
-            try:
-                resp = self.service.folders().delete(name="folders/{}".format(folder_id)).execute()
-            except Exception as e:
-                handle_permission_error(e, "Exception when deleting folder")
-                return False
-
-        return True
+            self.service.folders().delete(name="folders/{}".format(folder_id)).execute()
 
     def get_folder_name(self, root_folder_id: str, folder_id_looked_for: str) -> str:
         resp = self.service.folders().list(parent="folders/{}".format(root_folder_id)).execute()

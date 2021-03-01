@@ -46,7 +46,7 @@ class ProjectsService:
             print("DELETING LIEN".format(lien_name, resp))
         return
 
-    def system_check_delete_project(self, project_id: str) -> bool:
+    def delete_project_system_check(self, project_id: str) -> bool:
         try:
             self.service.projects().delete(projectId=project_id).execute()
         except Exception as e:
@@ -56,14 +56,13 @@ class ProjectsService:
         return True
 
     def delete_project(self, project_id: str):
+        print("Delete project " + project_id)
         try:
             if self.dry_run:
                 print("mock delete project {}".format(project_id))
             else:
-                resp = self.service.projects().delete(projectId=project_id).execute()
+                self.service.projects().delete(projectId=project_id).execute()
         except Exception as e:
-            message = f"Error deleting project for {project_id}".format(project_id)
-            print(message)
             print(str(e))
 
     def delete_project_by_project_number(self, project_number: str):
