@@ -2,6 +2,8 @@
 
 from googleapiclient import discovery
 
+from services.helper import handle_permission_error
+
 
 class ProjectsService:
 
@@ -9,6 +11,25 @@ class ProjectsService:
         self.dry_run = dry_run
         self.credentials = credentials
         self.service = discovery.build('cloudresourcemanager', 'v1', credentials=credentials, cache_discovery=False)
+
+    def can_create_project(self, project_name: str, parent_folder: str) -> bool:
+        try:
+            project_body = {
+                "projectId": project_name,
+                "name": project_name,
+                "parent": {
+                    "id": parent_folder,
+                    "type": "folder"
+                }
+            }
+
+            req = self.service.projects().create(body=project_body)
+            req.execute()
+            return True
+        except Exception as e:
+            message = f"Could not create project under {parent_folder}".format(parent_folder)
+            handle_permission_error(e, message)
+            return False
 
     def get_liens_for_project(self, project_id: str):
         resp = self.service.liens().list(parent="projects/{}".format(project_id)).execute()
@@ -25,14 +46,26 @@ class ProjectsService:
             print("DELETING LIEN".format(lien_name, resp))
         return
 
+    def system_check_delete_project(self, project_id: str) -> bool:
+        try:
+            self.service.projects().delete(projectId=project_id).execute()
+        except Exception as e:
+            message = f"Error deleting project for {project_id}".format(project_id)
+            handle_permission_error(e, message)
+            return False
+        return True
+
     def delete_project(self, project_id: str):
-        if self.dry_run:
-            print("mock delete project {}".format(project_id))
-        else:
-            resp = self.service.projects().delete(projectId=project_id).execute()
-            #print("DELETING PROJECT {project_id}, {resp}".format(project_id, resp))
-        return
-    
+        try:
+            if self.dry_run:
+                print("mock delete project {}".format(project_id))
+            else:
+                resp = self.service.projects().delete(projectId=project_id).execute()
+        except Exception as e:
+            message = f"Error deleting project for {project_id}".format(project_id)
+            print(message)
+            print(str(e))
+
     def delete_project_by_project_number(self, project_number: str):
         if self.dry_run:
             print("mock delete project {}".format(project_number))

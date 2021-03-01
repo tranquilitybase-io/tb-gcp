@@ -1,6 +1,8 @@
 # https://cloud.google.com/resource-manager/reference/rest/v2/folders
 
 from googleapiclient import discovery
+from google.cloud import resource_manager
+from services.helper import handle_permission_error
 
 
 class FoldersService:
@@ -9,6 +11,7 @@ class FoldersService:
         self.dry_run = dry_run
         self.credentials = credentials
         self.service = discovery.build('cloudresourcemanager', 'v2', credentials=credentials, cache_discovery=False)
+        self.client = resource_manager.Client()
 
     def is_folder_empty(self, folder_id: str) -> bool:
         folder_under = self.get_next_folder_under_parent_folder(folder_id)
@@ -16,7 +19,15 @@ class FoldersService:
             return False
         return True
 
-    def get_folders_under_parent_folder(self, folder_id: str) -> list:
+    def can_view_folder(self, folder_id: str) -> str:
+        try:
+            self.service.folders().list(parent="folders/{}".format(folder_id)).execute()
+            return True
+        except Exception as e:
+            print(f"Could not access {folder_id}".format(folder_id))
+            return False
+
+    def get_folders_under(self, folder_id: str) -> list:
         """
         :param folder_id: folder id number
         :return: List of folder ids
@@ -29,7 +40,7 @@ class FoldersService:
 
         for folder in parent_folder:
             total_folders.append(folder)
-            child_folders = self.get_folders_under_parent_folder(folder)
+            child_folders = self.get_folders_under(folder)
             total_folders += child_folders
 
         return total_folders
@@ -53,8 +64,13 @@ class FoldersService:
         if self.dry_run:
             print("mock delete folder {} ".format(folder_id))
         else:
-            resp = self.service.folders().delete(name="folders/{}".format(folder_id)).execute()
-            #print("DELETE FOLDER ID {folder_id}".format(folder_id))
+            try:
+                resp = self.service.folders().delete(name="folders/{}".format(folder_id)).execute()
+            except Exception as e:
+                handle_permission_error(e, "Exception when deleting folder")
+                return False
+
+        return True
 
     def get_folder_name(self, root_folder_id: str, folder_id_looked_for: str) -> str:
         resp = self.service.folders().list(parent="folders/{}".format(root_folder_id)).execute()
