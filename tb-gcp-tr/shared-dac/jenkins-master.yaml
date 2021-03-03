@@ -70,7 +70,7 @@ spec:
     spec:
       containers:
         - name: jenkins-master
-          image: gcr.io/tranquility-base-images/tb-jenkins:v0.0.14
+          image: gcr.io/tranquility-base-images/tb-jenkins:v0.0.19
           args: ["--prefix=/jenkins-service"]
           securityContext:
             privileged: true
@@ -81,26 +81,26 @@ spec:
               mountPath: /var/jenkins_home
             - name: docker-sock-volume
               mountPath: /var/run/docker.sock
-#            - name: google-cloud-key
-#              mountPath: /var/secrets/google
+            - name: google-cloud-key
+              mountPath: /var/secrets/google
           env:
             - name: GOOGLE_APPLICATION_CREDENTIALS
               value: /var/secrets/google/ec-service-account-config.json
-#            - name: DAC_JENKINS_USER
-#              valueFrom:
-#                secretKeyRef:
-#                  name: dac-user-pass
-#                  key: username
-#            - name: DAC_JENKINS_PASSWORD
-#              valueFrom:
-#                secretKeyRef:
-#                  name: dac-user-pass
-#                  key: password
-#            - name: GCR_ID
-#              valueFrom:
-#                secretKeyRef:
-#                  name: gcr-folder
-#                  key: folder
+            - name: DAC_JENKINS_USER
+              valueFrom:
+                secretKeyRef:
+                  name: dac-user-pass
+                  key: username
+            - name: DAC_JENKINS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: dac-user-pass
+                  key: password
+            - name: GCR_ID
+              valueFrom:
+                secretKeyRef:
+                  name: gcr-folder
+                  key: folder
           resources:
             requests:
               memory: "1024Mi"
@@ -117,9 +117,9 @@ spec:
         - name: config-volume
           configMap:
             name: ec-config
-#        - name: google-cloud-key
-#          secret:
-#            secretName: ec-service-account
+        - name: google-cloud-key
+          secret:
+            secretName: ec-service-account
         - name: jenkins-home
           persistentVolumeClaim:
             claimName: jenkins-master-pv-claim
