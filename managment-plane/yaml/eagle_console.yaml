@@ -1,0 +1,538 @@
+# Copyright 2019 The Tranquility Base Authors
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+# MySQL's PersistentVolumeClaim
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pv-claim
+  namespace: ssp
+spec:
+  storageClassName: regional-retained-pd-ssd
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
+# Redis' persistentVolumeClaim
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: redis-pv-claim
+  namespace: ssp
+spec:
+  storageClassName: regional-retained-pd-ssd
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: eagleconsole
+  namespace: ssp
+  labels:
+    app: eagleconsole
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+      name: http
+    - port: 443
+      targetPort: 80
+      name: https
+  selector:
+    app: eagleconsole
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: houstonservice
+  namespace: ssp
+  labels:
+    app: houstonservice
+spec:
+  ports:
+    - port: 80
+      targetPort: 3000
+      name: http
+    - port: 443
+      targetPort: 3000
+      name: https
+  selector:
+    app: houstonservice
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gcpdac
+  namespace: ssp
+spec:
+  ports:
+    - port: 80
+      targetPort: 3100
+      name: http
+    - port: 443
+      targetPort: 3100
+      name: https
+  selector:
+    app: gcpdac
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql57
+  namespace: ssp
+spec:
+  ports:
+    - port: 3306
+      targetPort: 3306
+  selector:
+    app: mysql57
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+  namespace: ssp
+spec:
+  ports:
+    - port: 6379
+      targetPort: 6379
+  selector:
+    app: redis
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eagleconsole-v1
+  namespace: ssp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eagleconsole
+  template:
+    metadata:
+      labels:
+        app: eagleconsole
+        version: v1
+    spec:
+      containers:
+        - name: eagleconsole
+          image: gcr.io/tranquility-base-images/tb-eagle-console:v0.12.1
+          resources:
+            requests:
+              cpu: "100m"
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: houstonservice-v1
+  namespace: ssp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: houstonservice
+  template:
+    metadata:
+      labels:
+        app: houstonservice
+        version: v1
+    spec:
+      containers:
+        - name: houstonservice
+          image: gcr.io/tranquility-base-images/tb-houston-service:v0.48.65
+          resources:
+            requests:
+              cpu: "100m"
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          env:
+            - name: SQLALCHEMY_DATABASE_URI
+              value: mysql+mysqlconnector://eagle-user:eagle-user-secret-pw@mysql57/eagle_db
+            - name: SQLALCHEMY_ECHO
+              value: "True"
+            - name: SQLALCHEMY_TRACK_MODIFICATIONS
+              value: "True"
+            - name: GCP_DAC_URL
+              value: 'gcpdac:80'
+            - name: CLIENT_ID
+              value: '576108226578-m876jb0mjk5gjsenvifthut89gna3j8o.apps.googleusercontent.com'
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-v1
+  namespace: ssp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+        version: v1
+    spec:
+      volumes:
+        - name: redis-pv-storage
+          persistentVolumeClaim:
+            claimName: redis-pv-claim
+      containers:
+        - name: redis
+          image: redis:alpine
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: redis-pv-storage
+              mountPath: "/data/redis"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gcpdac-v1
+  namespace: ssp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gcpdac
+  template:
+    metadata:
+      labels:
+        app: gcpdac
+        version: v1
+    spec:
+      containers:
+        - name: gcpdac
+          image: gcr.io/tranquility-base-images/tb-gcp-dac:v0.2.0
+          resources:
+            requests:
+              cpu: "100m"
+          imagePullPolicy: Always
+          command: ['/bin/sh', './src/main/bash/tranquilitybase/gcpdac/main/app_docker.sh']
+          ports:
+            - containerPort: 3100
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/resources/ec-config.yaml
+              subPath: ec-config.yaml
+            - name: google-cloud-key
+              mountPath: /var/secrets/google
+          env:
+            - name: APP_PORT
+              value: "3100"
+            - name: EC_CONFIG
+              value: /resources/ec-config.yaml
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /var/secrets/google/ec-service-account-config.json
+            - name: CELERY_BROKER_URL
+              value: redis://redis:6379
+            - name: CELERY_RESULT_BACKEND
+              value: redis://redis:6379
+            - name: HOUSTON_SERVICE_URL
+              value: 'houstonservice:80'
+            - name: JENKINS_BASE_URL
+              value: 'eagle-console.tranquilitybase-demo.io/jenkins-service'
+            - name: DAC_JENKINS_USER
+              valueFrom:
+                secretKeyRef:
+                  name: dac-user-pass
+                  key: username
+            - name: DAC_JENKINS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: dac-user-pass
+                  key: password
+
+        - name: gcpdacworker
+          image: gcr.io/tranquility-base-images/tb-gcp-dac:v0.2.0
+          resources:
+            requests:
+              cpu: "100m"
+          imagePullPolicy: Always
+          command: ['/bin/sh', './src/main/bash/tranquilitybase/gcpdac/celery_worker/celery_worker.sh']
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/resources/ec-config.yaml
+              subPath: ec-config.yaml
+            - name: google-cloud-key
+              mountPath: /var/secrets/google
+          env:
+            - name: APP_PORT
+              value: "3200"
+            - name: EC_CONFIG
+              value: /resources/ec-config.yaml
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /var/secrets/google/ec-service-account-config.json
+            - name: CELERY_BROKER_URL
+              value: redis://redis:6379
+            - name: CELERY_RESULT_BACKEND
+              value: redis://redis:6379
+            - name: HOUSTON_SERVICE_URL
+              value: 'houstonservice:80'
+            - name: JENKINS_BASE_URL
+              value: 'eagle-console.tranquilitybase-demo.io/jenkins-service'
+            - name: DAC_JENKINS_USER
+              valueFrom:
+                secretKeyRef:
+                  name: dac-user-pass
+                  key: username
+            - name: DAC_JENKINS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: dac-user-pass
+                  key: password
+
+      volumes:
+        - name: config-volume
+          configMap:
+            name: ec-config
+        - name: google-cloud-key
+          secret:
+            secretName: ec-service-account
+---
+apiVersion: apps/v1  # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: mysql57
+  namespace: ssp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql57
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mysql57
+    spec:
+      volumes:
+        - name: mysql-pv-storage
+          persistentVolumeClaim:
+            claimName: mysql-pv-claim
+      containers:
+        - name: mysql57
+          image: gcr.io/tranquility-base-images/tb-db:v0.0.43
+          resources:
+            requests:
+              cpu: "100m"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: mysql57
+              containerPort: 3306
+          env:
+            # Use secret in real usage
+            - name: MYSQL_ROOT_PASSWORD
+              value: my-secret-pw
+            - name: MYSQL_USER
+              value: eagle-user
+            # Use secret in real usage
+            - name: MYSQL_PASSWORD
+              value: eagle-user-secret-pw
+            - name: MYSQL_DATABASE
+              value: eagle_db
+          args:
+            - --ignore-db-dir=lost+found
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: mysql-pv-storage
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: mygateway
+  namespace: ssp
+spec:
+  selector:
+    istio: private-ingressgateway  # use istio default controller
+  servers:
+    - port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      tls:
+        mode: SIMPLE
+        credentialName: ec-tls-credential
+      hosts:
+        - "*"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: houstonservice
+  namespace: ssp
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - mygateway
+  http:
+    - match:
+        - uri:
+            prefix: /api
+      route:
+        - destination:
+            host: houstonservice.ssp.svc.cluster.local
+            port:
+              number: 80
+      corsPolicy:
+        allowOrigin:
+          - "*"
+        allowMethods:
+          - POST
+          - GET
+          - OPTIONS
+          - PUT
+          - PATCH
+          - DELETE
+        allowHeaders:
+          - "*"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: gcpdac
+  namespace: ssp
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - mygateway
+  http:
+    - match:
+        - uri:
+            prefix: /dac
+      route:
+        - destination:
+            host: gcpdac.ssp.svc.cluster.local
+            port:
+              number: 80
+      corsPolicy:
+        allowOrigin:
+          - "*"
+        allowMethods:
+          - POST
+          - GET
+          - OPTIONS
+          - PUT
+          - PATCH
+          - DELETE
+        allowHeaders:
+          - "*"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: eagleconsole
+  namespace: ssp
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - mygateway
+  http:
+    - route:
+        - destination:
+            host: eagleconsole.ssp.svc.cluster.local
+            port:
+              number: 443
+
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: redis
+  namespace: ssp
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - mygateway
+  http:
+    - route:
+        - destination:
+            host: redis.ssp.svc.cluster.local
+            port:
+              number: 6379
+
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: eagleconsole
+  namespace: ssp
+  annotations:
+    cloud.google.com/load-balancer-type: "Internal"
+spec:
+  host: eagleconsole.ssp.svc.cluster.local
+  trafficPolicy:
+    loadBalancer:
+      simple: LEAST_CONN
+
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: houstonservice
+  namespace: ssp
+  annotations:
+    cloud.google.com/load-balancer-type: "Internal"
+spec:
+  host: houstonservice.ssp.svc.cluster.local
+  trafficPolicy:
+    loadBalancer:
+      simple: LEAST_CONN
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: gcpdac
+  namespace: ssp
+  annotations:
+    cloud.google.com/load-balancer-type: "Internal"
+spec:
+  host: gcpdac.ssp.svc.cluster.local
+  trafficPolicy:
+    loadBalancer:
+      simple: LEAST_CONN
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: redis
+  namespace: ssp
+  annotations:
+    cloud.google.com/load-balancer-type: "Internal"
+spec:
+  host: redis.ssp.svc.cluster.local
+  trafficPolicy:
+    loadBalancer:
+      simple: LEAST_CONN

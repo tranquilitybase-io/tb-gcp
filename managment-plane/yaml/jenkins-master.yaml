@@ -1,0 +1,193 @@
+# Copyright 2020 The Tranquility Base Authors
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+### Persistent volume claim ###
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jenkins-master-pv-claim
+  namespace: cicd
+spec:
+  storageClassName: regional-retained-pd-ssd
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Gi
+---
+### Jenkins Service ###
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins-master-svc
+  namespace: cicd
+  labels:
+    app: jenkins-master
+spec:
+  ports:
+    - port: 80
+      targetPort: 8080
+      protocol: TCP
+      name: http
+    - port: 50000
+      targetPort: 50000
+      protocol: TCP
+      name: slave
+  selector:
+    app: jenkins-master
+---
+### Jenkins Deployment ###
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: jenkins-master
+  name: jenkins-master
+  namespace: cicd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jenkins-master
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: jenkins-master
+    spec:
+      containers:
+        - name: jenkins-master
+          image: gcr.io/tranquility-base-images/tb-jenkins:v0.0.19
+          args: ["--prefix=/jenkins-service"]
+          securityContext:
+            privileged: true
+            runAsUser: 0
+          imagePullPolicy: "Always"
+          volumeMounts:
+            - name: jenkins-home
+              mountPath: /var/jenkins_home
+            - name: docker-sock-volume
+              mountPath: /var/run/docker.sock
+            - name: google-cloud-key
+              mountPath: /var/secrets/google
+          env:
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /var/secrets/google/ec-service-account-config.json
+            - name: DAC_JENKINS_USER
+              valueFrom:
+                secretKeyRef:
+                  name: dac-user-pass
+                  key: username
+            - name: DAC_JENKINS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: dac-user-pass
+                  key: password
+            - name: GCR_ID
+              valueFrom:
+                secretKeyRef:
+                  name: gcr-folder
+                  key: folder
+          resources:
+            requests:
+              memory: "1024Mi"
+              cpu: "1"
+            limits:
+              memory: "4096Mi"
+              cpu: "2"
+          ports:
+            - name: http-port
+              containerPort: 8080
+            - name: jnlp-port
+              containerPort: 50000
+      volumes:
+        - name: config-volume
+          configMap:
+            name: ec-config
+        - name: google-cloud-key
+          secret:
+            secretName: ec-service-account
+        - name: jenkins-home
+          persistentVolumeClaim:
+            claimName: jenkins-master-pv-claim
+        - name: docker-sock-volume
+          hostPath:
+            path: /var/run/docker.sock
+            type: File
+---
+### Private-ingressgateway for Jenkins ###
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: jenkins-gateway
+  namespace: cicd
+spec:
+  selector:
+    istio: private-ingressgateway  # use istio default controller
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - "*"
+---
+### Jenkins Virtual Service ###
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: jenkins-master-svc
+  namespace: cicd
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - jenkins-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /jenkins-service
+      route:
+        - destination:
+            host: jenkins-master-svc.cicd.svc.cluster.local
+            port:
+              number: 80
+      corsPolicy:
+        allowOrigin:
+          - "*"
+        allowMethods:
+          - POST
+          - GET
+          - OPTIONS
+          - PUT
+          - PATCH
+          - DELETE
+        allowHeaders:
+          - "*"
+---
+### Jenkins Destination Rule ###
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: jenkins-master-svc
+  namespace: cicd
+  annotations:
+    cloud.google.com/load-balancer-type: "Internal"
+spec:
+  host: jenkins-master-svc.cicd.svc.cluster.local
+  trafficPolicy:
+    loadBalancer:
+      simple: LEAST_CONN
