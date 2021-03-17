@@ -135,7 +135,7 @@ spec:
     spec:
       containers:
         - name: eagleconsole
-          image: gcr.io/tranquility-base-images/tb-eagle-console:v0.12.1
+          image: gcr.io/tranquility-base-images/tb-eagle-console-geoff-test:v0.12.2
           resources:
             requests:
               cpu: "100m"
@@ -179,7 +179,8 @@ spec:
             - name: GCP_DAC_URL
               value: 'gcpdac:80'
             - name: CLIENT_ID
-              value: '576108226578-m876jb0mjk5gjsenvifthut89gna3j8o.apps.googleusercontent.com'
+              value: '1033011749121-85pifslpk6rr3qf2fvmfr4vksjag9pk6.apps.googleusercontent.com'
+#              value: '1033011749121-i1q2p0ubuhp0iqu3guvenj60tm9u3egq.apps.googleusercontent.com'
 ---
 apiVersion: apps/v1
 kind: Deployment
