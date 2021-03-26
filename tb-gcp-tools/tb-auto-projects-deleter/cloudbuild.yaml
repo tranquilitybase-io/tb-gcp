@@ -9,7 +9,7 @@ steps:
       - --entry-point=main
       - --runtime=python37
       - --source=cloud-function
-      - --trigger=run-tb-deleter-script
+      - --trigger-topic=run-tb-deleter-script
       - --timeout=540
       - --memory=256
       - --project=tb-auto-deleter
