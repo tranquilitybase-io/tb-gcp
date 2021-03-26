@@ -8,7 +8,7 @@ steps:
       - --service-account=tb-auto-deleter@appspot.gserviceaccount.com
       - --entry-point=main
       - --runtime=python37
-      - --source=cloud-function
+      - --source=tb-gcp-tools/tb-auto-projects-deleter/cloud-function
       - --trigger-topic=run-tb-deleter-script
       - --timeout=540
       - --memory=256
