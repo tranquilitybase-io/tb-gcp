@@ -10,7 +10,7 @@ steps:
       - --runtime=python37
       - --source=cloud-function
       - --trigger=run-tb-deleter-script
-      - --timeout=600
+      - --timeout=540
       - --memory=256
       - --project=tb-auto-deleter
       - --region=europe-west2
