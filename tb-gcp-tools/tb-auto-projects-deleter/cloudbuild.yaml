@@ -16,7 +16,7 @@ steps:
       - --region=europe-west2
     env:
       - EXCLUDE_DELETE_LABEL=dont-delete
-      - dry_run=True
+      - dry_run=$_DRY_RUN
       - is_cloud_run=True
       - ROOT_PROJECT=$_ROOT_PROJECT
       - TEST_OUTSIDE_SCOPE=$_TEST_OUTSIDE_SCOPE
