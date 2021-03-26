@@ -17,3 +17,13 @@ steps:
     env:
       - EXCLUDE_DELETE_LABEL=dont-delete
       - dry_run=True
+      - is_cloud_run=True
+      - ROOT_PROJECT=$_ROOT_PROJECT
+      - TEST_OUTSIDE_SCOPE=$_TEST_OUTSIDE_SCOPE
+      - EXCLUDE_EMPTY_FOLDER="Shared Services, Applications, tranquilitybase-development"
+    secretEnv: [ 'WebHook' ]
+    availableSecrets:
+      secretManager:
+        - versionName: projects/1084668192859/secrets/WebHook/versions/1
+          env: 'WebHook'
+
