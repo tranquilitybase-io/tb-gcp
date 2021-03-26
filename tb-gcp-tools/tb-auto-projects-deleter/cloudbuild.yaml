@@ -11,7 +11,7 @@ steps:
       - --source=tb-gcp-tools/tb-auto-projects-deleter/cloud-function
       - --trigger-topic=run-tb-deleter-script
       - --timeout=540
-      - --memory=256
+      - --memory=512
       - --project=tb-auto-deleter
       - --region=europe-west2
     env:
