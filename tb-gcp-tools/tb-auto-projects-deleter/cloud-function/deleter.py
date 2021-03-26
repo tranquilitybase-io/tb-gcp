@@ -19,7 +19,7 @@ global kept_folders
 billing_service = BillingService(credentials, dry_run)
 folders_service = FoldersService(credentials, dry_run)
 projects_service = ProjectsService(credentials, dry_run)
-quota_grace_delay = 0.4
+quota_grace_delay = 0.2
 
 
 def create_keep_list() -> list:
