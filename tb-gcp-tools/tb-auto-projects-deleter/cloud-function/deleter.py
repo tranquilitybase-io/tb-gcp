@@ -1,3 +1,5 @@
+import time
+
 import pymsteams
 from datetime import datetime
 
@@ -17,6 +19,7 @@ global kept_folders
 billing_service = BillingService(credentials, dry_run)
 folders_service = FoldersService(credentials, dry_run)
 projects_service = ProjectsService(credentials, dry_run)
+quota_grace_delay = 1
 
 
 def create_keep_list() -> list:
@@ -127,12 +130,14 @@ def get_projects_under_root():
     start_projects = []
     for folder in folders_under_root:
         projects = projects_service.get_projectIds_under_folder(folder)
+        time.sleep(quota_grace_delay)
         if projects:
             start_projects.append(projects)
 
     project_details = []
     project_ids = sum(start_projects, [])
     for id in project_ids:
+        time.sleep(quota_grace_delay)
         project_details.append(projects_service.get_project_details(id))
 
     projects_at_root = projects_service.get_project_dicts_under_folder(ROOT_PROJECT)

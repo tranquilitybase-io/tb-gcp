@@ -1,0 +1,18 @@
+steps:
+
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      - functions
+      - deploy
+      - mod-app-auto-delete
+      - --service-account=tb-auto-deleter@appspot.gserviceaccount.com
+      - --entry-point=main
+      - --runtime=python37
+      - --source=cloud-function
+      - --trigger=run-tb-deleter-script
+      - --timeout=600
+      - --memory=256
+      - --project=tb-auto-deleter
+      - --region=europe-west2
+    env:
+      - EXCLUDE_DELETE_LABEL=dont-delete
