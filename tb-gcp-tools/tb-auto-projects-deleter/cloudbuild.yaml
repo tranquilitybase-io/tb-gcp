@@ -6,7 +6,7 @@ steps:
       - deploy
       - mod-app-auto-delete
       - --service-account=tb-auto-deleter@appspot.gserviceaccount.com
-      - --entry-point=main
+      - --entry-point=delete_tbase_deployments
       - --runtime=python37
       - --source=tb-gcp-tools/tb-auto-projects-deleter/cloud-function
       - --trigger-topic=run-tb-deleter-script
@@ -16,3 +16,4 @@ steps:
       - --region=europe-west2
     env:
       - EXCLUDE_DELETE_LABEL=dont-delete
+      - dry_run=True
