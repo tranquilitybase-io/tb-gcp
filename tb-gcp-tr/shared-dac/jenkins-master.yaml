@@ -70,7 +70,7 @@ spec:
     spec:
       containers:
         - name: jenkins-master
-          image: gcr.io/tranquility-base-images/tb-jenkins:v0.0.19
+          image: gcr.io/tranquility-base-images/tb-jenkins:v0.0.14
           args: ["--prefix=/jenkins-service"]
           securityContext:
             privileged: true
