@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ec-config
+  namespace: ssp
+data:
+  ec-config.yaml: |
+    activator_folder_id: Activator
+    billing_account: placeholder_billing_account
+    region: placeholder_region
+    terraform_state_bucket: placeholder_terraformbucket
+    env_data: placeholder_env_data
+    ec_project_name: placeholder_shared_ec_name
+    shared_vpc_host_project: placeholder_shared_networking_id
+    shared_network_name: placeholder_shared_vpc_name
+    shared_networking_id: placeholder_shared_networking_id
+    activator_terraform_code_store: placeholder_terraform_code_store
+    tb_discriminator: placeholder_discriminator
+    jenkins_url: PLACEHOLDER
