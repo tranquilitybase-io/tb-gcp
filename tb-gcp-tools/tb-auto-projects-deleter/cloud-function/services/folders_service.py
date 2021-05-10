@@ -16,7 +16,15 @@ class FoldersService:
             return False
         return True
 
-    def get_folders_under_parent_folder(self, folder_id: str) -> list:
+    def can_view_folder(self, folder_id: str) -> str:
+        try:
+            self.service.folders().list(parent="folders/{}".format(folder_id)).execute()
+            return True
+        except Exception as e:
+            print(f"Could not access {folder_id}".format(folder_id))
+            return False
+
+    def get_folders_under(self, folder_id: str) -> list:
         """
         :param folder_id: folder id number
         :return: List of folder ids
@@ -29,7 +37,7 @@ class FoldersService:
 
         for folder in parent_folder:
             total_folders.append(folder)
-            child_folders = self.get_folders_under_parent_folder(folder)
+            child_folders = self.get_folders_under(folder)
             total_folders += child_folders
 
         return total_folders
@@ -50,8 +58,22 @@ class FoldersService:
         :param folder_id:
         :return:
         """
+        print("Delete folder " + folder_id)
         if self.dry_run:
             print("mock delete folder {} ".format(folder_id))
         else:
-            resp = self.service.folders().delete(name="folders/{}".format(folder_id)).execute()
-            #print("DELETE FOLDER ID {folder_id}".format(folder_id))
+            self.service.folders().delete(name="folders/{}".format(folder_id)).execute()
+
+    def get_folder_name(self, root_folder_id: str, folder_id_looked_for: str) -> str:
+        resp = self.service.folders().list(parent="folders/{}".format(root_folder_id)).execute()
+        if resp:
+            for entry in resp['folders']:
+                member_folder_id = entry['name'].split('/')[-1]
+                if member_folder_id == folder_id_looked_for:
+                    return entry['displayName']
+                else:
+                    nested = self.get_folder_name(member_folder_id, folder_id_looked_for)
+                    if nested:
+                        return nested
+
+        return None

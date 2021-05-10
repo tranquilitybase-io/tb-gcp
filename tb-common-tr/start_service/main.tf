@@ -20,6 +20,7 @@ resource "null_resource" "kubernetes_resource" {
     context             = var.cluster_context
   }
 
+
   provisioner "local-exec" {
     command = <<EOF
 echo 'kubectl_config_args="--kubeconfig=${var.cluster_config_path}"

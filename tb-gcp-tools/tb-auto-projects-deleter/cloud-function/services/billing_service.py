@@ -20,7 +20,10 @@ class BillingService:
 
         # service = __get_cloud_billing_service()
         # https://developers.google.com/resources/api-libraries/documentation/cloudbilling/v1/python/latest/cloudbilling_v1.projects.html#updateBillingInfo
-        if self.dry_run:
-            print("mock remove billing account")
-        else:
-            billing_info = self.service.projects().updateBillingInfo(name='projects/{}'.format(project_id), body={'billingAccountName': ''}).execute()
+        try:
+            if self.dry_run:
+                print("mock remove billing account")
+            else:
+                billing_info = self.service.projects().updateBillingInfo(name='projects/{}'.format(project_id), body={'billingAccountName': ''}).execute()
+        except Exception as e:
+            print("Error disabling billing for " + project_id + " " + str(e))

@@ -1,0 +1,26 @@
+steps:
+
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      - functions
+      - deploy
+      - mod-app-auto-delete
+      - --service-account=tb-auto-deleter@appspot.gserviceaccount.com
+      - --entry-point=delete_tbase_deployments
+      - --runtime=python37
+      - --source=tb-gcp-tools/tb-auto-projects-deleter/cloud-function
+      - --trigger-topic=run-tb-deleter-script
+      - --timeout=540
+      - --memory=512
+      - --project=tb-auto-deleter
+      - --region=europe-west2
+    env:
+      - EXCLUDE_DELETE_LABEL=dont-delete
+      - dry_run=$_DRY_RUN
+      - is_cloud_run=True
+      - ROOT_PROJECT=$_ROOT_PROJECT
+      - TEST_OUTSIDE_SCOPE=$_TEST_OUTSIDE_SCOPE
+      - WebHook=$_WEBHOOK
+      - EXCLUDE_EMPTY_FOLDER="Shared Services, Applications, tranquilitybase-development"
+
+
