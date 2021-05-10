@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ISTIO_VERSION=1.9.3
+ISTIO_VERSION=1.9.4
 
 sp='/-\|'
 sc=0
@@ -67,20 +67,6 @@ spec:
   profile: demo
 EOF
 
-# count=0
-# printf "Waiting for services to come online...\n"
-# while true; do
-#     count=$(kubectl get pods -n istio-system |grep -i running |wc -l)
-#     spin
-#     sleep 1
-#     if [[ $count -ne 7 ]]; then
-#       sleep 0.2
-#     else
-#       break
-#     fi
-# done
-# endspin
-# printf "Service are online...\n"
 
 kubectl get pods -n istio-system
 
