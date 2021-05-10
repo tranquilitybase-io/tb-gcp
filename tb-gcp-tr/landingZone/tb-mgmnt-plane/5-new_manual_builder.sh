@@ -16,7 +16,7 @@ kubectl create secret generic dac-user-pass -n cicd --from-literal=username=dac 
 kubectl create secret generic dac-user-pass -n ssp --from-literal=username=dac --from-literal=password='bad_password' --type=kubernetes.io/basic-auth
 
 # point to folder
-env HTTPS_PROXY=localhost:3128 kubectl create secret generic gcr-folder -n cicd --from-literal=folder=94033905990
+env HTTPS_PROXY=localhost:3128 kubectl create secret generic gcr-folder -n cicd --from-literal=folder=0000000000
 
 # deploy apps
 kubectl apply -f storageclasses.yaml 
