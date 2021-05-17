@@ -7,6 +7,4 @@ export PATH=$PATH:/home/e_hsan/${istio_version}/bin/
 
 kubectl apply -f  /home/e_hsan/kiali.yaml -f /home/e_hsan/grafana.yaml 
 
-kubectl apply -f /home/e_hsan/istio-kiali.yaml  -f /home/e_hsan/istio-grafana.yaml
-
-
+kubectl apply -f /home/e_hsan/istio-kiali.yaml  -f /home/e_hsan/istio-grafana.yaml 
