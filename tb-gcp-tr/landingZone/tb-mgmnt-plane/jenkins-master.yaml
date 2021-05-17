@@ -79,8 +79,8 @@ spec:
           volumeMounts:
             - name: jenkins-home
               mountPath: /var/jenkins_home
-            - name: docker-sock-volume
-              mountPath: /var/run/docker.sock
+#            - name: docker-sock-volume
+#              mountPath: /var/run/docker.sock
             - name: google-cloud-key
               mountPath: /var/secrets/google
           env:
@@ -123,10 +123,10 @@ spec:
         - name: jenkins-home
           persistentVolumeClaim:
             claimName: jenkins-master-pv-claim
-        - name: docker-sock-volume
-          hostPath:
-            path: /var/run/docker.sock
-            type: File
+#        - name: docker-sock-volume
+#          hostPath:
+#            path: /var/run/docker.sock
+#            type: File
 ---
 ### Private-ingressgateway for Jenkins ###
 apiVersion: networking.istio.io/v1alpha3
