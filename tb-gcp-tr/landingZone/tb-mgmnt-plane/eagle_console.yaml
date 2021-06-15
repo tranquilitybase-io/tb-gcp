@@ -365,6 +365,19 @@ spec:
             - mountPath: /var/lib/mysql
               name: mysql-pv-storage
 ---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: ec-tls-credential
+  namespace: istio-system
+spec:
+  secretName: ec-tls-credential
+  commonName: eagle-console.tranquilitybase-demo.io
+  dnsNames:
+  - eagle-console.tranquilitybase-demo.io
+  - www.eagle-console.tranquilitybase-demo.io
+---
+---
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
